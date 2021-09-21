@@ -256,19 +256,23 @@
 				this.elementsAtInit.link = this.gltf.scene.children.find(child => child.name === this.thisWorld.base.meshsInfos.linkName);
 
 				this.gltf.scene.traverse(child => {
-					console.log(this.thisWorldKey, " - scene child : ", child?.name, child);
+
+
+					// find map
+					if( child.name === this.thisWorld.base.meshsInfos.mergedName ){
+
+						this.elementsAtInit.landscape = child;
+
+					}
+				
+					// find link
+					if( child.name === this.thisWorld.base.meshsInfos.linkName ){
+
+						this.elementsAtInit.link = child;
+
+					}
+
 				});
-				// this.gltf.scene.traverse(child => {
-
-				// 	if( child.name === `${this.thisWorld.base.meshsInfos.linkName}Wrapper` ){
-
-				// 		this.elementsAtInit.link = child;
-
-				// 	}
-
-				// 	// console.log(this.thisWorldKey, " - scene child : ", child);
-
-				// });
 
 				// mainMapMerged is now mandatory
 				if( this.elementsAtInit.landscape ){

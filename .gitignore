@@ -1,1 +1,5 @@
 /node_modules/
+/static/blender/
+/static/**/*.glb
+*.blend
+/static/blender/worlds/mountainTwo/mountainTwoNextFork-runTestExports.glb

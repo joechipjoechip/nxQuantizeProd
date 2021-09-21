@@ -113,7 +113,7 @@ const core = {
 
 					},
 
-					blenderCurvesAndTubes: true,
+					// blenderCurvesAndTubes: true,
 
 					// si target : donner le nom
 					targetName: "link",
