@@ -15,6 +15,8 @@
 
 	import * as dat from 'dat.gui';
 
+	import ThirdPersonCamera from '@/components/thirdPersonCamera.js';
+
 	import { TimelineMax } from 'gsap';
 
 	import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
@@ -22,6 +24,8 @@
 	import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js"
 
 	import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
+
+	console.log("third blabla : ", ThirdPersonCamera);
 
 	export default {
 		props: {
@@ -220,21 +224,6 @@
 
 			}
 
-			// currentTarget( newTarget ){
-
-			// 	const { duration, ease } = this.thisWorld.camera.changeMode;
-
-			// 	const transitionInfos = {
-			// 		position: newTarget.position, 
-			// 		global: { duration },
-			// 		startRef: 0,
-			// 		ease: ease
-			// 	};
-
-			// 	this.pointCameraTo(transitionInfos);
-
-			// },
-
 		},
 
 		mounted(){
@@ -354,12 +343,13 @@
 
 				if( this.link ){
 
-					Object.keys(this.generatedCameras).forEach(key => {
+					// Object.keys(this.generatedCameras).forEach(key => {
 
-						this.buildOneGeneratedCamera(key);
+					// 	this.buildOneGeneratedCamera(key);
 
-					});
+					// });
 
+					this.buildOneGeneratedCamera("gtaLike");
 				}
 
 			},
@@ -376,14 +366,20 @@
 
 				this.generatedCameras[cameraType] = this.scene.children.find(child => child.name === cameraType);
 
+				console.log("thirdperson truc : ", ThirdPersonCamera);
+
+				this.thirdPersonInstance = new ThirdPersonCamera({
+					target: this.link,
+					camera: this.generatedCameras.gtaLike
+				});
 				// this.updateCameraGtaLike();
-				this.updateGeneratedCameraPosition(cameraType);
+				// this.updateGeneratedCameraPosition(cameraType);
 
 			},
 
 			updateGeneratedCameraPosition( cameraType ){
 
-				console.log("hey le updatye de la cam : ", cameraType);
+				console.log("cam position update : ", cameraType);
 
 				this.generatedCameras[cameraType]?.position?.set(
 					this.link.position.x + this.mainConfig.generatedCamerasSpecs[cameraType].x,
@@ -403,20 +399,22 @@
 
 			onCanvasClickHandler(){
 
-				const actualCamName = this.currentCamera.name;
-				const generatedCamerasKeys = Object.keys(this.mainConfig.generatedCamerasSpecs);
+				// const actualCamName = this.currentCamera.name;
+				// const generatedCamerasKeys = Object.keys(this.mainConfig.generatedCamerasSpecs);
 
-				// dirty but quick (and removed later then)
+				// // dirty but quick (and removed later then)
 
-				let randomOtherName = generatedCamerasKeys[this.getRandomInt(0, generatedCamerasKeys.length - 1)];
+				// let randomOtherName = generatedCamerasKeys[this.getRandomInt(0, generatedCamerasKeys.length - 1)];
 
-				while( actualCamName === randomOtherName ){
+				// while( actualCamName === randomOtherName ){
 
-					randomOtherName = generatedCamerasKeys[this.getRandomInt(0, generatedCamerasKeys.length - 1)];
+				// 	randomOtherName = generatedCamerasKeys[this.getRandomInt(0, generatedCamerasKeys.length - 1)];
 
-				}
+				// }
 
-				this.currentCamera = this.scene.children.find(child => child.name === randomOtherName);
+				// this.currentCamera = this.scene.children.find(child => child.name === randomOtherName);
+
+				this.currentCamera = this.generatedCameras.gtaLike;
 
 			},
 
@@ -424,7 +422,7 @@
 
 				if( this.currentSequence?.blenderCurvesAndTubes ){
 
-					console.log(`this current sequence (${this.currentSequence.id}) qui part aux tubes (${this.currentSequence?.id})`);
+					console.log(`in ${this.thisWorldKey}, sequence.id: ${this.currentSequence.id} part aux tubes`);
 
 					this.initBlenderCurvesAndTubes();
 
@@ -434,9 +432,9 @@
 
 			animateMesh(){
 
-				console.log(" - - - - on init l'animation Mixer ! (scene / gltf) ", this.scene, this.gltf);
+				console.log("init de l'animationMixer (scene / gltf) ", this.scene, this.gltf);
 
-				// on créé le mixer (général, qui va TOUT animer, même la/les cameras)
+				// on créé le mixer (général, qui va TOUT animer
 				this.animationMixer = new THREE.AnimationMixer(this.scene);
 
 
@@ -1317,12 +1315,24 @@
 
 				}
 
-				// update cameras here
-				if( this.currentCamera?.name === "helmet" ){
+				// update du ThirdPerson :
+				// params : {
+					// target: this.link
+					// camera: this.currentCamera
+				// }
 
-					this.updateGeneratedCameraPosition(this.currentCamera.name);
-					
+				if( this.link && this.generatedCameras.gtaLike ){
+
+					this.thirdPersonInstance.Update(elapsedTime);
+
 				}
+
+				// update cameras here
+				// if( this.currentCamera?.name === "helmet" ){
+
+				// 	this.updateGeneratedCameraPosition(this.currentCamera.name);
+					
+				// }
 
 				// console.log("link pos.x / currentCam : ", this?.link?.position?.x, this?.currentCamera);
 
