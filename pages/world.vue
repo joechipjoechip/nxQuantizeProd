@@ -25,8 +25,6 @@
 
 	import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 
-	console.log("third blabla : ", ThirdPersonCamera);
-
 	export default {
 		props: {
 
@@ -60,7 +58,7 @@
 		data(){
 			return{
 				scene: null,
-				gltf: null,
+				gltf: [],
 				orbit: null,
 				currentTarget: null,
 				oldTarget: null,
@@ -206,7 +204,7 @@
 
 					this.checkIfCurves();
 
-					console.log(this.thisWorldKey + " " + this.currentSequence?.id + " quand le gltf est loaded : this.scene = ");
+					// console.log(this.thisWorldKey + " " + this.currentSequence?.id + " quand le gltf est loaded : this.scene = ");
 
 					console.log(this.scene);
 
@@ -232,8 +230,6 @@
 			// 	run: true
 			// };
 
-			console.log("fock ", this.mainConfig);
-
 			Object.keys(this.mainConfig.generatedCamerasSpecs).forEach(key =>{
 
 				this.generatedCameras[key] = null;
@@ -249,28 +245,27 @@
 
 			gltfInits(){
 
-				// Chaque gltf devra présenter au moins un "mainMapMerged" et un "link"
+				console.log("enter in gltfInits with : ", this.gltf);
 
-				this.elementsAtInit.landscape = this.gltf.scene.children.find(child => child.name === this.thisWorld.base.meshsInfos.mergedName);
+				this.gltf.forEach(gltf => {
 
-				this.elementsAtInit.link = this.gltf.scene.children.find(child => child.name === this.thisWorld.base.meshsInfos.linkName);
-
-				this.gltf.scene.traverse(child => {
-
-
-					// find map
-					if( child.name === this.thisWorld.base.meshsInfos.mergedName ){
-
-						this.elementsAtInit.landscape = child;
-
-					}
-				
-					// find link
-					if( child.name === this.thisWorld.base.meshsInfos.linkName ){
-
-						this.elementsAtInit.link = child;
-
-					}
+					gltf.scene.traverse(child => {
+	
+						// find map
+						if( child.name === this.thisWorld.base.meshsInfos.map.name ){
+	
+							this.elementsAtInit.landscape = child;
+	
+						}
+					
+						// find link
+						if( child.name === this.thisWorld.base.meshsInfos.link?.name ){
+	
+							this.elementsAtInit.link = gltf.scene;
+	
+						}
+	
+					});
 
 				});
 
@@ -289,31 +284,17 @@
 
 				}
 
-				// sometimes, while testing / for dev
-				if( !this.elementsAtInit.landscape && !this.elementsAtInit.link ){
-
-					console.log("testing scene loaded (no landscape, no link");
-
-					this.scene.add(this.gltf.scene);
-
-				}
-
-
 				if( this.elementsAtInit.link ){
+
+					this.elementsAtInit.link.position.set(0,0,1);
 
 					this.scene.add(this.elementsAtInit.link);
 
-					console.log("! link added to the scene -> ", this.thisWorldKey);
-
-				} else {
-
-					console.log("! no link in the scene -> ", this.thisWorldKey);
-
 				}
+
 
 				// une fois que tout est add à la scene, on va stocker les choses plus facilement
 				// pour y avoir accès plus rapidement à l'avenir : 
-
 				this.makeEasierHandlers();
 
 				this.createGeneratedCameras();
@@ -322,23 +303,26 @@
 			
 			makeEasierHandlers(){
 
-				const { mergedName, linkName } = this.thisWorld.base.meshsInfos;
+				const mapName = this.thisWorld.base.meshsInfos.map.name;
+
+				const linkName = this.thisWorld.base.meshsInfos.link?.name;
 
 				this.scene.traverse(child => {
 
 					// récup de landscape
-					if( child.name === mergedName ){
+					if( child.name === mapName ){
 						
 						this.landscape = child;
 						
 					}
 
 					// récup de link
-					if( child.name === linkName ){
+					if( linkName && child.name === linkName ){
 
 						this.link = child;
 
 					}
+
 				});
 
 			},
@@ -362,15 +346,13 @@
 
 				const aspectRatio = window.innerWidth / window.innerHeight;
 
-				const cameraToAdd = new THREE.PerspectiveCamera(75, aspectRatio, 0.0001, 100);
+				const cameraToAdd = new THREE.PerspectiveCamera(75, aspectRatio, 0.0001, 20);
 
 				cameraToAdd.name = cameraType;
 
 				this.scene.add(cameraToAdd);
 
 				this.generatedCameras[cameraType] = this.scene.children.find(child => child.name === cameraType);
-
-				console.log("thirdperson truc : ", ThirdPersonCamera);
 
 				this.thirdPersonInstance = new ThirdPersonCamera({
 					target: this.link,
@@ -444,13 +426,17 @@
 
 				// on créé les clips
 				// -> clips elements
-				this.gltf.animations.forEach(anim => {
+				this.gltf.forEach(gltf => {
 
-					console.log(`une anim : ${anim?.name}`, anim);
-
-					const action = this.animationMixer.clipAction(anim);
-
-					action.play();
+					gltf.animations.forEach(anim => {
+	
+						console.log(`une anim : ${anim?.name}`, anim);
+	
+						const action = this.animationMixer.clipAction(anim);
+	
+						action.play();
+	
+					});
 
 				});
 				
@@ -496,26 +482,29 @@
 				});
 
 				// MODEL
-				gltfLoader.load(
-					this.thisWorld.base.meshsInfos.meshUrl,
-					(gltf) => {
+				Object.keys(this.thisWorld.base.meshsInfos).forEach(key => {
 
-						this.gltf = gltf;
+					gltfLoader.load(this.thisWorld.base.meshsInfos[key].url,
+						(gltf) => {
+	
+							this.gltf.push(gltf);
+	
+							this.gltfInits();
+	
+						}
+					);
 
-						this.gltfInits();
-
-					}
-				);
+				});
 
 				// LIGHTS
-				this.elementsAtInit.lights.directional = new THREE.DirectionalLight(0xffffff, 0.4);
+				// this.elementsAtInit.lights.directional = new THREE.DirectionalLight(0xffffff, 0.4);
 
-				this.elementsAtInit.lights.directional.position.set(0,0, -4);
+				// this.elementsAtInit.lights.directional.position.set(0,0, -4);
 
-				this.scene.add(this.elementsAtInit.lights.directional);
+				// this.scene.add(this.elementsAtInit.lights.directional);
 
 				// 
-				this.elementsAtInit.lights.ambient = new THREE.AmbientLight(0x0000ff, 0.7);
+				this.elementsAtInit.lights.ambient = new THREE.AmbientLight(0xffffff, 0.7);
 
 				this.scene.add(this.elementsAtInit.lights.ambient);
 
@@ -781,10 +770,10 @@
 
 			loadBaseBakedTexture(){
 
-				if( !this.thisWorld.base.meshsInfos.bakedTextureUrl ){ return; }
+				if( !this.thisWorld.base.meshsInfos.map.baked ){ return; }
 
 				this.bakedTexture = this.textureLoader.load(
-					this.thisWorld.base.meshsInfos.bakedTextureUrl
+					this.thisWorld.base.meshsInfos.map.baked
 				);
 
 				this.bakedTexture.flipY = false;
@@ -800,7 +789,7 @@
 					case "blender-tube":
 
 						// seq 1.0
-						this.timelines.camera = this.buildTubeTravellingTween();
+						// this.timelines.camera = this.buildTubeTravellingTween();
 						
 						break;
 
@@ -815,14 +804,18 @@
 				// this.timelines.camera.
 				// attach un onComplete qui détruit la variable this.timelines.camera
 
-				this.timelines.camera.eventCallback("onComplete", () => {
+				if( this.timelines.camera ){
 
-					console.log("vidage de this.timelines.camera");
-					this.timelines.camera = null;
+					this.timelines.camera.eventCallback("onComplete", () => {
+	
+						console.log("vidage de this.timelines.camera");
+						this.timelines.camera = null;
+	
+					});
+	
+					this.gltf.length && this.timelines.camera.play();
 
-				});
-
-				this.gltf && this.timelines.camera.play();
+				}
 
 			},
 

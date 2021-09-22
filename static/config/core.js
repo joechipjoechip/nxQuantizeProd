@@ -82,11 +82,15 @@ const core = {
 				},
 				
 				meshsInfos: {
-					meshUrl: "/blender/worlds/mountainTwo/mountainTwoNextFork-runTestExports.glb",
-					// chemin du fichier, choses à faire avec, etc
-					bakedTextureUrl: "/blender/worlds/mountainTwo/lastMountainTwo.jpg",
-					mergedName: "mainMapMerged",
-					linkName: "link"
+					map: {
+						url: "/blender/worlds/mountainTwo/mountainTwoAlone.glb",
+						name: "mainMapMerged",
+						baked: "/blender/worlds/mountainTwo/lastMountainTwo.jpg",
+					},
+					link: {
+						url: "/blender/persos/link/linkRunning.glb",
+						name: "link"
+					},
 				},
 
 			},
@@ -288,11 +292,11 @@ const core = {
 				},
 				
 				meshsInfos: {
-					meshUrl: "/blender/worlds/portal/merged4.glb",
-					// chemin du fichier, choses à faire avec, etc
-					bakedTextureUrl: "/blender/worlds/portal/bakedBetter.jpg",
-					mergedName: "mainMapMerged",
-					linkName: "link"
+					map: {
+						url: "/blender/worlds/portal/merged4.glb",
+						name: "mainMapMerged",
+						baked: "/blender/worlds/portal/bakedBetter.jpg"
+					}
 				}
 
 			},
@@ -437,11 +441,10 @@ const core = {
 				},
 				
 				meshsInfos: {
-					meshUrl: "/blender/worlds/keyframesScene/sceneTestingKeyframes-link.glb",
-					// chemin du fichier, choses à faire avec, etc
-					// bakedTextureUrl: "/blender/worlds/portal/bakedBetter.jpg",
-					mergedName: "mainMapMerged",
-					linkName: "link"
+					map: {
+						url: "/blender/worlds/keyframesScene/sceneTestingKeyframes-link.glb",
+						name: "mainMapMerged"
+					}
 				}
 
 			},
