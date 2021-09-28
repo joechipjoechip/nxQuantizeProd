@@ -63,12 +63,10 @@
 				currentTarget: null,
 				oldTarget: null,
 				elementsAtInit: {
-					lights: {
-						directional: null,
-						ambient: null
-					},
+					lights: [],
 					landscape: null,
-					link: null
+					link: null,
+					linkPositions: []
 				},
 				generatedCameras: {},
 				currentCamera: null,
@@ -196,22 +194,6 @@
 
 			},
 
-			gltf( newVal ){
-
-				if( newVal ){
-
-					this.initSceneUpdatedValues();
-
-					this.checkIfCurves();
-
-					// console.log(this.thisWorldKey + " " + this.currentSequence?.id + " quand le gltf est loaded : this.scene = ");
-
-					console.log(this.scene);
-
-				}
-
-			},
-
 			currentCamera( newVal ){
 
 				if( newVal?.name === "gtaLike" ){
@@ -225,10 +207,6 @@
 		},
 
 		mounted(){
-
-			// this.animation = {
-			// 	run: true
-			// };
 
 			Object.keys(this.mainConfig.generatedCamerasSpecs).forEach(key =>{
 
@@ -247,6 +225,7 @@
 
 				console.log("enter in gltfInits with : ", this.gltf);
 
+				// 1 - on récupère les models dans this.elementsAtInit
 				this.gltf.forEach(gltf => {
 
 					gltf.scene.traverse(child => {
@@ -264,12 +243,26 @@
 							this.elementsAtInit.link = gltf.scene;
 	
 						}
+
+						// find lights
+						if( child.name.indexOf("light-") !== -1 ){
+	
+							this.elementsAtInit.lights.push(child);
+	
+						}
+
+						// find link's positions
+						if( child.name.indexOf("link-position-") !== -1 ){
+	
+							this.elementsAtInit.linkPositions.push(child);
+	
+						}
 	
 					});
 
 				});
 
-				// mainMapMerged is now mandatory
+				// 2.1 - on add le landscape
 				if( this.elementsAtInit.landscape ){
 
 					if( this.bakedMaterial ){
@@ -284,11 +277,19 @@
 
 				}
 
+				// 2.2 - on add le link
 				if( this.elementsAtInit.link ){
 
-					this.elementsAtInit.link.position.set(0,0,1);
+					this.elementsAtInit.link.position.set(-0.5,0,1);
 
 					this.scene.add(this.elementsAtInit.link);
+
+				}
+
+				// 2.3 - on add les lights dynamiques qui ne vont s'appliquer qu'à link
+				if( this.elementsAtInit.lights.length > 0 ){
+
+					this.addLights();
 
 				}
 
@@ -296,6 +297,9 @@
 				// une fois que tout est add à la scene, on va stocker les choses plus facilement
 				// pour y avoir accès plus rapidement à l'avenir : 
 				this.makeEasierHandlers();
+
+				// on positionne le link
+				this.setupLink();
 
 				this.createGeneratedCameras();
 
@@ -327,6 +331,22 @@
 
 			},
 
+			setupLink(){
+
+				// on récupère la position start de link dans blender :
+				// this.link.position.copy(linkStartPos);
+
+				// on donne arbitrairement un scale
+
+
+				this.link.rotation.z = Math.PI * 0.75;
+
+
+				// et si on doit animer, on lance le tween de déplacement de link
+
+
+			},
+
 			createGeneratedCameras(){
 
 				if( this.link ){
@@ -339,6 +359,79 @@
 
 					this.buildOneGeneratedCamera("gtaLike");
 				}
+
+			},
+
+			addLights(){
+
+				const wellStoredLights = [];
+				const lightsToCreate = [];
+
+				// Blender exporte les lights en 2 objets distincts, 
+				// donc on est obligé de retraiter la data pour l'organiser mieux
+				for(let i = 0; i < this.elementsAtInit.lights.length; i = i + 2){
+
+					wellStoredLights[i] = [];
+
+					wellStoredLights[i].push(this.elementsAtInit.lights[i]);
+
+					wellStoredLights[i].push(this.elementsAtInit.lights[i + 1]);
+
+				};
+
+				// the .filter is necessary to remove empty slots caused by the previous treatment
+				wellStoredLights.filter(a => a).forEach((collection, indexCollection) => {
+
+					lightsToCreate[indexCollection] = {};
+
+					collection.forEach(entity => {
+	
+						if( entity instanceof THREE.PointLight ){
+	
+							const { r, g, b } = entity.color;
+	
+							lightsToCreate[indexCollection].color = new THREE.Color(r, g, b);
+	
+							lightsToCreate[indexCollection].intensity = entity.intensity * 0.001;
+	
+							lightsToCreate[indexCollection].decay = entity.decay;
+	
+							lightsToCreate[indexCollection].distance = entity.distance;
+	
+						} else {
+							// so : instanceof Object3D
+	
+							lightsToCreate[indexCollection].position = new THREE.Vector3(
+								entity.position.x,
+								entity.position.y,
+								entity.position.z
+							);
+	
+						}
+
+					});
+
+				});
+
+				// now all data is well organized : we can create and add theses lights
+				lightsToCreate.forEach((light, index) => {
+
+					// PointLight( color : Integer, intensity : Float, distance : Number, decay : Float )
+					const lightToAdd = new THREE.PointLight(
+						light.color,
+						light.intensity,
+						light.distance,
+						light.decay
+					);
+
+					lightToAdd.position.copy(light.position);
+
+					lightToAdd.name = `light-${index + 1}`;
+
+					// et on add à la scene
+					this.scene.add(lightToAdd);
+
+				});
 
 			},
 
@@ -445,6 +538,9 @@
 			// MAINS INITS WORLD
 			initThree(){
 
+				const meshKeys = Object.keys(this.thisWorld.base.meshsInfos);
+				const gltfToLoadNb = meshKeys.length;
+
 				// BASE : 
 				// Scene
 				this.scene = new THREE.Scene();
@@ -482,33 +578,23 @@
 				});
 
 				// MODEL
-				Object.keys(this.thisWorld.base.meshsInfos).forEach(key => {
+				meshKeys.forEach(key => {
 
 					gltfLoader.load(this.thisWorld.base.meshsInfos[key].url,
 						(gltf) => {
 	
 							this.gltf.push(gltf);
 	
-							this.gltfInits();
+							if( this.gltf.length === gltfToLoadNb ){
+
+								this.gltfInits();
+
+							}
 	
 						}
 					);
 
 				});
-
-				// LIGHTS
-				// this.elementsAtInit.lights.directional = new THREE.DirectionalLight(0xffffff, 0.4);
-
-				// this.elementsAtInit.lights.directional.position.set(0,0, -4);
-
-				// this.scene.add(this.elementsAtInit.lights.directional);
-
-				// 
-				this.elementsAtInit.lights.ambient = new THREE.AmbientLight(0xffffff, 0.7);
-
-				this.scene.add(this.elementsAtInit.lights.ambient);
-
-
 
 				// Camera
 				const aspectRatio = window.innerWidth / window.innerHeight;
@@ -555,7 +641,6 @@
 				// Renderer
 				this.renderer = new THREE.WebGLRenderer({
 					canvas: this.$refs.canvas,
-
 					// ne peut pas être déclaré en dehors de l'instanciation
 					antialias: true
 				});
@@ -568,16 +653,6 @@
 				this.renderer.setClearColor("#000000");
 
 				this.clock = new THREE.Clock();
-
-			},
-
-			initsAfterThree(){
-
-				// choses et d'autres
-
-				// this.currentTarget = this.thisWorld.camera.paths.initialTarget;
-
-				// this.oldTarget = this.thisWorld.camera.paths.initialTarget;
 
 			},
 
