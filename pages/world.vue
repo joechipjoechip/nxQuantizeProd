@@ -25,6 +25,8 @@
 
 	import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 
+	import { CharacterControllerDemo } from '@/components/characterController.js';
+
 	export default {
 		props: {
 
@@ -165,11 +167,11 @@
 
 					}
 
-					if( newVal.animatedLink && this.gltf ){
+					// if( newVal.animatedLink && this.gltf ){
 
-						this.animateLink();
+					// 	this.animateLink();
 
-					}
+					// }
 	
 					// à partir d'ici, tout doit être attrapé à partir de this.scene.children.find(child=> child.name === "cequoncherche")
 
@@ -293,6 +295,12 @@
 					this.scene.add(this.elementsAtInit.link);
 
 					this.link = this.elementsAtInit.link;
+
+					this.linkController = new CharacterControllerDemo({
+						scene: this.scene,
+						camera: this.currentCamera,
+						renderer: this.renderer
+					});
 
 				}
 
@@ -1475,6 +1483,13 @@
 				}
 
 				this.oldElapsedTime = elapsedTime;
+
+
+				if( this.linkController ){
+
+					this.linkController._controls.Update(elapsedTime * 0.001);
+
+				}
 
 				// NOW COMPUTE RENDER
 				this.renderer.render(this.scene, this.currentCamera);

@@ -8,6 +8,9 @@
   "CanvasVideo": {
     "description": "Auto imported from components/canvasVideo.vue"
   },
+  "CharacterController": {
+    "description": "Auto imported from components/characterController.js"
+  },
   "ThirdPersonCamera": {
     "description": "Auto imported from components/thirdPersonCamera.js"
   }
