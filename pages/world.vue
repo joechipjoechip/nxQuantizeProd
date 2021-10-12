@@ -164,6 +164,12 @@
 						this.animateMesh();
 
 					}
+
+					if( newVal.animatedLink && this.gltf ){
+
+						this.animateLink();
+
+					}
 	
 					// à partir d'ici, tout doit être attrapé à partir de this.scene.children.find(child=> child.name === "cequoncherche")
 
@@ -273,6 +279,8 @@
 
 						this.scene.add(this.elementsAtInit.landscape);
 
+						this.landscape = this.elementsAtInit.landscape;
+
 					}
 
 				}
@@ -284,6 +292,8 @@
 
 					this.scene.add(this.elementsAtInit.link);
 
+					this.link = this.elementsAtInit.link;
+
 				}
 
 				// 2.3 - on add les lights dynamiques qui ne vont s'appliquer qu'à link
@@ -293,41 +303,10 @@
 
 				}
 
-
-				// une fois que tout est add à la scene, on va stocker les choses plus facilement
-				// pour y avoir accès plus rapidement à l'avenir : 
-				this.makeEasierHandlers();
-
 				// on positionne le link
 				this.setupLink();
 
 				this.createGeneratedCameras();
-
-			},
-			
-			makeEasierHandlers(){
-
-				const mapName = this.thisWorld.base.meshsInfos.map.name;
-
-				const linkName = this.thisWorld.base.meshsInfos.link?.name;
-
-				this.scene.traverse(child => {
-
-					// récup de landscape
-					if( child.name === mapName ){
-						
-						this.landscape = child;
-						
-					}
-
-					// récup de link
-					if( linkName && child.name === linkName ){
-
-						this.link = child;
-
-					}
-
-				});
 
 			},
 
@@ -338,8 +317,42 @@
 
 				// on donne arbitrairement un scale
 
+				console.log("setupLink : ", this.link);
 
-				this.link.rotation.z = Math.PI * 0.75;
+				if( this.link ){
+
+					this.link.scale.set(0.06, 0.06, 0.06);
+
+					this.link.rotation.x = 0.8;
+					this.link.rotation.y = 2.1;
+
+					// this.gui
+					// 	.add(this.link.rotation, "x")
+					// 	.step(0.1)
+					// 	.min(-Math.PI * 2)
+					// 	.max(Math.PI * 2)
+					// 	.name("link x");
+
+					// this.gui
+					// 	.add(this.link.rotation, "y")
+					// 	.step(0.1)
+					// 	.min(-Math.PI * 2)
+					// 	.max(Math.PI * 2)
+					// 	.name("link y");
+					
+					// this.gui
+					// 	.add(this.link.rotation, "z")
+					// 	.step(0.1)
+					// 	.min(-Math.PI * 2)
+					// 	.max(Math.PI * 2)
+					// 	.name("link z");
+
+
+
+				}
+
+
+				// this.link.rotation.z = Math.PI * 0.75;
 
 
 				// et si on doit animer, on lance le tween de déplacement de link
@@ -534,6 +547,44 @@
 				});
 				
 			},
+
+			animateLink(){
+
+				// deplacer la position du mesh de link
+				const startPos = this.elementsAtInit.linkPositions.find(entity => entity.name.indexOf("start") !== -1).position;
+				const endPos = this.elementsAtInit.linkPositions.find(entity => entity.name.indexOf("end") !== -1).position;
+
+				const animatedObject = {
+					x: startPos.x,
+					y: startPos.y,
+					z: startPos.z
+				};
+
+				this.link.position.set(startPos.x, startPos.y, startPos.z);
+
+				const tl = new TimelineMax();
+
+				tl.to(animatedObject, 10, {
+					x: endPos.x,
+					y: endPos.y,
+					z: endPos.z,
+
+					onUpdate( link ){
+						link.position.set(animatedObject.x, animatedObject.y + 0.1, animatedObject.z);
+					},
+					onUpdateParams: [this.link],
+
+					onComplete( that ){
+
+						that.animateLink();
+
+					},
+					onCompleteParams: [this]
+				});
+
+
+			},
+
 
 			// MAINS INITS WORLD
 			initThree(){

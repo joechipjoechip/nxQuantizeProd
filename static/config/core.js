@@ -84,6 +84,7 @@ const core = {
 				meshsInfos: {
 					map: {
 						url: "/blender/worlds/mountainTwo/mountainTwoAlone.glb",
+						// url: "/blender/worlds/mountainTwo/mountainTwoAndLink.glb",
 						name: "mainMapMerged",
 						baked: "/blender/worlds/mountainTwo/lastMountainTwo.jpg",
 					},
@@ -157,6 +158,7 @@ const core = {
 					id: "1.1",
 					type: "manual-camera-positionning",
 					animatedMesh: true,
+					animatedLink: true,
 					
 					config: {
 
