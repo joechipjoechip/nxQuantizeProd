@@ -478,7 +478,7 @@ class IdleState extends State {
 };
 
 
-class CharacterControllerDemo {
+class CharacterController {
 
   constructor(params) {
 
@@ -490,4 +490,4 @@ class CharacterControllerDemo {
 
 }
 
-export { CharacterControllerDemo };
+export { CharacterController };

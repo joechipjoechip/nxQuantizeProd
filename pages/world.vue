@@ -25,7 +25,7 @@
 
 	import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 
-	import { CharacterControllerDemo } from '@/components/characterController.js';
+	import { CharacterController } from '@/components/characterController.js';
 
 	export default {
 		props: {
@@ -210,7 +210,7 @@
 					linkInfos.start = this.elementsAtInit.linkPositions[0];
 
 					// on intialise le link avec son controller
-					this.linkController = new CharacterControllerDemo({
+					this.linkController = new CharacterController({
 						scene: this.scene,
 						linkInfos
 					});
@@ -1448,7 +1448,7 @@
 
 				if( this.linkController ){
 
-					this.linkController._controls.Update(elapsedTime * 0.001);
+					this.linkController._controls.Update(deltaTime);
 
 				}
 
