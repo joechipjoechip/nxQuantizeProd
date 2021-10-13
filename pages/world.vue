@@ -374,7 +374,7 @@
 	
 							lightsToCreate[indexCollection].color = new THREE.Color(r, g, b);
 	
-							lightsToCreate[indexCollection].intensity = entity.intensity * 0.001;
+							lightsToCreate[indexCollection].intensity = entity.intensity * 0.01;
 	
 							lightsToCreate[indexCollection].decay = entity.decay;
 	
@@ -1443,8 +1443,6 @@
 
 				}
 
-				this.oldElapsedTime = elapsedTime;
-
 
 				if( this.linkController ){
 
@@ -1454,6 +1452,8 @@
 
 				// NOW COMPUTE RENDER
 				this.renderer.render(this.scene, this.currentCamera);
+
+				this.oldElapsedTime = elapsedTime;
 
 			},
 
