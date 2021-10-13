@@ -97,19 +97,7 @@
 
 			currentPlaces(){
 				return this.currentSequence?.paths?.places;
-			},
-
-			// currentCamera(){
-
-			// 	if( this.scene ) {
-
-			// 		return this.scene.children.find(child => child instanceof THREE.PerspectiveCamera);
-
-			// 	} 
-
-			// 	return false;
-
-			// },
+			}
 
 		},
 
@@ -145,42 +133,11 @@
 				}
 			},
 
-			currentSequence( newVal, oldVal ){
-
-				// ne pas oublier de drop/delete/remove l'ancienne sequence avant d'init la nouvelle
+			currentSequence( newVal ){
 
 				if( newVal ){
 
-					// lors de ce watch, en fait, on ne ferra qu'aller updater :
-					// fog / camera position / animation / material (éventuellement) / etc
-					// et lancer les mouvements de camera spécifiques à la currentSequence
-					// ainsi que le isVisible ! !
-					this.initSceneUpdatedValues();
-
-					// CHECK IF visibleWorldKey CORRESPOND TJRS
-
-					this.checkIfCurves();
-
-					if( newVal.animatedMesh && this.gltf ){
-
-						this.animateMesh();
-
-					}
-
-					// if( newVal.animatedLink && this.gltf ){
-
-					// 	this.animateLink();
-
-					// }
-	
-					// à partir d'ici, tout doit être attrapé à partir de this.scene.children.find(child=> child.name === "cequoncherche")
-
-					this.initGui();
-
-					// here comes the move
-					this.actionDispatcher(newVal);
-		
-					this.mainTick();
+					this.onCurrentSequenceChange(newVal);
 					
 				}
 
@@ -229,9 +186,49 @@
 
 		methods: {
 
+			onCurrentSequenceChange( newSequence ){
+
+				if( this.gltf.length < 1 ) return;
+
+				// lors de ce watch, en fait, on ne ferra qu'aller updater :
+				// fog / camera position / animation / material (éventuellement) / etc
+				// et lancer les mouvements de camera spécifiques à la currentSequence
+				// ainsi que le isVisible ! !
+				this.initSceneUpdatedValues();
+
+				this.checkIfCurves();
+
+				if( newSequence.animatedMesh ){
+
+					this.animateMesh();
+
+				}
+
+				if( newSequence.hasOwnProperty("link") ){
+
+					const linkInfos = newSequence.link;
+					linkInfos.start = this.elementsAtInit.linkPositions[0];
+
+					// on intialise le link avec son controller
+					this.linkController = new CharacterControllerDemo({
+						scene: this.scene,
+						linkInfos
+					});
+
+				}
+
+				this.initGui();
+
+				// here comes the move
+				this.actionDispatcher(newSequence);
+	
+				this.mainTick();
+
+			},
+
 			gltfInits(){
 
-				console.log("enter in gltfInits with : ", this.gltf);
+				// console.log("enter in gltfInits with : ", this.gltf);
 
 				// 1 - on récupère les models dans this.elementsAtInit
 				this.gltf.forEach(gltf => {
@@ -242,13 +239,6 @@
 						if( child.name === this.thisWorld.base.meshsInfos.map.name ){
 	
 							this.elementsAtInit.landscape = child;
-	
-						}
-					
-						// find link
-						if( child.name === this.thisWorld.base.meshsInfos.link?.name ){
-	
-							this.elementsAtInit.link = gltf.scene;
 	
 						}
 
@@ -287,24 +277,7 @@
 
 				}
 
-				// 2.2 - on add le link
-				if( this.elementsAtInit.link ){
-
-					this.elementsAtInit.link.position.set(-0.5,0,1);
-
-					this.scene.add(this.elementsAtInit.link);
-
-					this.link = this.elementsAtInit.link;
-
-					this.linkController = new CharacterControllerDemo({
-						scene: this.scene,
-						camera: this.currentCamera,
-						renderer: this.renderer
-					});
-
-				}
-
-				// 2.3 - on add les lights dynamiques qui ne vont s'appliquer qu'à link
+				// 2.2 - on add les lights dynamiques (qui ne vont s'appliquer qu'à link)
 				if( this.elementsAtInit.lights.length > 0 ){
 
 					this.addLights();
@@ -312,18 +285,13 @@
 				}
 
 				// on positionne le link
-				this.setupLink();
+				// this.setupLink();
 
 				this.createGeneratedCameras();
 
 			},
 
 			setupLink(){
-
-				// on récupère la position start de link dans blender :
-				// this.link.position.copy(linkStartPos);
-
-				// on donne arbitrairement un scale
 
 				console.log("setupLink : ", this.link);
 
@@ -358,13 +326,6 @@
 
 
 				}
-
-
-				// this.link.rotation.z = Math.PI * 0.75;
-
-
-				// et si on doit animer, on lance le tween de déplacement de link
-
 
 			},
 

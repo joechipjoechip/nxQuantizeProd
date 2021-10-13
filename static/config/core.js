@@ -78,20 +78,15 @@ const core = {
 				fog: {
 					enabled: true,
 					color: 0xff9500,
-					intensity: .5
+					intensity: .15
 				},
 				
 				meshsInfos: {
 					map: {
-						url: "/blender/worlds/mountainTwo/mountainTwoAlone.glb",
-						// url: "/blender/worlds/mountainTwo/mountainTwoAndLink.glb",
+						url: "/blender/worlds/mountainTwo/mountainTwo-scaled.glb",
 						name: "mainMapMerged",
 						baked: "/blender/worlds/mountainTwo/lastMountainTwo.jpg",
-					},
-					link: {
-						url: "/blender/persos/link/linkRunning.glb",
-						name: "link"
-					},
+					}
 				},
 
 			},
@@ -102,13 +97,14 @@ const core = {
 					id: "1.0",
 					type: "blender-tube",
 					animatedMesh: true,
+					link: true,
 
 					config: {
 
 						fog: {
 							enabled: true,
 							color: 0xff0000,
-							intensity: .5
+							intensity: .15
 						},
 						// lights
 						// material
@@ -158,14 +154,23 @@ const core = {
 					id: "1.1",
 					type: "manual-camera-positionning",
 					animatedMesh: true,
-					animatedLink: true,
+
+					link: {
+						scale: 0.0005,
+						velocity: {
+							x: 1,
+							y: 0.1,
+							// most important is Z axis
+							z: 0.5
+						}
+					},
 					
 					config: {
 
 						fog: {
 							enabled: true,
 							color: 0xff0000,
-							intensity: .6
+							intensity: .2
 						},
 						// lights
 						// material
@@ -290,7 +295,7 @@ const core = {
 				fog: {
 					enabled: true,
 					color: 0xff9500,
-					intensity: .5
+					intensity: .15
 				},
 				
 				meshsInfos: {
@@ -314,7 +319,7 @@ const core = {
 						fog: {
 							enabled: true,
 							color: 0x000000,
-							intensity: .6
+							intensity: .15
 						},
 						// lights
 						// material
@@ -439,7 +444,7 @@ const core = {
 				fog: {
 					enabled: true,
 					color: 0xff9500,
-					intensity: .5
+					intensity: .15
 				},
 				
 				meshsInfos: {
@@ -462,7 +467,7 @@ const core = {
 						fog: {
 							enabled: true,
 							color: 0x000000,
-							intensity: .6
+							intensity: .15
 						},
 						// lights
 						// material
