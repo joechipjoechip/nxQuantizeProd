@@ -71,6 +71,7 @@
 					linkPositions: []
 				},
 				generatedCameras: {},
+				thirdPersonCamera: {},
 				currentCamera: null,
 				landscape: null,
 				link: null,
@@ -332,13 +333,13 @@
 
 			createGeneratedCameras(){
 
-				// Object.keys(this.generatedCameras).forEach(key => {
+				Object.keys(this.mainConfig.generatedCamerasSpecs).forEach(key => {
 
-				// 	this.buildOneGeneratedCamera(key);
+					this.buildOneGeneratedCamera(key);
 
-				// });
+				});
 
-				this.buildOneGeneratedCamera("gtaLike");
+				// this.buildOneGeneratedCamera("gtaLike");
 
 			},
 
@@ -425,11 +426,12 @@
 
 				this.scene.add(cameraToAdd);
 
-				this.generatedCameras[cameraType] = this.scene.children.find(child => child.name === cameraType);
+				// this.generatedCameras[cameraType] = this.scene.children.find(child => child.name === cameraType);
+				this.generatedCameras[cameraType] = cameraToAdd;
 
-				this.thirdPersonCamera = new ThirdPersonCamera({
+				this.thirdPersonCamera[cameraType] = new ThirdPersonCamera({
 					target: this.linkController._controls,
-					camera: this.generatedCameras.gtaLike,
+					camera: this.generatedCameras[cameraType],
 					specs: this.mainConfig.generatedCamerasSpecs[cameraType]
 				});
 
@@ -456,7 +458,7 @@
 
 				// this.currentCamera = this.scene.children.find(child => child.name === randomOtherName);
 
-				this.currentCamera = this.generatedCameras.gtaLike;
+				this.currentCamera = this.generatedCameras.hips;
 
 			},
 
@@ -1410,9 +1412,9 @@
 
 				}
 
-				if( this.thirdPersonCamera ){
+				if( this.thirdPersonCamera[this.currentCamera.name] ){
 
-					this.thirdPersonCamera.Update(elapsedTime);
+					this.thirdPersonCamera[this.currentCamera.name].Update(elapsedTime);
 
 				}
 

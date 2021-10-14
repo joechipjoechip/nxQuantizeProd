@@ -25,6 +25,18 @@ const core = {
 					y: 0.1,
 					z: 1.2
 				}
+			},
+			hips: {
+				offset: {
+					x: -0.1,
+					y: 0.05,
+					z: -0.12
+				},
+				lookAt: {
+					x: 0,
+					y: 0.05,
+					z: 1.2
+				}
 			}	
 		},
 		guiConfig: {
