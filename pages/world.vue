@@ -374,7 +374,7 @@
 	
 							lightsToCreate[indexCollection].color = new THREE.Color(r, g, b);
 	
-							lightsToCreate[indexCollection].intensity = entity.intensity * 0.01;
+							lightsToCreate[indexCollection].intensity = entity.intensity * 0.005;
 	
 							lightsToCreate[indexCollection].decay = entity.decay;
 	
