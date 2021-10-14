@@ -149,6 +149,7 @@ const core = {
 					animatedMesh: true,
 
 					link: {
+						name: "link-prod",
 						scale: 0.0005,
 						velocity: {
 							// x: monter/descendre (inutile pour l'instant)

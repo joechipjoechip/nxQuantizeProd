@@ -70,6 +70,7 @@
 					link: null,
 					linkPositions: []
 				},
+				linkController: null,
 				generatedCameras: {},
 				thirdPersonCamera: {},
 				currentCamera: null,
@@ -421,6 +422,10 @@
 				const aspectRatio = window.innerWidth / window.innerHeight;
 
 				const cameraToAdd = new THREE.PerspectiveCamera(75, aspectRatio, 0.0001, 20);
+
+				cameraToAdd.position.copy(this.linkController._controls._position);
+
+				console.log("generation de la cam dynamique : target._controls : ", this.linkController._controls._position);
 
 				cameraToAdd.name = cameraType;
 

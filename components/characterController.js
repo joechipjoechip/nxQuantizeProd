@@ -41,9 +41,9 @@ class BasicCharacterController {
   _LoadModels() {
     const loader = new FBXLoader();
 
-    loader.setPath('./blender/persos/zombie/');
+    loader.setPath(`./blender/persos/${this._params.linkInfos.name}/`);
 
-    loader.load('mremireh_o_desbiens.fbx', (fbx) => {
+    loader.load('link.fbx', (fbx) => {
       fbx.scale.setScalar(this._params.linkInfos.scale);
       fbx.traverse(c => {
         c.castShadow = true;
@@ -73,7 +73,7 @@ class BasicCharacterController {
       };
 
       const loader = new FBXLoader(this._manager);
-      loader.setPath('./blender/persos/zombie/');
+      loader.setPath(`./blender/persos/${this._params.linkInfos.name}/`);
       loader.load('walk.fbx', (a) => { _OnLoad('walk', a); });
       loader.load('run.fbx', (a) => { _OnLoad('run', a); });
       loader.load('idle.fbx', (a) => { _OnLoad('idle', a); });

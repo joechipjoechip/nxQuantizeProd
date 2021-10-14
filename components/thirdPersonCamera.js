@@ -6,6 +6,8 @@ class ThirdPersonCamera {
 	  this._camera = params.camera;
   
 	  this._currentPosition = new THREE.Vector3();
+    console.log("dans la class third person : this._camera.position : ", this._camera.position);
+	  this._currentPosition.copy(this._camera.position);
 	  this._currentLookat = new THREE.Vector3();
 	}
   
