@@ -1,9 +1,6 @@
 import * as THREE from 'three';
 
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-
 
 class BasicCharacterControllerProxy {
   constructor(animations) {
@@ -196,13 +193,13 @@ class BasicCharacterControllerInput {
 
   _onKeyDown(event) {
 
-	console.log("keyDown triggered : ", event.keyCode);
+	// console.log("keyDown triggered : ", event.keyCode);
 
     switch (event.keyCode) {
-      case 87: // w
+      case 90: // z
         this._keys.forward = true;
         break;
-      case 65: // a
+      case 81: // q
         this._keys.left = true;
         break;
       case 83: // s
@@ -222,13 +219,13 @@ class BasicCharacterControllerInput {
 
   _onKeyUp(event) {
 
-	console.log("keyUp triggered : ", event.keyCode);
+	// console.log("keyUp triggered : ", event.keyCode);
 
     switch(event.keyCode) {
-      case 87: // w
+      case 90: // z
         this._keys.forward = false;
         break;
-      case 65: // a
+      case 81: // q
         this._keys.left = false;
         break;
       case 83: // s

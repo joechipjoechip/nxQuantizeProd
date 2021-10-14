@@ -15,36 +15,17 @@ const core = {
 		generatedCamerasSpecs: {
 			// pos qui vont etre ajoutées à la position de la target (link)
 			gtaLike: {
-				x: 0,
-				y: 0.02,
-				z: 0.02
-			},
-			helmet: {
-				x: 0,
-				y: 0.01,
-				z: -0.01
-			},
-			travellingLeft: {
-				x: -1,
-				y: 0,
-				z: 0,
-			},
-			travellingRight: {
-				x: 1,
-				y: 0,
-				z: 0,
-			},
-			flancLeft: {
-				x: -0.1,
-				y: -0.4,
-				z: 0,
-			},
-			flancRight: {
-				x: 0.1,
-				y: 0.4,
-				z: 0,
-			},
-			
+				offset: {
+					x: 0,
+					y: 0.2,
+					z: -0.3
+				},
+				lookAt: {
+					x: 0,
+					y: 0.1,
+					z: 1.2
+				}
+			}	
 		},
 		guiConfig: {
 			elements: {},
@@ -158,10 +139,12 @@ const core = {
 					link: {
 						scale: 0.0005,
 						velocity: {
+							// x: monter/descendre (inutile pour l'instant)
 							x: 1,
-							y: 0.1,
-							// most important is Z axis
-							z: 0.5
+							// y: tourner (left/right)
+							y: 0.25,
+							// z: avancer/reculer
+							z: 0.4
 						}
 					},
 					

@@ -427,31 +427,11 @@
 
 				this.generatedCameras[cameraType] = this.scene.children.find(child => child.name === cameraType);
 
-				console.log("juste avant l instanciation de la third camera : this.generatedCameras.gtaLike : ", this.generatedCameras.gtaLike, this.linkController);
-
 				this.thirdPersonCamera = new ThirdPersonCamera({
 					target: this.linkController._controls,
-					camera: this.generatedCameras.gtaLike
+					camera: this.generatedCameras.gtaLike,
+					specs: this.mainConfig.generatedCamerasSpecs[cameraType]
 				});
-
-				// this.updateCameraGtaLike();
-				// this.updateGeneratedCameraPosition(cameraType);
-
-			},
-
-			updateGeneratedCameraPosition( cameraType ){
-
-				console.log("cam position update : ", cameraType);
-
-				this.generatedCameras[cameraType]?.position?.set(
-					this.link.position.x + this.mainConfig.generatedCamerasSpecs[cameraType].x,
-					this.link.position.y + this.mainConfig.generatedCamerasSpecs[cameraType].y,
-					this.link.position.z + this.mainConfig.generatedCamerasSpecs[cameraType].z
-				);
-
-
-				// à conditionner, et probablement à déplacer ( for dev )
-				// this.currentTarget = this.link;
 
 			},
 
