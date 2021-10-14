@@ -426,7 +426,6 @@
 
 				this.scene.add(cameraToAdd);
 
-				// this.generatedCameras[cameraType] = this.scene.children.find(child => child.name === cameraType);
 				this.generatedCameras[cameraType] = cameraToAdd;
 
 				this.thirdPersonCamera[cameraType] = new ThirdPersonCamera({
@@ -443,22 +442,20 @@
 
 			onCanvasClickHandler(){
 
-				// const actualCamName = this.currentCamera.name;
-				// const generatedCamerasKeys = Object.keys(this.mainConfig.generatedCamerasSpecs);
+				const actualCamName = this.currentCamera.name;
+				const generatedCamerasKeys = Object.keys(this.mainConfig.generatedCamerasSpecs);
 
-				// // dirty but quick (and removed later then)
+				// bit dirty but quick (and removed later then)
 
-				// let randomOtherName = generatedCamerasKeys[this.getRandomInt(0, generatedCamerasKeys.length - 1)];
+				let randomOtherName = generatedCamerasKeys[this.getRandomInt(0, generatedCamerasKeys.length - 1)];
 
-				// while( actualCamName === randomOtherName ){
+				while( actualCamName === randomOtherName ){
 
-				// 	randomOtherName = generatedCamerasKeys[this.getRandomInt(0, generatedCamerasKeys.length - 1)];
+					randomOtherName = generatedCamerasKeys[this.getRandomInt(0, generatedCamerasKeys.length - 1)];
 
-				// }
+				}
 
-				// this.currentCamera = this.scene.children.find(child => child.name === randomOtherName);
-
-				this.currentCamera = this.generatedCameras.hips;
+				this.currentCamera = this.generatedCameras[randomOtherName];
 
 			},
 
