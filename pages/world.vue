@@ -15,7 +15,6 @@
 
 	import * as dat from 'dat.gui';
 
-	import ThirdPersonCamera from '@/components/thirdPersonCamera.js';
 
 	import { TimelineMax } from 'gsap';
 
@@ -26,6 +25,7 @@
 	import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 
 	import { CharacterController } from '@/components/characterController.js';
+	import { ThirdPersonCamera } from '@/components/thirdPersonCamera.js';
 
 	export default {
 		props: {
@@ -212,8 +212,11 @@
 					// on intialise le link avec son controller
 					this.linkController = new CharacterController({
 						scene: this.scene,
+						camera: this.currentCamera,
 						linkInfos
 					});
+
+					this.createGeneratedCameras();
 
 				}
 
@@ -287,8 +290,6 @@
 				// on positionne le link
 				// this.setupLink();
 
-				this.createGeneratedCameras();
-
 			},
 
 			setupLink(){
@@ -331,16 +332,13 @@
 
 			createGeneratedCameras(){
 
-				if( this.link ){
+				// Object.keys(this.generatedCameras).forEach(key => {
 
-					// Object.keys(this.generatedCameras).forEach(key => {
+				// 	this.buildOneGeneratedCamera(key);
 
-					// 	this.buildOneGeneratedCamera(key);
+				// });
 
-					// });
-
-					this.buildOneGeneratedCamera("gtaLike");
-				}
+				this.buildOneGeneratedCamera("gtaLike");
 
 			},
 
@@ -429,10 +427,13 @@
 
 				this.generatedCameras[cameraType] = this.scene.children.find(child => child.name === cameraType);
 
-				this.thirdPersonInstance = new ThirdPersonCamera({
-					target: this.link,
+				console.log("juste avant l instanciation de la third camera : this.generatedCameras.gtaLike : ", this.generatedCameras.gtaLike, this.linkController);
+
+				this.thirdPersonCamera = new ThirdPersonCamera({
+					target: this.linkController._controls,
 					camera: this.generatedCameras.gtaLike
 				});
+
 				// this.updateCameraGtaLike();
 				// this.updateGeneratedCameraPosition(cameraType);
 
@@ -1407,27 +1408,6 @@
 
 				}
 
-				// update du ThirdPerson :
-				// params : {
-					// target: this.link
-					// camera: this.currentCamera
-				// }
-
-				if( this.link && this.generatedCameras.gtaLike ){
-
-					this.thirdPersonInstance.Update(elapsedTime);
-
-				}
-
-				// update cameras here
-				// if( this.currentCamera?.name === "helmet" ){
-
-				// 	this.updateGeneratedCameraPosition(this.currentCamera.name);
-					
-				// }
-
-				// console.log("link pos.x / currentCam : ", this?.link?.position?.x, this?.currentCamera);
-
 				if( this.tubeTravelTargetPosition ){
 
 					console.log("tubeTravelTargetPosition : au render ca lookat");
@@ -1447,6 +1427,12 @@
 				if( this.linkController ){
 
 					this.linkController._controls.Update(deltaTime);
+
+				}
+
+				if( this.thirdPersonCamera ){
+
+					this.thirdPersonCamera.Update(elapsedTime);
 
 				}
 

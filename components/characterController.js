@@ -30,6 +30,7 @@ class BasicCharacterController {
       this._params.linkInfos.velocity.z
     );
     this._velocity = new THREE.Vector3(0, 0, 0);
+    this._position = new THREE.Vector3();
 
     this._animations = {};
     this._input = new BasicCharacterControllerInput();
@@ -82,6 +83,17 @@ class BasicCharacterController {
       loader.load('dance.fbx', (a) => { _OnLoad('dance', a); });
     });
 
+  }
+
+  get Position() {
+    return this._position;
+  }
+
+  get Rotation() {
+    if (!this._target) {
+      return new THREE.Quaternion();
+    }
+    return this._target.quaternion;
   }
 
   Update(timeInSeconds) {
@@ -153,12 +165,15 @@ class BasicCharacterController {
     controlObject.position.add(forward);
     controlObject.position.add(sideways);
 
-    oldPosition.copy(controlObject.position);
+    // oldPosition.copy(controlObject.position);
+    this._position.copy(controlObject.position);
 
     if (this._mixer) {
       this._mixer.update(timeInSeconds);
     }
   }
+
+  
 };
 
 class BasicCharacterControllerInput {
@@ -477,12 +492,9 @@ class IdleState extends State {
   }
 };
 
-
 class CharacterController {
 
   constructor(params) {
-
-    console.log("constructor de CharacterControllerDemo : params : ", params);
 
     this._controls = new BasicCharacterController(params);
 
