@@ -647,9 +647,6 @@
 				// const axesHelper = new THREE.AxesHelper(2);
 				// scene.add(axesHelper);
 
-				// le raycaster :
-				this.raycaster = new THREE.Raycaster();
-
 				// Renderer
 				this.renderer = new THREE.WebGLRenderer({
 					canvas: this.$refs.canvas,
@@ -1383,15 +1380,6 @@
 
 			},
 
-			raycasterHandler(){
-
-				const intersects = this.raycaster.intersectObjects( this.scene.children );
-
-				return intersects?.[0]?.point.y;
-
-			},
-
-
 			// ANIMATIONS
 			tickThree(){
 
@@ -1425,16 +1413,7 @@
 
 				if( this.linkController ){
 
-					this.raycaster.set(
-						new THREE.Vector3(
-							this.linkController._controls.Position.x, 
-							this.linkController._controls.Position.y + 1, 
-							this.linkController._controls.Position.z, 
-						),
-						new THREE.Vector3(0,-1,0)
-					);
-
-					this.linkController._controls.Update(deltaTime, this.raycasterHandler());
+					this.linkController._controls.Update(deltaTime);
 
 				}
 

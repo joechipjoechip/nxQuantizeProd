@@ -34,6 +34,7 @@ class BasicCharacterController {
     this._stateMachine = new CharacterFSM(
         new BasicCharacterControllerProxy(this._animations)
     );
+    this._raycaster = new THREE.Raycaster();
 
     this._LoadModels();
   }
@@ -93,7 +94,7 @@ class BasicCharacterController {
     return this._target.quaternion;
   }
 
-  Update(timeInSeconds, newY) {
+  Update(timeInSeconds) {
     if (!this._target) {
       return;
     }
@@ -119,7 +120,7 @@ class BasicCharacterController {
 
     const acc = this._acceleration.clone();
     if (this._input._keys.shift) {
-      acc.multiplyScalar(2.0);
+      acc.multiplyScalar(3.0);
     }
 
     if (this._stateMachine._currentState?.Name == 'dance') {
@@ -160,18 +161,18 @@ class BasicCharacterController {
     forward.multiplyScalar(velocity.z * timeInSeconds);
 
     controlObject.position.add(forward);
-    // console.log("controlObject.position : ", controlObject.position.y, newY);
-
     controlObject.position.add(sideways);
 
-    // oldPosition.copy(controlObject.position);
-    
+    this._raycaster.set(
+      new THREE.Vector3(
+        controlObject.position.x, 
+        controlObject.position.y + 1, 
+        controlObject.position.z, 
+      ),
+      new THREE.Vector3(0,-1,0)
+    );
 
-    if( newY ){
-
-      controlObject.position.y = newY;
-
-    }
+    controlObject.position.y = this._raycaster.intersectObjects( this._params.scene.children )[0].point.y;
 
     this._position.copy(controlObject.position);
 
