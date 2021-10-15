@@ -163,11 +163,9 @@
 
 			currentCamera( newVal ){
 
-				if( newVal?.name === "gtaLike" ){
+				this.currentCameraSpecs = this.mainConfig.generatedCamerasSpecs[newVal.name];
 
-					this.currentTarget = this.link;
-
-				}
+				this.currentThirdPersonCamera = this.thirdPersonCamera[newVal.name];
 
 			}
 
@@ -1417,11 +1415,11 @@
 
 				}
 
-				if( this.thirdPersonCamera[this.currentCamera.name] ){
+				if( this.currentThirdPersonCamera ){
 
-					this.thirdPersonCamera[this.currentCamera.name].Update(
+					this.currentThirdPersonCamera.Update(
 						elapsedTime, 
-						this.mainConfig.generatedCamerasSpecs[this.currentCamera.name].straightness
+						this.currentCameraSpecs.straightness
 					);
 
 				}

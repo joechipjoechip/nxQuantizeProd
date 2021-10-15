@@ -51,7 +51,7 @@ const core = {
 					y: 0.03,
 					z: -1.2
 				},
-				straightness: 0.7
+				straightness: 0.4
 			}	
 		},
 		guiConfig: {
