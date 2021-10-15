@@ -24,7 +24,8 @@ const core = {
 					x: 0,
 					y: 0.1,
 					z: 1.2
-				}
+				},
+				straightness: 0.02
 			},
 			hips: {
 				offset: {
@@ -36,7 +37,21 @@ const core = {
 					x: 0,
 					y: 0.05,
 					z: 1.2
-				}
+				},
+				straightness: 0.02
+			},
+			helmet: {
+				offset: {
+					x: 0,
+					y: 0.06,
+					z: 0.1
+				},
+				lookAt: {
+					x: 0,
+					y: 0.03,
+					z: -1.2
+				},
+				straightness: 0.7
 			}	
 		},
 		guiConfig: {

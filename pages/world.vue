@@ -1419,7 +1419,10 @@
 
 				if( this.thirdPersonCamera[this.currentCamera.name] ){
 
-					this.thirdPersonCamera[this.currentCamera.name].Update(elapsedTime);
+					this.thirdPersonCamera[this.currentCamera.name].Update(
+						elapsedTime, 
+						this.mainConfig.generatedCamerasSpecs[this.currentCamera.name].straightness
+					);
 
 				}
 
