@@ -93,7 +93,7 @@ class BasicCharacterController {
     return this._target.quaternion;
   }
 
-  Update(timeInSeconds) {
+  Update(timeInSeconds, newY) {
     if (!this._target) {
       return;
     }
@@ -160,9 +160,19 @@ class BasicCharacterController {
     forward.multiplyScalar(velocity.z * timeInSeconds);
 
     controlObject.position.add(forward);
+    // console.log("controlObject.position : ", controlObject.position.y, newY);
+
     controlObject.position.add(sideways);
 
     // oldPosition.copy(controlObject.position);
+    
+
+    if( newY ){
+
+      controlObject.position.y = newY;
+
+    }
+
     this._position.copy(controlObject.position);
 
     if (this._mixer) {

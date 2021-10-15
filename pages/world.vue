@@ -478,7 +478,7 @@
 
 			animateMesh(){
 
-				console.log("init de l'animationMixer (scene / gltf) ", this.scene, this.gltf);
+				// console.log("init de l'animationMixer (scene / gltf) ", this.scene, this.gltf);
 
 				// on créé le mixer (général, qui va TOUT animer
 				this.animationMixer = new THREE.AnimationMixer(this.scene);
@@ -490,7 +490,7 @@
 
 					gltf.animations.forEach(anim => {
 	
-						console.log(`une anim : ${anim?.name}`, anim);
+						// console.log(`une anim : ${anim?.name}`, anim);
 	
 						const action = this.animationMixer.clipAction(anim);
 	
@@ -503,6 +503,10 @@
 			},
 
 			animateLink(){
+
+				// cette fonction n'est plus utilisée, mais je la garde de côté car
+				// elle pourrait être reprise (après quelques modifs) pour provoquer des mouvements
+				// d'objets d'un point A à un point B
 
 				// deplacer la position du mesh de link
 				const startPos = this.elementsAtInit.linkPositions.find(entity => entity.name.indexOf("start") !== -1).position;
@@ -642,6 +646,9 @@
 				// Axes helper : 
 				// const axesHelper = new THREE.AxesHelper(2);
 				// scene.add(axesHelper);
+
+				// le raycaster :
+				this.raycaster = new THREE.Raycaster();
 
 				// Renderer
 				this.renderer = new THREE.WebGLRenderer({
@@ -1376,6 +1383,14 @@
 
 			},
 
+			raycasterHandler(){
+
+				const intersects = this.raycaster.intersectObjects( this.scene.children );
+
+				return intersects?.[0]?.point.y;
+
+			},
+
 
 			// ANIMATIONS
 			tickThree(){
@@ -1402,7 +1417,7 @@
 
 				if( this.animationMixer ){
 
-					console.log("animation mixer update");
+					// console.log("animation mixer update");
 					this.animationMixer.update(deltaTime);
 
 				}
@@ -1410,7 +1425,16 @@
 
 				if( this.linkController ){
 
-					this.linkController._controls.Update(deltaTime);
+					this.raycaster.set(
+						new THREE.Vector3(
+							this.linkController._controls.Position.x, 
+							this.linkController._controls.Position.y + 1, 
+							this.linkController._controls.Position.z, 
+						),
+						new THREE.Vector3(0,-1,0)
+					);
+
+					this.linkController._controls.Update(deltaTime, this.raycasterHandler());
 
 				}
 
