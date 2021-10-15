@@ -36,17 +36,15 @@ class ThirdPersonCamera {
 	Update(timeElapsed, straightness) {
 	  const idealOffset = this._CalculateIdealOffset();
 	  const idealLookat = this._CalculateIdealLookat();
-
-	  console.log("straightness : ", straightness);
   
     // t = facteur de latence du positionnement de la camera : 
     // où 1 = straight
 	//   const t = 0.02;
 	  // const t = 4.0 * timeElapsed;
-	  // const t = 1.0 - Math.pow(0.1, timeElapsed);
+	  const t = (1.0 - Math.pow(0.1, timeElapsed)) * straightness;
   
-	  this._currentPosition.lerp(idealOffset, straightness);
-	  this._currentLookat.lerp(idealLookat, straightness);
+	  this._currentPosition.lerp(idealOffset, t);
+	  this._currentLookat.lerp(idealLookat, t);
 
   
 	  this._camera.position.copy(this._currentPosition);
