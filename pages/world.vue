@@ -901,6 +901,13 @@
 						});
 	
 						mainMapMerged.material = this.bakedMaterial;
+
+						// mainMapMerged.receiveShadow = true;
+
+						// mainMapMerged.receiveShadow = true;
+
+						// mainMapMerged.material.needsUpdate = true;
+
 	
 					} else {
 						// on rétablit le matérial de base 

@@ -69,6 +69,8 @@ class ThirdPersonCamera {
 
 	  idealLookat.applyQuaternion(this._params.target.Rotation);
 	  idealLookat.add(this._params.target.Position);
+
+    // à revoir, selon l'orientation de link, ca peut partir en couille (voir gtaLike)
 	  idealLookat.add(mouseVector);
 	  return idealLookat;
 	}
