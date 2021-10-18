@@ -74,10 +74,24 @@
 
 			this.visibleSequenceID = "1.0";
 
+			window.addEventListener("resize", this.onResize);
+
 			// on va peut être initialiser le this.renderer ici, en fait
 
 		},
 		methods: {
+
+			onResize(){
+				// explication : pour être le plus opti possible
+				// on évite de mettre un listener sur window depuis chaque world
+				// donc on le fait ici (1 seul listener donc)
+				// et on demande aux children d'update leur valeur canvasSizeRef propres
+
+				this.$children.forEach(child => {
+					child.updateCanvasRefSize();
+				});
+
+			},
 
 			onChangeCam(){
 

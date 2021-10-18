@@ -4,6 +4,7 @@
 		<canvas 
 			class="webgl" 
 			ref="canvas"
+			@mousemove="mouseMoveHandler"
 		></canvas>
 			<!-- @click="onCanvasClickHandler" -->
 	</div>
@@ -53,7 +54,7 @@
 			visibleWorldKey: {
 				type: String,
 				required: true
-			}
+			},
 
 		},
 
@@ -83,6 +84,14 @@
 				animationMixer: null,
 				debug: {
 					animated: true
+				},
+				mousePos: {
+					x: window.innerWidth / 2,
+					y: window.innerHeight / 2
+				},
+				canvasSizeRef: { 
+					width: window.innerWidth, 
+					height: window.innerHeight
 				}
 			}
 		},
@@ -133,6 +142,7 @@
 					console.log("let s stop : ", this.thisWorldKey, this.currentSequence?.id, this.scene);
 
 				}
+
 			},
 
 			currentSequence( newVal ){
@@ -185,6 +195,28 @@
 
 
 		methods: {
+
+			updateCanvasRefSize(){
+
+				const { width, height } = this.$refs.canvas.getBoundingClientRect();
+
+				this.canvasSizeRef = { 
+					width: width !== 0 ? width : window.innerWidth, 
+					height: height !== 0 ? height : window.innerHeight
+				};
+
+			},
+
+			mouseMoveHandler( event ){
+				
+				this.mousePos = {
+					x: (((event.offsetX + this.canvasSizeRef.width / 2) / this.canvasSizeRef.width) - 1) * 2,
+					y: (((event.offsetY + this.canvasSizeRef.height / 2) / this.canvasSizeRef.height) - 1) * -2
+				};
+
+				console.log("mousemove handler : ", this.mousePos.y);
+
+			},
 
 			onCurrentSequenceChange( newSequence ){
 
