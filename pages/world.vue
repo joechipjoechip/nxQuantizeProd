@@ -92,7 +92,8 @@
 				canvasSizeRef: { 
 					width: window.innerWidth, 
 					height: window.innerHeight
-				}
+				},
+				mouseRecenterTimeoutID: null
 			}
 		},
 
@@ -126,6 +127,19 @@
 					console.log("animation stopped");
 
 				}
+
+			},
+
+			mousePos(){
+
+				if( this.mouseRecenterTimeoutID ){
+					clearTimeout(this.mouseRecenterTimeoutID);
+				}
+
+				this.mouseRecenterTimeoutID = setTimeout(
+					this.mouseRecenter,
+					this.mainConfig.mouse.moveTimeout * 1000
+				);
 
 			},
 
@@ -195,6 +209,31 @@
 
 
 		methods: {
+
+			mouseRecenter(){
+
+				console.log("recentering the mousePos");
+				
+				const animatedObject = {
+					x: this.mousePos.x,
+					y: this.mousePos.y
+				};
+
+				const tlRecenter = new TimelineMax();
+
+				tlRecenter.to(animatedObject, this.mainConfig.mouse.recenterDuration, {
+					x: 0,
+					y: 0,
+					onUpdate( that ){
+
+						that.mousePos.x = animatedObject.x;
+						that.mousePos.y = animatedObject.y;
+
+					},
+					onUpdateParams: [this]
+				});
+
+			},
 
 			updateCanvasRefSize(){
 

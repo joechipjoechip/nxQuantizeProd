@@ -12,6 +12,10 @@ const core = {
 				green: "#ABFFC7"
 			}
 		},
+		mouse: {
+			moveTimeout: 2,
+			recenterDuration: 2
+		},
 		generatedCamerasSpecs: {
 			// pos qui vont etre ajoutées à la position de la target (link)
 			gtaLike: {
