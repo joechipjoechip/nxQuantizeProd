@@ -20,7 +20,7 @@ class ThirdPersonCamera {
       idealOffset = new THREE.Vector3(
         this._params.specs.offset.x + (Math.sin(timeElapsed * this._params.specs.motion.x.velocity) * this._params.specs.motion.x.range),
         this._params.specs.offset.y + (Math.sin(timeElapsed * this._params.specs.motion.y.velocity) * this._params.specs.motion.y.range),
-        this._params.specs.offset.z + (Math.sin(timeElapsed * this._params.specs.motion.z.velocity) * this._params.specs.motion.z.range)
+        this._params.specs.offset.z + (Math.abs((Math.sin(timeElapsed * this._params.specs.motion.z.velocity)) * -1) * this._params.specs.motion.z.range)
       );
 
     } else {

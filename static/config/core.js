@@ -54,15 +54,15 @@ const core = {
 				motion: {
 					x: {
 						range: 0.4,
-						velocity: 0.3
+						velocity: 0.15
 					},
 					y: {
 						range: 0,
 						velocity: 1
 					},
 					z: {
-						range: -0.2,
-						velocity: 1
+						range: -0.4,
+						velocity: 0.35
 					},
 				},
 				straightness: 0.02
