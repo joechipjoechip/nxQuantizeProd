@@ -40,6 +40,33 @@ const core = {
 				},
 				straightness: 0.02
 			},
+			movingHips: {
+				offset: {
+					x: 0,
+					y: 0.05,
+					z: -0.12
+				},
+				lookAt: {
+					x: 0,
+					y: 0.05,
+					z: 1.2
+				},
+				motion: {
+					x: {
+						range: 0.4,
+						velocity: 0.3
+					},
+					y: {
+						range: 0,
+						velocity: 1
+					},
+					z: {
+						range: -0.2,
+						velocity: 1
+					},
+				},
+				straightness: 0.02
+			},
 			helmet: {
 				offset: {
 					x: 0,
