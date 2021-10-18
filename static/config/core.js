@@ -13,7 +13,7 @@ const core = {
 			}
 		},
 		mouse: {
-			moveTimeout: 2,
+			moveTimeout: 4,
 			recenterDuration: 2
 		},
 		generatedCamerasSpecs: {
@@ -29,7 +29,11 @@ const core = {
 					y: 0.1,
 					z: 1.2
 				},
-				straightness: 0.02
+				straightness: 0.02,
+				orientationPonderation: {
+					x: 1.5,
+					y: 1.5
+				}
 			},
 			hips: {
 				offset: {
@@ -42,7 +46,11 @@ const core = {
 					y: 0.05,
 					z: 1.2
 				},
-				straightness: 0.02
+				straightness: 0.02,
+				orientationPonderation: {
+					x: 0.5,
+					y: 0.5
+				}
 			},
 			movingHips: {
 				offset: {
@@ -69,7 +77,11 @@ const core = {
 						velocity: 0.35
 					},
 				},
-				straightness: 0.02
+				straightness: 0.02,
+				orientationPonderation: {
+					x: 0.5,
+					y: 0.5
+				}
 			},
 			helmet: {
 				offset: {
@@ -82,7 +94,11 @@ const core = {
 					y: 0.03,
 					z: -1.2
 				},
-				straightness: 0.4
+				straightness: 0.4,
+				orientationPonderation: {
+					x: -0.5,
+					y: 0.5
+				}
 			}	
 		},
 		guiConfig: {

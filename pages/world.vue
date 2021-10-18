@@ -213,7 +213,7 @@
 			mouseRecenter(){
 
 				console.log("recentering the mousePos");
-				
+
 				const animatedObject = {
 					x: this.mousePos.x,
 					y: this.mousePos.y
@@ -252,8 +252,6 @@
 					x: (((event.offsetX + this.canvasSizeRef.width / 2) / this.canvasSizeRef.width) - 1) * 2,
 					y: (((event.offsetY + this.canvasSizeRef.height / 2) / this.canvasSizeRef.height) - 1) * -2
 				};
-
-				console.log("mousemove handler : ", this.mousePos.y);
 
 			},
 
@@ -1488,10 +1486,7 @@
 
 				if( this.currentThirdPersonCamera ){
 
-					this.currentThirdPersonCamera.Update(
-						elapsedTime, 
-						this.currentCameraSpecs.straightness
-					);
+					this.currentThirdPersonCamera.Update(elapsedTime, this.mousePos);
 
 				}
 
