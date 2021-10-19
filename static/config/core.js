@@ -131,7 +131,7 @@ const core = {
 			base: {
 
 				fog: {
-					enabled: true,
+					enabled: false,
 					color: 0xff9500,
 					intensity: .15
 				},
@@ -226,7 +226,7 @@ const core = {
 					config: {
 
 						fog: {
-							enabled: true,
+							enabled: false,
 							color: 0xff0000,
 							intensity: .2
 						},
