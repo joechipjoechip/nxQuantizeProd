@@ -79,8 +79,8 @@ const core = {
 				},
 				straightness: 0.02,
 				orientationPonderation: {
-					x: 0.5,
-					y: 0.5
+					x: 0.3,
+					y: 0.3
 				}
 			},
 			helmet: {

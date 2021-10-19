@@ -45,7 +45,7 @@ class ThirdPersonCamera {
 	_CalculateIdealLookat( mousePos ){
 
     const mouseVector = new THREE.Vector3(
-      mousePos.x * this._specs.orientationPonderation.x, 
+      mousePos.x * this._specs.orientationPonderation.x * -1, 
       mousePos.y * this._specs.orientationPonderation.y,
       0
     );
@@ -67,15 +67,17 @@ class ThirdPersonCamera {
 
     console.log("depuis le calcul de lookAt : mousePos.x : ", mousePos.x);
 
+	  mouseVector.applyQuaternion(this._params.target.Rotation);
 	  idealLookat.applyQuaternion(this._params.target.Rotation);
-	  idealLookat.add(this._params.target.Position);
 
-    // à revoir, selon l'orientation de link, ca peut partir en couille (voir gtaLike)
+	  idealLookat.add(this._params.target.Position);
 	  idealLookat.add(mouseVector);
+
 	  return idealLookat;
 	}
   
-	Update(timeElapsed, mousePos){
+	Update( timeElapsed, mousePos ){
+
 	  const idealOffset = this._CalculateIdealOffset(timeElapsed);
 	  const idealLookat = this._CalculateIdealLookat(mousePos);
   
@@ -92,6 +94,7 @@ class ThirdPersonCamera {
   
 	  this._camera.position.copy(this._currentPosition);
 	  this._camera.lookAt(this._currentLookat);
+
 	}
 	
 }
