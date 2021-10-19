@@ -189,6 +189,8 @@
 
 					console.log("link has been added");
 
+					// this.addLights();
+
 					this.linkHasBeenAdded = true;
 
 				}
@@ -445,7 +447,7 @@
 
 					collection.forEach(entity => {
 	
-						if( entity instanceof THREE.PointLight ){
+						if( entity instanceof THREE.PointLight || entity instanceof THREE.SpotLight ){
 	
 							const { r, g, b } = entity.color;
 	
@@ -483,7 +485,11 @@
 						light.decay
 					);
 
+					const spotLightHelper = new THREE.PointLightHelper( lightToAdd, 30 );
+					this.scene.add( spotLightHelper );
+
 					lightToAdd.position.copy(light.position);
+
 
 					lightToAdd.name = `light-${index + 1}`;
 
