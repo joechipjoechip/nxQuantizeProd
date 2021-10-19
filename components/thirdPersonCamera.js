@@ -65,8 +65,6 @@ class ThirdPersonCamera {
 
     }
 
-    console.log("depuis le calcul de lookAt : mousePos.x : ", mousePos.x);
-
 	  mouseVector.applyQuaternion(this._params.target.Rotation);
 	  idealLookat.applyQuaternion(this._params.target.Rotation);
 
@@ -85,7 +83,7 @@ class ThirdPersonCamera {
     // où 1 = straight
 	  // const t = 0.02;
 	  // const t = 4.0 * timeElapsed;
-    // best implementation
+    // best implementation :
 	  const t = (1.0 - Math.pow(0.1, timeElapsed)) * this._specs.straightness;
   
 	  this._currentPosition.lerp(idealOffset, t);
