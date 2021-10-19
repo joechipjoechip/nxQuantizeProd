@@ -51,6 +51,7 @@ class BasicCharacterController {
       });
 
       this._target = fbx;
+      this._target.name = "linkMain";
       this._params.scene.add(this._target);
 
       this._target.position.copy(this._params.linkInfos.start.position);

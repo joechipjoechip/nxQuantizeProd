@@ -171,7 +171,7 @@
 
 			"scene.children"( newVal ){
 
-				if( newVal.filter(child => child.name === "mainMapMerged")[0] ){
+				if( newVal.find(child => child.name === "mainMapMerged") && !this.orbit?.enabled ){
 
 					this.orbit = new OrbitControls(this.currentCamera, this.$refs.canvas);
 
@@ -181,6 +181,16 @@
 
 					this.orbit.enableDamping = true;
 					
+				}
+
+
+				// trigger when link is added
+				if( newVal.find(child => child.name === "linkMain") && !this.linkHasBeenAdded){
+
+					console.log("link has been added");
+
+					this.linkHasBeenAdded = true;
+
 				}
 
 			},
