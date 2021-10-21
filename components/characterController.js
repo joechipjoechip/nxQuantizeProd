@@ -45,9 +45,16 @@ class BasicCharacterController {
     loader.setPath(`./blender/persos/${this._params.linkInfos.name}/`);
 
     loader.load('link.fbx', (fbx) => {
+
       fbx.scale.setScalar(this._params.linkInfos.scale);
+
       fbx.traverse(c => {
-        c.castShadow = true;
+        // console.log("c : ", c);
+        if( c.type !== "Bone" ){
+          c.castShadow = true;
+          // c.receiveShadow = true;
+        }
+        
       });
 
       this._target = fbx;
@@ -173,7 +180,10 @@ class BasicCharacterController {
       new THREE.Vector3(0,-1,0)
     );
 
-    controlObject.position.y = this._raycaster.intersectObjects( this._params.scene.children )[0].point.y;
+    controlObject.position.y = this._raycaster
+                                  .intersectObjects( this._params.scene.children )
+                                  .find(intersected => intersected.object.name === "mainMapMerged")
+                                  .point.y;
 
     this._position.copy(controlObject.position);
 
