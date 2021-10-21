@@ -212,7 +212,7 @@ const core = {
 
 					link: {
 						name: "link-prod",
-						scale: 0.0005,
+						scale: 0.00025,
 						velocity: {
 							// x: monter/descendre (inutile pour l'instant)
 							x: 1,

@@ -35,6 +35,7 @@ class BasicCharacterController {
         new BasicCharacterControllerProxy(this._animations)
     );
     this._raycaster = new THREE.Raycaster();
+    this._moveScaledRatio = this._params.linkInfos.scale * 1000 * 2;
 
     this._LoadModels();
   }
@@ -166,7 +167,7 @@ class BasicCharacterController {
     sideways.normalize();
 
     sideways.multiplyScalar(velocity.x * timeInSeconds);
-    forward.multiplyScalar(velocity.z * timeInSeconds);
+    forward.multiplyScalar((velocity.z * timeInSeconds) * (this._moveScaledRatio));
 
     controlObject.position.add(forward);
     controlObject.position.add(sideways);
