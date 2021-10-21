@@ -376,47 +376,6 @@
 
 				}
 
-				// on positionne le link
-				// this.setupLink();
-
-			},
-
-			setupLink(){
-
-				console.log("setupLink : ", this.link);
-
-				if( this.link ){
-
-					this.link.scale.set(0.06, 0.06, 0.06);
-
-					this.link.rotation.x = 0.8;
-					this.link.rotation.y = 2.1;
-
-					// this.gui
-					// 	.add(this.link.rotation, "x")
-					// 	.step(0.1)
-					// 	.min(-Math.PI * 2)
-					// 	.max(Math.PI * 2)
-					// 	.name("link x");
-
-					// this.gui
-					// 	.add(this.link.rotation, "y")
-					// 	.step(0.1)
-					// 	.min(-Math.PI * 2)
-					// 	.max(Math.PI * 2)
-					// 	.name("link y");
-					
-					// this.gui
-					// 	.add(this.link.rotation, "z")
-					// 	.step(0.1)
-					// 	.min(-Math.PI * 2)
-					// 	.max(Math.PI * 2)
-					// 	.name("link z");
-
-
-
-				}
-
 			},
 
 			createGeneratedCameras(){
