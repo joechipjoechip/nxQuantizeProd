@@ -54,7 +54,7 @@ class BasicCharacterController {
           c.castShadow = true;
           // c.receiveShadow = true;
         }
-        
+
       });
 
       this._target = fbx;

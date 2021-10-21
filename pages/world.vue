@@ -72,6 +72,7 @@
 					linkPositions: []
 				},
 				linkController: null,
+				linkHasBeenAdded: false,
 				generatedCameras: {},
 				thirdPersonCamera: {},
 				currentCamera: null,
@@ -197,6 +198,15 @@
 
 			},
 
+			linkHasBeenAdded( newVal ){
+
+				console.log("watch du linkHasBeenAdded : ", newVal);
+
+				this.createGeneratedCameras();
+
+
+			},
+
 			currentCamera( newVal ){
 
 				this.currentCameraSpecs = this.mainConfig.generatedCamerasSpecs[newVal.name];
@@ -296,8 +306,6 @@
 						camera: this.currentCamera,
 						linkInfos
 					});
-
-					this.createGeneratedCameras();
 
 				}
 
@@ -506,9 +514,13 @@
 
 				const cameraToAdd = new THREE.PerspectiveCamera(75, aspectRatio, 0.0001, 20);
 
-				cameraToAdd.position.copy(this.linkController._controls._position);
+				const realLink = this.scene.children.find(child => child.name === "linkMain");
 
-				console.log("generation de la cam dynamique : target._controls : ", this.linkController._controls._position);
+				const cameraInitialPosition = realLink.position.add(new THREE.Vector3(0, 0.1, 0));;
+
+				cameraToAdd.position.copy(cameraInitialPosition);
+
+				// console.log("generation de la cam dynamique : target._controls : ", cameraInitialPosition);
 
 				cameraToAdd.name = cameraType;
 
@@ -737,12 +749,17 @@
 					antialias: true
 				});
 
+				this.renderer.setPixelRatio(window.devicePixelRatio);
 
-				this.renderer.setSize(window.innerWidth, window.innerHeight);
+				this.renderer.setSize(this.canvasSizeRef.width, this.canvasSizeRef.height);
+
+				this.renderer.setClearColor("#000000");
 
 				this.renderer.outputEncoding = THREE.sRGBEncoding;
 
-				this.renderer.setClearColor("#000000");
+				// this.renderer.shadowMap.enabled = true;
+
+				// this.renderer.shadowMap.type = THREE.PCFShadowMap;
 
 				this.clock = new THREE.Clock();
 
