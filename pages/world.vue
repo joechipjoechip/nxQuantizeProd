@@ -114,6 +114,18 @@
 
 		},
 
+		mounted(){
+
+			Object.keys(this.mainConfig.generatedCamerasSpecs).forEach(key =>{
+
+				this.generatedCameras[key] = null;
+
+			});
+
+			this.initThree();
+
+		},
+
 		watch: {
 
 			"debug.animated"( newVal ){
@@ -216,19 +228,6 @@
 			}
 
 		},
-
-		mounted(){
-
-			Object.keys(this.mainConfig.generatedCamerasSpecs).forEach(key =>{
-
-				this.generatedCameras[key] = null;
-
-			});
-
-			this.initThree();
-
-		},
-
 
 		methods: {
 
@@ -453,15 +452,16 @@
 					);
 
 					const spotLightHelper = new THREE.PointLightHelper( lightToAdd, 30 );
-					this.scene.add( spotLightHelper );
+					spotLightHelper.name = `pointLightHelper-${index}`;
 
 					lightToAdd.position.copy(light.position);
 
 
-					lightToAdd.name = `light-${index + 1}`;
+					lightToAdd.name = `pointLight-${index + 1}`;
 
 					// et on add à la scene
 					this.scene.add(lightToAdd);
+					this.scene.add(spotLightHelper);
 
 				});
 

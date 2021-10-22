@@ -21,13 +21,13 @@ const core = {
 			gtaLike: {
 				offset: {
 					x: 0,
-					y: 0.2,
-					z: -0.3
+					y: 0.1,
+					z: -0.15
 				},
 				lookAt: {
 					x: 0,
-					y: 0.1,
-					z: 1.2
+					y: 0.05,
+					z: 0.6
 				},
 				straightness: 0.02,
 				orientationPonderation: {
@@ -37,14 +37,14 @@ const core = {
 			},
 			hips: {
 				offset: {
-					x: -0.1,
-					y: 0.05,
-					z: -0.12
+					x: -0.05,
+					y: 0.025,
+					z: -0.06
 				},
 				lookAt: {
 					x: 0,
-					y: 0.05,
-					z: 1.2
+					y: 0.025,
+					z: 0.6
 				},
 				straightness: 0.02,
 				orientationPonderation: {
@@ -55,16 +55,17 @@ const core = {
 			movingHips: {
 				offset: {
 					x: 0,
-					y: 0.05,
-					z: -0.12
+					y: 0.025,
+					z: -0.06
 				},
 				lookAt: {
 					x: 0,
-					y: 0.05,
-					z: 1.2
+					y: 0.025,
+					z: 0.6
 				},
 				motion: {
 					x: {
+						// ratios
 						range: 0.4,
 						velocity: 0.15
 					},
@@ -86,13 +87,13 @@ const core = {
 			helmet: {
 				offset: {
 					x: 0,
-					y: 0.06,
-					z: 0.1
+					y: 0.03,
+					z: 0.05
 				},
 				lookAt: {
 					x: 0,
-					y: 0.03,
-					z: -1.2
+					y: 0.015,
+					z: -0.6
 				},
 				straightness: 0.4,
 				orientationPonderation: {
