@@ -12,24 +12,26 @@
 
 <script>
 
-	import * as THREE from 'three';
-
-	// import * as dat from 'dat.gui';
-
-
+	// GSAP
 	import { TimelineMax } from 'gsap';
 
+	// THREE
+	import * as THREE from 'three';
 	import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-
 	import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js"
-
 	import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 
+	// TWEENS BUILDER
+	import { SpecificManualCameraTweenBuilder } from '@/components/SpecificManualCameraTweenBuilder.js';
+
+	// CHARACTER HANDLERS
 	import { CharacterController } from '@/components/CharacterController.js';
 	import { ThirdPersonCamera } from '@/components/ThirdPersonCamera.js';
 
+	// MISC
 	import { DynamicLightsBuilder } from '@/components/DynamicLightsBuilder.js';
 	import { GuiManager } from '@/components/GuiManager.js';
+
 
 	export default {
 		props: {
@@ -974,8 +976,6 @@
 			buildGeneralManualCameraTween( steps ){
 
 				console.log("buildGeneralManualCameraTween() -> steps : ", steps);
-				// buildGeneralManualCameraTween works with tweens
-				// donc c'est indépendant des logiques raf / tick()
 
 				const moveTl = new TimelineMax();
 
@@ -995,172 +995,13 @@
 
 			buildSpecificManualCameraTween( currentStep ){
 
-				this.currentPlace = this.currentPlaces.find(place => place.id === currentStep.global.placeString);
-
-				const tl = new TimelineMax();
-
-				// We store actual camera position, in a very scoped object
-
-
-				// POSITION
-				if( this.currentPlace.position ){
-
-					const animatedObject = {};
-
-					animatedObject.position = this.currentCamera.position;
-					animatedObject.position = this.currentCamera.position;
-
-					tl.to(
-						animatedObject.position, 
-						{
-							duration: this.currentPlace.position.duration * (currentStep.global.duration / 100), 
-							x : this.currentPlace.position.x,
-							y : this.currentPlace.position.y,
-							z : this.currentPlace.position.z,
-							ease: this.currentPlace.position.ease,
-
-							onUpdate: (that) => {
-
-								// and at update we update the real camera position
-								that.currentCamera.position.set(
-									animatedObject.position.x,
-									animatedObject.position.y,
-									animatedObject.position.z
-								);
-
-							},
-							onUpdateParams: [this],
-							onComplete: () => {
-
-								console.log("onComplete du tween de position");
-
-							}
-						}, 
-						this.currentPlace.position.startRef * (currentStep.global.duration / 100)
-					);
-
-				}
-
-
-				// ROTATION
-				if( this.currentPlace.rotation ){
-
-					this.currentTarget
-
-					const animatedObject = {};
-
-					animatedObject.rotation = this.currentCamera.rotation;
-
-					tl.to(
-						animatedObject.rotation, 
-						{
-							duration: this.currentPlace.rotation.duration * (currentStep.global.duration / 100),
-							x : this.currentPlace.rotation.x,
-							y : this.currentPlace.rotation.y,
-							z : this.currentPlace.rotation.z,
-							ease: this.currentPlace.rotation.ease,
-
-							onStart: () => {
-								console.log("onStart du tween de rotation : isUsingTarget : ", currentStep.global.isUsingTarget);
-							},
-		
-							onUpdate: (that) => {
-
-								if( currentStep.global.isUsingTarget && this.currentTarget ){
-
-									that.currentCamera.lookAt(this.currentTarget)
-
-								} else {
-
-									// and at update we update the real camera rotation
-									that.currentCamera.rotation.set(
-										animatedObject.rotation.x,
-										animatedObject.rotation.y,
-										animatedObject.rotation.z
-									);
-
-								}
-		
-		
-							},
-							onUpdateParams: [this],
-							onComplete: () => {
-
-								console.log("onComplete de rotation");
-
-							}
-						},
-						this.currentPlace.rotation.startRef * (currentStep.global.duration / 100)
-					);
-
-				}
-
-
-				// FOV : 
-				if( this.currentPlace.fov && this.oldFov ){
-
-					const animatedObject = {};
-
-					// currentCamera.updateProjectionMatrix();
-
-					animatedObject.fov = this.oldFov;
-
-					tl.to(
-						animatedObject, 
-						{
-							duration: this.currentPlace.fov.duration * (currentStep.global.duration / 100), 
-							fov : this.currentPlace.fov.value,
-							ease: this.currentPlace.fov.ease,
-	
-							onUpdate: (that, currentFov) => {
-
-								// console.log("onUpdate : currentFov : ", currentFov);
-
-								that.oldFov = currentFov;
-
-								that.currentCamera.fov = currentFov;
-
-								that.currentCamera.updateProjectionMatrix();
-		
-							},
-							onUpdateParams: [this, animatedObject.fov]
-						},
-						this.currentPlace.fov.startRef * (currentStep.global.duration / 100)
-					);
-
-				}
-
-				// if onComplete (on THE STEP, NOT THE PLACE winky winky)
-				if( currentStep.onComplete ){
-
-					const animatedObject = {};
-
-					animatedObject.completeness = 0;
-
-					tl.to(animatedObject, 0.1, {
-
-						completeness: 1,
-
-						onUpdate: () => {
-
-							console.log("onUpdate du onComplete de currentStep (camera tween) - fade possible"); 
-
-						},
-
-						onComplete: (that) => {
-
-
-							that.stepCompleteHandler(currentStep);
-
-						},
-						onCompleteParams: [this]
-					})
-				}
-
-				return tl;
+				return new SpecificManualCameraTweenBuilder({
+					currentPlaces: this.currentPlaces,
+					currentCamera: this.currentCamera,
+					currentStep: currentStep
+				});
 
 			},
-
 
 			// USESLESS METHODS
 			pointCameraTo( transitionInfos ){
@@ -1223,33 +1064,6 @@
 
 						});
 
-				}
-
-			},
-
-			stepCompleteHandler(step){
-
-				const action = step.onComplete.action;
-
-				console.log("stepCompleteHandler : action : ", action);
-
-				switch ( action ){
-
-					case "change-target":
-
-						this.oldTarget = this.elementsAtInit.landscape;
-
-						this.currentTarget = this.elementsAtInit[step.onComplete.targetString];
-
-						// if( step.onComplete.options ){
-							// TODO : prendre en compte les nouvelles step.onComplete.options.orbitlimits pour le orbit
-						// }
-
-						break
-
-					default:
-						console.log("switchCase triggered defaulttt");
-						break
 				}
 
 			},

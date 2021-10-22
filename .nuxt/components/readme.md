@@ -9,5 +9,6 @@ You can directly use them in pages and other components without the need to impo
 - `<CharacterController>` | `<character-controller>` (components/CharacterController.js)
 - `<DynamicLightsBuilder>` | `<dynamic-lights-builder>` (components/DynamicLightsBuilder.js)
 - `<GuiManager>` | `<gui-manager>` (components/GuiManager.js)
+- `<SpecificManualCameraTweenBuilder>` | `<specific-manual-camera-tween-builder>` (components/SpecificManualCameraTweenBuilder.js)
 - `<ThirdPersonCamera>` | `<third-person-camera>` (components/ThirdPersonCamera.js)
 - `<CanvasVideo>` | `<canvas-video>` (components/canvasVideo.vue)

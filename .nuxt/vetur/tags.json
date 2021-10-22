@@ -8,6 +8,9 @@
   "GuiManager": {
     "description": "Auto imported from components/GuiManager.js"
   },
+  "SpecificManualCameraTweenBuilder": {
+    "description": "Auto imported from components/SpecificManualCameraTweenBuilder.js"
+  },
   "ThirdPersonCamera": {
     "description": "Auto imported from components/ThirdPersonCamera.js"
   },

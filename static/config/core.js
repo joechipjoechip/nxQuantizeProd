@@ -272,14 +272,6 @@ const core = {
 									startRef: 0,
 									ease: "power3.inOut"
 								},
-								rotation: {
-									x: -4.148056974161086,
-									y: 0.4381372147125346,
-									z: 3.1953272756404276,
-									duration: 100,
-									startRef: 0,
-									ease: "power3.inOut"
-								},
 								fov: {
 									value: 175,
 									duration: 90,
@@ -290,9 +282,9 @@ const core = {
 							{
 								id: "soClose",
 								position: {
-									x: -0.698,
-									y: -0.195,
-									z: 0.71,
+									x: 1.5694445199132843,
+									y: 2.2446995420221088,
+									z: 7.423104777237935,
 									duration: 100,
 									startRef: 0,
 									ease: "power4.inOut"
@@ -310,31 +302,16 @@ const core = {
 						steps: [
 							{
 								global: {
-									duration: .5,
+									duration: 2,
 									placeString: "farAway",
 									isUsingTarget: false
 								}
 							},
 							{
 								global: {
-									duration: 0.75,
+									duration: 2,
 									placeString: "soClose",
 									isUsingTarget: true
-								},
-								onComplete: {
-									// duration of this is in this
-									// chapter camera seeting
-									//  ./.../camera->changeMode->duration
-									action: "change-target",
-									// (cause this action is a mode changer)
-									targetString: "link",
-									options: {
-										orbitLimits: {
-											x: Math.PI / 2,
-											y: Math.PI / 2,
-											z: Math.PI / 2
-										}
-									}
 								}
 							},
 						]
@@ -421,14 +398,6 @@ const core = {
 									startRef: 0,
 									ease: "power3.inOut"
 								},
-								rotation: {
-									x: -4.148056974161086,
-									y: 0.4381372147125346,
-									z: 3.1953272756404276,
-									duration: 100,
-									startRef: 0,
-									ease: "power3.inOut"
-								},
 								fov: {
 									value: 175,
 									duration: 90,
@@ -469,21 +438,6 @@ const core = {
 									duration: 7,
 									placeString: "soClose",
 									isUsingTarget: true
-								},
-								onComplete: {
-									// duration of this is in this
-									// chapter camera seeting
-									//  ./.../camera->changeMode->duration
-									action: "change-target",
-									// (cause this action is a mode changer)
-									targetString: "link",
-									options: {
-										orbitLimits: {
-											x: Math.PI / 2,
-											y: Math.PI / 2,
-											z: Math.PI / 2
-										}
-									}
 								}
 							},
 						]
@@ -569,14 +523,6 @@ const core = {
 									startRef: 0,
 									ease: "power3.inOut"
 								},
-								rotation: {
-									x: -4.148056974161086,
-									y: 0.4381372147125346,
-									z: 3.1953272756404276,
-									duration: 100,
-									startRef: 0,
-									ease: "power3.inOut"
-								},
 								fov: {
 									value: 175,
 									duration: 90,
@@ -617,21 +563,6 @@ const core = {
 									duration: 7,
 									placeString: "soClose",
 									isUsingTarget: true
-								},
-								onComplete: {
-									// duration of this is in this
-									// chapter camera seeting
-									//  ./.../camera->changeMode->duration
-									action: "change-target",
-									// (cause this action is a mode changer)
-									targetString: "link",
-									options: {
-										orbitLimits: {
-											x: Math.PI / 2,
-											y: Math.PI / 2,
-											z: Math.PI / 2
-										}
-									}
 								}
 							},
 						]
