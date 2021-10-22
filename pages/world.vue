@@ -14,7 +14,7 @@
 
 	import * as THREE from 'three';
 
-	import * as dat from 'dat.gui';
+	// import * as dat from 'dat.gui';
 
 
 	import { TimelineMax } from 'gsap';
@@ -25,10 +25,11 @@
 
 	import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 
-	import { CharacterController } from '@/components/characterController.js';
-	import { ThirdPersonCamera } from '@/components/thirdPersonCamera.js';
+	import { CharacterController } from '@/components/CharacterController.js';
+	import { ThirdPersonCamera } from '@/components/ThirdPersonCamera.js';
 
-	import { DynamicLightsBuilder } from '@/components/dynamicLightsBuilder.js';
+	import { DynamicLightsBuilder } from '@/components/DynamicLightsBuilder.js';
+	import { GuiManager } from '@/components/GuiManager.js';
 
 	export default {
 		props: {
@@ -657,137 +658,13 @@
 
 			initGui(){
 
-				this.gui = new dat.GUI({
-					closed: true,
-					width: 250
+				new GuiManager({
+					mainConfig: this.mainConfig,
+					debug: this.debug,
+					elementsAtInit: this.elementsAtInit,
+					orbit: this.orbit,
+					scene: this.scene
 				});
-
-				// ANIMATION
-				this.gui
-					.add(this.debug, "animated")
-					.name("run animation");
-
-				// FOG
-				if( this.mainConfig.fog.enabled ){
-
-					this.gui
-						.add(this.mainConfig.fog, "intensity")
-						.min(0)
-						.max(2)
-						.step(0.1)
-						.name("scene fog")
-						.onChange(() => {
-	
-							this.scene.fog = new THREE.FogExp2(
-									this.mainConfig.fog.color, 
-									this.mainConfig.fog.intensity
-							);
-	
-					});
-
-					this.gui
-						.addColor(this.mainConfig.fog, "color")
-						.name("fog color")
-						.onChange(() => {
-	
-							this.scene.fog = new THREE.FogExp2(
-									this.mainConfig.fog.color, 
-									this.mainConfig.fog.intensity
-							);
-	
-					});
-					
-				}
-
-				// ELEMENTS
-				if( this.mainConfig.guiConfig ){
-
-					Object.keys(this.elementsAtInit).forEach(key => {
-	
-						const currentGuiFolder = this.gui.addFolder(key);
-	
-						this.mainConfig.guiConfig.elements[key] = {};
-	
-						// position / rotation
-	
-	
-						Object.keys(this.mainConfig.guiConfig.actions).forEach(actionKey => {
-	
-							const currentGuiSubFolder = currentGuiFolder.addFolder(actionKey);
-	
-							this.mainConfig.guiConfig.elements[key][actionKey] = { x: 0, y: 0, z: 0 };
-	
-							Object.keys(this.mainConfig.guiConfig.elements[key][actionKey]).forEach(subKey => {
-	
-								currentGuiSubFolder
-									.add(this.mainConfig.guiConfig.elements[key][actionKey], subKey)
-									.name(`-> ${subKey}`)
-									.min(this.mainConfig.guiConfig.actions[actionKey].min).max(this.mainConfig.guiConfig.actions[actionKey].max).step(this.mainConfig.guiConfig.actions[actionKey].step)
-									.onChange(() => {
-										console.log("onChange : ", this.elementsAtInit[key]);
-										// this.elementsAtInit[key][actionKey].set(this.mainConfig.guiConfig.elements[key][actionKey]);
-										this.elementsAtInit[key][actionKey][subKey] = this.mainConfig.guiConfig.elements[key][actionKey][subKey];
-									});
-	
-							});
-	
-						});
-	
-					});
-	
-	
-	
-					// FUNCTIONS :
-	
-					// reveal infos camera :
-					this.mainConfig.guiConfig.camera = {};
-	
-					// position
-					this.mainConfig.guiConfig.camera.revealPosition = () => {
-	
-						const realCamera = this.scene.children.find(child => child instanceof THREE.PerspectiveCamera );
-	
-						console.log(realCamera);
-	
-					};
-					this.gui.add(this.mainConfig.guiConfig.camera, "revealPosition").name("revealPosition()");
-	
-					// fov
-					this.mainConfig.guiConfig.camera.revealFov = () => {
-	
-						const realCamera = this.scene.children.find(child => child instanceof THREE.PerspectiveCamera );
-	
-						console.log(realCamera.fov);
-	
-					};
-					this.gui.add(this.mainConfig.guiConfig.camera, "revealFov").name("revealFov()");
-	
-	
-					// play intro
-					this.mainConfig.guiConfig.playIntro = () => {
-	
-						// seq 1.0
-						// this.timelines.camera = this.buildTubeTravellingTween();
-
-						// seq 1.1
-						// this.timelines.camera = this.buildGeneralManualCameraTween(this.currentSequence.paths.steps);
-	
-						// en gros : ça c'est le lancement de séquence :
-						// this.timelines.camera.play();
-	
-					};
-					this.gui.add(this.mainConfig.guiConfig, "playIntro").name("playIntro()");
-	
-	
-					// enable/disable orbit :
-					this.mainConfig.guiConfig.orbitEnabler = () => {
-	
-						this.orbit.enabled = !this.orbit.enabled;
-	
-					};
-					this.gui.add(this.mainConfig.guiConfig, "orbitEnabler").name("orbitEnabler()");
-
-				}
 
 			},
 

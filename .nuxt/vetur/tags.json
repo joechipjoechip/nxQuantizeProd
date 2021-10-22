@@ -1,14 +1,17 @@
 {
-  "CanvasVideo": {
-    "description": "Auto imported from components/canvasVideo.vue"
-  },
   "CharacterController": {
-    "description": "Auto imported from components/characterController.js"
+    "description": "Auto imported from components/CharacterController.js"
   },
   "DynamicLightsBuilder": {
-    "description": "Auto imported from components/dynamicLightsBuilder.js"
+    "description": "Auto imported from components/DynamicLightsBuilder.js"
+  },
+  "GuiManager": {
+    "description": "Auto imported from components/GuiManager.js"
   },
   "ThirdPersonCamera": {
-    "description": "Auto imported from components/thirdPersonCamera.js"
+    "description": "Auto imported from components/ThirdPersonCamera.js"
+  },
+  "CanvasVideo": {
+    "description": "Auto imported from components/canvasVideo.vue"
   }
 }

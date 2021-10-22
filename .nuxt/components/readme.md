@@ -6,7 +6,8 @@ You can directly use them in pages and other components without the need to impo
 
 **Tip:** If a component is conditionally rendered with `v-if` and is big, it is better to use `Lazy` or `lazy-` prefix to lazy load.
 
+- `<CharacterController>` | `<character-controller>` (components/CharacterController.js)
+- `<DynamicLightsBuilder>` | `<dynamic-lights-builder>` (components/DynamicLightsBuilder.js)
+- `<GuiManager>` | `<gui-manager>` (components/GuiManager.js)
+- `<ThirdPersonCamera>` | `<third-person-camera>` (components/ThirdPersonCamera.js)
 - `<CanvasVideo>` | `<canvas-video>` (components/canvasVideo.vue)
-- `<CharacterController>` | `<character-controller>` (components/characterController.js)
-- `<DynamicLightsBuilder>` | `<dynamic-lights-builder>` (components/dynamicLightsBuilder.js)
-- `<ThirdPersonCamera>` | `<third-person-camera>` (components/thirdPersonCamera.js)
