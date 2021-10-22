@@ -11,6 +11,9 @@
   "CharacterController": {
     "description": "Auto imported from components/characterController.js"
   },
+  "DynamicLightsBuilder": {
+    "description": "Auto imported from components/dynamicLightsBuilder.js"
+  },
   "ThirdPersonCamera": {
     "description": "Auto imported from components/thirdPersonCamera.js"
   }
