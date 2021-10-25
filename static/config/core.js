@@ -153,7 +153,7 @@ const core = {
 					id: "1.0",
 					type: "blender-tube",
 					animatedMesh: true,
-					link: true,
+					// link: true,
 
 					config: {
 
@@ -170,10 +170,10 @@ const core = {
 
 					},
 
-					// blenderCurvesAndTubes: true,
+					blenderCurvesAndTubes: true,
 
 					// si target : donner le nom
-					targetName: "link",
+					targetName: "linkMain",
 
 					// si path : donner le nom
 					pathName: "cameraPoint",
@@ -182,7 +182,7 @@ const core = {
 						seeTube: false
 					},
 					global: {
-						duration: 4,
+						duration: 40,
 						globalEase: "power4.inOut"
 					},
 					curveSteps: [

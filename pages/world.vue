@@ -23,6 +23,7 @@
 
 	// TWEENS BUILDER
 	import { SpecificManualCameraTweenBuilder } from '@/components/SpecificManualCameraTweenBuilder.js';
+	import { BlenderTubes } from '@/components/BlenderTubes.js';
 
 	// CHARACTER HANDLERS
 	import { CharacterController } from '@/components/CharacterController.js';
@@ -456,9 +457,14 @@
 
 				if( this.currentSequence?.blenderCurvesAndTubes ){
 
-					console.log(`in ${this.thisWorldKey}, sequence.id: ${this.currentSequence.id} part aux tubes`);
+					console.log(`TUBES : in ${this.thisWorldKey}, sequence.id: ${this.currentSequence.id}`);
 
-					this.initBlenderCurvesAndTubes();
+					this.blenderTubesManager = new BlenderTubes({
+						currentSequence: this.currentSequence,
+						gltf: this.gltf,
+						scene: this.scene,
+						currentCamera: this.currentCamera
+					});
 
 				}
 				
@@ -704,12 +710,6 @@
 	
 						mainMapMerged.material = this.bakedMaterial;
 
-						// mainMapMerged.receiveShadow = true;
-
-						// mainMapMerged.receiveShadow = true;
-
-						// mainMapMerged.material.needsUpdate = true;
-
 	
 					} else {
 						// on rétablit le matérial de base 
@@ -749,7 +749,7 @@
 					case "blender-tube":
 
 						// seq 1.0
-						// this.timelines.camera = this.buildTubeTravellingTween();
+						this.timelines.camera = this.blenderTubesManager._TweenBuilder();
 						
 						break;
 
@@ -776,199 +776,6 @@
 					this.gltf.length && this.timelines.camera.play();
 
 				}
-
-			},
-
-			// BLENDER CURVES AND TUBES INITS
-			initBlenderCurvesAndTubes(){
-
-				const pathName = this.currentSequence?.pathName;
-
-				if( !pathName || !this.gltf ){ return; }
-
-				// D'abord on récupère les objets vides crés dans blender
-				this.elementsAtInit.curvePoints = this.gltf.scene.children.filter(child => child.name.indexOf(pathName) !== -1);
-				
-				this.smoothedCurvePoints = this.elementsAtInit.curvePoints?.map(object3d => {
-
-					return new THREE.Vector3(
-						object3d.position.x, 
-						object3d.position.y, 
-						object3d.position.z
-					);
-
-				});
-
-				// Et Ensuite on construit tout ça :
-				const parentPath = new THREE.Object3D();
-
-				parentPath.name = "parentPath";
-
-				const curve = new THREE.CatmullRomCurve3(this.smoothedCurvePoints || 0, false, "chordal");
-
-				// ADD TUBE
-				const tubeGeometry = new THREE.TubeGeometry( curve, 64, 0.06, 8);
-
-
-				// ADD GEOMETRY
-				const material = new THREE.MeshLambertMaterial( { 
-					color: 0xff00ff, 
-					side: THREE.DoubleSide,
-					wireframe: true,
-					visible: this.thisWorld.sequences[0].debug?.seeTube ? true : false
-				});
-
-				this.tube = new THREE.Mesh( tubeGeometry, material );
-
-				this.tube.name = "tube";
-
-				parentPath.add( this.tube );
-
-				this.scene.add(parentPath);
-
-				this.cameraShouldTravel = true;
-
-			},
-
-			buildTubeTravellingTween(){
-
-				const linkGroup = this.scene.children.find(child => child.name === "link");
-
-				// const link = linkGroup.children[0];
-				const link = this.scene.children.find(child => child.name === "mainMapMerged");
-
-				// à décoréler des frames
-				const tlToReturn = new TimelineMax();
-
-				const tlSequence = new TimelineMax();
-
-				const globalDuration = this.currentSequence.global.duration;
-
-
-				this.currentSequence.curveSteps.forEach((step, index) => {
-
-					
-					const tlStep = new TimelineMax();
-
-					const thisStepDuration = ((globalDuration / 100) * step.duration);
-
-					const alreadyPlayedStep = this.currentSequence.curveSteps.filter((onStep, indexSeq) => {
-
-						if( indexSeq <  index ){
-							return onStep;
-						}
-
-					});
-
-					let alreadyPlayedDuration = alreadyPlayedStep.reduce((acc, step) => {
-
-						const specificStepDuration = ((globalDuration / 100) * step.duration);
-
-						return acc + specificStepDuration;
-
-					}, 0);
-
-					// console.log("alreadyPlayedDuration : ", alreadyPlayedDuration);
-					// console.log("this step duration : ", thisStepDuration);
-
-					const animatedObject = {
-						time: alreadyPlayedDuration
-					};
-
-					const timeToReach = alreadyPlayedDuration + thisStepDuration;
-
-					tlStep.to(
-						animatedObject, 
-						thisStepDuration, 
-						{
-							time: timeToReach,
-							ease: step.stepEase,
-
-							onUpdate: () => {
-
-								const time = animatedObject.time;
-
-								const looptime = globalDuration;
-
-								const t = ((time % looptime) / looptime);
-
-								const t2 = (((time + 0.2) % looptime) / looptime);
-
-								// console.log("time : ", time);
-									
-								const pos1 = this.tube.geometry.parameters.path.getPointAt(t);     
-
-								const pos2 = this.tube.geometry.parameters.path.getPointAt(t2);
-								
-								this.currentCamera.position.copy(pos1);
-
-								if( this.currentSequence.type.indexOf("target") !== -1 ){
-
-									this.tubeTravelTargetPosition = link.position;
-
-								} else {
-									
-									this.tubeTravelTargetPosition = pos2;
-
-								}
-
-								
-
-							},
-
-							onComplete: () => {
-
-								console.log("this specific step is done : ", index);
-
-								this.tubeTravelTargetPosition = false;
-
-							}
-
-						}
-
-					);
-
-					tlSequence.add(tlStep);
-
-				});
-
-				tlToReturn.add(tlSequence);
-
-// 
-
-				tlToReturn.pause();
-
-				return tlToReturn;
-
-
-
-
-				// const linkGroup = this.scene.children.find(child => child.name === "linkGltfScene");
-
-				// const linkPosition = linkGroup.children[0].position;
-
-
-
-
-
-				// const looptime = 10; //velocity
-				
-				// const t = (time % looptime) / looptime;
-
-				// const t2 = ((time + 0.1) % looptime) / looptime;
-					
-				// const pos1 = this.tube.geometry.parameters.path.getPointAt(t);     
-
-				// const pos2 = this.tube.geometry.parameters.path.getPointAt(t2);
-				
-				// this.currentCamera.position.copy(pos1);
-
-				// // si on veut regarder droit devant la camera :
-				// // this.currentCamera.lookAt(pos2);
-
-				// // mais si on veut lookAt une target :
-				// this.currentCamera.lookAt(linkPosition);
-
 
 			},
 

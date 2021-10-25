@@ -2,6 +2,7 @@ import Vue from 'vue'
 import { wrapFunctional } from './utils'
 
 const components = {
+  BlenderTubes: () => import('../../components/BlenderTubes.js' /* webpackChunkName: "components/blender-tubes" */).then(c => wrapFunctional(c.default || c)),
   CharacterController: () => import('../../components/CharacterController.js' /* webpackChunkName: "components/character-controller" */).then(c => wrapFunctional(c.default || c)),
   DynamicLightsBuilder: () => import('../../components/DynamicLightsBuilder.js' /* webpackChunkName: "components/dynamic-lights-builder" */).then(c => wrapFunctional(c.default || c)),
   GuiManager: () => import('../../components/GuiManager.js' /* webpackChunkName: "components/gui-manager" */).then(c => wrapFunctional(c.default || c)),

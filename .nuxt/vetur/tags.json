@@ -1,4 +1,7 @@
 {
+  "BlenderTubes": {
+    "description": "Auto imported from components/BlenderTubes.js"
+  },
   "CharacterController": {
     "description": "Auto imported from components/CharacterController.js"
   },

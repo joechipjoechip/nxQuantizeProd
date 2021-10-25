@@ -156,4 +156,4 @@ class GuiManager {
 	}
 }
 
-export{ GuiManager };
+export { GuiManager };
