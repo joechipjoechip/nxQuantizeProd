@@ -11,7 +11,7 @@ class BlenderTubes{
 		this._scene = params.scene;
 		this._currentCamera = params.currentCamera;
 		this._target = params.target;
-		
+
 		this._tube = null;
 		this._tubeTravelTargetPosition = null;
 	
@@ -126,30 +126,29 @@ class BlenderTubes{
 						const looptime = globalDuration;
 
 						const t = ((time % looptime) / looptime);
-
-						const t2 = (((time + 0.2) % looptime) / looptime);
-							
+						
 						const pos1 = this._tube.geometry.parameters.path.getPointAt(t);     
-
-						const pos2 = this._tube.geometry.parameters.path.getPointAt(t2);
 						
 						this._currentCamera.position.copy(pos1);
-
+						
 						if( this._target ){
-
+							
 							this._tubeTravelTargetPosition = this._target._controls.Position;
-
+							
 						} else {
-
+							
 							// sans target, on regarde simplement devant soi sur le tube
+							const t2 = (((time + 0.2) % looptime) / looptime);
+
+							const pos2 = this._tube.geometry.parameters.path.getPointAt(t2);
 							
 							this._tubeTravelTargetPosition = pos2;
 
 						}
 
-						// le this._tubeTravelTargetPosition est utilisé dans le render de world.vue
-
-						
+						// enfin : 
+						// le this._tubeTravelTargetPosition sera utilisé dans le render principal
+						// (dans world.vue)
 
 					},
 
