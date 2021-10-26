@@ -10,11 +10,12 @@ class BlenderTubes{
 		this._currentSequence = params.currentSequence;
 		this._scene = params.scene;
 		this._currentCamera = params.currentCamera;
+		this._target = params.target;
+		
 		this._tube = null;
+		this._tubeTravelTargetPosition = null;
 	
 		this._Inits();
-
-		// TODO : le lookAt ne semble pas fonctionner correctement (target ou non)
 
 	}
 
@@ -77,19 +78,6 @@ class BlenderTubes{
 
 	_TweenBuilder(){
 
-		let target = null;
-
-		this._scene.traverse(child => {
-
-			if( child.name === this._currentSequence.targetName ){
-
-				target = child;
-
-			}
-
-		});
-
-		// à décoréler des frames
 		const tlToReturn = new TimelineMax();
 
 		const tlSequence = new TimelineMax();
@@ -140,8 +128,6 @@ class BlenderTubes{
 						const t = ((time % looptime) / looptime);
 
 						const t2 = (((time + 0.2) % looptime) / looptime);
-
-						// console.log("time : ", time);
 							
 						const pos1 = this._tube.geometry.parameters.path.getPointAt(t);     
 
@@ -149,36 +135,19 @@ class BlenderTubes{
 						
 						this._currentCamera.position.copy(pos1);
 
+						if( this._target ){
 
-						// TODO  ! here is the thing
-
-						if( target === "hey"){
-
-							this._tubeTravelTargetPosition = target.position;
+							this._tubeTravelTargetPosition = this._target._controls.Position;
 
 						} else {
+
+							// sans target, on regarde simplement devant soi sur le tube
 							
 							this._tubeTravelTargetPosition = pos2;
 
 						}
 
-						// const looptime = 10; //velocity
-				
-						// const t = (time % looptime) / looptime;
-
-						// const t2 = ((time + 0.1) % looptime) / looptime;
-							
-						// const pos1 = this.tube.geometry.parameters.path.getPointAt(t);     
-
-						// const pos2 = this.tube.geometry.parameters.path.getPointAt(t2);
-						
-						// this.currentCamera.position.copy(pos1);
-
-						// // si on veut regarder droit devant la camera :
-						// // this.currentCamera.lookAt(pos2);
-
-						// // mais si on veut lookAt une target :
-						// this.currentCamera.lookAt(linkPosition);
+						// le this._tubeTravelTargetPosition est utilisé dans le render de world.vue
 
 						
 
@@ -201,8 +170,6 @@ class BlenderTubes{
 		});
 
 		tlToReturn.add(tlSequence);
-
-// 
 
 		tlToReturn.pause();
 

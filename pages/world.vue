@@ -463,7 +463,8 @@
 						currentSequence: this.currentSequence,
 						gltf: this.gltf,
 						scene: this.scene,
-						currentCamera: this.currentCamera
+						currentCamera: this.currentCamera,
+						target: this.linkController ? this.linkController : null
 					});
 
 				}
@@ -890,11 +891,11 @@
 
 				}
 
-				if( this.tubeTravelTargetPosition ){
+				if( this.blenderTubesManager?._tubeTravelTargetPosition ){
 
 					console.log("tubeTravelTargetPosition : au render ca lookat");
 
-					this.currentCamera.lookAt(this.tubeTravelTargetPosition);
+					this.currentCamera.lookAt(this.blenderTubesManager._tubeTravelTargetPosition);
 
 				}
 
