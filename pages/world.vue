@@ -336,6 +336,8 @@
 						if( child.name === this.thisWorld.base.meshsInfos.map.name ){
 	
 							this.elementsAtInit.landscape = child;
+
+							this.elementsAtInit.landscapeShadow = child.clone();
 	
 						}
 
@@ -370,6 +372,8 @@
 
 						this.landscape = this.elementsAtInit.landscape;
 
+						this.createShadowMaterial();
+
 					}
 
 				}
@@ -380,6 +384,25 @@
 					this.addLights();
 
 				}
+
+			},
+
+			createShadowMaterial(){
+
+				const shadowMaterial = new THREE.ShadowMaterial({
+					color: 0x000000,
+					opacity: 0.8
+				});
+
+				// shadowMaterial.blending = THREE.MultiplyBlending;
+
+				this.elementsAtInit.landscapeShadow.name += "Shadow";
+
+				this.elementsAtInit.landscapeShadow.receiveShadow = true;
+
+				this.elementsAtInit.landscapeShadow.material = shadowMaterial;
+
+				this.scene.add(this.elementsAtInit.landscapeShadow);
 
 			},
 
@@ -602,7 +625,7 @@
 
 				// Camera
 				const aspectRatio = window.innerWidth / window.innerHeight;
-				this.elementsAtInit.camera = new THREE.PerspectiveCamera(75, aspectRatio, 0.0001, 100);
+				this.elementsAtInit.camera = new THREE.PerspectiveCamera(75, aspectRatio, 0.1, 100);
 
 				this.elementsAtInit.camera.name = "baseCamera";
 
@@ -657,9 +680,9 @@
 
 				this.renderer.outputEncoding = THREE.sRGBEncoding;
 
-				// this.renderer.shadowMap.enabled = true;
+				this.renderer.shadowMap.enabled = true;
 
-				// this.renderer.shadowMap.type = THREE.PCFShadowMap;
+				this.renderer.shadowMap.type = THREE.PCFShadowMap;
 
 				this.clock = new THREE.Clock();
 
@@ -722,6 +745,8 @@
 						});
 	
 						mainMapMerged.material = this.bakedMaterial;
+
+						// mainMapMerged.needsUpdate = true;
 
 					}
 

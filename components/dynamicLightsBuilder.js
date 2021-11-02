@@ -65,25 +65,63 @@ class DynamicLightsBuilder {
 		// now all data is well organized : we can create and add theses lights
 		lightsToCreate.forEach((light, index) => {
 
-			// PointLight( color : Integer, intensity : Float, distance : Number, decay : Float )
-			const lightToAdd = new THREE.PointLight(
-				light.color,
-				light.intensity,
-				light.distance,
-				light.decay
-			);
-
-			const spotLightHelper = new THREE.PointLightHelper( lightToAdd, 30 );
-			spotLightHelper.name = `pointLightHelper-${index}`;
-
-			lightToAdd.position.copy(light.position);
+			if( index === 0 ){
 
 
-			lightToAdd.name = `pointLight-${index + 1}`;
+				// @TODO : dynamiser le cube de projection d'ombre en fonction de la position du personnage
+				// cube de projection défini par .far .near .bottom et .top
+				// (donc donner linkController ici)
+				// ca implique des calculs de position, d'orientation etc
+				// le cours sur les vecteurs va etre indispensable ici
+				// mais à la fin ce sera opti de ouf
 
-			// et on add à la scene
-			this._scene.add(lightToAdd);
-			this._scene.add(spotLightHelper);
+
+				// PointLight( color : Integer, intensity : Float, distance : Number, decay : Float )
+				// const lightToAdd = new THREE.PointLight(
+				// 	light.color,
+				// 	light.intensity,
+				// 	light.distance,
+				// 	light.decay
+				// );
+
+				const lightToAdd = new THREE.DirectionalLight(
+					light.color,
+					light.intensity,
+					// light.distance,
+					// light.decay
+				);
+
+				// const spotLightHelper = new THREE.DirectionalLightHelper( lightToAdd, 10 );
+				
+
+				lightToAdd.position.copy(light.position);
+
+				lightToAdd.target.position.set(0, 0, 0);
+
+				lightToAdd.shadowCameraVisible = true;
+
+				
+				// une seule shadow
+				lightToAdd.castShadow = true;
+
+				lightToAdd.shadow.mapSize.width = 1024;
+				lightToAdd.shadow.mapSize.height = 1024;
+				lightToAdd.shadow.camera.near = 12;
+				lightToAdd.shadow.camera.far = 19;
+
+				
+
+
+				lightToAdd.name = `pointLight-${index}`;
+
+				const spotLightHelper = new THREE.CameraHelper(lightToAdd.shadow.camera);
+				spotLightHelper.name = `pointLightHelper-${index}`;
+
+				// et on add à la scene
+				this._scene.add(lightToAdd);
+				this._scene.add(spotLightHelper);
+
+			}
 
 		});
 	}
