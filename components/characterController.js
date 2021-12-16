@@ -193,6 +193,19 @@ class BasicCharacterController {
     }
   }
 
+  UpdateDynamicLightShadowCamera( lightToUpdate ){
+
+    console.log("hey le UpdateDynamicLightShadowCamera, this._position.x : ", this._position.x);
+
+    lightToUpdate.shadow.camera.target = new THREE.Object3D({ 
+      name: "craftedTarget", 
+      position: this._position 
+    });
+
+    // lightToUpdate.shadow.camera.lookAt(this._position);
+
+  }
+
   
 };
 
