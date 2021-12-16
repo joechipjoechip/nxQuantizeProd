@@ -81,6 +81,7 @@
 				linkHasBeenAdded: false,
 				generatedCameras: {},
 				thirdPersonCamera: {},
+				dynamicLights: null,
 				currentCamera: null,
 				landscape: null,
 				link: null,
@@ -300,7 +301,7 @@
 
 				}
 
-				if( newSequence.hasOwnProperty("link") ){
+				if( newSequence.hasOwnProperty("link") && !this.linkController ){
 
 					const linkInfos = newSequence.link;
 					linkInfos.start = this.elementsAtInit.linkPositions[0];
@@ -418,7 +419,7 @@
 
 			addLights(){
 
-				new DynamicLightsBuilder({
+				this.dynamicLights = new DynamicLightsBuilder({
 					lightsArr: this.elementsAtInit.lights,
 					scene: this.scene
 				});
@@ -935,6 +936,12 @@
 				if( this.linkController ){
 
 					this.linkController._controls.Update(deltaTime);
+
+					if( this.dynamicLights[0] ){
+
+						this.linkController._controls.UpdateDynamicLightShadowCamera(this.dynamicLights[0]);
+						
+					}
 
 				}
 

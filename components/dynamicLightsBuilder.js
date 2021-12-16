@@ -6,8 +6,14 @@ class DynamicLightsBuilder {
 
 		this._lights = params.lightsArr;
 		this._scene = params.scene;
+		this._returnedCameras = [];
+		// this._link = params.link;
+
+		// console.log("dans le dynamic lights, link = ", this._link);
 
 		this._Inits();
+
+		return this._returnedCameras;
 
 	}
 
@@ -106,8 +112,8 @@ class DynamicLightsBuilder {
 
 				lightToAdd.shadow.mapSize.width = 1024;
 				lightToAdd.shadow.mapSize.height = 1024;
-				lightToAdd.shadow.camera.near = 12;
-				lightToAdd.shadow.camera.far = 19;
+				lightToAdd.shadow.camera.near = 14;
+				lightToAdd.shadow.camera.far = 17;
 
 				
 
@@ -116,6 +122,8 @@ class DynamicLightsBuilder {
 
 				const spotLightHelper = new THREE.CameraHelper(lightToAdd.shadow.camera);
 				spotLightHelper.name = `pointLightHelper-${index}`;
+
+				this._returnedCameras.push(lightToAdd);
 
 				// et on add à la scene
 				this._scene.add(lightToAdd);
