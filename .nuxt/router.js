@@ -7,6 +7,7 @@ import scrollBehavior from './router.scrollBehavior.js'
 const _72230dce = () => interopDefault(import('../pages/cinema.vue' /* webpackChunkName: "pages/cinema" */))
 const _dbdab410 = () => interopDefault(import('../pages/clip.vue' /* webpackChunkName: "pages/clip" */))
 const _7c900d7c = () => interopDefault(import('../pages/mountainWithPathBackup.vue' /* webpackChunkName: "pages/mountainWithPathBackup" */))
+const _fb284e6e = () => interopDefault(import('../pages/realtime-css.vue' /* webpackChunkName: "pages/realtime-css" */))
 const _4e5a0f6e = () => interopDefault(import('../pages/sceneTestingKeyframes.vue' /* webpackChunkName: "pages/sceneTestingKeyframes" */))
 const _555b3f1a = () => interopDefault(import('../pages/world.vue' /* webpackChunkName: "pages/world" */))
 const _3b66a74c = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
@@ -34,6 +35,10 @@ export const routerOptions = {
     path: "/mountainWithPathBackup",
     component: _7c900d7c,
     name: "mountainWithPathBackup"
+  }, {
+    path: "/realtime-css",
+    component: _fb284e6e,
+    name: "realtime-css"
   }, {
     path: "/sceneTestingKeyframes",
     component: _4e5a0f6e,

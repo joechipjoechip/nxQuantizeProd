@@ -21,6 +21,13 @@
     "_name": "_7c900d7c"
   },
   {
+    "name": "realtime-css",
+    "path": "/realtime-css",
+    "component": "/Users/joechip/Desktop/mesRepos/clip-nx-quantize/pages/realtime-css.vue",
+    "chunkName": "pages/realtime-css",
+    "_name": "_fb284e6e"
+  },
+  {
     "name": "sceneTestingKeyframes",
     "path": "/sceneTestingKeyframes",
     "component": "/Users/joechip/Desktop/mesRepos/clip-nx-quantize/pages/sceneTestingKeyframes.vue",
