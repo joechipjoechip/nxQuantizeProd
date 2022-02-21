@@ -35,7 +35,7 @@ class BasicCharacterController {
         new BasicCharacterControllerProxy(this._animations)
     );
     this._raycaster = new THREE.Raycaster();
-    this._moveScaledRatio = this._params.linkInfos.scale * 1000 * 2;
+    this._moveScaledRatio = this._params.linkInfos.scale * 100 * 2;
 
     this._LoadModels();
   }
