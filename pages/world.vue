@@ -938,7 +938,7 @@
 
 					this.linkController._controls.Update(deltaTime);
 
-					if( this.dynamicLights[0] ){
+					if( this.dynamicLights?.[0] ){
 
 						this.linkController._controls.UpdateDynamicLightShadowCamera(this.dynamicLights[0]);
 						
