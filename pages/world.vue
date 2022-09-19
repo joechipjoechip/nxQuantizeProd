@@ -1,6 +1,7 @@
 <template>
 	<div>
 		<p v-if="currentCamera">current camera name : {{ currentCamera.name }}</p>
+		<p v-if="currentSequence">current sequence : {{ currentSequence }}</p>
 		<canvas 
 			class="webgl" 
 			ref="canvas"
@@ -976,20 +977,17 @@
 
 <style lang="scss" scoped>
 
-	canvas {
-		// position: fixed;
-		// top: 0;
-		// left: 0;
-		outline: none;
+canvas {
+  z-index: 3;
+  // position: fixed;
+  // top: 0;
+  // left: 0;
+  outline: none;
+  pointer-events: all;
+}
 
-
-		pointer-events: all;
-		z-index: 3;
-	}
-
-	p {
-		color: black;
-		z-index: 5;
-	}
-
+p {
+  z-index: 5;
+  color: black;
+}
 </style>
