@@ -1,5 +1,3 @@
 /node_modules/
-/static/blender/
-/static/**/*.glb
+/.nuxt/
 *.blend
-/static/blender/worlds/mountainTwo/mountainTwoNextFork-runTestExports.glb
