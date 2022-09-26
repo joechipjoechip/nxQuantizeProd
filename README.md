@@ -2,7 +2,7 @@ Node version : 13.14.0
 
 # Nx-Quantize Project
 
-Create an interactive webGL musical clip for @nx_quantize
+Create an interactive webGL musical clip for music artist : @nx_quantize
 
 ## Build Setup
 
