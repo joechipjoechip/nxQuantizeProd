@@ -5,7 +5,7 @@ class GuiManager {
 
 	constructor(params){
 
-		this._mainConfig = params.mainConfig;
+		this._mainConfig = params.core;
 		this._debug = params.debug;
 		this._elementsAtInit = params.elementsAtInit;
 		this._orbit = params.orbit;

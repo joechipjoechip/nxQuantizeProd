@@ -13,6 +13,9 @@
 
 <script>
 
+	// CONFIGS
+	import { core } from '@/static/config/core.js';
+
 	// GSAP
 	import { TimelineMax } from 'gsap';
 
@@ -38,11 +41,6 @@
 	export default {
 		props: {
 
-			mainConfig: {
-				type: Object,
-				required: true
-			},
-
 			thisWorld: {
 				type: Object,
 				required: true
@@ -67,6 +65,7 @@
 
 		data(){
 			return{
+				core: core,
 				scene: null,
 				gltf: [],
 				orbit: null,
@@ -124,7 +123,9 @@
 
 		mounted(){
 
-			Object.keys(this.mainConfig.generatedCamerasSpecs).forEach(key =>{
+			console.log("core : ", this.core)
+
+			Object.keys(this.core.generatedCamerasSpecs).forEach(key =>{
 
 				this.generatedCameras[key] = null;
 
@@ -159,7 +160,7 @@
 
 				this.mouseRecenterTimeoutID = setTimeout(
 					this.mouseRecenter,
-					this.mainConfig.mouse.moveTimeout * 1000
+					this.core.mouse.moveTimeout * 1000
 				);
 
 			},
@@ -229,7 +230,7 @@
 
 			currentCamera( newVal ){
 
-				this.currentCameraSpecs = this.mainConfig.generatedCamerasSpecs[newVal.name];
+				this.currentCameraSpecs = this.core.generatedCamerasSpecs[newVal.name];
 
 				this.currentThirdPersonCamera = this.thirdPersonCamera[newVal.name];
 
@@ -238,6 +239,32 @@
 		},
 
 		methods: {
+
+			getRandomInt( min, max){
+				return Math.floor(Math.random() * (max - min + 1)) + min;
+			},
+
+
+			updateCanvasRefSize(){
+
+				const { width, height } = this.$refs.canvas.getBoundingClientRect();
+
+				this.canvasSizeRef = { 
+					width: width !== 0 ? width : window.innerWidth, 
+					height: height !== 0 ? height : window.innerHeight
+				};
+
+			},
+
+
+			mouseMoveHandler( event ){
+				
+				this.mousePos = {
+					x: (((event.offsetX + this.canvasSizeRef.width / 2) / this.canvasSizeRef.width) - 1) * 2,
+					y: (((event.offsetY + this.canvasSizeRef.height / 2) / this.canvasSizeRef.height) - 1) * -2
+				};
+
+			},
 
 			mouseRecenter(){
 
@@ -250,7 +277,7 @@
 
 				const tlRecenter = new TimelineMax();
 
-				tlRecenter.to(animatedObject, this.mainConfig.mouse.recenterDuration, {
+				tlRecenter.to(animatedObject, this.core.mouse.recenterDuration, {
 					x: 0,
 					y: 0,
 					onUpdate( that ){
@@ -264,25 +291,6 @@
 
 			},
 
-			updateCanvasRefSize(){
-
-				const { width, height } = this.$refs.canvas.getBoundingClientRect();
-
-				this.canvasSizeRef = { 
-					width: width !== 0 ? width : window.innerWidth, 
-					height: height !== 0 ? height : window.innerHeight
-				};
-
-			},
-
-			mouseMoveHandler( event ){
-				
-				this.mousePos = {
-					x: (((event.offsetX + this.canvasSizeRef.width / 2) / this.canvasSizeRef.width) - 1) * 2,
-					y: (((event.offsetY + this.canvasSizeRef.height / 2) / this.canvasSizeRef.height) - 1) * -2
-				};
-
-			},
 
 			onCurrentSequenceChange( newSequence ){
 
@@ -410,7 +418,7 @@
 
 			createGeneratedCameras(){
 
-				Object.keys(this.mainConfig.generatedCamerasSpecs).forEach(key => {
+				Object.keys(this.core.generatedCamerasSpecs).forEach(key => {
 
 					this.buildOneGeneratedCamera(key);
 
@@ -450,19 +458,15 @@
 				this.thirdPersonCamera[cameraType] = new ThirdPersonCamera({
 					target: this.linkController._controls,
 					camera: this.generatedCameras[cameraType],
-					specs: this.mainConfig.generatedCamerasSpecs[cameraType]
+					specs: this.core.generatedCamerasSpecs[cameraType]
 				});
 
-			},
-
-			getRandomInt( min, max){
-				return Math.floor(Math.random() * (max - min + 1)) + min;
 			},
 
 			onCanvasClickHandler(){
 
 				const actualCamName = this.currentCamera.name;
-				const generatedCamerasKeys = Object.keys(this.mainConfig.generatedCamerasSpecs);
+				const generatedCamerasKeys = Object.keys(this.core.generatedCamerasSpecs);
 
 				// bit dirty but quick (and removed later then)
 
@@ -693,7 +697,7 @@
 			initGui(){
 
 				new GuiManager({
-					mainConfig: this.mainConfig,
+					core: this.core,
 					debug: this.debug,
 					elementsAtInit: this.elementsAtInit,
 					orbit: this.orbit,

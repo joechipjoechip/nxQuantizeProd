@@ -2,50 +2,22 @@
   {
     "name": "cinema",
     "path": "/cinema",
-    "component": "/Users/joechip/Desktop/mesRepos/clip-nx-quantize/pages/cinema.vue",
+    "component": "/Users/joechip/Desktop/mesRepos/nxQuantize/pages/cinema.vue",
     "chunkName": "pages/cinema",
-    "_name": "_72230dce"
-  },
-  {
-    "name": "clip",
-    "path": "/clip",
-    "component": "/Users/joechip/Desktop/mesRepos/clip-nx-quantize/pages/clip.vue",
-    "chunkName": "pages/clip",
-    "_name": "_dbdab410"
-  },
-  {
-    "name": "mountainWithPathBackup",
-    "path": "/mountainWithPathBackup",
-    "component": "/Users/joechip/Desktop/mesRepos/clip-nx-quantize/pages/mountainWithPathBackup.vue",
-    "chunkName": "pages/mountainWithPathBackup",
-    "_name": "_7c900d7c"
-  },
-  {
-    "name": "realtime-css",
-    "path": "/realtime-css",
-    "component": "/Users/joechip/Desktop/mesRepos/clip-nx-quantize/pages/realtime-css.vue",
-    "chunkName": "pages/realtime-css",
-    "_name": "_fb284e6e"
-  },
-  {
-    "name": "sceneTestingKeyframes",
-    "path": "/sceneTestingKeyframes",
-    "component": "/Users/joechip/Desktop/mesRepos/clip-nx-quantize/pages/sceneTestingKeyframes.vue",
-    "chunkName": "pages/sceneTestingKeyframes",
-    "_name": "_4e5a0f6e"
+    "_name": "_794b9d15"
   },
   {
     "name": "world",
     "path": "/world",
-    "component": "/Users/joechip/Desktop/mesRepos/clip-nx-quantize/pages/world.vue",
+    "component": "/Users/joechip/Desktop/mesRepos/nxQuantize/pages/world.vue",
     "chunkName": "pages/world",
-    "_name": "_555b3f1a"
+    "_name": "_190bab9e"
   },
   {
     "name": "index",
     "path": "/",
-    "component": "/Users/joechip/Desktop/mesRepos/clip-nx-quantize/pages/index.vue",
+    "component": "/Users/joechip/Desktop/mesRepos/nxQuantize/pages/index.vue",
     "chunkName": "pages/index",
-    "_name": "_3b66a74c"
+    "_name": "_b405ce44"
   }
 ]

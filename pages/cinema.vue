@@ -14,8 +14,7 @@
 			:ref="worldKey"
 			:key="worldKey"
 
-			:mainConfig="core.main"
-			:thisWorld="core.worlds[worldKey]" 
+			:thisWorld="worlds[worldKey]" 
 			:thisWorldKey="worldKey"
 
 			:visibleWorldKey="visibleWorldKey"
@@ -27,9 +26,8 @@
 
 <script>
 
-	// core.env.mountainTwo
-
 	import { core } from '@/static/config/core.js';
+	import { worlds } from '@/static/config/worlds.js';
 
 	import world from "./world.vue";
 
@@ -42,9 +40,10 @@
 		data(){
 			return {
 				core,
+				worlds,
 				visibleSequenceID: "",
-				worldsKeys: Object.keys(core.worlds),
-				visibleWorldKey: "mountainTwo"
+				worldsKeys: Object.keys(worlds),
+				visibleWorldKey: "base002"
 			}
 		},
 		watch: {
@@ -55,7 +54,7 @@
 
 				this.worldsKeys.forEach(worldKey => {
 
-					this.core.worlds[worldKey].sequences.forEach(seq => {
+					this.worlds[worldKey].sequences.forEach(seq => {
 
 						if( seq.id === newVal ){
 

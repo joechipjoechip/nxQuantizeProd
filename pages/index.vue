@@ -1,26 +1,18 @@
 <template>
-  <div class="devLinks">
-    <nuxt-link to="clip">go to clip</nuxt-link>
-    <nuxt-link to="mountain">the mountain</nuxt-link>
-    <nuxt-link to="sceneTestingKeyframes">sceneTestingKeyframes</nuxt-link>
-    <nuxt-link to="realtime-css">realtime css</nuxt-link>
-    <nuxt-link to="cinema">cinéma + séquencer</nuxt-link>
-    
-  </div>
+	<div>
+		hello ! let's go : 
+		<button>
+			<nuxt-link to="cinema">GO</nuxt-link>
+		</button>
+	</div>
 </template>
 
 <script>
-export default {}
+	export default {
+		
+	}
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 
-  .devLinks {
-
-    * {
-      display: block;
-    }
-
-  }
-  
 </style>
