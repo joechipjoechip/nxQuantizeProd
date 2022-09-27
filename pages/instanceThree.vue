@@ -24,6 +24,7 @@
 
 	// THREE
 	import * as THREE from 'three';
+	import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 	import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js"
 	import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 
@@ -38,67 +39,188 @@
 
 		data(){
 			return {
-				scene: new THREE.Scene(),
+				// Config from worlds.js
+				worldConfig: worlds.find( world => world.sequences.find( seq => seq.id === this.sequenceID) ),
+
+				// Loaders
 				dracoLoader: new DRACOLoader(),
 				glbLoader: new GLTFLoader(),
 				textureLoader: new THREE.TextureLoader(),
-				worldConfig: worlds.find( world => world.sequences.find( seq => seq.id === this.sequenceID)),
+
+				// Three elements
+				aspectRatio: window.innerWidth / window.innerHeight,
+				camera: null,
+				scene: new THREE.Scene(),
 				sceneElements: {
 					landscape: null,
 					sky: null,
 					bob: null,
 					lights: [],
-					baked: {
-						texture: null,
-						material: null
+					misc: {
+						landscape: {
+							texture: null,
+							material: null
+						},
+						sky: {
+							texture: null,
+							material: null
+						}
 					}
+				},
+				renderer: null,
+				clock: null,
+				glbLoaded: false,
+				texturesCreated: false,
+
+				// Helpers
+				orbit: null,
+
+				// Others
+				canvasSizeRef: { 
+					width: window.innerWidth, 
+					height: window.innerHeight
+				},
+				debug: {
+					animated: true
 				}
 			}
+		},
+
+		computed: {
+
+			assetsLoaded(){
+				return this.glbLoaded && this.texturesCreated
+			}
+
+		},
+
+		watch: {
+
+			assetsLoaded( newVal ){
+
+				if( newVal ){
+					this.onceAssetsAreLoaded();
+				}
+
+			}
+
 		},
 
 		mounted(){
 
 			// DRACO loader
-			// si on a compressé le model à l'export dans blender (donc un .glb), 
-			// on aura besoin d'un DRACOLoader
+			// to load compressed glTF (so glB files) we need a DracoLoader
 			this.dracoLoader.setDecoderPath("draco/");
 			this.glbLoader.setDRACOLoader(this.dracoLoader);
 
+			this.camera = new THREE.PerspectiveCamera(75, this.aspectRatio, 0.1, 100);
+
+			this.loadsManager();
 
 		},
 
 		methods: {
 
+			onceAssetsAreLoaded(){
+
+				this.applyBakedOnMeshes();
+
+				this.composeScene();
+
+				this.addHelpers();
+
+				this.refreshScene();
+
+				this.initRenderer();
+
+				this.mainTick();
+
+			},
+
 			loadsManager(){
 
-
-				this.loadTexture();
 				this.loadGlb();
+
+				this.loadTextures();
+
+			},
+
+			loadTextures(){
+
+				Object.keys(this.worldConfig.main.meshInfos.world.imagePath).forEach(key => {
+
+					this.sceneElements.misc[key].texture = this.textureLoader.load(this.worldConfig.main.meshInfos.world.imagePath[key]);
+
+					this.createBakedMaterial(key);
+
+				});
+
+				this.texturesCreated = true;
+
+			},
+
+			createBakedMaterial( key ){
+
+				this.sceneElements.misc[key].texture.flipY = false;
+	
+				this.sceneElements.misc[key].texture.encoding = THREE.sRGBEncoding;
+
+				this.sceneElements.misc[key].material = new THREE.MeshBasicMaterial({
+					map: this.sceneElements.misc[key].texture
+				});
+
+			},
+
+			applyBakedOnMeshes(){
+
+				Object.keys(this.worldConfig.main.meshInfos.world.imagePath).forEach(key => {
+
+					this.sceneElements[key].material = this.sceneElements.misc[key].material;
+
+				});
 
 			},
 
 			loadGlb(){
 
-				this.loadBaked()
+				Object.keys(this.worldConfig.main.meshInfos).forEach(key => {
 
-				this.glbLoader.load(
-					this.worldConfig.main.meshInfos.glbPath, 
-					glbFile => { this.glbParser(glbFile) }
-				);
+					// load GLB files
+					this.glbLoader.load(
+						this.worldConfig.main.meshInfos[key].glbPath, 
+						glbFile => { this.glbParser(glbFile) }
+					);
+
+				});
+
 			},
 
 			glbParser(glbFile){
 
 				glbFile.scene.traverse(child => {
-	
-					// find map
-					if( child.name === this.worldConfig.main.meshInfos.mapName ){
 
-						this.sceneElements.landscape = child;
+					switch( child.name ){
 
-						this.sceneElements.landscapeShadow = child.clone();
+						// find map
+						case "landscape":
+							this.sceneElements.landscape = child;
+							// quand on sera à la gestion des ombres :
+							// this.sceneElements.landscapeShadow = child.clone();
+							break
 
+						// find sky
+						case "sky":
+							this.sceneElements.sky = child;
+							// quand on sera à la gestion des ombres
+							// this.sceneElements.landscapeShadow = child.clone();
+							break
+
+						// find bob initial position
+						case "bob-position":
+							this.sceneElements.bob = child;
+							break
 					}
+
 
 					// find lights
 					if( child.name.indexOf("light-") !== -1 ){
@@ -107,36 +229,96 @@
 
 					}
 
-					// find character's position
-					if( child.name.indexOf(`bob-position`) ){
+				});
 
-						this.sceneElements.bob = child;
-
-					}
-
-				})
+				this.glbLoaded = true;
 
 			},
 
-			loadTexture(){
+			composeScene(){
 
+				// Here we add landcape / sky? / bob?
+				Object.keys(this.worldConfig.main.meshInfos.world.imagePath).forEach(key => {
 
-				this.sceneElements.baked.texture = this.textureLoader.load(this.worldConfig.main.meshInfos.bakedTexturePath);
-	
-				this.sceneElements.baked.texture.flipY = false;
+					this.scene.add(this.sceneElements[key]);
 
-				this.sceneElements.baked.texture.encoding = THREE.sRGBEncoding;
-
-				this.sceneElements.baked.material = new THREE.MeshBasicMaterial({
-					map: this.sceneElements.baked.texture
 				});
 
+				this.scene.add(this.camera);
 
-				// j'en suis al
-				// mainMapMerged.material = this.bakedMaterial;
+			},
+
+			addHelpers(){
+
+				this.orbit = new OrbitControls(this.camera, this.$refs.canvas);
+
+				this.orbit.target = this.sceneElements.landscape.position;
+
+				this.orbit.enabled = true;
+
+				this.orbit.enableDamping = true;
+
+			},
+
+			refreshScene(){
+
+				this.camera.updateProjectionMatrix();
+
+			},
+
+			initRenderer(){
+
+				// Renderer
+				this.renderer = new THREE.WebGLRenderer({
+					canvas: this.$refs.canvas,
+					// ne peut pas être déclaré en dehors de l'instanciation
+					antialias: true
+				});
+
+				this.renderer.setPixelRatio(window.devicePixelRatio);
+
+				this.renderer.setSize(this.canvasSizeRef.width, this.canvasSizeRef.height);
+
+				this.renderer.setClearColor("#000000");
+
+				this.renderer.outputEncoding = THREE.sRGBEncoding;
+
+				// this.renderer.shadowMap.enabled = true;
+
+				// this.renderer.shadowMap.type = THREE.PCFShadowMap;
+
+				this.clock = new THREE.Clock();
+
+			},
+
+			// RENDER
+			tickThree(){
+
+				const elapsedTime = this.clock.getElapsedTime();
+
+				const deltaTime = elapsedTime - this.oldElapsedTime;
+
+				if( this.orbit ){
+					this.orbit.update();
+				}
 
 
-		
+				// a lot of stuffs to animate here
+
+
+
+				// NOW COMPUTE RENDER
+				this.renderer.render(this.scene, this.camera);
+
+				this.oldElapsedTime = elapsedTime;
+
+			},
+
+			mainTick(){
+
+				this.tickThree();
+
+				this.debug.animated && window.requestAnimationFrame(this.mainTick);
 
 			}
 
@@ -163,8 +345,15 @@ p {
 }
 
 .debug-space {
-  width: 350px;
-  height: 400px;
-  background-color: rgba(0,0,200, .3);
+  position: absolute;
+  top: 25px;
+  left: 5px;
+  background-color: rgba(0,0,200, .5);
+  pointer-events: none;
+
+  * {
+    padding: 0 15px;
+    color: white;
+  }
 }
 </style>

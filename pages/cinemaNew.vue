@@ -25,7 +25,7 @@
 			return {
 				// cette valeur, à terme, sera une props envoyée par 
 				// le component qui écoutera l'audio
-				sequenceID: "1.3"
+				sequenceID: "1.0"
 			}
 		},
 
