@@ -62,7 +62,7 @@
 			// si on a compressé le model à l'export dans blender (donc un .glb), 
 			// on aura besoin d'un DRACOLoader
 			this.dracoLoader.setDecoderPath("draco/");
-			this.glbLoader.setDRACOLoader(dracoLoader);
+			this.glbLoader.setDRACOLoader(this.dracoLoader);
 
 
 		},

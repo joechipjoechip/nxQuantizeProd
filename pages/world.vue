@@ -26,16 +26,16 @@
 	import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 
 	// TWEENS BUILDER
-	import { SpecificManualCameraTweenBuilder } from '@/components/SpecificManualCameraTweenBuilder.js';
-	import { BlenderTubes } from '@/components/BlenderTubes.js';
+	import { SpecificManualCameraTweenBuilder } from '@/components/specificManualCameraTweenBuilder.js';
+	import { BlenderTubes } from '@/components/blenderTubes.js';
 
 	// CHARACTER HANDLERS
-	import { CharacterController } from '@/components/CharacterController.js';
-	import { ThirdPersonCamera } from '@/components/ThirdPersonCamera.js';
+	import { CharacterController } from '@/components/characterController.js';
+	import { ThirdPersonCamera } from '@/components/thirdPersonCamera.js';
 
 	// MISC
-	import { DynamicLightsBuilder } from '@/components/DynamicLightsBuilder.js';
-	import { GuiManager } from '@/components/GuiManager.js';
+	import { DynamicLightsBuilder } from '@/components/dynamicLightsBuilder.js';
+	import { GuiManager } from '@/components/guiManager.js';
 
 
 	export default {

@@ -1,18 +1,18 @@
 {
   "BlenderTubes": {
-    "description": "Auto imported from components/BlenderTubes.js"
-  },
-  "GuiManager": {
-    "description": "Auto imported from components/GuiManager.js"
-  },
-  "SpecificManualCameraTweenBuilder": {
-    "description": "Auto imported from components/SpecificManualCameraTweenBuilder.js"
+    "description": "Auto imported from components/blenderTubes.js"
   },
   "CharacterController": {
     "description": "Auto imported from components/characterController.js"
   },
   "DynamicLightsBuilder": {
     "description": "Auto imported from components/dynamicLightsBuilder.js"
+  },
+  "GuiManager": {
+    "description": "Auto imported from components/guiManager.js"
+  },
+  "SpecificManualCameraTweenBuilder": {
+    "description": "Auto imported from components/specificManualCameraTweenBuilder.js"
   },
   "ThirdPersonCamera": {
     "description": "Auto imported from components/thirdPersonCamera.js"
