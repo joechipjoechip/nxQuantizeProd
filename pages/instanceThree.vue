@@ -48,6 +48,8 @@
 				textureLoader: new THREE.TextureLoader(),
 
 				// Three elements
+				frameRate: 1/30,
+				deltaTime: 0,
 				aspectRatio: window.innerWidth / window.innerHeight,
 				camera: null,
 				scene: new THREE.Scene(),
@@ -55,6 +57,7 @@
 					landscape: null,
 					sky: null,
 					bob: null,
+					initialCamera: null,
 					lights: [],
 					misc: {
 						landscape: {
@@ -215,6 +218,11 @@
 							// this.sceneElements.landscapeShadow = child.clone();
 							break
 
+						// find camera intial position
+						case "camera":
+							this.sceneElements.initialCamera = child;
+							break
+
 						// find bob initial position
 						case "bob-position":
 							this.sceneElements.bob = child;
@@ -243,6 +251,9 @@
 					this.scene.add(this.sceneElements[key]);
 
 				});
+
+				this.camera.position = this.sceneElements.initialCamera.position;
+				this.camera.rotation = this.sceneElements.initialCamera.rotation;
 
 				this.scene.add(this.camera);
 
@@ -294,32 +305,37 @@
 			// RENDER
 			tickThree(){
 
-				const elapsedTime = this.clock.getElapsedTime();
-
-				const deltaTime = elapsedTime - this.oldElapsedTime;
-
-				if( this.orbit ){
-					this.orbit.update();
-				}
-
-
-				// a lot of stuffs to animate here
-
-
-
-				// NOW COMPUTE RENDER
-				this.renderer.render(this.scene, this.camera);
-
-				this.oldElapsedTime = elapsedTime;
+				
 
 			},
 
 			mainTick(){
 
-				this.tickThree();
+				if( !this.debug.animated ) return;
 
-				this.debug.animated && window.requestAnimationFrame(this.mainTick);
+				window.requestAnimationFrame(this.mainTick);
 
+				this.deltaTime += this.clock.getDelta()
+
+
+
+				// a lot of stuffs to animate here
+				if( this.orbit ){
+					this.orbit.update();
+				}
+
+				// etc..
+				
+				
+				// NOW CHECK IF FRAMERATE IS GOOD
+				if( this.deltaTime > this.frameRate ){
+
+					// NOW COMPUTE RENDER
+					this.renderer.render(this.scene, this.camera);
+
+					this.deltaTime = this.deltaTime % this.frameRate;
+
+				}
 			}
 
 		}
