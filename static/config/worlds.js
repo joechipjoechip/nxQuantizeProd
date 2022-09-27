@@ -14,15 +14,15 @@ const worlds = [
 			meshInfos: {
 
 				world: {
-					glbPath: "/blender/worlds/mountainTwo/mountainTwo-scaled.glb",
+					glbPath: "/assets/3d/worlds/mountainTwo/mountainTwo-scaled.glb",
 					imagePath: {
-						landscape: "/blender/worlds/mountainTwo/mountainTwo.jpg",
-						// sky: "/blender/worlds/base002/baked002.jpg"
+						landscape: "/assets/3d/worlds/mountainTwo/mountainTwo.jpg",
+						// sky: "/assets/3d/worlds/base002/baked002.jpg"
 					}
 				},
 
 				// bob: {
-				// 	glbPath: "/blender/worlds/base002/link-001.glb"
+				// 	glbPath: "/assets/3d/worlds/base002/link-001.glb"
 				// }
 
 			}

@@ -113,7 +113,7 @@
 
 			// DRACO loader
 			// to load compressed glTF (so glB files) we need a DracoLoader
-			this.dracoLoader.setDecoderPath("draco/");
+			this.dracoLoader.setDecoderPath("assets/js/draco/");
 			this.glbLoader.setDRACOLoader(this.dracoLoader);
 
 			this.camera = new THREE.PerspectiveCamera(75, this.aspectRatio, 0.1, 100);
