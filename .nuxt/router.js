@@ -5,6 +5,8 @@ import { interopDefault } from './utils'
 import scrollBehavior from './router.scrollBehavior.js'
 
 const _794b9d15 = () => interopDefault(import('../pages/cinema.vue' /* webpackChunkName: "pages/cinema" */))
+const _73f2670a = () => interopDefault(import('../pages/cinemaNew.vue' /* webpackChunkName: "pages/cinemaNew" */))
+const _c1c102d6 = () => interopDefault(import('../pages/instanceThree.vue' /* webpackChunkName: "pages/instanceThree" */))
 const _190bab9e = () => interopDefault(import('../pages/world.vue' /* webpackChunkName: "pages/world" */))
 const _b405ce44 = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 
@@ -23,6 +25,14 @@ export const routerOptions = {
     path: "/cinema",
     component: _794b9d15,
     name: "cinema"
+  }, {
+    path: "/cinemaNew",
+    component: _73f2670a,
+    name: "cinemaNew"
+  }, {
+    path: "/instanceThree",
+    component: _c1c102d6,
+    name: "instanceThree"
   }, {
     path: "/world",
     component: _190bab9e,

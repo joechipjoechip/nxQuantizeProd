@@ -1,20 +1,10 @@
 const core = {
 
-	fog: {
-		enabled: true,
-		color: 0xff9500,
-		intensity: .5
-	},
-	colors: {
-		lights: {
-			purple: "#821EFF",
-			green: "#ABFFC7"
-		}
-	},
 	mouse: {
 		moveTimeout: 4,
 		recenterDuration: 2
 	},
+
 	generatedCamerasSpecs: {
 		// pos qui vont etre ajoutées à la position de la target (link)
 		gtaLike: {
@@ -101,6 +91,7 @@ const core = {
 			}
 		}	
 	},
+	
 	guiConfig: {
 		elements: {},
 		actions: {

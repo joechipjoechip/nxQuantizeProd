@@ -7,6 +7,20 @@
     "_name": "_794b9d15"
   },
   {
+    "name": "cinemaNew",
+    "path": "/cinemaNew",
+    "component": "/Users/joechip/Desktop/mesRepos/nxQuantize/pages/cinemaNew.vue",
+    "chunkName": "pages/cinemaNew",
+    "_name": "_73f2670a"
+  },
+  {
+    "name": "instanceThree",
+    "path": "/instanceThree",
+    "component": "/Users/joechip/Desktop/mesRepos/nxQuantize/pages/instanceThree.vue",
+    "chunkName": "pages/instanceThree",
+    "_name": "_c1c102d6"
+  },
+  {
     "name": "world",
     "path": "/world",
     "component": "/Users/joechip/Desktop/mesRepos/nxQuantize/pages/world.vue",
