@@ -1,5 +1,5 @@
 import * as dat from 'dat.gui';
-import * as THREE from 'three';
+// import * as THREE from 'three';
 
 class GuiManager {
 

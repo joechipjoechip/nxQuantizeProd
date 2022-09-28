@@ -2,9 +2,10 @@
 	<div>
 
 		<button @click="changeSceneHandler">change scene</button>
+		<button @click="stopAnimation">start/stop animation</button>
 
-		<instance-three 
-			ref="instance-three"
+		<instancethree 
+			ref="instancethree"
 			:sequenceID="sequenceID"
 		/>
 
@@ -18,7 +19,7 @@
 	export default {
 
 		components: {
-			"instance-three": instanceThree
+			"instancethree": instanceThree
 		},
 
 		data(){
@@ -43,6 +44,16 @@
 				// this.$children.forEach(child => {
 				// 	child.updateCanvasRefSize();
 				// });
+
+			},
+
+			stopAnimation(){
+
+				this.$refs.instancethree.debug.animated = !this.$refs.instancethree.debug.animated;
+
+				if( this.$refs.instancethree.debug.animated ){
+					this.$refs.instancethree.mainTick();
+				}
 
 			},
 
@@ -73,4 +84,15 @@
 
 <style lang="scss" scoped>
 
+button {
+  background-color: beige;
+
+  &.running {
+    background-color: greenyellow;
+  }
+
+  &.stoped {
+    background-color: red;
+  }
+}
 </style>

@@ -73,7 +73,8 @@
 				renderer: null,
 				clock: null,
 				glbLoaded: false,
-				texturesCreated: false,
+				bakedsCreated: false,
+				sceneIsReady: false,
 
 				// Helpers
 				orbit: null,
@@ -92,7 +93,7 @@
 		computed: {
 
 			assetsLoaded(){
-				return this.glbLoaded && this.texturesCreated
+				return this.glbLoaded && this.bakedsCreated
 			}
 
 		},
@@ -148,53 +149,17 @@
 
 			},
 
-			loadTextures(){
-
-				Object.keys(this.worldConfig.main.meshInfos.world.imagePath).forEach(key => {
-
-					this.sceneElements.misc[key].texture = this.textureLoader.load(this.worldConfig.main.meshInfos.world.imagePath[key]);
-
-					this.createBakedMaterial(key);
-
-				});
-
-				this.texturesCreated = true;
-
-			},
-
-			createBakedMaterial( key ){
-
-				this.sceneElements.misc[key].texture.flipY = false;
-	
-				this.sceneElements.misc[key].texture.encoding = THREE.sRGBEncoding;
-
-				this.sceneElements.misc[key].material = new THREE.MeshBasicMaterial({
-					map: this.sceneElements.misc[key].texture
-				});
-
-			},
-
-			applyBakedOnMeshes(){
-
-				Object.keys(this.worldConfig.main.meshInfos.world.imagePath).forEach(key => {
-
-					this.sceneElements[key].material = this.sceneElements.misc[key].material;
-
-				});
-
-			},
-
 			loadGlb(){
 
-				Object.keys(this.worldConfig.main.meshInfos).forEach(key => {
+			Object.keys(this.worldConfig.main.meshInfos).forEach(key => {
 
-					// load GLB files
-					this.glbLoader.load(
-						this.worldConfig.main.meshInfos[key].glbPath, 
-						glbFile => { this.glbParser(glbFile) }
-					);
+				// load GLB files
+				this.glbLoader.load(
+					this.worldConfig.main.meshInfos[key].glbPath, 
+					glbFile => { this.glbParser(glbFile) }
+				);
 
-				});
+			});
 
 			},
 
@@ -243,6 +208,45 @@
 
 			},
 
+			loadTextures(){
+
+				Object.keys(this.worldConfig.main.meshInfos.world.imagePath).forEach((key, index) => {
+
+					this.sceneElements.misc[key].texture = this.textureLoader.load(
+						this.worldConfig.main.meshInfos.world.imagePath[key],
+						() => this.createBakedMaterial(key, index)
+					);
+
+				});
+
+			},
+
+			createBakedMaterial( key, index ){
+
+				this.sceneElements.misc[key].texture.flipY = false;
+	
+				this.sceneElements.misc[key].texture.encoding = THREE.sRGBEncoding;
+
+				this.sceneElements.misc[key].material = new THREE.MeshBasicMaterial({
+					map: this.sceneElements.misc[key].texture
+				});
+
+				if( index === Object.keys(this.worldConfig.main.meshInfos.world.imagePath).length - 1 ){
+					this.bakedsCreated = true;
+				}
+
+			},
+
+			applyBakedOnMeshes(){
+
+				Object.keys(this.worldConfig.main.meshInfos.world.imagePath).forEach(key => {
+
+					this.sceneElements[key].material = this.sceneElements.misc[key].material;
+
+				});
+
+			},
+
 			composeScene(){
 
 				// Here we add landcape / sky? / bob?
@@ -252,8 +256,8 @@
 
 				});
 
-				this.camera.position = this.sceneElements.initialCamera.position;
-				this.camera.rotation = this.sceneElements.initialCamera.rotation;
+				this.camera.position.copy(this.sceneElements.initialCamera.position);
+				this.camera.rotation.copy( this.sceneElements.initialCamera.rotation);
 
 				this.scene.add(this.camera);
 
@@ -274,6 +278,8 @@
 			refreshScene(){
 
 				this.camera.updateProjectionMatrix();
+
+				this.sceneIsReady = true;
 
 			},
 
@@ -303,12 +309,6 @@
 			},
 
 			// RENDER
-			tickThree(){
-
-				
-
-			},
-
 			mainTick(){
 
 				if( !this.debug.animated ) return;

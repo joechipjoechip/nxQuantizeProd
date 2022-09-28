@@ -2,7 +2,7 @@
 	<div>
 		hello ! let's go : 
 		<button>
-			<nuxt-link to="cinema">GO</nuxt-link>
+			<nuxt-link to="cinemaNew">GO</nuxt-link>
 		</button>
 	</div>
 </template>
