@@ -16,17 +16,11 @@
 
 <script>
 
-	import { core } from '@/static/config/core.js';
 	import { worlds } from '@/static/config/worlds.js';
-
-	// GSAP
-	import { TimelineMax } from 'gsap';
+	import { SceneBuilder } from '@/components/sceneBuilder.js';
 
 	// THREE
 	import * as THREE from 'three';
-	import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-	import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js"
-	import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 
 	export default {
 
@@ -41,43 +35,11 @@
 			return {
 				// Config from worlds.js
 				worldConfig: worlds.find( world => world.sequences.find( seq => seq.id === this.sequenceID) ),
+				act1: null,
 
-				// Loaders
-				dracoLoader: new DRACOLoader(),
-				glbLoader: new GLTFLoader(),
-				textureLoader: new THREE.TextureLoader(),
-
-				// Three elements
+				// Animation
 				frameRate: 1/30,
 				deltaTime: 0,
-				aspectRatio: window.innerWidth / window.innerHeight,
-				camera: null,
-				scene: new THREE.Scene(),
-				sceneElements: {
-					landscape: null,
-					sky: null,
-					bob: null,
-					initialCamera: null,
-					lights: [],
-					misc: {
-						landscape: {
-							texture: null,
-							material: null
-						},
-						sky: {
-							texture: null,
-							material: null
-						}
-					}
-				},
-				renderer: null,
-				clock: null,
-				glbLoaded: false,
-				bakedsCreated: false,
-				sceneIsReady: false,
-
-				// Helpers
-				orbit: null,
 
 				// Others
 				canvasSizeRef: { 
@@ -90,196 +52,30 @@
 			}
 		},
 
-		computed: {
-
-			assetsLoaded(){
-				return this.glbLoaded && this.bakedsCreated
-			}
-
-		},
-
 		watch: {
 
-			assetsLoaded( newVal ){
+			"act1.sceneIsReady"( newVal ){
 
 				if( newVal ){
-					this.onceAssetsAreLoaded();
+					this.onceSceneIsReady()
 				}
-
 			}
 
 		},
 
 		mounted(){
 
-			// DRACO loader
-			// to load compressed glTF (so glB files) we need a DracoLoader
-			this.dracoLoader.setDecoderPath("assets/js/draco/");
-			this.glbLoader.setDRACOLoader(this.dracoLoader);
-
-			this.camera = new THREE.PerspectiveCamera(75, this.aspectRatio, 0.1, 100);
-
-			this.loadsManager();
+			this.act1 = new SceneBuilder(this.worldConfig, this.$refs.canvas);
 
 		},
 
 		methods: {
 
-			onceAssetsAreLoaded(){
-
-				this.applyBakedOnMeshes();
-
-				this.composeScene();
-
-				this.addHelpers();
-
-				this.refreshScene();
+			onceSceneIsReady(){
 
 				this.initRenderer();
 
 				this.mainTick();
-
-			},
-
-			loadsManager(){
-
-				this.loadGlb();
-
-				this.loadTextures();
-
-			},
-
-			loadGlb(){
-
-			Object.keys(this.worldConfig.main.meshInfos).forEach(key => {
-
-				// load GLB files
-				this.glbLoader.load(
-					this.worldConfig.main.meshInfos[key].glbPath, 
-					glbFile => { this.glbParser(glbFile) }
-				);
-
-			});
-
-			},
-
-			glbParser(glbFile){
-
-				glbFile.scene.traverse(child => {
-
-					switch( child.name ){
-
-						// find map
-						case "landscape":
-							this.sceneElements.landscape = child;
-							// quand on sera à la gestion des ombres :
-							// this.sceneElements.landscapeShadow = child.clone();
-							break
-
-						// find sky
-						case "sky":
-							this.sceneElements.sky = child;
-							// quand on sera à la gestion des ombres
-							// this.sceneElements.landscapeShadow = child.clone();
-							break
-
-						// find camera intial position
-						case "camera":
-							this.sceneElements.initialCamera = child;
-							break
-
-						// find bob initial position
-						case "bob-position":
-							this.sceneElements.bob = child;
-							break
-					}
-
-
-					// find lights
-					if( child.name.indexOf("light-") !== -1 ){
-
-						this.sceneElements.lights.push(child);
-
-					}
-
-				});
-
-				this.glbLoaded = true;
-
-			},
-
-			loadTextures(){
-
-				Object.keys(this.worldConfig.main.meshInfos.world.imagePath).forEach((key, index) => {
-
-					this.sceneElements.misc[key].texture = this.textureLoader.load(
-						this.worldConfig.main.meshInfos.world.imagePath[key],
-						() => this.createBakedMaterial(key, index)
-					);
-
-				});
-
-			},
-
-			createBakedMaterial( key, index ){
-
-				this.sceneElements.misc[key].texture.flipY = false;
-	
-				this.sceneElements.misc[key].texture.encoding = THREE.sRGBEncoding;
-
-				this.sceneElements.misc[key].material = new THREE.MeshBasicMaterial({
-					map: this.sceneElements.misc[key].texture
-				});
-
-				if( index === Object.keys(this.worldConfig.main.meshInfos.world.imagePath).length - 1 ){
-					this.bakedsCreated = true;
-				}
-
-			},
-
-			applyBakedOnMeshes(){
-
-				Object.keys(this.worldConfig.main.meshInfos.world.imagePath).forEach(key => {
-
-					this.sceneElements[key].material = this.sceneElements.misc[key].material;
-
-				});
-
-			},
-
-			composeScene(){
-
-				// Here we add landcape / sky? / bob?
-				Object.keys(this.worldConfig.main.meshInfos.world.imagePath).forEach(key => {
-
-					this.scene.add(this.sceneElements[key]);
-
-				});
-
-				this.camera.position.copy(this.sceneElements.initialCamera.position);
-				this.camera.rotation.copy( this.sceneElements.initialCamera.rotation);
-
-				this.scene.add(this.camera);
-
-			},
-
-			addHelpers(){
-
-				this.orbit = new OrbitControls(this.camera, this.$refs.canvas);
-
-				this.orbit.target = this.sceneElements.landscape.position;
-
-				this.orbit.enabled = true;
-
-				this.orbit.enableDamping = true;
-
-			},
-
-			refreshScene(){
-
-				this.camera.updateProjectionMatrix();
-
-				this.sceneIsReady = true;
 
 			},
 
@@ -310,6 +106,7 @@
 
 			// RENDER
 			mainTick(){
+				console.log("mainTick")
 
 				if( !this.debug.animated ) return;
 
@@ -320,8 +117,8 @@
 
 
 				// a lot of stuffs to animate here
-				if( this.orbit ){
-					this.orbit.update();
+				if( this.act1.orbit ){
+					this.act1.orbit.update();
 				}
 
 				// etc..
@@ -331,7 +128,7 @@
 				if( this.deltaTime > this.frameRate ){
 
 					// NOW COMPUTE RENDER
-					this.renderer.render(this.scene, this.camera);
+					this.renderer.render(this.act1.scene, this.act1.camera);
 
 					this.deltaTime = this.deltaTime % this.frameRate;
 

@@ -10,5 +10,6 @@ You can directly use them in pages and other components without the need to impo
 - `<CharacterController>` | `<character-controller>` (components/characterController.js)
 - `<DynamicLightsBuilder>` | `<dynamic-lights-builder>` (components/dynamicLightsBuilder.js)
 - `<GuiManager>` | `<gui-manager>` (components/guiManager.js)
+- `<SceneBuilder>` | `<scene-builder>` (components/sceneBuilder.js)
 - `<SpecificManualCameraTweenBuilder>` | `<specific-manual-camera-tween-builder>` (components/specificManualCameraTweenBuilder.js)
 - `<ThirdPersonCamera>` | `<third-person-camera>` (components/thirdPersonCamera.js)
