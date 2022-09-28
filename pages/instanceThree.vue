@@ -59,13 +59,17 @@
 				if( newVal ){
 					this.onceSceneIsReady()
 				}
+
 			}
 
 		},
 
 		mounted(){
 
-			this.act1 = new SceneBuilder(this.worldConfig, this.$refs.canvas);
+			this.act1 = new SceneBuilder({
+				worldConfig: this.worldConfig, 
+				canvas: this.$refs.canvas
+			});
 
 		},
 

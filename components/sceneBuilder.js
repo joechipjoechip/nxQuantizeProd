@@ -56,19 +56,25 @@ class AssetsLoadWatcher {
 
 class SceneBuilder {
 
-	constructor( params, canvas ) {
+	constructor( params ) {
 
-		this.scene = null;
-		this.canvas = canvas;
-		this.worldConfig = params;
+		// Get data from instanciation
+		this.canvas = params.canvas;
+		this.worldConfig = params.worldConfig;
+
+		// Internal variables
 		this.assetsManager = new AssetsLoadWatcher(this);
+		this.scene = null;
 
-		// Loaders
+		// _ Loaders
 		this.dracoLoader = new DRACOLoader();
 		this.glbLoader = new GLTFLoader();
 		this.textureLoader = new THREE.TextureLoader();
+		// _ _ to load compressed glTF (so glB files) we need a DracoLoader
+		this.dracoLoader.setDecoderPath("assets/js/draco/");
+		this.glbLoader.setDRACOLoader(this.dracoLoader);
 
-		// Three elements
+		// _ Three elements
 		this.aspectRatio = window.innerWidth / window.innerHeight;
 		this.camera = new THREE.PerspectiveCamera(75, this.aspectRatio, 0.1, 100);
 		this.scene = new THREE.Scene();
@@ -94,10 +100,6 @@ class SceneBuilder {
 		this.sceneIsReady = false;
 
 		// Start
-		// to load compressed glTF (so glB files) we need a DracoLoader
-		this.dracoLoader.setDecoderPath("assets/js/draco/");
-		this.glbLoader.setDRACOLoader(this.dracoLoader);
-
 		this.loadsManager();
 
 	}
@@ -124,7 +126,7 @@ class SceneBuilder {
 
 	}
 
-	glbParser(glbFile){
+	glbParser( glbFile ){
 
 		glbFile.scene.traverse(child => {
 
