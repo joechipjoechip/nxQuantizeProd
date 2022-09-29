@@ -5,6 +5,8 @@ const worlds = [
 
 		main: {
 
+			spaceColor: "#493F62",
+
 			fog: {
 				enabled: true,
 				color: 0xff9500,
@@ -13,11 +15,18 @@ const worlds = [
 			
 			meshInfos: {
 
+				// world: {
+				// 	glbPath: "/assets/3d/worlds/mountainTwo/mountainTwo-scaled.glb",
+				// 	imagePath: {
+				// 		landscape: "/assets/3d/worlds/mountainTwo/mountainTwo.jpg",
+				// 		// sky: "/assets/3d/worlds/base002/baked002.jpg"
+				// 	}
+				// },
 				world: {
-					glbPath: "/assets/3d/worlds/mountainTwo/mountainTwo-scaled.glb",
+					glbPath: "/assets/3d/worlds/oula/oulaLAAST_2.glb",
 					imagePath: {
-						landscape: "/assets/3d/worlds/mountainTwo/mountainTwo.jpg",
-						// sky: "/assets/3d/worlds/base002/baked002.jpg"
+						landscape: "/assets/3d/worlds/oula/oulaLAAST.jpg",
+						// sky: "/assets/3d/worlds/bones/skyBake.jpg"
 					}
 				},
 
@@ -32,102 +41,38 @@ const worlds = [
 		sequences: [
 			{
 				id: "1.0",
-				type: "manual-camera-positionning",
+				type: "blender-points",
 				animatedMesh: false,
 				
 				config: {
-
 					fog: {
 						enabled: true,
 						color: 0x000000,
 						intensity: .15
 					},
-					// lights
-					// material
-
 				},
 
-				changeMode: {
-					duration: .75,
-					ease: "power2.inOut"
-				},
-				
-				paths: {
-					initialTarget: {
-						x:0, y:0, z:0
-					},
-					initial: {
-						position: {
-							x: -2.0649971226973243,
-							y: 6.0882867983570295,
-							z: 2.3004400166546777,
-						},
-						rotation: {
-							x: 0.17906205038942194,
-							y: 0.31644162721870206,
-							z: -0.056265581323121254,
-						},
-						fov: {
-							value: 35
-						}
-					},
-
-					places: [
-						{
-							id: "farAway",
-							position: {
-								x: -4.148056974161086,
-								y: 0.4381372147125346,
-								z: 3.1953272756404276,
-								duration: 100,
-								startRef: 0,
-								ease: "power3.inOut"
-							},
-							fov: {
-								value: 175,
-								duration: 90,
-								startRef: 0,
-								ease: "power3.inOut"
-							}
-						},
-						{
-							id: "soClose",
-							position: {
-								x: -0.729176082379386,
-								y: -0.2162811981479167,
-								z: 0.8024181097065985,
-								duration: 100,
-								startRef: 0,
-								ease: "power4.inOut"
-							},
-							fov: {
-								value: 75,
-								duration: 100,
-								startRef: 0,
-								ease: "elastic.inOut"
-							}
-						}
-
-					],
-
+				path: {
+					duration: 14,
+					// isUsingTarget indicate that we need a plan-1.0-target point
+					// in the glb
+					isUsingTarget: true,
+					// easing: "Power4.InOut",
 					steps: [
+						// n steps are possibles
+						// n has nothing to do with the number of points for the curve
 						{
-							global: {
-								duration: 3.5,
-								placeString: "farAway",
-								isUsingTarget: false
-							}
+							// this amount is a percent of the global duration
+							amount: 50,
+							stepEase: "linear"
 						},
 						{
-							global: {
-								duration: 7,
-								placeString: "soClose",
-								isUsingTarget: true
-							}
-						},
+							amount: 50,
+							stepEase: "power2.out"
+						}
 					]
-
 				}
+				
 
 			}
 		]

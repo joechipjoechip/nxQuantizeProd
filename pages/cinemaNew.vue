@@ -84,6 +84,11 @@
 
 <style lang="scss" scoped>
 
+body {
+  padding: 0;
+  margin: 0;
+}
+
 button {
   background-color: beige;
 

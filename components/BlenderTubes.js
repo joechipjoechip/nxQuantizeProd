@@ -5,15 +5,20 @@ class BlenderTubes{
 
 	constructor(params){
 
-
-		this._gltf = params.gltf;
-		this._currentSequence = params.currentSequence;
+		
 		this._scene = params.scene;
-		this._currentCamera = params.currentCamera;
-		this._target = params.target;
+		this._camera = params.camera;
+
+		this._sequenceInfos = params.sequenceInfos;
+		this._blenderPoints = params.blenderPoints.filter(point => point.name.indexOf("-target") === -1);
+		this._target = params.blenderPoints.find(point => point.name.indexOf("-target") !== -1);
 
 		this._tube = null;
 		this._tubeTravelTargetPosition = null;
+
+		this._debug = {
+			displayTube: true
+		};
 	
 		this._Inits();
 
@@ -21,24 +26,7 @@ class BlenderTubes{
 
 	_Inits(){
 
-		const pathName = this._currentSequence?.pathName;
-
-		const curvePoints = [];
-
-		if( !pathName || !this._gltf ){ return; }
-
-		// D'abord on récupère les objets vides créés dans blender
-		this._gltf[0].scene.traverse(child => {
-
-			if( child.name.indexOf(pathName) ){
-
-				curvePoints.push(child);
-
-			}
-
-		});
-		
-		const smoothedCurvePoints = curvePoints?.map(object3d => {
+		const smoothedCurvePoints = this._blenderPoints?.map(object3d => {
 
 			return new THREE.Vector3(
 				object3d.position.x, 
@@ -62,8 +50,8 @@ class BlenderTubes{
 		const material = new THREE.MeshLambertMaterial({ 
 			color: 0xff00ff, 
 			side: THREE.DoubleSide,
-			wireframe: true,
-			visible: true
+			wireframe: !this._debug.displayTube,
+			visible: !this._debug.displayTube
 		});
 
 		this._tube = new THREE.Mesh( tubeGeometry, material );
@@ -82,15 +70,15 @@ class BlenderTubes{
 
 		const tlSequence = new TimelineMax();
 
-		const globalDuration = this._currentSequence.global.duration;
+		const globalDuration = this._sequenceInfos.path.duration;
 
-		this._currentSequence.curveSteps.forEach((step, index) => {
+		this._sequenceInfos.path.steps.forEach((step, index) => {
 			
 			const tlStep = new TimelineMax();
 
-			const thisStepDuration = ((globalDuration / 100) * step.duration);
+			const thisStepDuration = ((globalDuration / 100) * step.amount);
 
-			const alreadyPlayedStep = this._currentSequence.curveSteps.filter((onStep, indexSeq) => {
+			const alreadyPlayedStep = this._sequenceInfos.path.steps.filter((onStep, indexSeq) => {
 
 				if( indexSeq <  index ){
 					return onStep;
@@ -100,7 +88,7 @@ class BlenderTubes{
 
 			let alreadyPlayedDuration = alreadyPlayedStep.reduce((acc, step) => {
 
-				const specificStepDuration = ((globalDuration / 100) * step.duration);
+				const specificStepDuration = ((globalDuration / 100) * step.amount);
 
 				return acc + specificStepDuration;
 
@@ -129,11 +117,13 @@ class BlenderTubes{
 						
 						const pos1 = this._tube.geometry.parameters.path.getPointAt(t);     
 						
-						this._currentCamera.position.copy(pos1);
+						this._camera.position.copy(pos1);
 						
 						if( this._target ){
 							
-							this._tubeTravelTargetPosition = this._target._controls.Position;
+							// avec _controls : c'est bob
+							// sans _controls : c'est un blender empty point
+							this._tubeTravelTargetPosition = this._target._controls ? this._target._controls.Position : this._target.position;
 							
 						} else {
 							

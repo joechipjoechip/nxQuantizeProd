@@ -34,7 +34,7 @@
 		data(){
 			return {
 				// Config from worlds.js
-				worldConfig: worlds.find( world => world.sequences.find( seq => seq.id === this.sequenceID) ),
+				worldConfig: worlds.find( world => world.sequences.find( seq => seq.id === this.sequenceID ) ),
 				act1: null,
 
 				// Animation
@@ -68,7 +68,8 @@
 
 			this.act1 = new SceneBuilder({
 				worldConfig: this.worldConfig, 
-				canvas: this.$refs.canvas
+				canvas: this.$refs.canvas,
+				sequenceID: this.sequenceID
 			});
 
 		},
@@ -77,13 +78,13 @@
 
 			onceSceneIsReady(){
 
-				this.initRenderer();
+				this.initRenderer(this.act1.worldConfig);
 
 				this.mainTick();
 
 			},
 
-			initRenderer(){
+			initRenderer( currentWorldConfig ){
 
 				// Renderer
 				this.renderer = new THREE.WebGLRenderer({
@@ -96,7 +97,7 @@
 
 				this.renderer.setSize(this.canvasSizeRef.width, this.canvasSizeRef.height);
 
-				this.renderer.setClearColor("#000000");
+				this.renderer.setClearColor(currentWorldConfig.main.spaceColor);
 
 				this.renderer.outputEncoding = THREE.sRGBEncoding;
 
@@ -123,6 +124,10 @@
 				// a lot of stuffs to animate here
 				if( this.act1.orbit ){
 					this.act1.orbit.update();
+				}
+
+				if( this.act1.sceneElements.happenings.blenderTubeManager ){
+					this.camera.lookAt(this.act1.sceneElements.happenings.blenderTubeManager._tubeTravelTargetPosition);
 				}
 
 				// etc..
