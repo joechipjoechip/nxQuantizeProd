@@ -23,9 +23,9 @@ const worlds = [
 				// 	}
 				// },
 				world: {
-					glbPath: "/assets/3d/worlds/oula/oulaLAAST_2.glb",
+					glbPath: "/assets/3d/worlds/oula/oula.glb",
 					imagePath: {
-						landscape: "/assets/3d/worlds/oula/oulaLAAST.jpg",
+						landscape: "/assets/3d/worlds/oula/oula.jpg",
 						// sky: "/assets/3d/worlds/bones/skyBake.jpg"
 					}
 				},
