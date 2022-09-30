@@ -38,7 +38,7 @@ const worlds = [
 				animatedMesh: false,
 
 				helpers: {
-					orbit: false,
+					orbit: true,
 					tubes: false,
 					timelines: false
 				},
@@ -52,7 +52,7 @@ const worlds = [
 				},
 
 				path: {
-					duration: 54,
+					duration: 14,
 					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
 					isUsingTarget: true,
 					steps: [

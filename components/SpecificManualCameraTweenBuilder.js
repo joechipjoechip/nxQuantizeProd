@@ -1,4 +1,4 @@
-import { TimelineMax } from 'gsap';
+import { TimelineLite } from 'gsap';
 
 class SpecificManualCameraTweenBuilder{
 
@@ -15,7 +15,7 @@ class SpecificManualCameraTweenBuilder{
 	_Inits(){
 
 		const currentPlace = this._currentPlaces.find(place => place.id === this._currentStep.global.placeString);
-		const tl = new TimelineMax();
+		const tl = new TimelineLite();
 
 		// TODO : refaire le system de target (avec des Vector3 (/dynamiques))
 		// pour éviter de passer par de fastidieux rotation{} (qui on été cleané du core.js de toute façons^^)

@@ -1,4 +1,4 @@
-import { TimelineMax } from 'gsap';
+import { TimelineLite } from 'gsap';
 
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
@@ -86,12 +86,12 @@ class SequencesBuilder {
 			console.log("vidage de this.timelines.camera");
 			this._sequencesLib[sequenceInfos.id].timelines.camera = null;
 
-			// ce sera surement ici qu'il faudra faire le lien entre cette caméra sur rails
+			// ce sera peut être ici qu'il faudra faire le lien entre cette caméra sur rails
 			// et la caméra 3eme personne ...
 
 		});
 
-		// this._sequencesLib[sequenceInfos.id].timelines.camera.play()
+		// the .play() is done in instanceThree.vue
 		
 	}
 

@@ -16,26 +16,26 @@
 	// CONFIGS
 	import { core } from '@/static/config/core.js';
 
-	// GSAP
-	import { TimelineMax } from 'gsap';
+	// // GSAP
+	// import { TimelineLite } from 'gsap';
 
-	// THREE
-	import * as THREE from 'three';
-	import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-	import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js"
-	import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
+	// // THREE
+	// import * as THREE from 'three';
+	// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+	// import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js"
+	// import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 
-	// TWEENS BUILDER
-	import { SpecificManualCameraTweenBuilder } from '@/components/specificManualCameraTweenBuilder.js';
-	import { BlenderTubes } from '@/components/blenderTubes.js';
+	// // TWEENS BUILDER
+	// import { SpecificManualCameraTweenBuilder } from '@/components/specificManualCameraTweenBuilder.js';
+	// import { BlenderTubes } from '@/components/blenderTubes.js';
 
-	// CHARACTER HANDLERS
-	import { CharacterController } from '@/components/characterController.js';
-	import { ThirdPersonCamera } from '@/components/thirdPersonCamera.js';
+	// // CHARACTER HANDLERS
+	// import { CharacterController } from '@/components/characterController.js';
+	// import { ThirdPersonCamera } from '@/components/thirdPersonCamera.js';
 
-	// MISC
-	import { DynamicLightsBuilder } from '@/components/dynamicLightsBuilder.js';
-	import { GuiManager } from '@/components/guiManager.js';
+	// // MISC
+	// import { DynamicLightsBuilder } from '@/components/dynamicLightsBuilder.js';
+	// import { GuiManager } from '@/components/guiManager.js';
 
 
 	export default {
@@ -275,7 +275,7 @@
 					y: this.mousePos.y
 				};
 
-				const tlRecenter = new TimelineMax();
+				const tlRecenter = new TimelineLite();
 
 				tlRecenter.to(animatedObject, this.core.mouse.recenterDuration, {
 					x: 0,
@@ -544,7 +544,7 @@
 
 				this.link.position.set(startPos.x, startPos.y, startPos.z);
 
-				const tl = new TimelineMax();
+				const tl = new TimelineLite();
 
 				tl.to(animatedObject, 10, {
 					x: endPos.x,
@@ -816,7 +816,7 @@
 
 				console.log("buildGeneralManualCameraTween() -> steps : ", steps);
 
-				const moveTl = new TimelineMax();
+				const moveTl = new TimelineLite();
 
 				this.currentStepToBuild = 0;
 
@@ -857,7 +857,7 @@
 						z: this.oldTarget.position.z
 					};
 
-					const tl = new TimelineMax();
+					const tl = new TimelineLite();
 
 					tl.to(
 						animatedObject, 

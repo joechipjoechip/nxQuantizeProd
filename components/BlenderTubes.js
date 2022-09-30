@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { TimelineMax } from 'gsap';
+import { TimelineLite } from 'gsap';
 
 class BlenderTubes{
 
@@ -65,15 +65,15 @@ class BlenderTubes{
 
 	_TweenBuilder(){
 
-		const tlToReturn = new TimelineMax();
+		const tlToReturn = new TimelineLite();
 
-		const tlSequence = new TimelineMax();
+		const tlSequence = new TimelineLite();
 
 		const globalDuration = this._sequenceInfos.path.duration;
 
 		this._sequenceInfos.path.steps.forEach((step, index) => {
 			
-			const tlStep = new TimelineMax();
+			const tlStep = new TimelineLite();
 
 			const thisStepDuration = ((globalDuration / 100) * step.amount);
 

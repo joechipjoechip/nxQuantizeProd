@@ -123,10 +123,10 @@
 
 					Object.keys(this.act1.sequencesElements[this.sequenceID].timelines).forEach(key => {
 
-						if( this.act1.sequencesElements[this.sequenceID].timelines[key].progress() === 0 ){
+						if( this.act1.sequencesElements[this.sequenceID].timelines[key]?.progress() === 0 ){
 							this.act1.sequencesElements[this.sequenceID].timelines[key].play();
 						}
-						
+
 					});
 
 				}
