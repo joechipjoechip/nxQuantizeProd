@@ -17,7 +17,7 @@ class BlenderTubes{
 		this._tubeTravelTargetPosition = null;
 
 		this._debug = {
-			displayTube: true
+			displayTube: false
 		};
 	
 		this._Inits();
@@ -37,9 +37,7 @@ class BlenderTubes{
 		});
 
 		// Et Ensuite on construit tout ça :
-		const parentPath = new THREE.Object3D();
-
-		parentPath.name = "parentPath";
+		const tubeParentPath = new THREE.Object3D({ name: "tubeParentPath" });
 
 		const curve = new THREE.CatmullRomCurve3(smoothedCurvePoints || 0, false, "chordal");
 
@@ -50,17 +48,17 @@ class BlenderTubes{
 		const material = new THREE.MeshLambertMaterial({ 
 			color: 0xff00ff, 
 			side: THREE.DoubleSide,
-			wireframe: !this._debug.displayTube,
-			visible: !this._debug.displayTube
+			wireframe: this._debug.displayTube,
+			visible: this._debug.displayTube
 		});
 
 		this._tube = new THREE.Mesh( tubeGeometry, material );
 
 		this._tube.name = "tube";
 
-		parentPath.add( this._tube );
+		tubeParentPath.add( this._tube );
 
-		this._scene.add(parentPath);
+		this._scene.add(tubeParentPath);
 
 	}
 

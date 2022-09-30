@@ -53,11 +53,9 @@ const worlds = [
 				},
 
 				path: {
-					duration: 14,
-					// isUsingTarget indicate that we need a plan-1.0-target point
-					// in the glb
+					duration: 24,
+					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
 					isUsingTarget: true,
-					// easing: "Power4.InOut",
 					steps: [
 						// n steps are possibles
 						// n has nothing to do with the number of points for the curve
@@ -67,8 +65,12 @@ const worlds = [
 							stepEase: "linear"
 						},
 						{
-							amount: 50,
-							stepEase: "power2.out"
+							amount: 40,
+							stepEase: "linear"
+						},
+						{
+							amount: 10,
+							stepEase: "power2.InOut"
 						}
 					]
 				}
