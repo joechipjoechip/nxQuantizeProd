@@ -224,7 +224,7 @@ class SceneBuilder {
 
 		this.checkHappenings();
 
-		this.refreshScene();
+		this.refreshAndStartScene();
 
 	}
 
@@ -299,16 +299,22 @@ class SceneBuilder {
 
 			});
 
-			this.sceneElements.timelines.camera.play();
-
 		}
 
 	}
 
-	refreshScene(){
+	refreshAndStartScene(){
 
 		this.camera.updateProjectionMatrix();
 
+		// we start all timelines created here
+		Object.keys(this.sceneElements.timelines).forEach(key => {
+			this.sceneElements.timelines[key].play();
+		})
+
+		// we say : ok good, ready
+		// this value is watched in instanceThree.vue
+		// and allow rendering start
 		this.sceneIsReady = true;
 
 	}

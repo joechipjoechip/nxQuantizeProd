@@ -46,7 +46,7 @@ const worlds = [
 				},
 
 				path: {
-					duration: 24,
+					duration: 14,
 					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
 					isUsingTarget: true,
 					steps: [

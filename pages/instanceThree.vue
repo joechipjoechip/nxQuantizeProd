@@ -109,16 +109,7 @@
 
 			},
 
-			// RENDER
-			mainTick(){
-
-				if( !this.debug.animated ) return;
-
-				window.requestAnimationFrame(this.mainTick);
-
-				this.deltaTime += this.clock.getDelta()
-
-
+			checkStuffsToAnimateAtRender(){
 
 				// a lot of stuffs to animate here
 				if( this.act1.orbit ){
@@ -130,7 +121,19 @@
 				}
 
 				// etc..
-				
+
+			},
+
+			// RENDER
+			mainTick(){
+
+				if( !this.debug.animated ) return;
+
+				window.requestAnimationFrame(this.mainTick);
+
+				this.deltaTime += this.clock.getDelta()
+
+				this.checkStuffsToAnimateAtRender();
 				
 				// NOW CHECK IF FRAMERATE IS GOOD
 				if( this.deltaTime > this.frameRate ){
