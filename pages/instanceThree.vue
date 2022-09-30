@@ -38,7 +38,7 @@
 				act1: null,
 
 				// Animation
-				frameRate: 1/30,
+				frameRate: 1/60,
 				deltaTime: 0,
 
 				// Others
@@ -111,7 +111,6 @@
 
 			// RENDER
 			mainTick(){
-				console.log("mainTick")
 
 				if( !this.debug.animated ) return;
 

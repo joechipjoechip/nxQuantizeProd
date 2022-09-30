@@ -1,7 +1,7 @@
 const worlds = [
 
 	{
-		name: "base002",
+		name: "world1_test",
 
 		main: {
 
@@ -15,13 +15,6 @@ const worlds = [
 			
 			meshInfos: {
 
-				// world: {
-				// 	glbPath: "/assets/3d/worlds/mountainTwo/mountainTwo-scaled.glb",
-				// 	imagePath: {
-				// 		landscape: "/assets/3d/worlds/mountainTwo/mountainTwo.jpg",
-				// 		// sky: "/assets/3d/worlds/base002/baked002.jpg"
-				// 	}
-				// },
 				world: {
 					glbPath: "/assets/3d/worlds/oula/oula.glb",
 					imagePath: {
@@ -61,16 +54,12 @@ const worlds = [
 						// n has nothing to do with the number of points for the curve
 						{
 							// this amount is a percent of the global duration
-							amount: 50,
+							amount: 70,
 							stepEase: "linear"
 						},
 						{
-							amount: 40,
-							stepEase: "linear"
-						},
-						{
-							amount: 10,
-							stepEase: "power2.InOut"
+							amount: 30,
+							stepEase: "power4.InOut"
 						}
 					]
 				}
