@@ -2,9 +2,8 @@
 import * as THREE from 'three';
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js"
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
-import { BlenderTubes } from '@/components/blenderTubes.js';
+import { SequencesBuilder } from '@/components/sequencesBuilder.js';
 
 class AssetsLoadWatcher {
 
@@ -28,15 +27,6 @@ class AssetsLoadWatcher {
 		return this._glb;
 	}
 
-	set bakeds(x){
-		this._bakeds = x;
-		this.computeReadyness();
-	}
-
-	get bakeds(){
-		return this._bakeds;
-	}
-
 	set allReady(x){
 		this._allReady = x;
 
@@ -54,6 +44,7 @@ class AssetsLoadWatcher {
 			this.allReady = true;
 		}
 	}
+
 };
 
 class SceneBuilder {
@@ -81,14 +72,14 @@ class SceneBuilder {
 		this.aspectRatio = window.innerWidth / window.innerHeight;
 		this.camera = new THREE.PerspectiveCamera(50, this.aspectRatio, 0.001, 30);
 		this.scene = new THREE.Scene();
+		this.sequencesElements = {};
 		this.sceneElements = {
 			landscape: null,
 			sky: null,
 			bob: null,
 			initialCamera: null,
-			lights: [],
 			tubes: [],
-			timelines: {},
+			lights: [],
 			happenings: {},
 			misc: {
 				landscape: {
@@ -220,9 +211,7 @@ class SceneBuilder {
 
 		this.composeScene();
 
-		this.addHelpers();
-
-		this.checkHappenings();
+		this.sequencesBuild();
 
 		this.refreshAndStartScene();
 
@@ -254,53 +243,20 @@ class SceneBuilder {
 
 	}
 
-	addHelpers(){
+	sequencesBuild(){
 
-		this.orbit = new OrbitControls(this.camera, this.canvas);
+		// const sequenceInfos = this.worldConfig.sequences.find( seq => seq.id === this.sequenceID );
 
-		this.orbit.target = this.sceneElements.landscape.position;
+		const sequencesBuilt = new SequencesBuilder({
+			sequences: this.worldConfig.sequences,
+			scene: this.scene,
+			sceneElements: this.sceneElements,
+			camera: this.camera,
+			canvas: this.canvas
+		});
 
-		this.orbit.enabled = true;
-
-		this.orbit.enableDamping = true;
-
-	}
-
-	checkHappenings(){
-
-		const sequenceInfos = this.worldConfig.sequences.find( seq => seq.id === this.sequenceID );
-
-		this.checkBlenderTube(sequenceInfos);
+		this.sequencesElements = sequencesBuilt._sequencesLib;
 		
-
-	}
-
-	checkBlenderTube( sequenceInfos ){
-
-		if( sequenceInfos.type === "blender-points" && this.sceneElements.tubes.length ){
-
-			this.sceneElements.happenings.blenderTubesManager = new BlenderTubes({
-				sequenceInfos,
-				scene: this.scene,
-				worldConfig: this.worldConfig,
-				blenderPoints: this.sceneElements.tubes,
-				camera: this.camera
-			});
-
-			this.sceneElements.timelines.camera = this.sceneElements.happenings.blenderTubesManager._TweenBuilder();
-
-			this.sceneElements.timelines.camera.eventCallback("onComplete", () => {
-	
-				console.log("vidage de this.timelines.camera");
-				this.sceneElements.timelines.camera = null;
-
-				// ce sera surement ici qu'il faudra faire le lien entre cette caméra sur rails
-				// et la caméra 3eme personne ...
-
-			});
-
-		}
-
 	}
 
 	refreshAndStartScene(){
@@ -308,9 +264,10 @@ class SceneBuilder {
 		this.camera.updateProjectionMatrix();
 
 		// we start all timelines created here
-		Object.keys(this.sceneElements.timelines).forEach(key => {
-			this.sceneElements.timelines[key].play();
-		})
+
+		// Object.keys(this.sceneElements.timelines).forEach(key => {
+		// 	this.sceneElements.timelines[key].play();
+		// })
 
 		// we say : ok good, ready
 		// this value is watched in instanceThree.vue

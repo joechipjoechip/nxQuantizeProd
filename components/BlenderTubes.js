@@ -17,7 +17,8 @@ class BlenderTubes{
 		this._tubeTravelTargetPosition = null;
 
 		this._debug = {
-			displayTube: false
+			displayTube: this._sequenceInfos.helpers.tubes,
+			timelines: this._sequenceInfos.helpers.timelines
 		};
 	
 		this._Inits();
@@ -132,6 +133,10 @@ class BlenderTubes{
 							
 							this._tubeTravelTargetPosition = pos2;
 
+						}
+
+						if( this._debug.timelines ){
+							console.log("timeline update triggered");
 						}
 
 						// enfin : 

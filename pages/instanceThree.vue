@@ -110,14 +110,35 @@
 			},
 
 			checkStuffsToAnimateAtRender(){
-
+				// console.log("ok le check", this.act1.sequencesElements[this.sequenceID].timelines)
 				// a lot of stuffs to animate here
-				if( this.act1.orbit ){
-					this.act1.orbit.update();
+
+				// if an orbit helper is set
+				this.act1.sequencesElements[this.sequenceID].helpers.orbit?.update();
+
+
+
+				// if any timeline is supposed to .play()
+				if( this.act1.sequencesElements[this.sequenceID].timelines ){
+
+					Object.keys(this.act1.sequencesElements[this.sequenceID].timelines).forEach(key => {
+
+						if( this.act1.sequencesElements[this.sequenceID].timelines[key].progress() === 0 ){
+							this.act1.sequencesElements[this.sequenceID].timelines[key].play();
+						}
+						
+					});
+
 				}
 
-				if( this.act1.sceneElements.happenings.blenderTubeManager ){
-					this.camera.lookAt(this.act1.sceneElements.happenings.blenderTubeManager._tubeTravelTargetPosition);
+
+
+				// if any BlenderTube is supposed to be played with it lookAt()
+				if( this.act1.sequencesElements[this.sequenceID].blenderTubesManager?._tubeTravelTargetPosition ){
+
+					this.act1.camera.lookAt(
+						this.act1.sequencesElements[this.sequenceID].blenderTubesManager._tubeTravelTargetPosition
+					);
 				}
 
 				// etc..

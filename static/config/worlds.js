@@ -36,6 +36,12 @@ const worlds = [
 				id: "1.0",
 				type: "blender-points",
 				animatedMesh: false,
+
+				helpers: {
+					orbit: false,
+					tubes: false,
+					timelines: false
+				},
 				
 				config: {
 					fog: {
@@ -46,7 +52,7 @@ const worlds = [
 				},
 
 				path: {
-					duration: 14,
+					duration: 54,
 					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
 					isUsingTarget: true,
 					steps: [
