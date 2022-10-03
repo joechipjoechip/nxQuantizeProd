@@ -1,3 +1,5 @@
+import * as THREE from 'three';
+
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
 import { GammaCorrectionShader } from 'three/examples/jsm/shaders/GammaCorrectionShader.js';
 import { LuminosityShader } from 'three/examples/jsm/shaders/LuminosityShader.js';
@@ -5,6 +7,7 @@ import { SobelOperatorShader } from 'three/examples/jsm/shaders/SobelOperatorSha
 
 import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js';
 import { BokehPass } from 'three/examples/jsm/postprocessing/BokehPass.js';
+import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
 
 class PostprocsBuilder {
 	// Some effects needs a shaderPass + an effectPass
@@ -66,14 +69,14 @@ class PostprocsBuilder {
 				break;
 
 			case "blur":
+				const { focus, aperture, maxblur } = postProcInfos.value;
+
 				effectsArrayToReturn.push(
 					new BokehPass( 
 						this._scene, 
 						this._camera, 
 						{
-							focus: 1.0,
-							aperture: 0.025,
-							maxblur: 0.01,
+							focus, aperture, maxblur,
 		
 							width: this._canvas.width,
 							height: this._canvas.height
@@ -83,7 +86,17 @@ class PostprocsBuilder {
 				break;
 
 			case "sobel":
-				// nothing here
+				// nothing here (because only shader)
+				break;
+
+			case "bloom":
+				const { threshold, strength, radius } = postProcInfos.value;
+				const bloomPass = new UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 1.5, 0.4, 0.85 );
+
+				effectsArrayToReturn.push(
+					Object.assign(bloomPass, { threshold, strength, radius })
+				);
+
 				break;
 
 		}

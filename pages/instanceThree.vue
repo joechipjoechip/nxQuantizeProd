@@ -83,7 +83,7 @@
 
 				this.initRenderer(this.scene1.worldConfig);
 
-				this.fillEffectComposerBeforeRender();
+				this.fillComposerBeforeRender();
 
 				this.mainTick();
 
@@ -162,7 +162,7 @@
 
 			},
 
-			fillEffectComposerBeforeRender(){
+			fillComposerBeforeRender(){
 
 				const keysToCheck = ["shadersPass", "effectsPass"];
 
