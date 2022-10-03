@@ -11,6 +11,9 @@
   "GuiManager": {
     "description": "Auto imported from components/guiManager.js"
   },
+  "PostprocsBuilder": {
+    "description": "Auto imported from components/postprocsBuilder.js"
+  },
   "SceneBuilder": {
     "description": "Auto imported from components/sceneBuilder.js"
   },

@@ -21,8 +21,6 @@
 
 	import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 	import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
-	import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
-	import { GammaCorrectionShader } from 'three/examples/jsm/shaders/GammaCorrectionShader.js';
 
 	// THREE
 	import * as THREE from 'three';
@@ -70,8 +68,6 @@
 		},
 
 		mounted(){
-
-			this.gammaCorrectionPass = new ShaderPass( GammaCorrectionShader );
 
 			this.scene1 = new SceneBuilder({
 				worldConfig: this.worldConfig, 
@@ -168,17 +164,35 @@
 
 			fillEffectComposerBeforeRender(){
 
+				const keysToCheck = ["shadersPass", "effectsPass"];
+
 				if( this.scene1.sequencesElements[this.sequenceID].postproc?.length ){
+
+					const sequencePostprocs = this.scene1.sequencesElements[this.sequenceID].postproc;
 
 					this.composer.addPass(this.renderPass);
 
-					this.composer.addPass( this.gammaCorrectionPass );
+					if( sequencePostprocs?.length ){
 
-					this.scene1.sequencesElements[this.sequenceID].postproc.forEach(effectObj => {
+						sequencePostprocs.forEach(sequencePostproc => {
 
-						this.composer.addPass(effectObj.effectPass);
+							keysToCheck.forEach(keyToCheck => {
 
-					});
+								if( sequencePostproc[keyToCheck].length ){
+	
+									sequencePostproc[keyToCheck].forEach(oneKeyedPass => {
+		
+										this.composer.addPass(oneKeyedPass);
+		
+									});
+		
+								}
+
+							});
+	
+						})
+
+					}
 
 				}
 

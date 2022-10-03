@@ -6,6 +6,7 @@ const components = {
   CharacterController: () => import('../../components/characterController.js' /* webpackChunkName: "components/character-controller" */).then(c => wrapFunctional(c.default || c)),
   DynamicLightsBuilder: () => import('../../components/dynamicLightsBuilder.js' /* webpackChunkName: "components/dynamic-lights-builder" */).then(c => wrapFunctional(c.default || c)),
   GuiManager: () => import('../../components/guiManager.js' /* webpackChunkName: "components/gui-manager" */).then(c => wrapFunctional(c.default || c)),
+  PostprocsBuilder: () => import('../../components/postprocsBuilder.js' /* webpackChunkName: "components/postprocs-builder" */).then(c => wrapFunctional(c.default || c)),
   SceneBuilder: () => import('../../components/sceneBuilder.js' /* webpackChunkName: "components/scene-builder" */).then(c => wrapFunctional(c.default || c)),
   SequencesBuilder: () => import('../../components/sequencesBuilder.js' /* webpackChunkName: "components/sequences-builder" */).then(c => wrapFunctional(c.default || c)),
   SpecificManualCameraTweenBuilder: () => import('../../components/specificManualCameraTweenBuilder.js' /* webpackChunkName: "components/specific-manual-camera-tween-builder" */).then(c => wrapFunctional(c.default || c)),

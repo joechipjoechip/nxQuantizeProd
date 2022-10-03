@@ -2,10 +2,9 @@ import { TimelineLite } from 'gsap';
 
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js';
-import { BokehPass } from 'three/examples/jsm/postprocessing/BokehPass.js';
 
 import { BlenderTubes } from '@/components/blenderTubes.js';
+import { PostprocsBuilder } from './postprocsBuilder';
 
 class SequencesBuilder {
 
@@ -77,7 +76,7 @@ class SequencesBuilder {
 
 			this._sequencesLib[sequenceInfos.id].postproc = [];
 
-			this._BuildPostprocRender(sequenceInfos);
+			this._BuildPostprocs(sequenceInfos);
 
 		}
 
@@ -108,49 +107,23 @@ class SequencesBuilder {
 		
 	}
 
-	_BuildPostprocRender( sequenceInfos ){
+	_BuildPostprocs( sequenceInfos ){
 
-		// this._sequencesLib[sequenceInfos.id].postproc.forEach(effect => {
-			sequenceInfos.postproc.forEach(effectObj => {
+		sequenceInfos.postproc.forEach(effectObj => {
 
-			switch(effectObj.type){
+			this._sequencesLib[sequenceInfos.id].postproc.push(
+				new PostprocsBuilder(
+					{ 
+						sequenceInfos, 
+						effectObj,
+						canvas: this._canvas,
+						camera: this._camera,
+						scene: this._scene
+					}
+				)
+			);
 
-				case "glitch":
-					this._sequencesLib[sequenceInfos.id].postproc.push(
-						{
-							...sequenceInfos.postproc,
-							effectPass: new GlitchPass()
-						}
-					)
-					break;
-
-				case "blur":
-
-					this._sequencesLib[sequenceInfos.id].postproc.push(
-						{
-							...sequenceInfos.postproc,
-							effectPass: new BokehPass( 
-								this._scene, 
-								this._camera, 
-								{
-									focus: 1.0,
-									aperture: 0.025,
-									maxblur: 0.01,
-				
-									width: this._canvas.width,
-									height: this._canvas.height
-								}
-							)
-						}
-					)
-
-					break;
-					
-			}
-
-		})
-
-
+		});
 
 	}
 

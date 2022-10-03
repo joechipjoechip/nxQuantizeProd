@@ -71,20 +71,27 @@ const worlds = [
 				},
 
 				postproc: [
+					{
+						type: "glitch",
+						value: {
+							start: 100,
+							end: 0
+						}
+					},
 					// {
-					// 	type: "glitch",
+					// 	type: "blur",
 					// 	value: {
 					// 		start: 100,
 					// 		end: 0
 					// 	}
 					// },
-					{
-						type: "blur",
-						value: {
-							start: 100,
-							end: 0
-						}
-					}
+					// {
+					// 	type: "sobel",
+					// 	value: {
+					// 		start: 100,
+					// 		end: 0
+					// 	}
+					// },
 				]
 				
 
