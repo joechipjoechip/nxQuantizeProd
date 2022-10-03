@@ -19,6 +19,11 @@
 	import { worlds } from '@/static/config/worlds.js';
 	import { SceneBuilder } from '@/components/sceneBuilder.js';
 
+	import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
+	import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
+	import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
+	import { GammaCorrectionShader } from 'three/examples/jsm/shaders/GammaCorrectionShader.js';
+
 	// THREE
 	import * as THREE from 'three';
 
@@ -35,7 +40,7 @@
 			return {
 				// Config from worlds.js
 				worldConfig: worlds.find( world => world.sequences.find( seq => seq.id === this.sequenceID ) ),
-				act1: null,
+				scene1: null,
 
 				// Animation
 				frameRate: 1/60,
@@ -54,7 +59,7 @@
 
 		watch: {
 
-			"act1.sceneIsReady"( newVal ){
+			"scene1.sceneIsReady"( newVal ){
 
 				if( newVal ){
 					this.onceSceneIsReady()
@@ -66,7 +71,9 @@
 
 		mounted(){
 
-			this.act1 = new SceneBuilder({
+			this.gammaCorrectionPass = new ShaderPass( GammaCorrectionShader );
+
+			this.scene1 = new SceneBuilder({
 				worldConfig: this.worldConfig, 
 				canvas: this.$refs.canvas,
 				sequenceID: this.sequenceID
@@ -78,7 +85,9 @@
 
 			onceSceneIsReady(){
 
-				this.initRenderer(this.act1.worldConfig);
+				this.initRenderer(this.scene1.worldConfig);
+
+				this.fillEffectComposerBeforeRender();
 
 				this.mainTick();
 
@@ -93,10 +102,14 @@
 					antialias: true
 				});
 
-				this.renderer.setPixelRatio(window.devicePixelRatio);
+				this.composer = new EffectComposer(this.renderer);
+				this.composer.setSize(this.canvasSizeRef.width, this.canvasSizeRef.height);
+				this.composer.setPixelRatio(window.devicePixelRatio);
+
+				this.renderPass = new RenderPass(this.scene1.scene, this.scene1.camera);
 
 				this.renderer.setSize(this.canvasSizeRef.width, this.canvasSizeRef.height);
-
+				this.renderer.setPixelRatio(window.devicePixelRatio);
 				this.renderer.setClearColor(currentWorldConfig.main.spaceColor);
 
 				this.renderer.outputEncoding = THREE.sRGBEncoding;
@@ -110,21 +123,21 @@
 			},
 
 			checkStuffsToAnimateAtRender(){
-				// console.log("ok le check", this.act1.sequencesElements[this.sequenceID].timelines)
+				// console.log("ok le check", this.scene1.sequencesElements[this.sequenceID].timelines)
 				// a lot of stuffs to animate here
 
 				// if an orbit helper is set
-				this.act1.sequencesElements[this.sequenceID].helpers.orbit?.update();
+				this.scene1.sequencesElements[this.sequenceID].helpers.orbit?.update();
 
 
 
 				// if any timeline is supposed to .play()
-				if( this.act1.sequencesElements[this.sequenceID].timelines ){
+				if( this.scene1.sequencesElements[this.sequenceID].timelines ){
 
-					Object.keys(this.act1.sequencesElements[this.sequenceID].timelines).forEach(key => {
+					Object.keys(this.scene1.sequencesElements[this.sequenceID].timelines).forEach(key => {
 
-						if( this.act1.sequencesElements[this.sequenceID].timelines[key]?.progress() === 0 ){
-							this.act1.sequencesElements[this.sequenceID].timelines[key].play();
+						if( this.scene1.sequencesElements[this.sequenceID].timelines[key]?.progress() === 0 ){
+							this.scene1.sequencesElements[this.sequenceID].timelines[key].play();
 						}
 
 					});
@@ -134,14 +147,40 @@
 
 
 				// if any BlenderTube is supposed to be played with it lookAt()
-				if( this.act1.sequencesElements[this.sequenceID].blenderTubesManager?._tubeTravelTargetPosition ){
+				if( this.scene1.sequencesElements[this.sequenceID].blenderTubesManager?._tubeTravelTargetPosition ){
 
-					this.act1.camera.lookAt(
-						this.act1.sequencesElements[this.sequenceID].blenderTubesManager._tubeTravelTargetPosition
+					this.scene1.camera.lookAt(
+						this.scene1.sequencesElements[this.sequenceID].blenderTubesManager._tubeTravelTargetPosition
 					);
+
+				}
+
+
+				if( this.scene1.sequencesElements[this.sequenceID].postproc?.effect ){
+
+					this.composer.addPass(this.scene1.sequencesElements[this.sequenceID].postproc.effect)
+
 				}
 
 				// etc..
+
+			},
+
+			fillEffectComposerBeforeRender(){
+
+				if( this.scene1.sequencesElements[this.sequenceID].postproc?.length ){
+
+					this.composer.addPass(this.renderPass);
+
+					this.composer.addPass( this.gammaCorrectionPass );
+
+					this.scene1.sequencesElements[this.sequenceID].postproc.forEach(effectObj => {
+
+						this.composer.addPass(effectObj.effectPass);
+
+					});
+
+				}
 
 			},
 
@@ -160,7 +199,15 @@
 				if( this.deltaTime > this.frameRate ){
 
 					// NOW COMPUTE RENDER
-					this.renderer.render(this.act1.scene, this.act1.camera);
+					if( this.scene1.sequencesElements[this.sequenceID].postproc?.length ){
+
+						this.composer.render();
+
+					} else {
+
+						this.renderer.render(this.scene1.scene, this.scene1.camera)
+
+					}
 
 					this.deltaTime = this.deltaTime % this.frameRate;
 

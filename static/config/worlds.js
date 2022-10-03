@@ -51,7 +51,7 @@ const worlds = [
 					},
 				},
 
-				path: {
+				tubeInfos: {
 					duration: 14,
 					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
 					isUsingTarget: true,
@@ -68,7 +68,24 @@ const worlds = [
 							stepEase: "power4.InOut"
 						}
 					]
-				}
+				},
+
+				postproc: [
+					// {
+					// 	type: "glitch",
+					// 	value: {
+					// 		start: 100,
+					// 		end: 0
+					// 	}
+					// },
+					{
+						type: "blur",
+						value: {
+							start: 100,
+							end: 0
+						}
+					}
+				]
 				
 
 			}

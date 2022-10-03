@@ -69,15 +69,15 @@ class BlenderTubes{
 
 		const tlSequence = new TimelineLite();
 
-		const globalDuration = this._sequenceInfos.path.duration;
+		const globalDuration = this._sequenceInfos.tubeInfos.duration;
 
-		this._sequenceInfos.path.steps.forEach((step, index) => {
+		this._sequenceInfos.tubeInfos.steps.forEach((step, index) => {
 			
 			const tlStep = new TimelineLite();
 
 			const thisStepDuration = ((globalDuration / 100) * step.amount);
 
-			const alreadyPlayedStep = this._sequenceInfos.path.steps.filter((onStep, indexSeq) => {
+			const alreadyPlayedStep = this._sequenceInfos.tubeInfos.steps.filter((onStep, indexSeq) => {
 
 				if( indexSeq <  index ){
 					return onStep;

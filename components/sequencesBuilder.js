@@ -2,6 +2,8 @@ import { TimelineLite } from 'gsap';
 
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js';
+import { BokehPass } from 'three/examples/jsm/postprocessing/BokehPass.js';
 
 import { BlenderTubes } from '@/components/blenderTubes.js';
 
@@ -21,6 +23,8 @@ class SequencesBuilder {
 
 		this._Build();
 
+		return this._sequencesLib;
+
 	}
 
 	_Build(){
@@ -38,7 +42,7 @@ class SequencesBuilder {
 
 			this._BuildHelpers(sequenceInfos);
 
-			this._CheckBlenderTube(sequenceInfos);
+			this._happeningsDispatcher(sequenceInfos);
 			
 		});
 
@@ -60,11 +64,20 @@ class SequencesBuilder {
 		
 	}
 
-	_CheckBlenderTube( sequenceInfos ){
+	_happeningsDispatcher( sequenceInfos ){
 
 		if( sequenceInfos.type === "blender-points" && this._sceneElements.tubes.length ){
 
 			this._BuildBlenderTubes(sequenceInfos)
+
+		}
+
+
+		if( sequenceInfos.postproc ){
+
+			this._sequencesLib[sequenceInfos.id].postproc = [];
+
+			this._BuildPostprocRender(sequenceInfos);
 
 		}
 
@@ -93,6 +106,52 @@ class SequencesBuilder {
 
 		// the .play() is done in instanceThree.vue
 		
+	}
+
+	_BuildPostprocRender( sequenceInfos ){
+
+		// this._sequencesLib[sequenceInfos.id].postproc.forEach(effect => {
+			sequenceInfos.postproc.forEach(effectObj => {
+
+			switch(effectObj.type){
+
+				case "glitch":
+					this._sequencesLib[sequenceInfos.id].postproc.push(
+						{
+							...sequenceInfos.postproc,
+							effectPass: new GlitchPass()
+						}
+					)
+					break;
+
+				case "blur":
+
+					this._sequencesLib[sequenceInfos.id].postproc.push(
+						{
+							...sequenceInfos.postproc,
+							effectPass: new BokehPass( 
+								this._scene, 
+								this._camera, 
+								{
+									focus: 1.0,
+									aperture: 0.025,
+									maxblur: 0.01,
+				
+									width: this._canvas.width,
+									height: this._canvas.height
+								}
+							)
+						}
+					)
+
+					break;
+					
+			}
+
+		})
+
+
+
 	}
 
 }

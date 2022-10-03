@@ -139,8 +139,6 @@ class SceneBuilder {
 				// find sky
 				case "sky":
 					this.sceneElements.sky = child;
-					// quand on sera à la gestion des ombres
-					// this.sceneElements.landscapeShadow = child.clone();
 					break
 
 				// find camera intial position
@@ -204,7 +202,8 @@ class SceneBuilder {
 
 	}
 
-	onceAssetsAreLoaded(){
+	async onceAssetsAreLoaded(){
+
 		console.log("onceAssetsLoaded trigger");
 
 		this.applyBakedOnMeshes();
@@ -245,29 +244,22 @@ class SceneBuilder {
 
 	sequencesBuild(){
 
-		// const sequenceInfos = this.worldConfig.sequences.find( seq => seq.id === this.sequenceID );
+		this.sequencesElements = new SequencesBuilder(
+			{
+				sequences: this.worldConfig.sequences,
+				scene: this.scene,
+				sceneElements: this.sceneElements,
+				camera: this.camera,
+				canvas: this.canvas
+			}
+		);
 
-		const sequencesBuilt = new SequencesBuilder({
-			sequences: this.worldConfig.sequences,
-			scene: this.scene,
-			sceneElements: this.sceneElements,
-			camera: this.camera,
-			canvas: this.canvas
-		});
-
-		this.sequencesElements = sequencesBuilt._sequencesLib;
-		
 	}
 
 	refreshAndStartScene(){
 
 		this.camera.updateProjectionMatrix();
 
-		// we start all timelines created here
-
-		// Object.keys(this.sceneElements.timelines).forEach(key => {
-		// 	this.sceneElements.timelines[key].play();
-		// })
 
 		// we say : ok good, ready
 		// this value is watched in instanceThree.vue
