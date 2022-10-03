@@ -52,13 +52,14 @@ class SceneBuilder {
 	constructor( params ) {
 
 		// Get data from instanciation
-		this.canvas = params.canvas;
-		this.worldConfig = params.worldConfig;
-		this.sequenceID = params.sequenceID;
+		const { canvas, worldConfig, sequenceID } = params;
+
+		this.canvas = canvas;
+		this.worldConfig = worldConfig;
+		this.sequenceID = sequenceID;
 
 		// Internal variables
 		this.assetsManager = new AssetsLoadWatcher(this);
-		this.scene = null;
 
 		// _ Loaders
 		this.dracoLoader = new DRACOLoader();
