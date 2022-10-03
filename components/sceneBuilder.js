@@ -202,7 +202,7 @@ class SceneBuilder {
 
 	}
 
-	async onceAssetsAreLoaded(){
+	onceAssetsAreLoaded(){
 
 		console.log("onceAssetsLoaded trigger");
 

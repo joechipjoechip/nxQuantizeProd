@@ -39,11 +39,11 @@ class SequencesBuilder {
 				timelines: {}
 			};
 
-			this._BuildPostprocsCollection(sequenceInfos);
+			this._BuildPostprocsCollections(sequenceInfos);
 
 			this._BuildHelpers(sequenceInfos);
 
-			this._happeningsDispatcher(sequenceInfos);
+			this._DispatchHappenings(sequenceInfos);
 			
 		});
 
@@ -65,7 +65,7 @@ class SequencesBuilder {
 		
 	}
 
-	_happeningsDispatcher( sequenceInfos ){
+	_DispatchHappenings( sequenceInfos ){
 
 		if( sequenceInfos.type === "blender-points" && this._sceneElements.tubes.length ){
 
@@ -75,7 +75,7 @@ class SequencesBuilder {
 
 	}
 	
-	_BuildPostprocsCollection( sequenceInfos ){
+	_BuildPostprocsCollections( sequenceInfos ){
 
 		if( sequenceInfos.postproc ){
 	

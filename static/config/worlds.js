@@ -74,6 +74,7 @@ const worlds = [
 					// {
 					// 	type: "glitch"
 					// },
+					
 					// {
 					// 	type: "blur",
 					// 	value: {
@@ -82,9 +83,11 @@ const worlds = [
 					// 		maxblur: 0.01,
 					// 	}
 					// },
+
 					// {
 					// 	type: "sobel"
 					// },
+
 					{
 						type: "bloom",
 						value: {

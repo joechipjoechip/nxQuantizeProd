@@ -98,14 +98,17 @@
 					antialias: true
 				});
 
+				
+				this.renderPass = new RenderPass(this.scene1.scene, this.scene1.camera);
+
 				this.composer = new EffectComposer(this.renderer);
+
 				this.composer.setSize(this.canvasSizeRef.width, this.canvasSizeRef.height);
 				this.composer.setPixelRatio(window.devicePixelRatio);
 
-				this.renderPass = new RenderPass(this.scene1.scene, this.scene1.camera);
-
 				this.renderer.setSize(this.canvasSizeRef.width, this.canvasSizeRef.height);
 				this.renderer.setPixelRatio(window.devicePixelRatio);
+
 				this.renderer.setClearColor(currentWorldConfig.main.spaceColor);
 
 				this.renderer.outputEncoding = THREE.sRGBEncoding;
