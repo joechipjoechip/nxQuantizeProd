@@ -39,6 +39,8 @@ class SequencesBuilder {
 				timelines: {}
 			};
 
+			this._BuildPostprocsCollection(sequenceInfos);
+
 			this._BuildHelpers(sequenceInfos);
 
 			this._happeningsDispatcher(sequenceInfos);
@@ -71,15 +73,18 @@ class SequencesBuilder {
 
 		}
 
+	}
+	
+	_BuildPostprocsCollection( sequenceInfos ){
 
 		if( sequenceInfos.postproc ){
-
+	
 			this._sequencesLib[sequenceInfos.id].postproc = [];
-
+	
 			this._BuildPostprocs(sequenceInfos);
-
+	
 		}
-
+		
 	}
 
 	_BuildBlenderTubes( sequenceInfos ){

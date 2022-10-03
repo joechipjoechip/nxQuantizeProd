@@ -77,7 +77,6 @@ class PostprocsBuilder {
 						this._camera, 
 						{
 							focus, aperture, maxblur,
-		
 							width: this._canvas.width,
 							height: this._canvas.height
 						}
