@@ -52,7 +52,7 @@ const worlds = [
 				},
 
 				tubeInfos: {
-					duration: 14,
+					duration: 24,
 					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
 					isUsingTarget: true,
 					steps: [
@@ -60,11 +60,19 @@ const worlds = [
 						// n has nothing to do with the number of points for the curve
 						{
 							// this amount is a percent of the global duration
-							amount: 70,
+							amount: 30,
+							fov: 25,
 							stepEase: "linear"
 						},
 						{
-							amount: 30,
+							// this amount is a percent of the global duration
+							amount: 40,
+							fov: 95,
+							stepEase: "linear"
+						},
+						{
+							amount: 29,
+							fov: 28,
 							stepEase: "power4.InOut"
 						}
 					]
@@ -92,7 +100,7 @@ const worlds = [
 						type: "bloom",
 						value: {
 							strength: 0.9,
-							threshold: 0.39,
+							threshold: 0.35,
 							radius: 0.3
 						}
 					},

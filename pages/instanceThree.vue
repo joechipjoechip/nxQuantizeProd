@@ -216,7 +216,7 @@
 				if( this.deltaTime > this.frameRate ){
 
 					// NOW COMPUTE RENDER
-					if( this.scene1.sequencesElements[this.sequenceID].postproc?.length ){
+					if( this.scene1.sequencesElements[this.sequenceID].postproc.length ){
 
 						this.composer.render();
 

@@ -27,7 +27,9 @@ class BlenderTubes{
 
 	_Inits(){
 
-		const smoothedCurvePoints = this._blenderPoints?.map(object3d => {
+		if( !this._blenderPoints ){ return; }
+
+		const smoothedCurvePoints = this._blenderPoints.map(object3d => {
 
 			return new THREE.Vector3(
 				object3d.position.x, 
@@ -94,7 +96,8 @@ class BlenderTubes{
 			}, 0);
 
 			const animatedObject = {
-				time: alreadyPlayedDuration
+				time: alreadyPlayedDuration,
+				customFov: index === 0 ? this._camera.fov : this._sequenceInfos.tubeInfos.steps[index - 1].fov
 			};
 
 			const timeToReach = alreadyPlayedDuration + thisStepDuration;
@@ -104,11 +107,14 @@ class BlenderTubes{
 				thisStepDuration, 
 				{
 					time: timeToReach,
+					customFov: step.fov,
+
 					ease: step.stepEase,
 
 					onUpdate: () => {
 
-						const time = animatedObject.time;
+						// const time = animatedObject.time;
+						const { time, customFov } = animatedObject;
 
 						const looptime = globalDuration;
 
@@ -117,6 +123,10 @@ class BlenderTubes{
 						const pos1 = this._tube.geometry.parameters.path.getPointAt(t);     
 						
 						this._camera.position.copy(pos1);
+
+						this._camera.fov = customFov;
+
+						this._camera.updateProjectionMatrix();
 						
 						if( this._target ){
 							
@@ -135,9 +145,9 @@ class BlenderTubes{
 
 						}
 
-						if( this._debug.timelines ){
-							console.log("timeline update triggered");
-						}
+						// if( this._debug.timelines ){
+						// 	console.log("timeline update triggered");
+						// }
 
 						// enfin : 
 						// le this._tubeTravelTargetPosition sera utilisé dans le render principal
