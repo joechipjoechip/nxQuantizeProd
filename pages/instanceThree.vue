@@ -121,7 +121,7 @@
 
 			},
 
-			checkStuffsToAnimateAtRender(){
+			checkStuffsToAnimateAtRender( deltaTime ){
 				// console.log("ok le check", this.scene1.sequencesElements[this.sequenceID].timelines)
 				// a lot of stuffs to animate here
 
@@ -141,6 +141,11 @@
 
 					});
 
+				}
+
+				// if any bob in the scene, he needs update for his moves
+				if( this.scene1.sceneElements.bob.controller ){
+					this.scene1.sceneElements.bob.controller._controls.Update(deltaTime);
 				}
 
 
@@ -210,7 +215,7 @@
 
 				this.deltaTime += this.clock.getDelta()
 
-				this.checkStuffsToAnimateAtRender();
+				this.checkStuffsToAnimateAtRender(this.deltaTime);
 				
 				// NOW CHECK IF FRAMERATE IS GOOD
 				if( this.deltaTime > this.frameRate ){

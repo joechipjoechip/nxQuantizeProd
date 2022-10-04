@@ -4,6 +4,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js"
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 
 import { SequencesBuilder } from '@/components/sequencesBuilder.js';
+import { CharacterController } from '@/components/characterController.js';
 
 class AssetsLoadWatcher {
 
@@ -21,6 +22,9 @@ class AssetsLoadWatcher {
 		console.log("set glb")
 		this._glb = x;
 		this.computeReadyness();
+		if( x ){
+			this._that.loadFbx();
+		}
 	}
 
 	get glb(){
@@ -77,7 +81,7 @@ class SceneBuilder {
 		this.sceneElements = {
 			landscape: null,
 			sky: null,
-			bob: null,
+			bob: {},
 			initialCamera: null,
 			tubes: [],
 			lights: [],
@@ -112,19 +116,49 @@ class SceneBuilder {
 
 	loadGlb(){
 
-		Object.keys(this.worldConfig.main.meshInfos).forEach(key => {
+		Object.keys(this.worldConfig.main.meshInfos).forEach((key, index) => {
 
-			// load GLB files
-			this.glbLoader.load(
-				this.worldConfig.main.meshInfos[key].glbPath, 
-				glbFile => { this.glbParser(glbFile) }
-			);
+			const extension = this.worldConfig.main.meshInfos[key].glbPath.split(".")[1];
+
+			switch( extension ){
+
+				case "glb":
+					// load GLB files
+					this.glbLoader.load(
+						this.worldConfig.main.meshInfos[key].glbPath, 
+						glbFile => { this.glbParser(glbFile, index) }
+					);
+					break;
+
+			}
 
 		});
 
 	}
 
-	glbParser( glbFile ){
+	loadFbx(){
+
+		const { position, rotation } = this.sceneElements.bob.initialPosition;
+		let filePath = this.worldConfig.main.meshInfos.bob.glbPath.split("/");
+		const fileName = filePath.pop();
+
+		filePath = filePath.join("/");
+
+		this.sceneElements.bob.controller = new CharacterController({
+			file: {
+				path: filePath,
+				name: fileName
+			},
+			scene: this.scene,
+			camera: this.currentCamera,
+			bobInfos: Object.assign(this.worldConfig.main.meshInfos.bob.infos, {
+				start: { position, rotation }
+			})
+		});
+		
+	}
+
+	glbParser( glbFile, indexGlb ){
 
 		glbFile.scene.traverse(child => {
 
@@ -135,22 +169,22 @@ class SceneBuilder {
 					this.sceneElements.landscape = child;
 					// quand on sera à la gestion des ombres :
 					// this.sceneElements.landscapeShadow = child.clone();
-					break
+					break;
 
 				// find sky
 				case "sky":
 					this.sceneElements.sky = child;
-					break
+					break;
 
 				// find camera intial position
 				case "camera":
 					this.sceneElements.initialCamera = child;
-					break
+					break;
 
 				// find bob initial position
 				case "bob-position":
-					this.sceneElements.bob = child;
-					break
+					this.sceneElements.bob.initialPosition = child;
+					break;
 
 			}
 				

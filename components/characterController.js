@@ -22,9 +22,9 @@ class BasicCharacterController {
     this._params = params;
     this._decceleration = new THREE.Vector3(-0.0005, -0.0001, -5.0);
     this._acceleration = new THREE.Vector3(
-      this._params.linkInfos.velocity.x,
-      this._params.linkInfos.velocity.y,
-      this._params.linkInfos.velocity.z
+      this._params.bobInfos.velocity.x,
+      this._params.bobInfos.velocity.y,
+      this._params.bobInfos.velocity.z
     );
     this._velocity = new THREE.Vector3(0, 0, 0);
     this._position = new THREE.Vector3();
@@ -35,7 +35,7 @@ class BasicCharacterController {
         new BasicCharacterControllerProxy(this._animations)
     );
     this._raycaster = new THREE.Raycaster();
-    this._moveScaledRatio = this._params.linkInfos.scale * 100 * 2;
+    this._moveScaledRatio = this._params.bobInfos.scale * 100 * 2;
 
     this._LoadModels();
   }
@@ -43,11 +43,11 @@ class BasicCharacterController {
   _LoadModels() {
     const loader = new FBXLoader();
 
-    loader.setPath(`./blender/persos/${this._params.linkInfos.name}/`);
+    loader.setPath(`.${this._params.file.path}/`);
 
-    loader.load('link.fbx', (fbx) => {
+    loader.load(this._params.file.name, (fbx) => {
 
-      fbx.scale.setScalar(this._params.linkInfos.scale);
+      fbx.scale.setScalar(this._params.bobInfos.scale);
 
       fbx.traverse(c => {
         // console.log("c : ", c);
@@ -59,11 +59,13 @@ class BasicCharacterController {
       });
 
       this._target = fbx;
-      this._target.name = "linkMain";
+      this._target.name = "bobMain";
       this._params.scene.add(this._target);
 
-      this._target.position.copy(this._params.linkInfos.start.position);
-      this._target.rotation.copy(this._params.linkInfos.start.rotation);
+      this._target.position.copy(this._params.bobInfos.start.position);
+      this._target.rotation.copy(this._params.bobInfos.start.rotation);
+
+      console.log("wsh : this._params.bobInfos.start.rotation : ", this._params.bobInfos.start.rotation);
 
       this._mixer = new THREE.AnimationMixer(this._target);
 
@@ -83,11 +85,11 @@ class BasicCharacterController {
       };
 
       const loader = new FBXLoader(this._manager);
-      loader.setPath(`./blender/persos/${this._params.linkInfos.name}/`);
+      loader.setPath(`.${this._params.file.path}/`);
       loader.load('walk.fbx', (a) => { _OnLoad('walk', a); });
       loader.load('run.fbx', (a) => { _OnLoad('run', a); });
       loader.load('idle.fbx', (a) => { _OnLoad('idle', a); });
-      loader.load('dance.fbx', (a) => { _OnLoad('dance', a); });
+      // loader.load('dance.fbx', (a) => { _OnLoad('dance', a); });
     });
 
   }
@@ -182,9 +184,9 @@ class BasicCharacterController {
     );
 
     controlObject.position.y = this._raycaster
-                                  .intersectObjects( this._params.scene.children )
-                                  .find(intersected => intersected.object.name === "mainMapMerged")
-                                  .point.y;
+      .intersectObjects( this._params.scene.children )
+      .find(intersected => intersected.object.name === "landscape")
+      ?.point.y;
 
     this._position.copy(controlObject.position);
 
@@ -195,12 +197,12 @@ class BasicCharacterController {
 
   UpdateDynamicLightShadowCamera( lightToUpdate ){
 
-    console.log("hey le UpdateDynamicLightShadowCamera, this._position.x : ", this._position.x);
+    console.log("(vide pour linstant) hey le UpdateDynamicLightShadowCamera, this._position.x : ", this._position.x);
 
-    lightToUpdate.shadow.camera.target = new THREE.Object3D({ 
-      name: "craftedTarget", 
-      position: this._position 
-    });
+    // lightToUpdate.shadow.camera.target = new THREE.Object3D({ 
+    //   name: "craftedTarget", 
+    //   position: this._position 
+    // });
 
     // lightToUpdate.shadow.camera.lookAt(this._position);
 
@@ -229,7 +231,7 @@ class BasicCharacterControllerInput {
 
   _onKeyDown(event) {
 
-	// console.log("keyDown triggered : ", event.keyCode);
+	console.log("keyDown triggered : ", event.keyCode);
 
     switch (event.keyCode) {
       case 90: // z
@@ -326,7 +328,7 @@ class CharacterFSM extends FiniteStateMachine {
     this._AddState('idle', IdleState);
     this._AddState('walk', WalkState);
     this._AddState('run', RunState);
-    this._AddState('dance', DanceState);
+    // this._AddState('dance', DanceState);
   }
 };
 

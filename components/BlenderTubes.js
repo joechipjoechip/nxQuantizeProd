@@ -10,8 +10,8 @@ class BlenderTubes{
 		this._camera = params.camera;
 
 		this._sequenceInfos = params.sequenceInfos;
-		this._blenderPoints = params.blenderPoints.filter(point => point.name.indexOf("-target") === -1);
-		this._target = params.blenderPoints.find(point => point.name.indexOf("-target") !== -1);
+		this._blenderPoints = params.blenderPoints.filter(point => point.name.indexOf("_target") === -1);
+		this._target = params.blenderPoints.find(point => point.name.indexOf("_target") !== -1);
 
 		this._tube = null;
 		this._tubeTravelTargetPosition = null;

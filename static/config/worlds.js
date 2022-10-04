@@ -16,16 +16,24 @@ const worlds = [
 			meshInfos: {
 
 				world: {
-					glbPath: "/assets/3d/worlds/oula/oula.glb",
+					glbPath: "/assets/3d/worlds/oula/oula2.glb",
 					imagePath: {
 						landscape: "/assets/3d/worlds/oula/oula.jpg",
 						// sky: "/assets/3d/worlds/bones/skyBake.jpg"
 					}
 				},
 
-				// bob: {
-				// 	glbPath: "/assets/3d/worlds/base002/link-001.glb"
-				// }
+				bob: {
+					glbPath: "/assets/3d/persos/bob/bob.fbx",
+					infos: {
+						scale: 0.005,
+						velocity: {
+							x: 0.2,
+							y: 0.1,
+							z: 0.2
+						}
+					}
+				}
 
 			}
 
@@ -52,7 +60,7 @@ const worlds = [
 				},
 
 				tubeInfos: {
-					duration: 24,
+					duration: 4,
 					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
 					isUsingTarget: true,
 					steps: [
@@ -96,14 +104,14 @@ const worlds = [
 					// 	type: "sobel"
 					// },
 
-					{
-						type: "bloom",
-						value: {
-							strength: 0.9,
-							threshold: 0.35,
-							radius: 0.3
-						}
-					},
+					// {
+					// 	type: "bloom",
+					// 	value: {
+					// 		strength: 0.9,
+					// 		threshold: 0.35,
+					// 		radius: 0.3
+					// 	}
+					// },
 				]
 				
 
