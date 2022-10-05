@@ -16,7 +16,7 @@ const worlds = [
 			meshInfos: {
 
 				world: {
-					glbPath: "/assets/3d/worlds/oula/oula2.glb",
+					glbPath: "/assets/3d/worlds/oula/oula3.glb",
 					imagePath: {
 						landscape: "/assets/3d/worlds/oula/oula.jpg",
 						// sky: "/assets/3d/worlds/bones/skyBake.jpg"
@@ -42,7 +42,10 @@ const worlds = [
 		sequences: [
 			{
 				id: "1.0",
-				type: "blender-points",
+				// type: "blender-points",
+				type: "third-person",
+				cameraType: "gtaLike",
+
 				animatedMesh: false,
 
 				helpers: {

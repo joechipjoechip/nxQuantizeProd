@@ -148,6 +148,13 @@
 					this.scene1.sceneElements.bob.controller._controls.Update(deltaTime);
 				}
 
+				// if third-person camera in the scene, it needs updates too
+				// if( this.scene1.sequencesElements[this.sequenceID]. ){
+
+				// 	this.currentThirdPersonCamera.Update(elapsedTime, this.mousePos);
+
+				// }
+
 
 
 				// if any BlenderTube is supposed to be played with it lookAt()

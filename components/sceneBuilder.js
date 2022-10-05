@@ -153,7 +153,8 @@ class SceneBuilder {
 			camera: this.currentCamera,
 			bobInfos: Object.assign(this.worldConfig.main.meshInfos.bob.infos, {
 				start: { position, rotation }
-			})
+			}),
+			sceneBuilderThis: this
 		});
 		
 	}
@@ -245,6 +246,12 @@ class SceneBuilder {
 
 		this.composeScene();
 
+	}
+
+	onceBobIsLoaded(){
+
+		console.log("once bob is loaded trigger");
+
 		this.sequencesBuild();
 
 		this.refreshAndStartScene();
@@ -285,7 +292,8 @@ class SceneBuilder {
 				scene: this.scene,
 				sceneElements: this.sceneElements,
 				camera: this.camera,
-				canvas: this.canvas
+				canvas: this.canvas,
+				that: this
 			}
 		);
 

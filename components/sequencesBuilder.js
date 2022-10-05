@@ -36,7 +36,8 @@ class SequencesBuilder {
 			this._sequencesLib[sequenceInfos.id] = {
 				helpersConfig: sequenceInfos.helpers,
 				helpers: {},
-				timelines: {}
+				timelines: {},
+				thirdPersonCamera: null
 			};
 
 			this._BuildPostprocsCollections(sequenceInfos);
@@ -70,6 +71,13 @@ class SequencesBuilder {
 		if( sequenceInfos.type === "blender-points" && this._sceneElements.tubes.length ){
 
 			this._BuildBlenderTubes(sequenceInfos)
+
+		}
+
+		if( sequenceInfos.type === "third-person" && this._sceneElements.bob.controller._controls._bobIsLoaded ){
+
+			console.log("ok on lance le third person instanciation");
+			this._BuildThirdPersonCamera(sequenceInfos);
 
 		}
 
@@ -128,6 +136,16 @@ class SequencesBuilder {
 				)
 			);
 
+		});
+
+	}
+	
+	_BuildThirdPersonCamera( sequenceInfos ){
+
+		this._sequencesLib[sequenceInfos.id].thirdPersonCamera = new ThirdPersonCamera({
+			target: this._sceneElements.bob.controller._controls,
+			camera: this._camera,
+			cameraType: this.sequenceInfos.cameraType
 		});
 
 	}

@@ -1,4 +1,4 @@
-// import * as THREE from 'three';
+import { core } from '@/static/config/core.js';
 
 class ThirdPersonCamera {
 
@@ -6,7 +6,7 @@ class ThirdPersonCamera {
 
 	  this._params = params;
 	  this._camera = params.camera;
-    this._specs = params.specs;
+    this._specs = core.generatedCamerasSpecs[params.cameraType]
   
 	  this._currentPosition = new THREE.Vector3();
     // console.log("dans la class third person : this._camera.position : ", this._camera.position);
