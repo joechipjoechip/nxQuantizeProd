@@ -75,7 +75,7 @@ class SceneBuilder {
 
 		// _ Three elements
 		this.aspectRatio = window.innerWidth / window.innerHeight;
-		this.camera = new THREE.PerspectiveCamera(50, this.aspectRatio, 0.001, 30);
+		this.camera = new THREE.PerspectiveCamera(50, this.aspectRatio, 0.001, 50);
 		this.scene = new THREE.Scene();
 		this.sequencesElements = {};
 		this.sceneElements = {
@@ -240,7 +240,7 @@ class SceneBuilder {
 
 	onceAssetsAreLoaded(){
 
-		console.log("onceAssetsLoaded trigger");
+		console.log("onceAssetsLoaded triggered");
 
 		this.applyBakedOnMeshes();
 
@@ -250,7 +250,7 @@ class SceneBuilder {
 
 	onceBobIsLoaded(){
 
-		console.log("once bob is loaded trigger");
+		console.log("onceBobIsLoaded triggered");
 
 		this.sequencesBuild();
 

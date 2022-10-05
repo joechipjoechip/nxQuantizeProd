@@ -26,7 +26,11 @@
 			return {
 				// cette valeur, à terme, sera une props envoyée par 
 				// le component qui écoutera l'audio
-				sequenceID: "1.0"
+				sequenceID: "1.0",
+				mousePos: {
+					x: window.innerWidth / 2,
+					y: window.innerHeight / 2
+				}
 			}
 		},
 
@@ -44,6 +48,17 @@
 				// this.$children.forEach(child => {
 				// 	child.updateCanvasRefSize();
 				// });
+
+			},
+
+			mouseMoveHandler( event ){
+				
+				this.mousePos = {
+					x: (((event.offsetX + this.canvasSizeRef.width / 2) / this.canvasSizeRef.width) - 1) * 2,
+					y: (((event.offsetY + this.canvasSizeRef.height / 2) / this.canvasSizeRef.height) - 1) * -2
+				};
+
+				console.log("mousepos : ", this.mousePos.x)
 
 			},
 

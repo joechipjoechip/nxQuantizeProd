@@ -9,6 +9,7 @@
 		<canvas 
 			class="webgl" 
 			ref="canvas"
+			@mousemove="mouseMoveHandler"
 		/>
 			<!-- @mousemove="mouseMoveHandler" -->
 	</div>
@@ -16,8 +17,11 @@
 
 <script>
 
+	import { core } from '@/static/config/core.js';
 	import { worlds } from '@/static/config/worlds.js';
 	import { SceneBuilder } from '@/components/sceneBuilder.js';
+
+	import { TimelineLite } from 'gsap';
 
 	import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 	import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
@@ -28,14 +32,18 @@
 	export default {
 
 		props: {
+
 			sequenceID: {
 				type: String,
 				required: true
 			}
+
 		},
 
 		data(){
+
 			return {
+				core,
 				// Config from worlds.js
 				worldConfig: worlds.find( world => world.sequences.find( seq => seq.id === this.sequenceID ) ),
 				scene1: null,
@@ -49,10 +57,17 @@
 					width: window.innerWidth, 
 					height: window.innerHeight
 				},
+				mousePos: {
+					x: window.innerWidth / 2,
+					y: window.innerHeight / 2
+				},
+				mouseRecenterTimeoutID: null,
+
 				debug: {
 					animated: true
 				}
 			}
+
 		},
 
 		watch: {
@@ -62,6 +77,19 @@
 				if( newVal ){
 					this.onceSceneIsReady()
 				}
+
+			},
+
+			mousePos(){
+
+				if( this.mouseRecenterTimeoutID ){
+					clearTimeout(this.mouseRecenterTimeoutID);
+				}
+
+				this.mouseRecenterTimeoutID = setTimeout(
+					this.mouseRecenter,
+					this.core.mouse.moveTimeout * 1000
+				);
 
 			}
 
@@ -78,6 +106,40 @@
 		},
 
 		methods: {
+
+			mouseMoveHandler( event ){
+				
+				this.mousePos = {
+					x: (((event.offsetX + this.canvasSizeRef.width / 2) / this.canvasSizeRef.width) - 1) * 2,
+					y: (((event.offsetY + this.canvasSizeRef.height / 2) / this.canvasSizeRef.height) - 1) * -2
+				};
+
+			},
+
+			mouseRecenter(){
+
+				console.log("recentering the mousePos");
+
+				const animatedObject = {
+					x: this.mousePos.x,
+					y: this.mousePos.y
+				};
+
+				const tlRecenter = new TimelineLite();
+
+				tlRecenter.to(animatedObject, this.core.mouse.recenterDuration, {
+					x: 0,
+					y: 0,
+					onUpdate( that ){
+
+						that.mousePos.x = animatedObject.x;
+						that.mousePos.y = animatedObject.y;
+
+					},
+					onUpdateParams: [this]
+				});
+
+			},
 
 			onceSceneIsReady(){
 
@@ -149,11 +211,11 @@
 				}
 
 				// if third-person camera in the scene, it needs updates too
-				// if( this.scene1.sequencesElements[this.sequenceID]. ){
+				if( this.scene1.sequencesElements[this.sequenceID].thirdPersonCamera ){
 
-				// 	this.currentThirdPersonCamera.Update(elapsedTime, this.mousePos);
+					this.scene1.sequencesElements[this.sequenceID].thirdPersonCamera.Update(deltaTime, this.mousePos);
 
-				// }
+				}
 
 
 

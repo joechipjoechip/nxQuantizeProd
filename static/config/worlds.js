@@ -44,7 +44,7 @@ const worlds = [
 				id: "1.0",
 				// type: "blender-points",
 				type: "third-person",
-				cameraType: "gtaLike",
+				cameraType: "hips",
 
 				animatedMesh: false,
 

@@ -1,5 +1,7 @@
 import { core } from '@/static/config/core.js';
 
+import * as THREE from 'three';
+
 class ThirdPersonCamera {
 
 	constructor(params) {

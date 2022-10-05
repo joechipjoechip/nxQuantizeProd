@@ -26,16 +26,16 @@ const core = {
 		},
 		hips: {
 			offset: {
-				x: -0.05,
+				x: -0.015,
 				y: 0.025,
-				z: -0.06
+				z: -0.07
 			},
 			lookAt: {
 				x: 0,
 				y: 0.025,
 				z: 0.6
 			},
-			straightness: 0.02,
+			straightness: 0.4,
 			orientationPonderation: {
 				x: 0.5,
 				y: 0.5
