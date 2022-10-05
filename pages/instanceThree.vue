@@ -58,8 +58,8 @@
 					height: window.innerHeight
 				},
 				mousePos: {
-					x: window.innerWidth / 2,
-					y: window.innerHeight / 2
+					x: 0,
+					y: 0
 				},
 				mouseRecenterTimeoutID: null,
 
@@ -183,7 +183,7 @@
 
 			},
 
-			checkStuffsToAnimateAtRender( deltaTime ){
+			checkStuffsToAnimateAtRender( elapsedTime, deltaTime ){
 				// console.log("ok le check", this.scene1.sequencesElements[this.sequenceID].timelines)
 				// a lot of stuffs to animate here
 
@@ -213,7 +213,7 @@
 				// if third-person camera in the scene, it needs updates too
 				if( this.scene1.sequencesElements[this.sequenceID].thirdPersonCamera ){
 
-					this.scene1.sequencesElements[this.sequenceID].thirdPersonCamera.Update(deltaTime, this.mousePos);
+					this.scene1.sequencesElements[this.sequenceID].thirdPersonCamera.Update(elapsedTime, this.mousePos);
 
 				}
 
@@ -282,9 +282,9 @@
 
 				window.requestAnimationFrame(this.mainTick);
 
-				this.deltaTime += this.clock.getDelta()
+				this.deltaTime += this.clock.getDelta();
 
-				this.checkStuffsToAnimateAtRender(this.deltaTime);
+				this.checkStuffsToAnimateAtRender(this.clock.getElapsedTime(), this.deltaTime);
 				
 				// NOW CHECK IF FRAMERATE IS GOOD
 				if( this.deltaTime > this.frameRate ){

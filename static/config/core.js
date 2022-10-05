@@ -45,33 +45,36 @@ const core = {
 			offset: {
 				x: 0,
 				y: 0.025,
-				z: -0.06
+				z: -0.07
 			},
 			lookAt: {
 				x: 0,
 				y: 0.025,
 				z: 0.6
 			},
+			straightness: 0.05,
+			orientationPonderation: {
+				x: 0.045,
+				y: 0.045
+			},
 			motion: {
+				// motion will move the camera continuously
+				// with a sin() (so -1 to 1)
+				// and it's related at the offset values
 				x: {
 					// ratios
-					range: 0.4,
-					velocity: 0.15
+					range: 0.01,
+					velocity: 0.62
 				},
 				y: {
-					range: 0,
-					velocity: 1
+					range: 0.01,
+					velocity: 0.65
 				},
 				z: {
-					range: -0.4,
-					velocity: 0.35
+					range: -0.2,
+					velocity: 0.2
 				},
 			},
-			straightness: 0.02,
-			orientationPonderation: {
-				x: 0.3,
-				y: 0.3
-			}
 		},
 		helmet: {
 			offset: {
@@ -86,8 +89,8 @@ const core = {
 			},
 			straightness: 0.4,
 			orientationPonderation: {
-				x: -0.5,
-				y: 0.5
+				x: -0.08,
+				y: 0.08
 			}
 		}	
 	},

@@ -60,7 +60,7 @@ class ThirdPersonCamera {
     } else {
 
       idealLookat = new THREE.Vector3(
-        this._specs.lookAt.x,
+        this._specs.lookAt.x,  
         this._specs.lookAt.y,
         this._specs.lookAt.z
       );

@@ -303,7 +303,6 @@ class SceneBuilder {
 
 		this.camera.updateProjectionMatrix();
 
-
 		// we say : ok good, ready
 		// this value is watched in instanceThree.vue
 		// and allow rendering start
