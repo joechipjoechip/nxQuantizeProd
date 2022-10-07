@@ -23,9 +23,9 @@ async _Init(params) {
 	this._sceneBuilderThis = params.sceneBuilderThis;
 	this._decceleration = new THREE.Vector3(-0.0005, -0.0001, -5.0);
 	this._acceleration = new THREE.Vector3(
-	this._params.bobInfos.velocity.x,
-	this._params.bobInfos.velocity.y,
-	this._params.bobInfos.velocity.z
+		this._params.bobInfos.velocity.x,
+		this._params.bobInfos.velocity.y,
+		this._params.bobInfos.velocity.z
 	);
 	this._velocity = new THREE.Vector3(0, 0, 0);
 	this._position = new THREE.Vector3();
