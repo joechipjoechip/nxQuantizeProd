@@ -109,7 +109,7 @@ class BasicCharacterController {
 
 	Update(timeInSeconds) {
 		if (!this._target) {
-		return;
+			return;
 		}
 
 		this._stateMachine.Update(timeInSeconds, this._input);
@@ -122,7 +122,9 @@ class BasicCharacterController {
 		);
 		frameDecceleration.multiplyScalar(timeInSeconds);
 		frameDecceleration.z = Math.sign(frameDecceleration.z) * Math.min(
-			Math.abs(frameDecceleration.z), Math.abs(velocity.z));
+			Math.abs(frameDecceleration.z), 
+			Math.abs(velocity.z)
+		);
 
 		velocity.add(frameDecceleration);
 
@@ -132,29 +134,33 @@ class BasicCharacterController {
 		const _R = controlObject.quaternion.clone();
 
 		const acc = this._acceleration.clone();
+
 		if (this._input._keys.shift) {
-		acc.multiplyScalar(3.0);
+			acc.multiplyScalar(3.0);
 		}
 
 		if (this._stateMachine._currentState?.Name == 'dance') {
-		acc.multiplyScalar(0.0);
+			acc.multiplyScalar(0.0);
 		}
 
 		if (this._input._keys.forward) {
-		velocity.z += acc.z * timeInSeconds;
+			velocity.z += acc.z * timeInSeconds;
 		}
+
 		if (this._input._keys.backward) {
-		velocity.z -= acc.z * timeInSeconds;
+			velocity.z -= acc.z * timeInSeconds;
 		}
+
 		if (this._input._keys.left) {
-		_A.set(0, 1, 0);
-		_Q.setFromAxisAngle(_A, 4.0 * Math.PI * timeInSeconds * this._acceleration.y);
-		_R.multiply(_Q);
+			_A.set(0, 1, 0);
+			_Q.setFromAxisAngle(_A, 4.0 * Math.PI * timeInSeconds * this._acceleration.y);
+			_R.multiply(_Q);
 		}
+
 		if (this._input._keys.right) {
-		_A.set(0, 1, 0);
-		_Q.setFromAxisAngle(_A, 4.0 * -Math.PI * timeInSeconds * this._acceleration.y);
-		_R.multiply(_Q);
+			_A.set(0, 1, 0);
+			_Q.setFromAxisAngle(_A, 4.0 * -Math.PI * timeInSeconds * this._acceleration.y);
+			_R.multiply(_Q);
 		}
 
 		controlObject.quaternion.copy(_R);
@@ -177,23 +183,22 @@ class BasicCharacterController {
 		controlObject.position.add(sideways);
 
 		this._raycaster.set(
-		new THREE.Vector3(
-			controlObject.position.x, 
-			controlObject.position.y + 1, 
-			controlObject.position.z, 
-		),
-		new THREE.Vector3(0,-1,0)
+			new THREE.Vector3(
+				controlObject.position.x, 
+				controlObject.position.y + 1, 
+				controlObject.position.z, 
+			),
+			new THREE.Vector3(0,-1,0)
 		);
 
 		controlObject.position.y = this._raycaster
 		.intersectObjects( this._params.scene.children )
-		.find(intersected => intersected.object.name === "landscape")
-		?.point.y || controlObject.position.y;
+		.find(intersected => intersected.object.name === "landscape")?.point.y || controlObject.position.y;
 
 		this._position.copy(controlObject.position);
 
 		if (this._mixer) {
-		this._mixer.update(timeInSeconds);
+			this._mixer.update(timeInSeconds);
 		}
 	}
 
@@ -215,73 +220,75 @@ class BasicCharacterController {
 
 class BasicCharacterControllerInput {
 	constructor() {
-		this._Init();    
+		this._imposedMoves = {};  
+		this._Init();  
 	}
 
 	_Init() {
+		
 		this._keys = {
-		forward: false,
-		backward: false,
-		left: false,
-		right: false,
-		space: false,
-		shift: false,
+			forward: false || this._imposedMoves.forward,
+			backward: false || this._imposedMoves.backward,
+			left: false || this._imposedMoves.left,
+			right: false || this._imposedMoves.right,
+			space: false || this._imposedMoves.space,
+			shift: false || this._imposedMoves.shift,
 		};
-		document.addEventListener('keydown', (e) => this._onKeyDown(e), false);
-		document.addEventListener('keyup', (e) => this._onKeyUp(e), false);
+
+		document.addEventListener('keydown', ( event ) => this._onKeyDown( event ), false);
+		document.addEventListener('keyup', ( event ) => this._onKeyUp( event ), false);
+
 	}
 
 	_onKeyDown(event) {
 
-	console.log("keyDown triggered : ", event.keyCode);
-
 		switch (event.keyCode) {
-		case 90: // z
-			this._keys.forward = true;
-			break;
-		case 81: // q
-			this._keys.left = true;
-			break;
-		case 83: // s
-			this._keys.backward = true;
-			break;
-		case 68: // d
-			this._keys.right = true;
-			break;
-		case 32: // SPACE
-			this._keys.space = true;
-			break;
-		case 16: // SHIFT
-			this._keys.shift = true;
+			case 90: // z
+				this._keys.forward = true;
+				break;
+			case 81: // q
+				this._keys.left = true;
+				break;
+			case 83: // s
+				this._keys.backward = true;
+				break;
+			case 68: // d
+				this._keys.right = true;
+				break;
+			case 32: // SPACE
+				this._keys.space = true;
+				break;
+			case 16: // SHIFT
+				this._keys.shift = true;
 			break;
 		}
+
 	}
 
 	_onKeyUp(event) {
 
-	// console.log("keyUp triggered : ", event.keyCode);
-
 		switch(event.keyCode) {
-		case 90: // z
-			this._keys.forward = false;
-			break;
-		case 81: // q
-			this._keys.left = false;
-			break;
-		case 83: // s
-			this._keys.backward = false;
-			break;
-		case 68: // d
-			this._keys.right = false;
-			break;
-		case 32: // SPACE
-			this._keys.space = false;
-			break;
-		case 16: // SHIFT
-			this._keys.shift = false;
+			case 90: // z
+				this._keys.forward = false || this._imposedMoves.forward;
+				break;
+			case 81: // q
+				this._keys.left = false || this._imposedMoves.left;
+				break;
+			case 83: // s
+				this._keys.backward = false || this._imposedMoves.backward;
+				break;
+			case 68: // d
+				this._keys.right = false || this._imposedMoves.right;
+				break;
+			case 32: // SPACE
+				this._keys.space = false || this._imposedMoves.space;
+				break;
+			case 16: // SHIFT
+				this._keys.shift = false || this._imposedMoves.shift;
 			break;
 		}
 	}
+
 };
 
 
@@ -459,25 +466,27 @@ class RunState extends State {
 
 	Enter(prevState) {
 		const curAction = this._parent._proxy._animations['run'].action;
+
 		if (prevState) {
-		const prevAction = this._parent._proxy._animations[prevState.Name].action;
+			const prevAction = this._parent._proxy._animations[prevState.Name].action;
 
-		curAction.enabled = true;
+			curAction.enabled = true;
 
-		if (prevState.Name == 'walk') {
-			const ratio = curAction.getClip().duration / prevAction.getClip().duration;
-			curAction.time = prevAction.time * ratio;
+			if (prevState.Name == 'walk') {
+				const ratio = curAction.getClip().duration / prevAction.getClip().duration;
+				curAction.time = prevAction.time * ratio;
+			} else {
+				curAction.time = 0.0;
+				curAction.setEffectiveTimeScale(1.0);
+				curAction.setEffectiveWeight(1.0);
+			}
+
+			curAction.crossFadeFrom(prevAction, 0.5, true);
+			curAction.play();
 		} else {
-			curAction.time = 0.0;
-			curAction.setEffectiveTimeScale(1.0);
-			curAction.setEffectiveWeight(1.0);
+			curAction.play();
 		}
 
-		curAction.crossFadeFrom(prevAction, 0.5, true);
-		curAction.play();
-		} else {
-		curAction.play();
-		}
 	}
 
 	Exit() {
@@ -485,10 +494,10 @@ class RunState extends State {
 
 	Update(timeElapsed, input) {
 		if (input._keys.forward || input._keys.backward) {
-		if (!input._keys.shift) {
-			this._parent.SetState('walk');
-		}
-		return;
+			if (!input._keys.shift) {
+				this._parent.SetState('walk');
+			}
+			return;
 		}
 
 		this._parent.SetState('idle');

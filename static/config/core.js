@@ -26,7 +26,7 @@ const core = {
 				z: 0.6
 			},
 			straightness: 0.02,
-			orientationPonderation: {
+			mouseOrientationPonderation: {
 				x: 1.5,
 				y: 1.5
 			}
@@ -42,10 +42,10 @@ const core = {
 				y: 0.025,
 				z: 0.6
 			},
-			straightness: 0.4,
-			orientationPonderation: {
-				x: 0.5,
-				y: 0.5
+			straightness: 0.015,
+			mouseOrientationPonderation: {
+				x: 0.1,
+				y: 0.1
 			}
 		},
 		movingHips: {
@@ -60,7 +60,7 @@ const core = {
 				z: 0.6
 			},
 			straightness: 0.05,
-			orientationPonderation: {
+			mouseOrientationPonderation: {
 				x: 0.045,
 				y: 0.045
 			},
@@ -95,7 +95,7 @@ const core = {
 				z: -0.6
 			},
 			straightness: 0.4,
-			orientationPonderation: {
+			mouseOrientationPonderation: {
 				x: -0.08,
 				y: 0.08
 			}

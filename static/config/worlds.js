@@ -126,6 +126,10 @@ const worlds = [
 					},
 				},
 
+				bobImposedMoves: {
+					space: true
+				},
+
 				postproc: [
 					{
 						type: "glitch"
@@ -153,6 +157,34 @@ const worlds = [
 					// 	}
 					// },
 				]
+
+			},
+			{
+				id: "1.2",
+				// type: "blender-points",
+				type: "third-person",
+				cameraType: "hips",
+
+				animatedMesh: false,
+
+				helpers: {
+					orbit: true,
+					tubes: false,
+					timelines: false
+				},
+				
+				config: {
+					fog: {
+						enabled: true,
+						color: 0x000000,
+						intensity: .15
+					},
+				},
+
+				bobImposedMoves: {
+					forward: true,
+					shift: true
+				}
 
 			}
 		]

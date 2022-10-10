@@ -24,7 +24,7 @@ class AssetsLoadWatcher {
 		this._glb = x;
 		this.computeReadyness();
 		if( x ){
-			this._that.loadFbx();
+			this._that.createBob();
 		}
 	}
 
@@ -139,7 +139,7 @@ class SceneBuilder {
 
 	}
 
-	loadFbx(){
+	createBob(){
 
 		const { position, rotation } = this.sceneElements.bob.initialPosition;
 		let filePath = this.worldConfig.main.meshInfos.bob.glbPath.split("/");

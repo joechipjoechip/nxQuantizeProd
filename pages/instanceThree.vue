@@ -159,6 +159,14 @@
 
 			sequenceChangeHandler( newSequenceID ){
 
+				this.postProcChangeHandler(newSequenceID);
+
+				this.bobMoveChangeHandler(newSequenceID);
+
+			},
+
+			postProcChangeHandler( newSequenceID ){
+
 				const sequencePostProcObj = this.scene1.sequencesElements[newSequenceID].postproc;
 
 				if( sequencePostProcObj ){
@@ -177,6 +185,29 @@
 
 					this.renderPass = null;
 					this.composer = null;
+
+				}
+
+			},
+
+			bobMoveChangeHandler( newSequenceID ){
+
+				const sequenceBobImposedMoves = this.scene1.sequencesElements[newSequenceID].bobImposedMoves;
+
+				if( sequenceBobImposedMoves ){
+
+					this.scene1.sceneElements.bob.controller._controls._input._imposedMoves = {};
+
+					this.scene1.sceneElements.bob.controller._controls._input._imposedMoves = sequenceBobImposedMoves;
+
+					Object.keys(sequenceBobImposedMoves).forEach(imposedKey => {
+						this.scene1.sceneElements.bob.controller._controls._input._keys[imposedKey] = sequenceBobImposedMoves[imposedKey];
+					});
+
+
+				} else {
+
+					this.scene1.sceneElements.bob.controller._controls._input._imposedMoves = {};
 
 				}
 
@@ -251,14 +282,15 @@
 			},
 
 			checkStuffsToAnimateAtRender( elapsedTime, deltaTime ){
-				// console.log("ok le check", this.scene1.sequencesElements[this.sequenceID].timelines)
-				// a lot of stuffs to animate here
+
 				const currentSceneElements = this.scene1.sceneElements;
 				const currentSequenceElements = this.scene1.sequencesElements[this.sequenceID];
 
+				// a lot of stuffs to animate here
+
+
 				// if an orbit helper is set
 				currentSequenceElements.helpers.orbit?.update();
-
 
 
 				// if any timeline is supposed to .play()

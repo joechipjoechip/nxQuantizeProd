@@ -95,7 +95,7 @@
 				}
 
 				// free memory and ressources
-				this.$refs.instancethree.scene1.sequencesElements[oldSequenceID] = null;
+				// this.$refs.instancethree.scene1.sequencesElements[oldSequenceID] = null;
 
 			}
 

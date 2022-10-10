@@ -49,8 +49,8 @@ class ThirdPersonCamera {
 	_CalculateIdealLookat( mousePos ){
 
     const mouseVector = new THREE.Vector3(
-      mousePos.x * this._specs.orientationPonderation.x * -1, 
-      mousePos.y * this._specs.orientationPonderation.y,
+      mousePos.x * this._specs.mouseOrientationPonderation.x * -1, 
+      mousePos.y * this._specs.mouseOrientationPonderation.y,
       0
     );
     let idealLookat;
