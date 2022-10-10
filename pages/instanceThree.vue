@@ -109,9 +109,6 @@
 				sequenceID: this.sequenceID
 			});
 
-			// this.initComposer();
-			// this.fillComposer();
-
 		},
 
 		methods: {
@@ -209,6 +206,18 @@
 
 			},
 
+			initComposer(){
+
+				this.renderPass = new RenderPass(this.scene1.scene, this.scene1.camera);
+
+				this.composer = new EffectComposer(this.renderer);
+
+				this.composer.setSize(this.canvasSizeRef.width, this.canvasSizeRef.height);
+
+				this.composer.setPixelRatio(window.devicePixelRatio);
+
+			},
+
 			fillComposer(){
 
 				const keysToCheck = ["shadersPass", "effectsPass"];
@@ -241,34 +250,24 @@
 
 			},
 
-			initComposer(){
-
-				this.renderPass = new RenderPass(this.scene1.scene, this.scene1.camera);
-
-				this.composer = new EffectComposer(this.renderer);
-
-				this.composer.setSize(this.canvasSizeRef.width, this.canvasSizeRef.height);
-
-				this.composer.setPixelRatio(window.devicePixelRatio);
-
-			},
-
 			checkStuffsToAnimateAtRender( elapsedTime, deltaTime ){
 				// console.log("ok le check", this.scene1.sequencesElements[this.sequenceID].timelines)
 				// a lot of stuffs to animate here
+				const currentSceneElements = this.scene1.sceneElements;
+				const currentSequenceElements = this.scene1.sequencesElements[this.sequenceID];
 
 				// if an orbit helper is set
-				this.scene1.sequencesElements[this.sequenceID].helpers.orbit?.update();
+				currentSequenceElements.helpers.orbit?.update();
 
 
 
 				// if any timeline is supposed to .play()
-				if( this.scene1.sequencesElements[this.sequenceID].timelines ){
+				if( currentSequenceElements.timelines ){
 
-					Object.keys(this.scene1.sequencesElements[this.sequenceID].timelines).forEach(key => {
+					Object.keys(currentSequenceElements.timelines).forEach(key => {
 
-						if( this.scene1.sequencesElements[this.sequenceID].timelines[key]?.progress() === 0 ){
-							this.scene1.sequencesElements[this.sequenceID].timelines[key].play();
+						if( currentSequenceElements.timelines[key]?.progress() === 0 ){
+							currentSequenceElements.timelines[key].play();
 						}
 
 					});
@@ -276,24 +275,24 @@
 				}
 
 				// if any bob in the scene, he needs update for his moves
-				if( this.scene1.sceneElements.bob.controller ){
-					this.scene1.sceneElements.bob.controller._controls.Update(deltaTime);
+				if( currentSceneElements.bob.controller ){
+					currentSceneElements.bob.controller._controls.Update(deltaTime);
 				}
 
 				// if third-person camera in the scene, it needs updates too
-				if( this.scene1.sequencesElements[this.sequenceID].thirdPersonCamera ){
+				if( currentSequenceElements.thirdPersonCamera ){
 
-					this.scene1.sequencesElements[this.sequenceID].thirdPersonCamera.Update(elapsedTime, this.mousePos);
+					currentSequenceElements.thirdPersonCamera.Update(elapsedTime, this.mousePos);
 
 				}
 
 
 
 				// if any BlenderTube is supposed to be played with it lookAt()
-				if( this.scene1.sequencesElements[this.sequenceID].blenderTubesManager?._tubeTravelTargetPosition ){
+				if( currentSequenceElements.blenderTubesManager?._tubeTravelTargetPosition ){
 
 					this.scene1.camera.lookAt(
-						this.scene1.sequencesElements[this.sequenceID].blenderTubesManager._tubeTravelTargetPosition
+						currentSequenceElements.blenderTubesManager._tubeTravelTargetPosition
 					);
 
 				}
