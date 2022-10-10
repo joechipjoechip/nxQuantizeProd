@@ -26,11 +26,14 @@ const worlds = [
 				bob: {
 					glbPath: "/assets/3d/persos/bob/bob.fbx",
 					infos: {
-						scale: 0.005,
+						scale: 0.0008,
+						// scale: 1,z
 						velocity: {
-							x: 0.2,
+							// x & z -> displacement
+							x: 0.5,
+							z: 0.5,
+							// y -> rotation
 							y: 0.1,
-							z: 0.2
 						}
 					}
 				}

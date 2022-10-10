@@ -1,5 +1,12 @@
 const core = {
 
+	debug: {
+		lightsHelpers: {
+			light: true,
+			shadow: false
+		}
+	},
+
 	mouse: {
 		moveTimeout: 4,
 		recenterDuration: 2

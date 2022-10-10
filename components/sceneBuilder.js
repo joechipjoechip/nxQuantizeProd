@@ -5,6 +5,7 @@ import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 
 import { SequencesBuilder } from '@/components/sequencesBuilder.js';
 import { CharacterController } from '@/components/characterController.js';
+import { DynamicLightsBuilder } from '@/components/dynamicLightsBuilder.js';
 
 class AssetsLoadWatcher {
 
@@ -76,6 +77,7 @@ class SceneBuilder {
 		// _ Three elements
 		this.aspectRatio = window.innerWidth / window.innerHeight;
 		this.camera = new THREE.PerspectiveCamera(50, this.aspectRatio, 0.001, 50);
+		this.camera.name = "camera";
 		this.scene = new THREE.Scene();
 		this.sequencesElements = {};
 		this.sceneElements = {
@@ -84,7 +86,8 @@ class SceneBuilder {
 			bob: {},
 			initialCamera: null,
 			tubes: [],
-			lights: [],
+			blenderLights: [],
+			dynamicLights: [],
 			happenings: {},
 			misc: {
 				landscape: {
@@ -199,7 +202,7 @@ class SceneBuilder {
 			// find lights
 			if( child.name.indexOf("light-") !== -1 ){
 
-				this.sceneElements.lights.push(child);
+				this.sceneElements.blenderLights.push(child);
 
 			}
 
@@ -244,7 +247,11 @@ class SceneBuilder {
 
 		this.applyBakedOnMeshes();
 
+		this.createElementsOnTheFly();
+
 		this.composeScene();
+
+		this.initScene();
 
 	}
 
@@ -268,18 +275,38 @@ class SceneBuilder {
 
 	}
 
-	composeScene(){
+	createElementsOnTheFly(){
 
-		// Here we add landcape / sky? / bob?
-		Object.keys(this.worldConfig.main.meshInfos.world.imagePath).forEach(key => {
-
-			this.scene.add(this.sceneElements[key]);
-
+		// dynamic lights
+		this.sceneElements.dynamicLights = new DynamicLightsBuilder({
+			lightsArr: this.sceneElements.blenderLights
 		});
 
+	}
+
+	composeScene(){
+
+		// Here we add :
+
+		// landscape
+		this.scene.add(this.sceneElements.landscape);
+
+		// dynamic lights
+		this.sceneElements.dynamicLights.forEach(light => {
+			this.scene.add(light);
+		})
+
+		
+		
+
+	}
+
+	initScene(){
+
+		// and we initialise
 		this.camera.position.copy(this.sceneElements.initialCamera.position);
 		this.camera.rotation.copy( this.sceneElements.initialCamera.rotation);
-
+	
 		this.scene.add(this.camera);
 
 	}

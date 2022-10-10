@@ -1,137 +1,91 @@
-// import * as THREE from 'three';
+import * as THREE from 'three';
+import { core } from '@/static/config/core.js';
 
 class DynamicLightsBuilder {
 
 	constructor(params){
 
-		this._lights = params.lightsArr;
 		this._scene = params.scene;
-		this._returnedCameras = [];
-		// this._link = params.link;
+		this._blenderLights = params.lightsArr;
+		this._createdLights = [];
+		this._core = core;
 
-		// console.log("dans le dynamic lights, link = ", this._link);
+		this._BuildLights();
 
-		this._Inits();
-
-		return this._returnedCameras;
+		return this._createdLights;
 
 	}
 
-	_Inits(){
+	_BuildLights(){
 
-		const wellStoredLights = [];
-		const lightsToCreate = [];
-
-		// Blender exporte les lights en 2 objets distincts, 
-		// donc on est obligé de retraiter la data pour l'organiser mieux
-		for(let i = 0; i < this._lights.length; i = i + 2){
-
-			wellStoredLights[i] = [];
-
-			wellStoredLights[i].push(this._lights[i]);
-
-			wellStoredLights[i].push(this._lights[i + 1]);
-
-		};
-
-		// the .filter is necessary to remove empty slots caused by the previous treatment
-		wellStoredLights.filter(a => a).forEach((collection, indexCollection) => {
-
-			lightsToCreate[indexCollection] = {};
-
-			collection.forEach(entity => {
-
-				if( entity instanceof THREE.PointLight || entity instanceof THREE.SpotLight ){
-
-					const { r, g, b } = entity.color;
-
-					lightsToCreate[indexCollection].color = new THREE.Color(r, g, b);
-
-					lightsToCreate[indexCollection].intensity = entity.intensity * 0.005;
-
-					lightsToCreate[indexCollection].decay = entity.decay;
-
-					lightsToCreate[indexCollection].distance = entity.distance;
-
-				} else {
-					// so : instanceof Object3D
-
-					lightsToCreate[indexCollection].position = new THREE.Vector3(
-						entity.position.x,
-						entity.position.y,
-						entity.position.z
-					);
-
-				}
-
-			});
-
-		});
-
-		// now all data is well organized : we can create and add theses lights
-		lightsToCreate.forEach((light, index) => {
-
-			if( index === 0 ){
+		// const wellStoredLights = [];
+		const lightsToCreate = this._blenderLights;
 
 
-				// @TODO : dynamiser le cube de projection d'ombre en fonction de la position du personnage
-				// cube de projection défini par .far .near .bottom et .top
-				// (donc donner linkController ici)
-				// ca implique des calculs de position, d'orientation etc
-				// le cours sur les vecteurs va etre indispensable ici
-				// mais à la fin ce sera opti de ouf
+		this._blenderLights.forEach((blenderLight, index) => {
 
+			let createdLight;
 
-				// PointLight( color : Integer, intensity : Float, distance : Number, decay : Float )
-				// const lightToAdd = new THREE.PointLight(
-				// 	light.color,
-				// 	light.intensity,
-				// 	light.distance,
-				// 	light.decay
-				// );
+			if( blenderLight.type === "PointLight" ){
 
-				const lightToAdd = new THREE.DirectionalLight(
-					light.color,
-					light.intensity,
-					// light.distance,
-					// light.decay
+				createdLight = new THREE.PointLight(
+					blenderLight.color,
+					blenderLight.intensity / 1000,
+					blenderLight.distance,
+					blenderLight.decay
 				);
-
-				// const spotLightHelper = new THREE.DirectionalLightHelper( lightToAdd, 10 );
-				
-
-				lightToAdd.position.copy(light.position);
-
-				lightToAdd.target.position.set(0, 0, 0);
-
-				lightToAdd.shadowCameraVisible = true;
-
-				
-				// une seule shadow
-				lightToAdd.castShadow = true;
-
-				lightToAdd.shadow.mapSize.width = 1024;
-				lightToAdd.shadow.mapSize.height = 1024;
-				lightToAdd.shadow.camera.near = 14;
-				lightToAdd.shadow.camera.far = 17;
-
-				
-
-
-				lightToAdd.name = `pointLight-${index}`;
-
-				const spotLightHelper = new THREE.CameraHelper(lightToAdd.shadow.camera);
-				spotLightHelper.name = `pointLightHelper-${index}`;
-
-				this._returnedCameras.push(lightToAdd);
-
-				// et on add à la scene
-				this._scene.add(lightToAdd);
-				this._scene.add(spotLightHelper);
 
 			}
 
+			createdLight.name = `${blenderLight.type}-${index}`;
+
+			createdLight.position.copy(blenderLight.position);
+
+
+			// maybe a extra dev to do here (@TODO) :
+			// put custom property on the light in blender
+			// to say if the shadow needs to be casted or not
+			// if(blenderLight.userData?.castShadow ){}
+			createdLight.shadowCameraVisible = true;
+
+			// une seule shadow
+			createdLight.castShadow = true;
+
+			createdLight.shadow.mapSize.width = 512;
+			createdLight.shadow.mapSize.height = 512;
+			createdLight.shadow.camera.near = 0;
+			createdLight.shadow.camera.far = 7;
+
+			this._createdLights.push(createdLight);
+
+			this._BuildHelpers(createdLight, index);
+
 		});
+
+	}
+
+	_BuildHelpers(light, index){
+
+		if( this._core.debug.lightsHelpers.light ){
+
+			let lightHelper;
+
+			if( light.type === "PointLight" ){
+
+				lightHelper = new THREE.PointLightHelper(light, 7);
+				
+			}
+			
+			lightHelper.name = `${light.type}-helper-${index}`;
+
+			this._createdLights.push(lightHelper);
+
+		}
+
+		// const spotLightHelper = new THREE.CameraHelper(createdLight.shadow.camera);
+		// spotLightHelper.name = `pointLightHelper-${index}`;
+
+
 	}
 }
 

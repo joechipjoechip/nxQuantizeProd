@@ -15,6 +15,8 @@ class ThirdPersonCamera {
 	  this._currentPosition.copy(this._camera.position);
 	  this._currentLookat = new THREE.Vector3();
 
+
+    this._camera.name = "third-person-camera";
 	}
   
 	_CalculateIdealOffset( timeElapsed ){

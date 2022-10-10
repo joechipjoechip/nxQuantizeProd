@@ -40,7 +40,8 @@ class BlenderTubes{
 		});
 
 		// Et Ensuite on construit tout ça :
-		const tubeParentPath = new THREE.Object3D({ name: "tubeParentPath" });
+		const tubeParentPath = new THREE.Object3D();
+		tubeParentPath.name = "tubeParentPath";
 
 		const curve = new THREE.CatmullRomCurve3(smoothedCurvePoints || 0, false, "chordal");
 
