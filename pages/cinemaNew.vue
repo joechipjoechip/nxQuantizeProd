@@ -1,8 +1,9 @@
 <template>
 	<div>
 
-		<button @click="changeSceneHandler">change scene</button>
+		<button @click="changeSequenceHandler">change scene</button>
 		<button @click="stopAnimation">start/stop animation</button>
+		<button @click="changeSequenceHandler">next sequence</button>
 
 		<instancethree 
 			ref="instancethree"
@@ -72,12 +73,14 @@
 
 			},
 
-			changeSceneHandler(){
+			changeSequenceHandler(){
 				// très basique pour l'instant, mais c'est bien
 				// ce mécanisme (refait) qui change la séquence en cours
 				// pour l'instant
 
 				console.log("change scene triggered");
+
+				const oldSequenceID = this.sequenceID;
 
 				switch(this.sequenceID){
 					case "1.0":
@@ -90,6 +93,9 @@
 						this.sequenceID = "1.0"
 						break
 				}
+
+				// free memory and ressources
+				this.$refs.instancethree.scene1.sequencesElements[oldSequenceID] = null;
 
 			}
 

@@ -109,8 +109,9 @@ class SequencesBuilder {
 
 		this._sequencesLib[sequenceInfos.id].timelines.camera.eventCallback("onComplete", () => {
 
-			console.log("vidage de this.timelines.camera");
-			this._sequencesLib[sequenceInfos.id].timelines.camera = null;
+			if( this._sequencesLib[sequenceInfos.id] ){
+				this._sequencesLib[sequenceInfos.id].timelines.camera = null;
+			}
 
 			// ce sera peut être ici qu'il faudra faire le lien entre cette caméra sur rails
 			// et la caméra 3eme personne ...

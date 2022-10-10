@@ -91,6 +91,12 @@
 					this.core.mouse.moveTimeout * 1000
 				);
 
+			},
+
+			sequenceID(newVal){
+
+				this.sequenceChangeHandler(newVal);
+
 			}
 
 		},
@@ -102,6 +108,9 @@
 				canvas: this.$refs.canvas,
 				sequenceID: this.sequenceID
 			});
+
+			// this.initComposer();
+			// this.fillComposer();
 
 		},
 
@@ -145,9 +154,34 @@
 
 				this.initRenderer(this.scene1.worldConfig);
 
-				this.fillComposerBeforeRender();
+				this.sequenceChangeHandler(this.sequenceID);
 
 				this.mainTick();
+
+			},
+
+			sequenceChangeHandler( newSequenceID ){
+
+				const sequencePostProcObj = this.scene1.sequencesElements[newSequenceID].postproc;
+
+				if( sequencePostProcObj ){
+
+					this.initComposer();
+
+					if( sequencePostProcObj.effect ){
+
+						this.composer.addPass(this.scene1.sequencesElements[newSequenceID].postproc.effect)
+
+					}
+
+					this.fillComposer();
+
+				} else {
+
+					this.renderPass = null;
+					this.composer = null;
+
+				}
 
 			},
 
@@ -159,14 +193,6 @@
 					// ne peut pas être déclaré en dehors de l'instanciation
 					antialias: true
 				});
-
-				
-				this.renderPass = new RenderPass(this.scene1.scene, this.scene1.camera);
-
-				this.composer = new EffectComposer(this.renderer);
-
-				this.composer.setSize(this.canvasSizeRef.width, this.canvasSizeRef.height);
-				this.composer.setPixelRatio(window.devicePixelRatio);
 
 				this.renderer.setSize(this.canvasSizeRef.width, this.canvasSizeRef.height);
 				this.renderer.setPixelRatio(window.devicePixelRatio);
@@ -180,6 +206,50 @@
 				// this.renderer.shadowMap.type = THREE.PCFShadowMap;
 
 				this.clock = new THREE.Clock();
+
+			},
+
+			fillComposer(){
+
+				const keysToCheck = ["shadersPass", "effectsPass"];
+
+				const sequencePostprocs = this.scene1.sequencesElements[this.sequenceID]?.postproc;
+
+				if( sequencePostprocs ){
+
+					this.composer.addPass(this.renderPass);
+
+					sequencePostprocs.forEach(sequencePostproc => {
+
+						keysToCheck.forEach(keyToCheck => {
+
+							if( sequencePostproc[keyToCheck].length ){
+
+								sequencePostproc[keyToCheck].forEach(oneKeyedPass => {
+	
+									this.composer.addPass(oneKeyedPass);
+	
+								});
+	
+							}
+
+						});
+
+					})
+
+				}
+
+			},
+
+			initComposer(){
+
+				this.renderPass = new RenderPass(this.scene1.scene, this.scene1.camera);
+
+				this.composer = new EffectComposer(this.renderer);
+
+				this.composer.setSize(this.canvasSizeRef.width, this.canvasSizeRef.height);
+
+				this.composer.setPixelRatio(window.devicePixelRatio);
 
 			},
 
@@ -228,50 +298,7 @@
 
 				}
 
-
-				if( this.scene1.sequencesElements[this.sequenceID].postproc?.effect ){
-
-					this.composer.addPass(this.scene1.sequencesElements[this.sequenceID].postproc.effect)
-
-				}
-
 				// etc..
-
-			},
-
-			fillComposerBeforeRender(){
-
-				const keysToCheck = ["shadersPass", "effectsPass"];
-
-				if( this.scene1.sequencesElements[this.sequenceID].postproc?.length ){
-
-					const sequencePostprocs = this.scene1.sequencesElements[this.sequenceID].postproc;
-
-					this.composer.addPass(this.renderPass);
-
-					if( sequencePostprocs?.length ){
-
-						sequencePostprocs.forEach(sequencePostproc => {
-
-							keysToCheck.forEach(keyToCheck => {
-
-								if( sequencePostproc[keyToCheck].length ){
-	
-									sequencePostproc[keyToCheck].forEach(oneKeyedPass => {
-		
-										this.composer.addPass(oneKeyedPass);
-		
-									});
-		
-								}
-
-							});
-	
-						})
-
-					}
-
-				}
 
 			},
 
@@ -290,7 +317,7 @@
 				if( this.deltaTime > this.frameRate ){
 
 					// NOW COMPUTE RENDER
-					if( this.scene1.sequencesElements[this.sequenceID].postproc.length ){
+					if( this.composer ){
 
 						this.composer.render();
 

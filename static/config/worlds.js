@@ -45,9 +45,9 @@ const worlds = [
 		sequences: [
 			{
 				id: "1.0",
-				// type: "blender-points",
-				type: "third-person",
-				cameraType: "movingHips",
+				type: "blender-points",
+				// type: "third-person",
+				// cameraType: "movingHips",
 
 				animatedMesh: false,
 
@@ -93,9 +93,43 @@ const worlds = [
 				},
 
 				postproc: [
-					// {
-					// 	type: "glitch"
-					// },
+					{
+						type: "bloom",
+						value: {
+							strength: 0.9,
+							threshold: 0.35,
+							radius: 0.3
+						}
+					},
+				]
+
+			},
+			{
+				id: "1.1",
+				// type: "blender-points",
+				type: "third-person",
+				cameraType: "movingHips",
+
+				animatedMesh: false,
+
+				helpers: {
+					orbit: true,
+					tubes: false,
+					timelines: false
+				},
+				
+				config: {
+					fog: {
+						enabled: true,
+						color: 0x000000,
+						intensity: .15
+					},
+				},
+
+				postproc: [
+					{
+						type: "glitch"
+					},
 					
 					// {
 					// 	type: "blur",
@@ -119,7 +153,6 @@ const worlds = [
 					// 	}
 					// },
 				]
-				
 
 			}
 		]
