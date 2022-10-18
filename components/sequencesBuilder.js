@@ -55,16 +55,17 @@ class SequencesBuilder {
 	}
 
 	_BuildHelpers( sequenceInfos ){
+		const goodSequenceLib = this._sequencesLib[sequenceInfos.id];
 
-		if( this._sequencesLib[sequenceInfos.id].helpersConfig.orbit ){
+		if( goodSequenceLib.helpersConfig.orbit ){
 
-			this._sequencesLib[sequenceInfos.id].helpers.orbit = new OrbitControls(this._camera, this._canvas);
+			goodSequenceLib.helpers.orbit = new OrbitControls(this._camera, this._canvas);
 
-			this._sequencesLib[sequenceInfos.id].helpers.orbit.target = this._sceneElements.landscape.position;
+			goodSequenceLib.helpers.orbit.target = this._sceneElements.landscape.position;
 	
-			this._sequencesLib[sequenceInfos.id].helpers.orbit.enabled = true;
+			goodSequenceLib.helpers.orbit.enabled = true;
 	
-			this._sequencesLib[sequenceInfos.id].helpers.orbit.enableDamping = true;
+			goodSequenceLib.helpers.orbit.enableDamping = true;
 
 		}
 		
