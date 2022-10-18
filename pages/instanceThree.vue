@@ -253,7 +253,10 @@
 
 				const keysToCheck = ["shadersPass", "effectsPass"];
 
-				const sequencePostprocs = this.scene1.sequencesElements[this.sequenceID]?.postproc;
+				const currentSequence = this.scene1.sequencesElements[this.sequenceID];
+
+				const sequencePostprocs = currentSequence?.postproc;
+
 
 				if( sequencePostprocs ){
 
@@ -261,6 +264,7 @@
 
 					sequencePostprocs.forEach(sequencePostproc => {
 
+						// add shaderPass and effectsPass
 						keysToCheck.forEach(keyToCheck => {
 
 							if( sequencePostproc[keyToCheck].length ){
@@ -275,7 +279,7 @@
 
 						});
 
-					})
+					});
 
 				}
 
@@ -313,14 +317,16 @@
 
 				// if third-person camera in the scene, it needs updates too
 				if( currentSequenceElements.thirdPersonCamera ){
-
 					currentSequenceElements.thirdPersonCamera.Update(elapsedTime, this.mousePos);
+				}
 
+				// if any blur effect, focus needs updates : 
+				if( currentSequenceElements.focusTarget ){
+					this.focusTargetHandler(currentSequenceElements);
 				}
 
 
-
-				// if any BlenderTube is supposed to be played with it lookAt()
+				// if any BlenderTube is supposed to be played with its lookAt()
 				if( currentSequenceElements.blenderTubesManager?._tubeTravelTargetPosition ){
 
 					this.scene1.camera.lookAt(
@@ -330,6 +336,20 @@
 				}
 
 				// etc..
+
+			},
+
+			focusTargetHandler( currentSequenceElements ){
+
+				const blurPostproc = currentSequenceElements.postproc.find(postproc => postproc.postprocType === "blur");
+
+				const { x, y, z } = currentSequenceElements.thirdPersonCamera._camera.position;
+
+				// compute distance beetween camera and target
+				const distance = new THREE.Vector3(x,y,z).distanceTo({...currentSequenceElements.focusTarget.controller._controls._position});
+
+				// update focus value in blur effect
+				blurPostproc.effectsPass[0].uniforms.focus.value = distance
 
 			},
 

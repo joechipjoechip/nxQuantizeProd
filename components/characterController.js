@@ -61,7 +61,7 @@ class BasicCharacterController {
 		});
 
 		this._target = fbx;
-		this._target.name = "bobMain";
+		this._target.name = "bob";
 		this._params.scene.add(this._target);
 
 		this._target.position.copy(this._params.bobInfos.start.position);

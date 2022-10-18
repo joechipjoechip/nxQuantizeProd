@@ -45,7 +45,7 @@ const core = {
 			straightness: 0.015,
 			mouseOrientationPonderation: {
 				x: 0.1,
-				y: 0.1
+				y: 0.2
 			}
 		},
 		movingHips: {

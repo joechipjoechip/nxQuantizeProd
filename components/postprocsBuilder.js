@@ -18,13 +18,15 @@ class PostprocsBuilder {
 		this._scene = params.scene;
 		this._canvas = params.canvas;
 
-		const finalObj = {
-			postprocInfos: params.sequenceInfos.postproc,
-			shadersPass: this._BuildShaderPass(params.effectObj),
-			effectsPass: this._BuildEffectPass(params.effectObj)
-		}
+		this._finalObj = {
+			postprocType: params.effectObj.type
+		};
 
-		return finalObj
+		this._finalObj.shadersPass = this._BuildShaderPass(params.effectObj);
+
+		this._finalObj.effectsPass = this._BuildEffectPass(params.effectObj);
+
+		return this._finalObj
 
 	}
 
@@ -82,6 +84,7 @@ class PostprocsBuilder {
 						}
 					)
 				);
+
 				break;
 
 			case "sobel":

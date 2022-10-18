@@ -39,7 +39,8 @@ class SequencesBuilder {
 				helpers: {},
 				timelines: {},
 				thirdPersonCamera: null,
-				bobImposedMoves: null
+				bobImposedMoves: null,
+				focusTarget: null
 			};
 
 			this._BuildPostprocsCollections(sequenceInfos);
@@ -136,6 +137,12 @@ class SequencesBuilder {
 
 		sequenceInfos.postproc.forEach(effectObj => {
 
+			const target = this._sceneElements[effectObj.focusTarget];
+
+			if( target ){
+				this._sequencesLib[sequenceInfos.id].focusTarget = target;
+			}
+
 			this._sequencesLib[sequenceInfos.id].postproc.push(
 				new PostprocsBuilder(
 					{ 
@@ -143,7 +150,7 @@ class SequencesBuilder {
 						effectObj,
 						canvas: this._canvas,
 						camera: this._camera,
-						scene: this._scene
+						scene: this._scene,
 					}
 				)
 			);

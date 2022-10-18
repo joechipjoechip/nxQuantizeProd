@@ -100,7 +100,7 @@ const worlds = [
 							threshold: 0.35,
 							radius: 0.3
 						}
-					},
+					}
 				]
 
 			},
@@ -108,7 +108,7 @@ const worlds = [
 				id: "1.1",
 				// type: "blender-points",
 				type: "third-person",
-				cameraType: "movingHips",
+				cameraType: "hips",
 
 				animatedMesh: false,
 
@@ -131,22 +131,23 @@ const worlds = [
 				},
 
 				postproc: [
-					{
-						type: "glitch"
-					},
-					
 					// {
-					// 	type: "blur",
-					// 	value: {
-					// 		focus: 160,
-					// 		aperture: 8.2,
-					// 		maxblur: 0.01,
-					// 	}
+					// 	type: "glitch"
 					// },
 
 					// {
 					// 	type: "sobel"
 					// },
+
+					{
+						type: "blur",
+						focusTarget: "bob",
+						value: {
+							focus: 1.0,
+							aperture: 0.025,
+							maxblur: 0.005,
+						}
+					},
 
 					// {
 					// 	type: "bloom",
@@ -163,7 +164,7 @@ const worlds = [
 				id: "1.2",
 				// type: "blender-points",
 				type: "third-person",
-				cameraType: "hips",
+				cameraType: "movingHips",
 
 				animatedMesh: false,
 
