@@ -274,7 +274,8 @@ class SceneBuilder {
 
 		// dynamic lights
 		this.sceneElements.dynamicLights = new DynamicLightsBuilder({
-			lightsArr: this.sceneElements.blenderLights
+			lightsArr: this.sceneElements.blenderLights,
+			sunConfig: this.worldConfig.main.sun
 		});
 
 	}

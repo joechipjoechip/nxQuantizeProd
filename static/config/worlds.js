@@ -6,6 +6,12 @@ const worlds = [
 		main: {
 
 			spaceColor: "#160D54",
+			spaceColorWithBloom: "#0C072C",
+
+			sun: {
+				color: "#FFFFFF",
+				intensity: 0.07
+			},
 
 			fog: {
 				enabled: true,
@@ -57,12 +63,10 @@ const worlds = [
 					timelines: false
 				},
 				
-				config: {
-					fog: {
-						enabled: true,
-						color: 0x000000,
-						intensity: .15
-					},
+				fog: {
+					enabled: true,
+					color: 0x000000,
+					intensity: .15
 				},
 
 				tubeInfos: {

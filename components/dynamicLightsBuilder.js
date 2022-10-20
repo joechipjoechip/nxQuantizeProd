@@ -12,7 +12,7 @@ class DynamicLightsBuilder {
 		this._blenderLights = params.lightsArr;
 		this._createdLights = [];
 		this._core = core;
-		this._rectAreaUniformsEnabled = false;
+		this._sunConfig = params.sunConfig;
 
 		this._BuildSun();
 		this._BuildLights();
@@ -22,7 +22,12 @@ class DynamicLightsBuilder {
 	}
 
 	_BuildSun(){
-		const sun = new THREE.AmbientLight(0xFFFFFF, 0.1)
+
+		const sun = new THREE.AmbientLight(
+			this._sunConfig.color, 
+			this._sunConfig.intensity
+		);
+		
 		sun.name = "light-sun";
 
 		this._createdLights.push(sun);
