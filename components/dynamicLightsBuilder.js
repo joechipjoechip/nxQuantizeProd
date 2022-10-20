@@ -59,7 +59,7 @@ class DynamicLightsBuilder {
 
 				if( strength && hexColor ){
 
-					console.log("area light : ", blenderLight, strength)
+					// console.log("area light : ", blenderLight, strength)
 	
 					createdLight = new THREE.SpotLight(
 						`#${hexColor}`,

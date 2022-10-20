@@ -172,8 +172,8 @@
 
 				if( oldTimelines ){
 					Object.keys(oldTimelines).forEach(timelineKey => {
-						oldTimelines[timelineKey].kill();
-						// console.log("oldTimeline killed : ", timelineKey);
+						oldTimelines[timelineKey]?.kill();
+						console.log("oldTimeline killed : ", timelineKey);
 					});
 				}
 

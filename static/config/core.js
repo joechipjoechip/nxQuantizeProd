@@ -34,35 +34,35 @@ const core = {
 		hips: {
 			offset: {
 				x: -0.015,
-				y: 0.025,
+				y: 0.015,
 				z: -0.07
 			},
 			lookAt: {
 				x: 0,
-				y: 0.025,
-				z: 0.6
+				y: 0.005,
+				z: 0
 			},
 			straightness: 0.015,
 			mouseOrientationPonderation: {
-				x: 0.1,
-				y: 0.2
+				x: 0.04,
+				y: 0.03
 			}
 		},
 		movingHips: {
 			offset: {
 				x: 0,
-				y: 0.025,
-				z: -0.07
+				y: 0.015,
+				z: -0.045
 			},
 			lookAt: {
 				x: 0,
-				y: 0.025,
-				z: 0.6
+				y: -0.025,
+				z: 2
 			},
 			straightness: 0.05,
 			mouseOrientationPonderation: {
-				x: 0.045,
-				y: 0.045
+				x: 0.65,
+				y: 0.45
 			},
 			motion: {
 				// motion will move the camera continuously
@@ -74,12 +74,12 @@ const core = {
 					velocity: 0.62
 				},
 				y: {
-					range: 0.01,
-					velocity: 0.65
+					range: -0.00005,
+					velocity: 0.8
 				},
 				z: {
-					range: -0.2,
-					velocity: 0.2
+					range: 0,
+					velocity: 0.8
 				},
 			},
 		},

@@ -53,21 +53,13 @@ class ThirdPersonCamera {
       mousePos.y * this._specs.mouseOrientationPonderation.y,
       0
     );
-    let idealLookat;
 
-    if( this._specs.motion ){
+    const idealLookat = new THREE.Vector3(
+      this._specs.lookAt.x,  
+      this._specs.lookAt.y,
+      this._specs.lookAt.z
+    );
 
-      idealLookat = new THREE.Vector3(0,0.05,0);
-
-    } else {
-
-      idealLookat = new THREE.Vector3(
-        this._specs.lookAt.x,  
-        this._specs.lookAt.y,
-        this._specs.lookAt.z
-      );
-
-    }
 
 	  mouseVector.applyQuaternion(this._params.target.Rotation);
 	  idealLookat.applyQuaternion(this._params.target.Rotation);
