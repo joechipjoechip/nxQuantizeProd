@@ -27,7 +27,7 @@ class DynamicLightsBuilder {
 			this._sunConfig.color, 
 			this._sunConfig.intensity
 		);
-		
+
 		sun.name = "light-sun";
 
 		this._createdLights.push(sun);
@@ -52,7 +52,7 @@ class DynamicLightsBuilder {
 
 			if( blenderLight.name.indexOf("area") !== -1 ){
 
-				// update manually type (because if not, its set at "Object-3D")
+				// update manually type (because if not, blender export set it as "Object-3D")
 				blenderLight.type = "area-converted-to-spot";
 
 				const { hexColor, strength } = blenderLight.userData;
@@ -63,7 +63,7 @@ class DynamicLightsBuilder {
 	
 					createdLight = new THREE.SpotLight(
 						`#${hexColor}`,
-						strength < 10 ? strength * 10 : strength/10,
+						strength < 10 ? strength * 10 : strength/10, // intensity
 						strength * 10, //distance  
 						Math.PI/3, //angle
 						0.5, //penumbra

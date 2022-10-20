@@ -93,9 +93,9 @@
 
 			},
 
-			sequenceID(newVal){
+			sequenceID(newVal, oldVal){
 
-				this.sequenceChangeHandler(newVal);
+				this.sequenceChangeHandler(newVal, oldVal);
 
 			}
 
@@ -157,11 +157,25 @@
 
 			},
 
-			sequenceChangeHandler( newSequenceID ){
+			sequenceChangeHandler( newSequenceID, oldSequenceID ){
+
+				this.killOldSequence(oldSequenceID);
 
 				this.postProcChangeHandler(newSequenceID);
 
 				this.bobMoveChangeHandler(newSequenceID);
+
+			},
+
+			killOldSequence( oldSequenceID ){
+				const oldTimelines = this.scene1.sequencesElements[oldSequenceID]?.timelines;
+
+				if( oldTimelines ){
+					Object.keys(oldTimelines).forEach(timelineKey => {
+						oldTimelines[timelineKey].kill();
+						// console.log("oldTimeline killed : ", timelineKey);
+					});
+				}
 
 			},
 

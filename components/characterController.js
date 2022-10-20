@@ -49,48 +49,48 @@ class BasicCharacterController {
 
 		loader.load(this._params.file.name, (fbx) => {
 
-		fbx.scale.setScalar(this._params.bobInfos.scale);
+			fbx.scale.setScalar(this._params.bobInfos.scale);
 
-		fbx.traverse(c => {
-			// console.log("c : ", c);
-			if( c.type !== "Bone" ){
-			c.castShadow = true;
-			// c.receiveShadow = true;
-			}
+			fbx.traverse(c => {
+				// console.log("c : ", c);
+				if( c.type !== "Bone" ){
+					c.castShadow = true;
+					//c.receiveShadow = true;
+				}
 
-		});
+			});
 
-		this._target = fbx;
-		this._target.name = "bob";
-		this._params.scene.add(this._target);
+			this._target = fbx;
+			this._target.name = "bob";
+			this._params.scene.add(this._target);
 
-		this._target.position.copy(this._params.bobInfos.start.position);
-		this._target.rotation.copy(this._params.bobInfos.start.rotation);
+			this._target.position.copy(this._params.bobInfos.start.position);
+			this._target.rotation.copy(this._params.bobInfos.start.rotation);
 
-		this._mixer = new THREE.AnimationMixer(this._target);
+			this._mixer = new THREE.AnimationMixer(this._target);
 
-		this._manager = new THREE.LoadingManager();
-		this._manager.onLoad = () => {
-			this._stateMachine.SetState('idle');
-			this._sceneBuilderThis.onceBobIsLoaded();
-		};
-
-		const _OnLoad = (animName, anim) => {
-			const clip = anim.animations[0];
-			const action = this._mixer.clipAction(clip);
-
-			this._animations[animName] = {
-			clip: clip,
-			action: action,
+			this._manager = new THREE.LoadingManager();
+			this._manager.onLoad = () => {
+				this._stateMachine.SetState('idle');
+				this._sceneBuilderThis.onceBobIsLoaded();
 			};
-		};
 
-		const loader = new FBXLoader(this._manager);
-		loader.setPath(`.${this._params.file.path}/`);
-		loader.load('walk.fbx', (a) => { _OnLoad('walk', a); });
-		loader.load('run.fbx', (a) => { _OnLoad('run', a); });
-		loader.load('idle.fbx', (a) => { _OnLoad('idle', a); });
-		loader.load('dance.fbx', (a) => { _OnLoad('dance', a); });
+			const _OnLoad = (animName, anim) => {
+				const clip = anim.animations[0];
+				const action = this._mixer.clipAction(clip);
+
+				this._animations[animName] = {
+					clip: clip,
+					action: action,
+				};
+			};
+
+			const loader = new FBXLoader(this._manager);
+			loader.setPath(`.${this._params.file.path}/`);
+			loader.load('walk.fbx', (a) => { _OnLoad('walk', a); });
+			loader.load('run.fbx', (a) => { _OnLoad('run', a); });
+			loader.load('idle.fbx', (a) => { _OnLoad('idle', a); });
+			loader.load('dance.fbx', (a) => { _OnLoad('dance', a); });
 
 		});
 
