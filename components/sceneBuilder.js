@@ -175,11 +175,6 @@ class SceneBuilder {
 					// this.sceneElements.landscapeShadow = child.clone();
 					break;
 
-				// find sky
-				case "sky":
-					this.sceneElements.sky = child;
-					break;
-
 				// find camera intial position
 				case "camera":
 					this.sceneElements.initialCamera = child;
@@ -290,6 +285,7 @@ class SceneBuilder {
 
 		// landscape
 		this.scene.add(this.sceneElements.landscape);
+		
 
 		// dynamic lights
 		this.sceneElements.dynamicLights.forEach(light => {

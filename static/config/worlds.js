@@ -124,20 +124,20 @@ const worlds = [
 					// 	type: "glitch"
 					//},
 
-					{
-						type: "sobel"
-					},
+					// {
+					// 	type: "sobel"
+					// },
 
 				
 
-					// {
-					// 	type: "bloom",
-					// 	value: {
-					// 		strength: 0.9,
-					// 		threshold: 0.35,
-					// 		radius: 0.3
-					// 	}
-					// },
+					{
+						type: "bloom",
+						value: {
+							strength: 0.9,
+							threshold: 0.35,
+							radius: 0.3
+						}
+					},
 				]
 
 			},
