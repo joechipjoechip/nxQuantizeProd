@@ -167,6 +167,8 @@
 
 				this.cameraFovChangeHandler(newSequenceID);
 
+				this.worldBackgroundColorHandler(newSequenceID);
+
 			},
 
 			killOldSequence( oldSequenceID ){
@@ -261,6 +263,18 @@
 
 					}
 				)
+
+			},
+
+			worldBackgroundColorHandler(newSequenceID){
+
+				const newSequenceHasPostProc = worlds[0].sequences.find(seq => seq.id === newSequenceID).postproc?.length;
+
+				if( newSequenceHasPostProc ){
+					this.composer.renderer.setClearColor(this.scene1.worldConfig.main.spaceColorWithBloom);
+				} else {
+					this.renderer.setClearColor(this.scene1.worldConfig.main.spaceColor);
+				}
 
 			},
 

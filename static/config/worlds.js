@@ -6,7 +6,7 @@ const worlds = [
 		main: {
 
 			spaceColor: "#160D54",
-			spaceColorWithBloom: "#0C072C",
+			spaceColorWithBloom: "#040116",
 
 			sun: {
 				color: "#FFFFFF",
@@ -188,7 +188,14 @@ const worlds = [
 				},
 
 				postproc: [
-					
+					{
+						type: "bloom",
+						value: {
+							strength: 0.9,
+							threshold: 0.35,
+							radius: 0.3
+						}
+					},
 				]
 
 			}
