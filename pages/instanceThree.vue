@@ -165,6 +165,8 @@
 
 				this.bobMoveChangeHandler(newSequenceID);
 
+				this.cameraFovChangeHandler(newSequenceID);
+
 			},
 
 			killOldSequence( oldSequenceID ){
@@ -172,8 +174,14 @@
 
 				if( oldTimelines ){
 					Object.keys(oldTimelines).forEach(timelineKey => {
-						oldTimelines[timelineKey]?.kill();
+
+						if( oldTimelines ){
+							oldTimelines[timelineKey]?.kill();
+							oldTimelines[timelineKey] = null;
+						}
+
 						console.log("oldTimeline killed : ", timelineKey);
+
 					});
 				}
 
@@ -224,6 +232,35 @@
 					this.scene1.sceneElements.bob.controller._controls._input._imposedMoves = {};
 
 				}
+
+			},
+
+			cameraFovChangeHandler( newSequenceID ){
+
+				const baseFov = this.scene1.camera.fov;
+				const destinationFov = worlds[0].sequences.find(seq => seq.id === newSequenceID).baseFov;
+				const animatedObject = {
+					animatedFov: baseFov
+				};
+
+				this.scene1.sequencesElements[newSequenceID].timelines.adjustFov = new TimelineLite();
+				this.scene1.sequencesElements[newSequenceID].timelines.adjustFov.to(
+					animatedObject,
+					2,
+					{
+						animatedFov: destinationFov,
+
+						onUpdate: () => {
+							this.scene1.camera.fov = animatedObject.animatedFov;
+							// console.log("ajusting fov, from/to : ", this.scene1.camera.fov);
+						},
+
+						onComplete: () => {
+							this.scene1.sequencesElements[newSequenceID].timelines.adjustFov = null;
+						}
+
+					}
+				)
 
 			},
 

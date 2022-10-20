@@ -51,6 +51,8 @@ const worlds = [
 		sequences: [
 			{
 				id: "1.0",
+				baseFov: 65,
+
 				type: "blender-points",
 				// type: "third-person",
 				// cameraType: "movingHips",
@@ -99,6 +101,8 @@ const worlds = [
 			},
 			{
 				id: "1.1",
+				baseFov: 27,
+
 				// type: "blender-points",
 				type: "third-person",
 				cameraType: "hips",
@@ -156,6 +160,8 @@ const worlds = [
 			},
 			{
 				id: "1.2",
+				baseFov: 35,
+
 				// type: "blender-points",
 				type: "third-person",
 				cameraType: "movingHips",
