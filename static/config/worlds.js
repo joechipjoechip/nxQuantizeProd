@@ -70,7 +70,7 @@ const worlds = [
 				},
 
 				tubeInfos: {
-					duration: 20,
+					duration: 25,
 					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
 					isUsingTarget: true,
 					steps: [
@@ -78,14 +78,14 @@ const worlds = [
 						// n has nothing to do with the number of points for the curve
 						{
 							// this amount is a percent of the global duration
-							amount: 10,
-							fov: 85,
+							amount: 50,
+							fov: 60,
 							stepEase: "linear"
 						},
 						{
 							// this amount is a percent of the global duration
-							amount: 90,
-							fov: 15,
+							amount: 50,
+							fov: 40,
 							stepEase: "linear"
 						},
 						
@@ -131,17 +131,26 @@ const worlds = [
 					// {
 					// 	type: "sobel"
 					// },
+					{
+						type: "blur",
+						focusTarget: "bob",
+						value: {
+							focus: 1,
+							aperture: 0.025,
+							maxblur: 0.005
+						}
+					},
 
 				
 
-					{
-						type: "bloom",
-						value: {
-							strength: 0.9,
-							threshold: 0.35,
-							radius: 0.3
-						}
-					},
+					// {
+					// 	type: "bloom",
+					// 	value: {
+					// 		strength: 0.9,
+					// 		threshold: 0.35,
+					// 		radius: 0.3
+					// 	}
+					// },
 				]
 
 			},

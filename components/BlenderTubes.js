@@ -10,7 +10,8 @@ class BlenderTubes{
 		this._camera = params.camera;
 
 		this._sequenceInfos = params.sequenceInfos;
-		this._blenderPoints = params.blenderPoints.filter(point => point.name.indexOf("_target") === -1);
+		this._blenderPoints = this._ParseBlenderPoints(params.blenderPoints);
+		// this._otherPoints = blenderPoints.filter(point => point.name.indexOf("bob-") !== -1);
 		this._target = params.blenderPoints.find(point => point.name.indexOf("_target") !== -1);
 
 		this._tube = null;
@@ -22,6 +23,32 @@ class BlenderTubes{
 		};
 	
 		this._Inits();
+
+	}
+
+	_ParseBlenderPoints( blenderPoints ){
+
+		//return blenderPoints reOrdered :
+
+		// plan-1-1_0
+		// plan-1-1_target
+		// (eventuellement : bob-position)
+
+		const curvePoints = blenderPoints.filter(point => ( point.name.indexOf("plan-") !== -1 && point.name.indexOf("_target") === -1 ));
+
+		const result = [];
+
+		curvePoints.forEach((point, index) => {
+
+			const pointIndex = parseInt(point.name.split("_")[1]);
+
+			result[pointIndex] = point;
+
+		});
+							
+		console.log("blender points parsed : ", result);
+
+		return result;
 
 	}
 
@@ -95,6 +122,8 @@ class BlenderTubes{
 				return acc + specificStepDuration;
 
 			}, 0);
+
+			console.log("steps : ", alreadyPlayedDuration)
 
 			const animatedObject = {
 				time: alreadyPlayedDuration,
