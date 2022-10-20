@@ -41,12 +41,16 @@ class DynamicLightsBuilder {
 
 			if( blenderLight.name.indexOf("point") !== -1 ){
 
+				console.log("build a pointlight", blenderLight)
+
 				createdLight = new THREE.PointLight(
 					blenderLight.color,
-					blenderLight.intensity / 1000,
+					blenderLight.intensity / 5000,
 					blenderLight.distance,
 					blenderLight.decay
 				);
+
+				console.log("builT a pointlight as ", createdLight)
 
 			}
 
@@ -109,6 +113,8 @@ class DynamicLightsBuilder {
 					createdLight.shadow.camera.near = 0;
 					createdLight.shadow.camera.far = 7;
 				}
+
+				console.log("light added to the others : ", createdLight)
 	
 				this._createdLights.push(createdLight);
 	
