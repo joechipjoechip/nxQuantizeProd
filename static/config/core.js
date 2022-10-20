@@ -33,31 +33,31 @@ const core = {
 		},
 		hips: {
 			offset: {
-				x: -0.015,
-				y: 0.015,
-				z: -0.07
+				x: -0.012,
+				y: 0.014,
+				z: -0.045
 			},
 			lookAt: {
-				x: 0,
-				y: 0.005,
-				z: 0
+				x: -0.01,
+				y: 0.008,
+				z: 2
 			},
 			straightness: 0.015,
 			mouseOrientationPonderation: {
-				x: 0.04,
-				y: 0.03
+				x: 0.4,
+				y: 0.3
 			}
 		},
 		movingHips: {
 			offset: {
 				x: 0,
 				y: 0.015,
-				z: -0.045
+				z: -0.035
 			},
 			lookAt: {
 				x: 0,
 				y: -0.025,
-				z: 2
+				z: 1
 			},
 			straightness: 0.05,
 			mouseOrientationPonderation: {
@@ -70,16 +70,16 @@ const core = {
 				// and it's related at the offset values
 				x: {
 					// ratios
-					range: 0.01,
-					velocity: 0.62
+					range: 0.03,
+					velocity: 0.4
 				},
 				y: {
-					range: -0.00005,
+					range: 0.01,
 					velocity: 0.8
 				},
 				z: {
-					range: 0,
-					velocity: 0.8
+					range: -0.05,
+					velocity: 0.2
 				},
 			},
 		},
