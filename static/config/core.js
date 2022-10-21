@@ -3,7 +3,7 @@ const core = {
 	debug: {
 		lightsHelpers: {
 			light: false,
-			shadow: false
+			shadow: true
 		}
 	},
 

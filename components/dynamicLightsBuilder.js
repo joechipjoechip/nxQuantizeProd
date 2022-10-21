@@ -39,7 +39,10 @@ class DynamicLightsBuilder {
 
 			let createdLight;
 
+			console.log("- - - - - blender light : ", blenderLight);
+
 			if( blenderLight.name.indexOf("point") !== -1 ){
+
 
 				createdLight = new THREE.PointLight(
 					blenderLight.color,
@@ -66,7 +69,7 @@ class DynamicLightsBuilder {
 					createdLight = new THREE.SpotLight(
 						`#${hexColor}`,
 						strength * 10, // intensity
-						strength * 10, //distance  
+						strength, //distance  
 						Math.PI/3, //angle
 						0.5, //penumbra
 						1 // decay
@@ -94,21 +97,24 @@ class DynamicLightsBuilder {
 	
 				createdLight.position.copy(blenderLight.position);
 				createdLight.rotation.copy(blenderLight.rotation);
-	
 
-				if( createdLight.shadow?.mapSize ){
+				if( createdLight.shadow ){
 
 					createdLight.name += "-castShadow";
-					console.log("dynamic light CAST SHADOW : ", createdLight.name);
 					
-					createdLight.shadowCameraVisible = true;
+					// createdLight.shadowCameraVisible = true;
 					createdLight.castShadow = true;
 
 					createdLight.shadow.mapSize.width = 1024;
 					createdLight.shadow.mapSize.height = 1024;
 					createdLight.shadow.camera.near = 0;
-					createdLight.shadow.camera.far = 15;
+					createdLight.shadow.camera.far = 40;
+
+					createdLight.shadow.camera.position.copy(createdLight.position);
+					createdLight.shadow.camera.rotation.copy(createdLight.rotation);
 				}
+
+				console.log("/ / / / / dynamic light created as ", createdLight);
 	
 				this._createdLights.push(createdLight);
 	
@@ -167,11 +173,18 @@ class DynamicLightsBuilder {
 
 			let shadowHelper;
 
-			if( light.shadow.camera ){
+			
+			if( light.shadow?.camera ){
+				
+				if( light.name.includes("point") ){
 
-				if( light.name.includes("point") || light.name.includes("spot") ){
-
+					console.log("au moment de build le camera helper shadow : la light : ", light)
+					
 					shadowHelper = new THREE.CameraHelper(light.shadow.camera);
+
+					shadowHelper.position.copy(light.position);
+					shadowHelper.rotation.copy(light.rotation);
+
 					shadowHelper.name = `camera-helper-shadow-${index}`;
 				
 				}

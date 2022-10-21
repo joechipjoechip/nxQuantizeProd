@@ -239,7 +239,7 @@ class SceneBuilder {
 
 	createLandscapeShadow( blenderObj ){
 
-		this.sceneElements.landscapeShadow = blenderObj;
+		const shadowLandscapeMesh = blenderObj;
 
 		const shadowMaterial = new THREE.ShadowMaterial({
 			color: 0x000000,
@@ -248,13 +248,15 @@ class SceneBuilder {
 
 		// shadowMaterial.blending = THREE.MultiplyBlending;
 
-		this.sceneElements.landscapeShadow.position.y += 0.01;
+		// this.sceneElements.landscapeShadow.position.y += 0.01;
 
-		this.sceneElements.landscapeShadow.name += "-shadow";
+		shadowLandscapeMesh.name += "-shadow";
 
-		this.sceneElements.landscapeShadow.receiveShadow = true;
+		shadowLandscapeMesh.receiveShadow = true;
 
-		this.sceneElements.landscapeShadow.material = shadowMaterial;
+		shadowLandscapeMesh.material = shadowMaterial;
+
+		this.sceneElements.landscapeShadow = shadowLandscapeMesh;
 		
 		// this.sceneElements.landscapeShadow.enabled = true;
 		// this.sceneElements.landscapeShadow.needsUpdate = true;
@@ -349,18 +351,22 @@ class SceneBuilder {
 		// landscape shadow
 		console.log("landscape shadow : ", this.sceneElements.landscapeShadow);
 		this.scene.add(this.sceneElements.landscapeShadow);
+
+		// emissive shapes
+		this.sceneElements.emissiveShapesBuilt
+			.forEach(emissiveBuilt => {
+				this.scene.add(emissiveBuilt);
+			});
+
 		
 
 		// dynamic lights
-		this.sceneElements.dynamicLights.forEach(light => {
-			this.scene.add(light);
-		})
+		this.sceneElements.dynamicLights
+			.forEach(light => {
+				this.scene.add(light);
+			});
 
-		// emissive shapes
-		this.sceneElements.emissiveShapesBuilt.forEach(emissiveBuilt => {
-			this.scene.add(emissiveBuilt);
-		})
-
+		
 	}
 
 	

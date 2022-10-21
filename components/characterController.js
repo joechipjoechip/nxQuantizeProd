@@ -57,7 +57,7 @@ class BasicCharacterController {
 				// console.log("c : ", c);
 				if( c.type !== "Bone" ){
 					c.castShadow = true;
-					c.receiveShadow = true;
+					//c.receiveShadow = true;
 				}
 
 			});
@@ -173,7 +173,7 @@ class BasicCharacterController {
 		// 	_R.multiply(_Q);
 		// }
 		if( mousePos.x === 0 ){
-			console.log("mouse centered");
+			// console.log("mouse centered");
 		} else {
 
 			if( mousePos.x < 0 ){
@@ -253,6 +253,11 @@ class BasicCharacterController {
 			// });
 			
 			// console.log("look at this : ", this._position);
+
+			lightToUpdate.shadow.camera.target = new THREE.Object3D({ 
+				name: "craftedTarget", 
+				position: this._position 
+			  });
 			
 			lightToUpdate.shadow.camera.lookAt(this._position);
 			
