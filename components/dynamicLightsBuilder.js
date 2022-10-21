@@ -65,7 +65,7 @@ class DynamicLightsBuilder {
 	
 					createdLight = new THREE.SpotLight(
 						`#${hexColor}`,
-						strength < 10 ? strength * 10 : strength/10, // intensity
+						strength * 10, // intensity
 						strength * 10, //distance  
 						Math.PI/3, //angle
 						0.5, //penumbra
