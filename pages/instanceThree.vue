@@ -310,9 +310,9 @@
 
 				this.renderer.outputEncoding = THREE.sRGBEncoding;
 
-				// this.renderer.shadowMap.enabled = true;
+				this.renderer.shadowMap.enabled = true;
 
-				// this.renderer.shadowMap.type = THREE.PCFShadowMap;
+				this.renderer.shadowMap.type = THREE.PCFShadowMap;
 
 				this.clock = new THREE.Clock();
 
@@ -404,6 +404,15 @@
 				// if any blur effect, focus needs updates : 
 				if( currentSequenceElements.focusTarget ){
 					this.focusTargetAndBlurTheRestHandler(currentSequenceElements);
+				}
+
+				// if any shadow is casted
+				if( this.scene1.sceneElements.dynamicLights?.length ){
+
+					currentSceneElements.bob.controller._controls.UpdateDynamicLightShadowCamera(
+						this.scene1.sceneElements.dynamicLights.filter(light => light.name.includes("castShadow"))
+					);
+
 				}
 
 

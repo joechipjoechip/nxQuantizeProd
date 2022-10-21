@@ -48,7 +48,7 @@ class DynamicLightsBuilder {
 					blenderLight.decay
 				);
 
-				console.log("builT a pointlight as ", createdLight)
+				// console.log("builT a pointlight as ", createdLight)
 
 			}
 
@@ -95,24 +95,20 @@ class DynamicLightsBuilder {
 				createdLight.position.copy(blenderLight.position);
 				createdLight.rotation.copy(blenderLight.rotation);
 	
-	
-				// maybe a extra dev to do here (@TODO) :
-				// put custom property on the light in blender
-				// to say if the shadow needs to be casted or not
-				// if(blenderLight.userData?.castShadow ){}
-				createdLight.shadowCameraVisible = true;
-	
-				// une seule shadow
-				createdLight.castShadow = true;
-	
-				if( createdLight.shadow?.mapSize ){
-					createdLight.shadow.mapSize.width = 512;
-					createdLight.shadow.mapSize.height = 512;
-					createdLight.shadow.camera.near = 0;
-					createdLight.shadow.camera.far = 7;
-				}
 
-				console.log("light added to the others : ", createdLight)
+				if( createdLight.shadow?.mapSize ){
+
+					createdLight.name += "-castShadow";
+					console.log("dynamic light CAST SHADOW : ", createdLight.name);
+					
+					createdLight.shadowCameraVisible = true;
+					createdLight.castShadow = true;
+
+					createdLight.shadow.mapSize.width = 1024;
+					createdLight.shadow.mapSize.height = 1024;
+					createdLight.shadow.camera.near = 0;
+					createdLight.shadow.camera.far = 15;
+				}
 	
 				this._createdLights.push(createdLight);
 	
@@ -134,13 +130,13 @@ class DynamicLightsBuilder {
 			console.log("wsshhhh", light)
 
 
-			if( light.name.indexOf("point") !== -1 ){
+			if( light.name.includes("point") ){
 
 				lightHelper = new THREE.PointLightHelper(light, 7);
 				
 			}
 
-			if( light.name.indexOf("spot") !== -1 ){
+			if( light.name.includes("spot") ){
 
 				lightHelper = new SpotLightHelper(light);
 				light.add(lightHelper);
@@ -166,8 +162,28 @@ class DynamicLightsBuilder {
 
 		}
 
-		// const spotLightHelper = new THREE.CameraHelper(createdLight.shadow.camera);
-		// spotLightHelper.name = `pointLightHelper-${index}`;
+
+		if( this._core.debug.lightsHelpers.shadow ){
+
+			let shadowHelper;
+
+			if( light.shadow.camera ){
+
+				if( light.name.includes("point") || light.name.includes("spot") ){
+
+					shadowHelper = new THREE.CameraHelper(light.shadow.camera);
+					shadowHelper.name = `camera-helper-shadow-${index}`;
+				
+				}
+
+			}
+
+			if( shadowHelper ){
+				this._createdLights.push(shadowHelper);
+			}
+
+		}
+
 
 
 	}

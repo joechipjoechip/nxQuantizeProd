@@ -129,9 +129,9 @@ const worlds = [
 				},
 
 				postproc: [
-					{
-						type: "glitch"
-					},
+					// {
+					// 	type: "glitch"
+					// },
 
 					// {
 					// 	type: "sobel"
@@ -198,14 +198,14 @@ const worlds = [
 					// 		maxblur: 0.005
 					// 	}
 					// },
-					{
-						type: "bloom",
-						value: {
-							strength: 0.9,
-							threshold: 0.35,
-							radius: 0.3
-						}
-					},
+					// {
+					// 	type: "bloom",
+					// 	value: {
+					// 		strength: 0.9,
+					// 		threshold: 0.35,
+					// 		radius: 0.3
+					// 	}
+					// },
 				]
 
 			}
