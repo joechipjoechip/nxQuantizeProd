@@ -193,7 +193,7 @@
 
 			postProcChangeHandler( newSequenceID ){
 
-				const sequencePostProcObj = this.scene1.sequencesElements[newSequenceID].postproc;
+				const sequencePostProcObj = this.scene1.sequencesElements[newSequenceID].postproc?.length;
 
 				if( sequencePostProcObj ){
 
@@ -461,10 +461,12 @@
 
 					// NOW COMPUTE RENDER
 					if( this.composer ){
-
+						console.log("use composer");
+						
 						this.composer.render();
-
+						
 					} else {
+						console.log("use classic renderer");
 
 						this.renderer.render(this.scene1.scene, this.scene1.camera)
 

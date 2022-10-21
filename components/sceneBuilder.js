@@ -175,10 +175,7 @@ class SceneBuilder {
 				// find map
 				case "landscape":
 					this.sceneElements.landscape = child;
-
 					this.createLandscapeShadow(child.clone());
-					// quand on sera à la gestion des ombres :
-					// this.sceneElements.landscapeShadow = child.clone();
 					break;
 
 				// find camera intial position
@@ -249,10 +246,6 @@ class SceneBuilder {
 			opacity: 0.8
 		});
 
-		shadowMaterial.receiveShadow = true;
-
-		shadowMaterial.shadowSide = THREE.DoubleSide;
-
 		// shadowMaterial.blending = THREE.MultiplyBlending;
 
 		this.sceneElements.landscapeShadow.position.y += 0.01;
@@ -263,7 +256,7 @@ class SceneBuilder {
 
 		this.sceneElements.landscapeShadow.material = shadowMaterial;
 		
-		this.sceneElements.landscapeShadow.enabled = true;
+		// this.sceneElements.landscapeShadow.enabled = true;
 		// this.sceneElements.landscapeShadow.needsUpdate = true;
 
 	}
@@ -334,6 +327,18 @@ class SceneBuilder {
 
 	}
 
+	createEmissiveShape( shapeFromBlender ){
+
+		const emissiveMaterial = new THREE.MeshBasicMaterial({
+			color: `#${shapeFromBlender.userData.hexColor || 'FFFFFF'}`
+		});
+
+		shapeFromBlender.material = emissiveMaterial;
+
+		this.sceneElements.emissiveShapesBuilt.push(shapeFromBlender)
+
+	}
+
 	composeScene(){
 
 		// Here we add :
@@ -358,17 +363,7 @@ class SceneBuilder {
 
 	}
 
-	createEmissiveShape( shapeFromBlender ){
-
-		const emissiveMaterial = new THREE.MeshBasicMaterial({
-			color: `#${shapeFromBlender.userData.hexColor || 'FFFFFF'}`
-		});
-
-		shapeFromBlender.material = emissiveMaterial;
-
-		this.sceneElements.emissiveShapesBuilt.push(shapeFromBlender)
-
-	}
+	
 
 	initScene(){
 
