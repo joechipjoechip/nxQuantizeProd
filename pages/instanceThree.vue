@@ -244,10 +244,12 @@
 				if( !this.scene1.sceneElements.bob.controller._controls ){ return; }
 
 				const formatedID = newSequenceID.replace(".", "-");
-				const newCoords = this.scene1.sceneElements.positionsCollection.find(obj => obj.name.indexOf(formatedID) !== -1);
+				const newCoords = this.scene1.sceneElements.positionsCollection.find(obj => obj.name.includes("bob") && obj.name.includes(formatedID));
 
-				this.scene1.sceneElements.bob.controller._controls.Position = newCoords.position;
-				this.scene1.sceneElements.bob.controller._controls.Rotation = newCoords.rotation;
+				if( newCoords ){
+					this.scene1.sceneElements.bob.controller._controls.Position = newCoords.position;
+					this.scene1.sceneElements.bob.controller._controls.Rotation = newCoords.rotation;
+				}
 
 			},
 
