@@ -41,8 +41,6 @@ class DynamicLightsBuilder {
 
 			if( blenderLight.name.indexOf("point") !== -1 ){
 
-				console.log("build a pointlight", blenderLight)
-
 				createdLight = new THREE.PointLight(
 					blenderLight.color,
 					blenderLight.intensity / 5000,

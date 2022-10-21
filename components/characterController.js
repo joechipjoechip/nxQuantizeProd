@@ -1,5 +1,7 @@
 import * as THREE from 'three';
 
+import { core } from '@/static/config/core.js';
+
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
 
 class BasicCharacterControllerProxy {
@@ -96,6 +98,14 @@ class BasicCharacterController {
 
 	}
 
+	set Position(coords) {
+		this._target.position.copy(coords);
+	}
+
+	set Rotation(coords) {
+		this._target.rotation.copy(coords);
+	}
+
 	get Position() {
 		return this._position;
 	}
@@ -107,7 +117,7 @@ class BasicCharacterController {
 		return this._target.quaternion;
 	}
 
-	Update(timeInSeconds) {
+	Update(timeInSeconds, mousePos) {
 		if (!this._target) {
 			return;
 		}
@@ -151,16 +161,45 @@ class BasicCharacterController {
 			velocity.z -= acc.z * timeInSeconds;
 		}
 
-		if (this._input._keys.left) {
-			_A.set(0, 1, 0);
-			_Q.setFromAxisAngle(_A, 4.0 * Math.PI * timeInSeconds * this._acceleration.y);
-			_R.multiply(_Q);
-		}
+		// if (this._input._keys.left) {
+		// 	_A.set(0, 1, 0);
+		// 	_Q.setFromAxisAngle(_A, 4.0 * Math.PI * timeInSeconds * this._acceleration.y);
+		// 	_R.multiply(_Q);
+		// }
 
-		if (this._input._keys.right) {
-			_A.set(0, 1, 0);
-			_Q.setFromAxisAngle(_A, 4.0 * -Math.PI * timeInSeconds * this._acceleration.y);
-			_R.multiply(_Q);
+		// if (this._input._keys.right) {
+		// 	_A.set(0, 1, 0);
+		// 	_Q.setFromAxisAngle(_A, 4.0 * -Math.PI * timeInSeconds * this._acceleration.y);
+		// 	_R.multiply(_Q);
+		// }
+		if( mousePos.x === 0 ){
+			console.log("mouse centered");
+		} else {
+
+			if( mousePos.x < 0 ){
+				const rotateLeft = THREE.MathUtils.clamp(
+					4.0 * Math.PI * timeInSeconds * (this._acceleration.y * Math.abs(mousePos.x / core.mouse.orientationClamp.divideRatio)),
+					core.mouse.orientationClamp.start,
+					core.mouse.orientationClamp.end
+				);
+				_A.set(0, 1, 0);
+				_Q.setFromAxisAngle(_A, rotateLeft);
+				_R.multiply(_Q);
+	
+				// console.log("turning left : ", rotateLeft);
+			} else if( mousePos.x > 0 ){
+				const rotateRight = THREE.MathUtils.clamp(
+					4.0 * -Math.PI * timeInSeconds * (this._acceleration.y * Math.abs(mousePos.x / core.mouse.orientationClamp.divideRatio)),
+					core.mouse.orientationClamp.end * -1,
+					core.mouse.orientationClamp.start * -1
+				);
+				_A.set(0, 1, 0);
+				_Q.setFromAxisAngle(_A, rotateRight);
+				_R.multiply(_Q);
+	
+				// console.log("turning right : ", rotateRight);
+			}
+
 		}
 
 		controlObject.quaternion.copy(_R);

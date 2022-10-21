@@ -8,8 +8,13 @@ const core = {
 	},
 
 	mouse: {
-		moveTimeout: 4,
-		recenterDuration: 2
+		moveTimeout: 2.5,
+		recenterDuration: 1,
+		orientationClamp: {
+			start: 0.00001,
+			end: 0.1,
+			divideRatio: 50
+		}
 	},
 
 	generatedCamerasSpecs: {

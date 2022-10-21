@@ -106,7 +106,7 @@
 			this.scene1 = new SceneBuilder({
 				worldConfig: this.worldConfig, 
 				canvas: this.$refs.canvas,
-				sequenceID: this.sequenceID
+				sequenceID: this.sequenceID,
 			});
 
 		},
@@ -163,7 +163,9 @@
 
 				this.postProcChangeHandler(newSequenceID);
 
-				this.bobMoveChangeHandler(newSequenceID);
+				this.bobImposedGestureHandler(newSequenceID);
+
+				this.bobNewPositionHandler(newSequenceID);
 
 				this.cameraFovChangeHandler(newSequenceID);
 
@@ -214,7 +216,7 @@
 
 			},
 
-			bobMoveChangeHandler( newSequenceID ){
+			bobImposedGestureHandler( newSequenceID ){
 
 				const sequenceBobImposedMoves = this.scene1.sequencesElements[newSequenceID].bobImposedMoves;
 
@@ -234,6 +236,18 @@
 					this.scene1.sceneElements.bob.controller._controls._input._imposedMoves = {};
 
 				}
+
+			},
+
+			bobNewPositionHandler( newSequenceID ){
+
+				if( !this.scene1.sceneElements.bob.controller._controls ){ return; }
+
+				const formatedID = newSequenceID.replace(".", "-");
+				const newCoords = this.scene1.sceneElements.positionsCollection.find(obj => obj.name.indexOf(formatedID) !== -1);
+
+				this.scene1.sceneElements.bob.controller._controls.Position = newCoords.position;
+				this.scene1.sceneElements.bob.controller._controls.Rotation = newCoords.rotation;
 
 			},
 
@@ -377,7 +391,7 @@
 
 				// if any bob in the scene, he needs update for his moves
 				if( currentSceneElements.bob.controller ){
-					currentSceneElements.bob.controller._controls.Update(deltaTime);
+					currentSceneElements.bob.controller._controls.Update(deltaTime, this.mousePos);
 				}
 
 				// if third-person camera in the scene, it needs updates too

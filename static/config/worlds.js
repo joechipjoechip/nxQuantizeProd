@@ -124,7 +124,8 @@ const worlds = [
 				},
 
 				bobImposedMoves: {
-					space: true
+					forward: true,
+					shift: true
 				},
 
 				postproc: [
@@ -184,18 +185,18 @@ const worlds = [
 
 				bobImposedMoves: {
 					forward: true,
-					shift: true
+					shift: false
 				},
 
 				postproc: [
-					{
-						type: "bloom",
-						value: {
-							strength: 0.9,
-							threshold: 0.35,
-							radius: 0.3
-						}
-					},
+					// {
+					// 	type: "bloom",
+					// 	value: {
+					// 		strength: 0.9,
+					// 		threshold: 0.35,
+					// 		radius: 0.3
+					// 	}
+					// },
 				]
 
 			}

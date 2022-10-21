@@ -88,6 +88,7 @@ class SceneBuilder {
 			tubes: [],
 			blenderLights: [],
 			dynamicLights: [],
+			positionsCollection: [],
 			happenings: {},
 			misc: {
 				landscape: {
@@ -140,8 +141,9 @@ class SceneBuilder {
 	}
 
 	createBob(){
+		
+		const { position, rotation } = this.sceneElements.positionsCollection.find(blenderObject => blenderObject.name === "bob-position_1-0");
 
-		const { position, rotation } = this.sceneElements.bob.initialPosition;
 		let filePath = this.worldConfig.main.meshInfos.bob.glbPath.split("/");
 		const fileName = filePath.pop();
 
@@ -198,6 +200,13 @@ class SceneBuilder {
 			if( child.name.indexOf("light-") !== -1 ){
 
 				this.sceneElements.blenderLights.push(child);
+
+			}
+
+			// find misc positions
+			if( child.name.indexOf("position_") !== -1 ){
+
+				this.sceneElements.positionsCollection.push(child);
 
 			}
 
