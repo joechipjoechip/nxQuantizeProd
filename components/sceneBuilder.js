@@ -88,6 +88,7 @@ class SceneBuilder {
 			tubes: [],
 			blenderLights: [],
 			dynamicLights: [],
+			emissiveShapes: [],
 			positionsCollection: [],
 			happenings: {},
 			misc: {
@@ -141,7 +142,7 @@ class SceneBuilder {
 	}
 
 	createBob(){
-		
+
 		const { position, rotation } = this.sceneElements.positionsCollection.find(blenderObject => blenderObject.name === "bob-position_1-0");
 
 		let filePath = this.worldConfig.main.meshInfos.bob.glbPath.split("/");
@@ -190,21 +191,28 @@ class SceneBuilder {
 			}
 				
 			// find camera paths for blenderTubes
-			if( child.name.indexOf("plan-") !== -1 ){
+			if( child.name.includes("plan-") ){
 
 				this.sceneElements.tubes.push(child);
 
 			}
 
 			// find lights
-			if( child.name.indexOf("light-") !== -1 ){
+			if( child.name.includes("light-") ){
 
 				this.sceneElements.blenderLights.push(child);
 
 			}
 
+			// find emissive shapes
+			if( child.name.includes("emissive-shape") ){
+
+				this.sceneElements.emissiveShapes.push(child);
+
+			}
+
 			// find misc positions
-			if( child.name.indexOf("position_") !== -1 ){
+			if( child.name.includes("position_") ){
 
 				this.sceneElements.positionsCollection.push(child);
 
@@ -302,8 +310,22 @@ class SceneBuilder {
 			this.scene.add(light);
 		})
 
-		
-		
+		// emissive shapes
+		this.sceneElements.emissiveShapes.forEach(emissiveShape => {
+			this.createEmissiveShape(emissiveShape);
+		})
+
+	}
+
+	createEmissiveShape( shapeFromBlender ){
+
+		const emissiveMaterial = new THREE.MeshBasicMaterial({
+			color: `#${shapeFromBlender.userData.hexColor || 'FFFFFF'}`
+		});
+
+		shapeFromBlender.material = emissiveMaterial;
+
+		this.scene.add(shapeFromBlender);
 
 	}
 
