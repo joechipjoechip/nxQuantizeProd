@@ -129,22 +129,22 @@ const worlds = [
 				},
 
 				postproc: [
-					// {
-					// 	type: "glitch"
-					//},
+					{
+						type: "glitch"
+					},
 
 					// {
 					// 	type: "sobel"
 					// },
-					{
-						type: "blur",
-						focusTarget: "bob",
-						value: {
-							focus: 1,
-							aperture: 0.025,
-							maxblur: 0.005
-						}
-					},
+					// {
+					// 	type: "blur",
+					// 	focusTarget: "bob",
+					// 	value: {
+					// 		focus: 1,
+					// 		aperture: 0.025,
+					// 		maxblur: 0.005
+					// 	}
+					// },
 
 				
 
@@ -190,13 +190,22 @@ const worlds = [
 
 				postproc: [
 					// {
-					// 	type: "bloom",
+					// 	type: "blur",
+					// 	focusTarget: "bob",
 					// 	value: {
-					// 		strength: 0.9,
-					// 		threshold: 0.35,
-					// 		radius: 0.3
+					// 		focus: 1,
+					// 		aperture: 0.025,
+					// 		maxblur: 0.005
 					// 	}
 					// },
+					{
+						type: "bloom",
+						value: {
+							strength: 0.9,
+							threshold: 0.35,
+							radius: 0.3
+						}
+					},
 				]
 
 			}

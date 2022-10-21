@@ -43,7 +43,7 @@ class DynamicLightsBuilder {
 
 				createdLight = new THREE.PointLight(
 					blenderLight.color,
-					blenderLight.intensity / 5000,
+					blenderLight.intensity / 10,
 					blenderLight.distance,
 					blenderLight.decay
 				);
