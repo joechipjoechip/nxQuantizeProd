@@ -125,7 +125,7 @@ const worlds = [
 
 				bobImposedMoves: {
 					forward: true,
-					shift: true
+					// shift: true
 				},
 
 				postproc: [

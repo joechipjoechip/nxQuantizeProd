@@ -248,7 +248,7 @@ class SceneBuilder {
 
 		// shadowMaterial.blending = THREE.MultiplyBlending;
 
-		// this.sceneElements.landscapeShadow.position.y += 0.01;
+		// shadowLandscapeMesh.position.y += 0.01;
 
 		shadowLandscapeMesh.name += "-shadow";
 
@@ -258,7 +258,7 @@ class SceneBuilder {
 
 		this.sceneElements.landscapeShadow = shadowLandscapeMesh;
 		
-		// this.sceneElements.landscapeShadow.enabled = true;
+		this.sceneElements.landscapeShadow.enabled = true;
 		// this.sceneElements.landscapeShadow.needsUpdate = true;
 
 	}
@@ -349,7 +349,6 @@ class SceneBuilder {
 		this.scene.add(this.sceneElements.landscape);
 
 		// landscape shadow
-		console.log("landscape shadow : ", this.sceneElements.landscapeShadow);
 		this.scene.add(this.sceneElements.landscapeShadow);
 
 		// emissive shapes
