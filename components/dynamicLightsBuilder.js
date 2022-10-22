@@ -17,6 +17,8 @@ class DynamicLightsBuilder {
 		this._BuildSun();
 		this._BuildLights();
 
+		console.log("- - - - > all createdLights : ", this._createdLights);
+
 		return this._createdLights;
 
 	}
@@ -37,9 +39,9 @@ class DynamicLightsBuilder {
 
 		this._blenderLights.forEach((blenderLight, index) => {
 
-			let createdLight;
+			// if( index !== 3 ){ return }
 
-			console.log("- - - - - blender light : ", blenderLight);
+			let createdLight;
 
 			if( blenderLight.name.indexOf("point") !== -1 ){
 
@@ -58,21 +60,15 @@ class DynamicLightsBuilder {
 			if( blenderLight.name.indexOf("area") !== -1 ){
 
 				// update manually type (because if not, blender export set it as "Object-3D")
-				blenderLight.type = "area-converted-to-spot";
+				blenderLight.type = "directional";
 
 				const { hexColor, strength } = blenderLight.userData;
 
 				if( strength && hexColor ){
-
-					// console.log("area light : ", blenderLight, strength)
 	
-					createdLight = new THREE.SpotLight(
+					createdLight = new THREE.DirectionalLight(
 						`#${hexColor}`,
-						strength * 10, // intensity
-						strength, //distance  
-						Math.PI/3, //angle
-						0.5, //penumbra
-						1 // decay
+						strength / 10, // intensity
 					);
 
 				}
@@ -93,32 +89,33 @@ class DynamicLightsBuilder {
 
 			if( createdLight ){
 
-				createdLight.name = `light-${blenderLight.type.toLowerCase()}-${index}`;
+				createdLight.name = `LIGHT-${blenderLight.type.toLowerCase()}-${index}`;
 	
 				createdLight.position.copy(blenderLight.position);
 				createdLight.rotation.copy(blenderLight.rotation);
 
 				if( createdLight.shadow ){
 
-					createdLight.name += "-castShadow";
+					createdLight.name += "_castShadow";
 					
-					// createdLight.shadowCameraVisible = true;
+					createdLight.shadowCameraVisible = true;
 					createdLight.castShadow = true;
 
-					createdLight.shadow.mapSize.width = 1024;
-					createdLight.shadow.mapSize.height = 1024;
-					createdLight.shadow.camera.near = 0;
-					createdLight.shadow.camera.far = 40;
+					createdLight.shadow.mapSize.width = 2048;
+					createdLight.shadow.mapSize.height = 2048;
+					createdLight.shadow.camera.near = 6;
+					createdLight.shadow.camera.far = 8;
 
-					createdLight.shadow.camera.position.copy(createdLight.position);
-					createdLight.shadow.camera.rotation.copy(createdLight.rotation);
+					createdLight.shadowCameraLeft = -0.3;
+					createdLight.shadowCameraRight = 0.3;
+					createdLight.shadowCameraTop = 0.3;
+					createdLight.shadowCameraBottom = -0.3;
+
 				}
 
-				console.log("/ / / / / dynamic light created as ", createdLight);
-	
 				this._createdLights.push(createdLight);
 	
-				this._BuildHelpers(createdLight, index);
+				this._BuildHelper(createdLight, index);
 
 			}
 
@@ -127,26 +124,24 @@ class DynamicLightsBuilder {
 
 	}
 
-	_BuildHelpers(light, index){
+	_BuildHelper(light, index){
 
 		if( this._core.debug.lightsHelpers.light ){
 
 			let lightHelper;
 
-			console.log("wsshhhh", light)
-
-
 			if( light.name.includes("point") ){
-
 				lightHelper = new THREE.PointLightHelper(light, 7);
-				
 			}
 
 			if( light.name.includes("spot") ){
-
 				lightHelper = new SpotLightHelper(light);
 				light.add(lightHelper);
+			}
 
+			if( light.name.includes("directional") ){
+				lightHelper = new THREE.DirectionalLightHelper(light)
+				light.add(lightHelper);
 			}
 
 
@@ -156,10 +151,10 @@ class DynamicLightsBuilder {
 
 
 
-
+			// AND FINALLY
 			if( lightHelper ){
 
-				lightHelper.name = `${light.type}-helper-${index}`;
+				lightHelper.name = `${light.type}-helper_light-${index}`;
 	
 				this._createdLights.push(lightHelper);
 
@@ -173,19 +168,16 @@ class DynamicLightsBuilder {
 
 			let shadowHelper;
 
-			
 			if( light.shadow?.camera ){
 				
-				if( light.name.includes("point") ){
-
-					console.log("au moment de build le camera helper shadow : la light : ", light)
+				if( light.name.includes("directional") ){
 					
 					shadowHelper = new THREE.CameraHelper(light.shadow.camera);
 
 					shadowHelper.position.copy(light.position);
 					shadowHelper.rotation.copy(light.rotation);
 
-					shadowHelper.name = `camera-helper-shadow-${index}`;
+					shadowHelper.name = `${light.type}-helper_shadow-${index}`;
 				
 				}
 
