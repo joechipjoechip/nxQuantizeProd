@@ -233,15 +233,32 @@ class BasicCharacterController {
 			new THREE.Vector3(0,-1,0)
 		);
 
-		controlObject.position.y = this._raycaster
-		.intersectObjects( this._params.scene.children )
-		.find(intersected => intersected.object.name === "landscape")?.point.y || controlObject.position.y;
+		controlObject.position.y = this.HandleGravity(controlObject);
 
 		this._position.copy(controlObject.position);
 
 		if (this._mixer) {
 			this._mixer.update(timeInSeconds);
 		}
+	}
+
+	HandleGravity( controlObject ){
+
+		const currentY = controlObject.position.y;
+
+		const newY = this._raycaster
+				.intersectObjects( this._params.scene.children )
+				.find(intersected => intersected.object.name === "landscape")?.point.y;
+
+		const diff = Math.abs(currentY - newY);
+
+		if( diff > 0.01 ){
+			// écart trop grand : on garde le courant
+			return currentY;
+		} else {
+			return newY;
+		}
+
 	}
 
 	UpdateDynamicLightShadowCamera( lightsToUpdateShadowCamera ){
@@ -264,6 +281,8 @@ class BasicCharacterController {
 				position: this._position,
 				name: "bob4shadow"
 			});
+
+			lightToUpdate.shadow.camera.lookAt(this._position);
 
 			// lightToUpdate.shadow.camera.left = -1.3 + this._position.x;
 			// lightToUpdate.shadow.camera.right = 1.3 - this._position.x;

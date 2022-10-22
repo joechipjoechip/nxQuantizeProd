@@ -39,7 +39,7 @@ class DynamicLightsBuilder {
 
 		this._blenderLights.forEach((blenderLight, index) => {
 
-			if( blenderLight.name !== "light-area-2" ){ return; }
+			// if( blenderLight.name !== "light-area-2" ){ return; }
 
 			if( blenderLight.name.includes("no_dynamic") ){ return; }
 

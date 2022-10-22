@@ -89,6 +89,9 @@
 					case "1.1":
 						this.sequenceID = "1.2"
 						break
+					case "1.2":
+						this.sequenceID = "1.3"
+						break
 					default:
 						this.sequenceID = "1.0"
 						break

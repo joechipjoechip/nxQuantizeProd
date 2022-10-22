@@ -198,14 +198,64 @@ const worlds = [
 					// 		maxblur: 0.005
 					// 	}
 					// },
+					{
+						type: "bloom",
+						value: {
+							strength: 0.9,
+							threshold: 0.35,
+							radius: 0.3
+						}
+					},
+				]
+
+			},
+			{
+				id: "1.3",
+				baseFov: 95,
+
+				// type: "blender-points",
+				type: "third-person",
+				cameraType: "movingHips",
+
+				animatedMesh: false,
+
+				helpers: {
+					orbit: true,
+					tubes: false,
+					timelines: false
+				},
+				
+				config: {
+					fog: {
+						enabled: true,
+						color: 0x000000,
+						intensity: .15
+					},
+				},
+
+				bobImposedMoves: {
+					forward: true,
+					shift: false
+				},
+
+				postproc: [
 					// {
-					// 	type: "bloom",
+					// 	type: "blur",
+					// 	focusTarget: "bob",
 					// 	value: {
-					// 		strength: 0.9,
-					// 		threshold: 0.35,
-					// 		radius: 0.3
+					// 		focus: 1,
+					// 		aperture: 0.025,
+					// 		maxblur: 0.005
 					// 	}
 					// },
+					{
+						type: "bloom",
+						value: {
+							strength: 0.9,
+							threshold: 0.35,
+							radius: 0.3
+						}
+					},
 				]
 
 			}
