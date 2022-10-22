@@ -410,7 +410,7 @@
 				if( this.scene1.sceneElements.dynamicLights?.length ){
 
 					currentSceneElements.bob.controller._controls.UpdateDynamicLightShadowCamera(
-						this.scene1.sceneElements.dynamicLights.filter(light => light.name.includes("castShadow"))
+						this.scene1.sceneElements.dynamicLights.filter(light => light.name.includes("CASTING-SHADOW"))
 					);
 
 				}

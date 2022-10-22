@@ -57,17 +57,18 @@ class BasicCharacterController {
 				// console.log("c : ", c);
 				if( c.type !== "Bone" ){
 					c.castShadow = true;
-					//c.receiveShadow = true;
+					c.receiveShadow = true;
 				}
 
 			});
 
 			this._target = fbx;
 			this._target.name = "bob";
-			this._params.scene.add(this._target);
-
+			
 			this._target.position.copy(this._params.bobInfos.start.position);
 			this._target.rotation.copy(this._params.bobInfos.start.rotation);
+
+			this._params.scene.add(this._target);
 
 			this._mixer = new THREE.AnimationMixer(this._target);
 
@@ -161,46 +162,48 @@ class BasicCharacterController {
 			velocity.z -= acc.z * timeInSeconds;
 		}
 
-		// if (this._input._keys.left) {
-		// 	_A.set(0, 1, 0);
-		// 	_Q.setFromAxisAngle(_A, 4.0 * Math.PI * timeInSeconds * this._acceleration.y);
-		// 	_R.multiply(_Q);
-		// }
-
-		// if (this._input._keys.right) {
-		// 	_A.set(0, 1, 0);
-		// 	_Q.setFromAxisAngle(_A, 4.0 * -Math.PI * timeInSeconds * this._acceleration.y);
-		// 	_R.multiply(_Q);
-		// }
-		if( mousePos.x === 0 ){
-			// console.log("mouse centered");
-		} else {
-
-			if( mousePos.x < 0 ){
-				const rotateLeft = THREE.MathUtils.clamp(
-					4.0 * Math.PI * timeInSeconds * (this._acceleration.y * Math.abs(mousePos.x / core.mouse.orientationClamp.divideRatio)),
-					core.mouse.orientationClamp.start,
-					core.mouse.orientationClamp.end
-				);
-				_A.set(0, 1, 0);
-				_Q.setFromAxisAngle(_A, rotateLeft);
-				_R.multiply(_Q);
-	
-				// console.log("turning left : ", rotateLeft);
-			} else if( mousePos.x > 0 ){
-				const rotateRight = THREE.MathUtils.clamp(
-					4.0 * -Math.PI * timeInSeconds * (this._acceleration.y * Math.abs(mousePos.x / core.mouse.orientationClamp.divideRatio)),
-					core.mouse.orientationClamp.end * -1,
-					core.mouse.orientationClamp.start * -1
-				);
-				_A.set(0, 1, 0);
-				_Q.setFromAxisAngle(_A, rotateRight);
-				_R.multiply(_Q);
-	
-				// console.log("turning right : ", rotateRight);
-			}
-
+		if (this._input._keys.left) {
+			_A.set(0, 1, 0);
+			_Q.setFromAxisAngle(_A, 4.0 * Math.PI * timeInSeconds * this._acceleration.y * 0.4);
+			_R.multiply(_Q);
 		}
+
+		if (this._input._keys.right) {
+			_A.set(0, 1, 0);
+			_Q.setFromAxisAngle(_A, 4.0 * -Math.PI * timeInSeconds * this._acceleration.y * 0.4);
+			_R.multiply(_Q);
+		}
+
+
+		// if( mousePos.x === 0 ){
+		// 	// console.log("mouse centered");
+		// } else {
+
+		// 	if( mousePos.x < 0 ){
+		// 		const rotateLeft = THREE.MathUtils.clamp(
+		// 			4.0 * Math.PI * timeInSeconds * (this._acceleration.y * Math.abs(mousePos.x / core.mouse.orientationClamp.divideRatio)),
+		// 			core.mouse.orientationClamp.start,
+		// 			core.mouse.orientationClamp.end
+		// 		);
+		// 		_A.set(0, 1, 0);
+		// 		_Q.setFromAxisAngle(_A, rotateLeft);
+		// 		_R.multiply(_Q);
+	
+		// 		// console.log("turning left : ", rotateLeft);
+		// 	} else if( mousePos.x > 0 ){
+		// 		const rotateRight = THREE.MathUtils.clamp(
+		// 			4.0 * -Math.PI * timeInSeconds * (this._acceleration.y * Math.abs(mousePos.x / core.mouse.orientationClamp.divideRatio)),
+		// 			core.mouse.orientationClamp.end * -1,
+		// 			core.mouse.orientationClamp.start * -1
+		// 		);
+		// 		_A.set(0, 1, 0);
+		// 		_Q.setFromAxisAngle(_A, rotateRight);
+		// 		_R.multiply(_Q);
+	
+		// 		// console.log("turning right : ", rotateRight);
+		// 	}
+
+		// }
 
 		controlObject.quaternion.copy(_R);
 
@@ -245,7 +248,32 @@ class BasicCharacterController {
 
 		lightsToUpdateShadowCamera.forEach(lightToUpdate => {
 
-			lightToUpdate.shadow.camera.lookAt(this._position);
+			const distance = lightToUpdate.position.distanceTo(this._position);
+
+			const distanceNear = parseFloat((distance - 0.5).toFixed(2));
+			const distanceFar = parseFloat((distance + 0.5).toFixed(2));
+
+			console.log("distance : ", distanceNear, distanceFar);
+
+			console.log("bob x/y", this._position.x, this._position.y);
+
+			console.log("light :", lightToUpdate)
+
+
+			lightToUpdate.target = new THREE.Object3D({
+				position: this._position,
+				name: "bob4shadow"
+			});
+
+			// lightToUpdate.shadow.camera.left = -1.3 + this._position.x;
+			// lightToUpdate.shadow.camera.right = 1.3 - this._position.x;
+			// lightToUpdate.shadow.camera.top = 1.3;
+			// lightToUpdate.shadow.camera.bottom = -1.3;
+
+			lightToUpdate.shadow.camera.near = distanceNear;
+			lightToUpdate.shadow.camera.far = distanceFar;
+
+			lightToUpdate.shadow.camera.updateProjectionMatrix();
 			
 		});
 

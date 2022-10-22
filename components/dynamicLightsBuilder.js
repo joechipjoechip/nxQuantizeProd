@@ -39,25 +39,27 @@ class DynamicLightsBuilder {
 
 		this._blenderLights.forEach((blenderLight, index) => {
 
-			// if( index !== 3 ){ return }
+			if( blenderLight.name !== "light-area-2" ){ return; }
 
+			if( blenderLight.name.includes("no_dynamic") ){ return; }
+
+			const isPointLight = blenderLight.name.includes("point");
+			const isAreaLight = blenderLight.name.includes("area");
 			let createdLight;
 
-			if( blenderLight.name.indexOf("point") !== -1 ){
+			if( isPointLight ){
 
 
 				createdLight = new THREE.PointLight(
 					blenderLight.color,
 					blenderLight.intensity / 10,
 					blenderLight.distance,
-					blenderLight.decay
+					blenderLight.decay * 1
 				);
-
-				// console.log("builT a pointlight as ", createdLight)
 
 			}
 
-			if( blenderLight.name.indexOf("area") !== -1 ){
+			if( isAreaLight ){
 
 				// update manually type (because if not, blender export set it as "Object-3D")
 				blenderLight.type = "directional";
@@ -73,19 +75,9 @@ class DynamicLightsBuilder {
 
 				}
 
-			} 
+			}
 
-
-
-
-
-
-
-
-
-
-
-
+			// AND THEN :
 
 			if( createdLight ){
 
@@ -93,25 +85,31 @@ class DynamicLightsBuilder {
 	
 				createdLight.position.copy(blenderLight.position);
 				createdLight.rotation.copy(blenderLight.rotation);
+				
+				if( isAreaLight ){
 
-				if( createdLight.shadow ){
+					createdLight.name = "CASTING-SHADOW_" + createdLight.name;
 
-					createdLight.name += "_castShadow";
-					
 					createdLight.shadowCameraVisible = true;
 					createdLight.castShadow = true;
 
-					createdLight.shadow.mapSize.width = 2048;
-					createdLight.shadow.mapSize.height = 2048;
-					createdLight.shadow.camera.near = 6;
-					createdLight.shadow.camera.far = 8;
-
-					createdLight.shadowCameraLeft = -0.3;
-					createdLight.shadowCameraRight = 0.3;
-					createdLight.shadowCameraTop = 0.3;
-					createdLight.shadowCameraBottom = -0.3;
-
+					createdLight.shadow.mapSize.width = 6144;
+					createdLight.shadow.mapSize.height = 6144;
+					createdLight.shadow.camera.near = 4.5;
+					createdLight.shadow.camera.far = 5.5;
+					createdLight.shadow.radius = 3;
+				
+					createdLight.shadow.camera.left = -1.3;
+					createdLight.shadow.camera.right = 1.3;
+					createdLight.shadow.camera.top = 1.3;
+					createdLight.shadow.camera.bottom = -1.3;
 				}
+
+				// if( isPointLight){
+				// 	// createdLight.shadow.camera.fov = 50;
+				// 	createdLight.shadow.camera.near = 2;
+				// 	createdLight.shadow.camera.far = 8;
+				// }
 
 				this._createdLights.push(createdLight);
 	
@@ -170,12 +168,12 @@ class DynamicLightsBuilder {
 
 			if( light.shadow?.camera ){
 				
-				if( light.name.includes("directional") ){
+				if( light.name.includes("directional") || light.name.includes("pointlight") ){
 					
 					shadowHelper = new THREE.CameraHelper(light.shadow.camera);
 
-					shadowHelper.position.copy(light.position);
-					shadowHelper.rotation.copy(light.rotation);
+					// shadowHelper.position.copy(light.position);
+					// shadowHelper.rotation.copy(light.rotation);
 
 					shadowHelper.name = `${light.type}-helper_shadow-${index}`;
 				

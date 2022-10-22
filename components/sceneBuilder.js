@@ -218,6 +218,19 @@ class SceneBuilder {
 
 			}
 
+			// find debug objects
+			if( child.name.includes("debug-object") ){
+
+				if( !this.sceneElements.debugObjects ){
+					this.sceneElements.debugObjects = [];
+				}
+
+				child.castShadow = true;
+				child.receiveShadow = true;
+				
+				this.sceneElements.debugObjects.push(child);
+			}
+
 		});
 
 		this.assetsManager.glb = true;
@@ -234,48 +247,6 @@ class SceneBuilder {
 			);
 
 		});
-
-	}
-
-	createLandscapeShadow( blenderObj ){
-
-		const shadowLandscapeMesh = blenderObj;
-
-		const shadowMaterial = new THREE.ShadowMaterial({
-			color: 0x000000,
-			opacity: 0.8
-		});
-
-		// shadowMaterial.blending = THREE.MultiplyBlending;
-
-		// shadowLandscapeMesh.position.y += 0.01;
-
-		shadowLandscapeMesh.name += "-shadow";
-
-		shadowLandscapeMesh.receiveShadow = true;
-
-		shadowLandscapeMesh.material = shadowMaterial;
-
-		this.sceneElements.landscapeShadow = shadowLandscapeMesh;
-		
-		this.sceneElements.landscapeShadow.enabled = true;
-		// this.sceneElements.landscapeShadow.needsUpdate = true;
-
-	}
-
-	createBakedMaterial( key, index ){
-
-		this.sceneElements.misc[key].texture.flipY = false;
-
-		this.sceneElements.misc[key].texture.encoding = THREE.sRGBEncoding;
-
-		this.sceneElements.misc[key].material = new THREE.MeshBasicMaterial({
-			map: this.sceneElements.misc[key].texture
-		});
-
-		if( index === Object.keys(this.worldConfig.main.meshInfos.world.imagePath).length - 1 ){
-			this.assetsManager.bakeds = true;
-		}
 
 	}
 
@@ -341,6 +312,41 @@ class SceneBuilder {
 
 	}
 
+	createLandscapeShadow( blenderObj ){
+
+		const shadowLandscapeMesh = blenderObj;
+
+		const shadowMaterial = new THREE.ShadowMaterial({
+			color: 0x000000,
+			opacity: 0.4
+		});
+
+		shadowLandscapeMesh.name += "-shadow";
+
+		shadowLandscapeMesh.receiveShadow = true;
+
+		shadowLandscapeMesh.material = shadowMaterial;
+
+		this.sceneElements.landscapeShadow = shadowLandscapeMesh;
+
+	}
+
+	createBakedMaterial( key, index ){
+
+		this.sceneElements.misc[key].texture.flipY = false;
+
+		this.sceneElements.misc[key].texture.encoding = THREE.sRGBEncoding;
+
+		this.sceneElements.misc[key].material = new THREE.MeshBasicMaterial({
+			map: this.sceneElements.misc[key].texture
+		});
+
+		if( index === Object.keys(this.worldConfig.main.meshInfos.world.imagePath).length - 1 ){
+			this.assetsManager.bakeds = true;
+		}
+
+	}
+
 	composeScene(){
 
 		// Here we add :
@@ -351,13 +357,12 @@ class SceneBuilder {
 		// landscape shadow
 		this.scene.add(this.sceneElements.landscapeShadow);
 
+
 		// emissive shapes
 		this.sceneElements.emissiveShapesBuilt
 			.forEach(emissiveBuilt => {
 				this.scene.add(emissiveBuilt);
 			});
-
-		
 
 		// dynamic lights
 		this.sceneElements.dynamicLights
@@ -365,10 +370,15 @@ class SceneBuilder {
 				this.scene.add(light);
 			});
 
+
+
+		// debug objects
+		this.sceneElements.debugObjects
+			?.forEach(debugObject => {
+				this.scene.add(debugObject);
+			});
 		
 	}
-
-	
 
 	initScene(){
 
