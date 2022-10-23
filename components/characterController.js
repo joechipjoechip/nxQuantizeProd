@@ -249,15 +249,24 @@ class BasicCharacterController {
 		const newY = this._raycaster
 				.intersectObjects( this._params.scene.children )
 				.find(intersected => intersected.object.name === "landscape")?.point.y;
+		
+		if( newY ){
 
-		const diff = Math.abs(currentY - newY);
+			const diff = Math.abs(currentY - newY);
+	
+			if( diff > 0.01 ){
+				// écart trop grand : on garde le courant
+				return currentY;
+			} else {
+				return newY;
+			}
 
-		if( diff > 0.01 ){
-			// écart trop grand : on garde le courant
-			return currentY;
 		} else {
-			return newY;
+
+			return currentY;
+
 		}
+
 
 	}
 
@@ -265,34 +274,32 @@ class BasicCharacterController {
 
 		lightsToUpdateShadowCamera.forEach(lightToUpdate => {
 
-			const distance = lightToUpdate.position.distanceTo(this._position);
+			const fakeBob = this._params.scene.children.find(child => child.name.includes("--needFakeBob--"))?.target;
 
-			const distanceNear = parseFloat((distance - 0.5).toFixed(2));
-			const distanceFar = parseFloat((distance + 0.5).toFixed(2));
+			if( fakeBob ){
+				
+				fakeBob.position.copy(this._position);
 
-			console.log("distance : ", distanceNear, distanceFar);
+				lightToUpdate.target.position.copy(this._position);
+				lightToUpdate.focus = 10;
 
-			console.log("bob x/y", this._position.x, this._position.y);
+				// au cas où ..
+				// const distance = ((lightToUpdate.position.distanceTo(this._position)) / 3.6);
 
-			console.log("light :", lightToUpdate)
+				if( core.debug.lightsHelpers.light || core.debug.lightsHelpers.shadow ){
+
+					this._params.scene.children
+						.filter(child =>  child.name.toLowerCase().includes("light") && child.name.toLowerCase().includes("helper"))
+							?.forEach(helper => {
+							// console.log("helpers : ", helper.name)
+							helper.update();
+						});	
+
+				}
 
 
-			lightToUpdate.target = new THREE.Object3D({
-				position: this._position,
-				name: "bob4shadow"
-			});
+			} 
 
-			lightToUpdate.shadow.camera.lookAt(this._position);
-
-			// lightToUpdate.shadow.camera.left = -1.3 + this._position.x;
-			// lightToUpdate.shadow.camera.right = 1.3 - this._position.x;
-			// lightToUpdate.shadow.camera.top = 1.3;
-			// lightToUpdate.shadow.camera.bottom = -1.3;
-
-			lightToUpdate.shadow.camera.near = distanceNear;
-			lightToUpdate.shadow.camera.far = distanceFar;
-
-			lightToUpdate.shadow.camera.updateProjectionMatrix();
 			
 		});
 

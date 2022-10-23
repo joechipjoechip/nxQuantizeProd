@@ -461,12 +461,12 @@
 
 					// NOW COMPUTE RENDER
 					if( this.composer ){
-						console.log("use composer");
+						// console.log("use composer");
 						
 						this.composer.render();
 						
 					} else {
-						console.log("use classic renderer");
+						// console.log("use classic renderer");
 
 						this.renderer.render(this.scene1.scene, this.scene1.camera)
 

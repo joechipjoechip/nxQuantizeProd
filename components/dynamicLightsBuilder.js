@@ -39,12 +39,13 @@ class DynamicLightsBuilder {
 
 		this._blenderLights.forEach((blenderLight, index) => {
 
+			// debug
 			// if( blenderLight.name !== "light-area-2" ){ return; }
 
 			if( blenderLight.name.includes("no_dynamic") ){ return; }
 
 			const isPointLight = blenderLight.name.includes("point");
-			const isAreaLight = blenderLight.name.includes("area");
+			const isSpotlight = blenderLight.name.includes("area");
 			let createdLight;
 
 			if( isPointLight ){
@@ -59,21 +60,24 @@ class DynamicLightsBuilder {
 
 			}
 
-			if( isAreaLight ){
+			if( isSpotlight ){
 
 				// update manually type (because if not, blender export set it as "Object-3D")
-				blenderLight.type = "directional";
+				// and yes, rect areas from blender become here spotlights !
+				blenderLight.type = "spotlight";
 
-				const { hexColor, strength } = blenderLight.userData;
+				console.log("blenderLight ", blenderLight)
 
-				if( strength && hexColor ){
-	
-					createdLight = new THREE.DirectionalLight(
-						`#${hexColor}`,
-						strength / 10, // intensity
-					);
+				createdLight = new THREE.SpotLight(
+					`#${blenderLight.userData.hexColor}` || 0xFFFFFF, // color
+					30, //intensity
+					0, // Distance
+					Math.PI/300, //angle (radians)
+					0, // penumbra
+					0 // decay
+				);
 
-				}
+				createdLight.name += "--needFakeBob--";
 
 			}
 
@@ -81,35 +85,25 @@ class DynamicLightsBuilder {
 
 			if( createdLight ){
 
-				createdLight.name = `LIGHT-${blenderLight.type.toLowerCase()}-${index}`;
+				createdLight.name += `LIGHT-${blenderLight.type.toLowerCase()}-${index}`;
 	
 				createdLight.position.copy(blenderLight.position);
 				createdLight.rotation.copy(blenderLight.rotation);
-				
-				if( isAreaLight ){
+
+				if( isSpotlight ){
 
 					createdLight.name = "CASTING-SHADOW_" + createdLight.name;
 
-					createdLight.shadowCameraVisible = true;
 					createdLight.castShadow = true;
 
-					createdLight.shadow.mapSize.width = 6144;
-					createdLight.shadow.mapSize.height = 6144;
-					createdLight.shadow.camera.near = 4.5;
-					createdLight.shadow.camera.far = 5.5;
-					createdLight.shadow.radius = 3;
+					createdLight.shadow.mapSize.width = 1024;
+					createdLight.shadow.mapSize.height = 1024;
+					createdLight.shadow.camera.near = 0.01;
+					createdLight.shadow.camera.far = 25;
+					createdLight.shadow.radius = 7;
 				
-					createdLight.shadow.camera.left = -1.3;
-					createdLight.shadow.camera.right = 1.3;
-					createdLight.shadow.camera.top = 1.3;
-					createdLight.shadow.camera.bottom = -1.3;
+					// createdLight.updateMatrix(true);
 				}
-
-				// if( isPointLight){
-				// 	// createdLight.shadow.camera.fov = 50;
-				// 	createdLight.shadow.camera.near = 2;
-				// 	createdLight.shadow.camera.far = 8;
-				// }
 
 				this._createdLights.push(createdLight);
 	
@@ -126,18 +120,20 @@ class DynamicLightsBuilder {
 
 		if( this._core.debug.lightsHelpers.light ){
 
+			const type = light.type.toLowerCase()
+
 			let lightHelper;
 
-			if( light.name.includes("point") ){
+			if( type.includes("point") ){
 				lightHelper = new THREE.PointLightHelper(light, 7);
 			}
 
-			if( light.name.includes("spot") ){
+			if( type.includes("spot") ){
 				lightHelper = new SpotLightHelper(light);
 				light.add(lightHelper);
 			}
 
-			if( light.name.includes("directional") ){
+			if( type.includes("directional") ){
 				lightHelper = new THREE.DirectionalLightHelper(light)
 				light.add(lightHelper);
 			}
@@ -168,17 +164,9 @@ class DynamicLightsBuilder {
 
 			if( light.shadow?.camera ){
 				
-				if( light.name.includes("directional") || light.name.includes("pointlight") ){
-					
-					shadowHelper = new THREE.CameraHelper(light.shadow.camera);
-
-					// shadowHelper.position.copy(light.position);
-					// shadowHelper.rotation.copy(light.rotation);
-
-					shadowHelper.name = `${light.type}-helper_shadow-${index}`;
+				shadowHelper = new THREE.CameraHelper(light.shadow.camera);
+				shadowHelper.name = `${light.type}-helper_shadow-${index}`;
 				
-				}
-
 			}
 
 			if( shadowHelper ){
@@ -186,8 +174,6 @@ class DynamicLightsBuilder {
 			}
 
 		}
-
-
 
 	}
 }

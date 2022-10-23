@@ -124,7 +124,7 @@ const worlds = [
 				},
 
 				bobImposedMoves: {
-					forward: true,
+					// forward: true,
 					// shift: true
 				},
 

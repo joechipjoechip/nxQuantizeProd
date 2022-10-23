@@ -163,7 +163,7 @@ class SceneBuilder {
 			}),
 			sceneBuilderThis: this
 		});
-		
+
 	}
 
 	glbParser( glbFile, indexGlb ){
@@ -296,6 +296,13 @@ class SceneBuilder {
 		this.sceneElements.emissiveShapesFromBlender.forEach(emissiveShape => {
 			this.createEmissiveShape(emissiveShape);
 		})
+
+		// fakebob
+		const fakeBob = new THREE.Object3D();
+		fakeBob.name = "fakeBob";
+		fakeBob.position.copy(new THREE.Vector3());
+
+		this.sceneElements.fakeBob = fakeBob;
 		
 
 	}
@@ -318,11 +325,12 @@ class SceneBuilder {
 
 		const shadowMaterial = new THREE.ShadowMaterial({
 			color: 0x000000,
-			opacity: 0.4
+			opacity: 0.48
 		});
 
 		shadowLandscapeMesh.name += "-shadow";
 
+		// shadowLandscapeMesh.castShadow = true;
 		shadowLandscapeMesh.receiveShadow = true;
 
 		shadowLandscapeMesh.material = shadowMaterial;
@@ -357,7 +365,6 @@ class SceneBuilder {
 		// landscape shadow
 		this.scene.add(this.sceneElements.landscapeShadow);
 
-
 		// emissive shapes
 		this.sceneElements.emissiveShapesBuilt
 			.forEach(emissiveBuilt => {
@@ -367,7 +374,16 @@ class SceneBuilder {
 		// dynamic lights
 		this.sceneElements.dynamicLights
 			.forEach(light => {
+
 				this.scene.add(light);
+
+				// handle fakeBob
+				if(light.name.includes("--needFakeBob--")){
+					light.target = this.sceneElements.fakeBob;
+					this.scene.add(light.target);
+
+				}
+				
 			});
 
 

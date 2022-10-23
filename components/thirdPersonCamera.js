@@ -6,17 +6,17 @@ class ThirdPersonCamera {
 
 	constructor(params) {
 
-	  this._params = params;
-	  this._camera = params.camera;
-    this._specs = core.generatedCamerasSpecs[params.cameraType]
+		this._params = params;
+		this._camera = params.camera;
+    	this._specs = core.generatedCamerasSpecs[params.cameraType]
   
-	  this._currentPosition = new THREE.Vector3();
-    // console.log("dans la class third person : this._camera.position : ", this._camera.position);
-	  this._currentPosition.copy(this._camera.position);
-	  this._currentLookat = new THREE.Vector3();
+		this._currentPosition = new THREE.Vector3();
+		// console.log("dans la class third person : this._camera.position : ", this._camera.position);
+		this._currentPosition.copy(this._camera.position);
+		this._currentLookat = new THREE.Vector3();
 
 
-    this._camera.name = "third-person-camera";
+		this._camera.name = "third-person-camera";
 	}
   
 	_CalculateIdealOffset( timeElapsed ){
