@@ -169,6 +169,8 @@
 
 				this.postProcChangeHandler(newSequenceID);
 
+				this.updateFog(newSequenceID);
+
 				this.bobImposedGestureHandler(newSequenceID);
 
 				this.bobNewPositionHandler(newSequenceID);
@@ -206,6 +208,20 @@
 				this.scene1.sequencesElements[newSequenceID]?.activeShadows.forEach(light => {
 					light.castShadow = true;
 				});
+
+			},
+			
+			updateFog( newSequenceID ){
+
+				if( !this.scene1.sequencesElements[newSequenceID].fog ){ return; }
+
+				const { color, intensity, enabled } =  this.scene1.sequencesElements[newSequenceID].fog;
+
+				this.scene1.scene.fog = null; 
+				
+				if( enabled ){
+					this.scene1.scene.fog = new THREE.FogExp2(color, intensity);
+				}
 
 			},
 

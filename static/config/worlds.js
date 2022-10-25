@@ -67,7 +67,7 @@ const worlds = [
 				
 				fog: {
 					enabled: true,
-					color: 0x000000,
+					color: "#000000",
 					intensity: .15
 				},
 
@@ -115,12 +115,10 @@ const worlds = [
 					timelines: false
 				},
 				
-				config: {
-					fog: {
-						enabled: true,
-						color: 0x000000,
-						intensity: .15
-					},
+				fog: {
+					enabled: true,
+					color: "#FF0000",
+					intensity: .1
 				},
 
 				bobImposedMoves: {
@@ -210,12 +208,10 @@ const worlds = [
 					timelines: false
 				},
 				
-				config: {
-					fog: {
-						enabled: true,
-						color: 0x000000,
-						intensity: .15
-					},
+				fog: {
+					enabled: false,
+					color: "#040116",
+					intensity: .35
 				},
 
 				bobImposedMoves: {
@@ -230,14 +226,14 @@ const worlds = [
 					// 	amount: 0.75
 					// },
 					
-					// {
-					// 	type: "bloom",
-					// 	value: {
-					// 		strength: 0.9,
-					// 		threshold: 0.35,
-					// 		radius: 0.3
-					// 	}
-					// },
+					{
+						type: "bloom",
+						value: {
+							strength: 0.9,
+							threshold: 0.35,
+							radius: 0.3
+						}
+					},
 				]
 
 			},
@@ -257,12 +253,10 @@ const worlds = [
 					timelines: false
 				},
 				
-				config: {
-					fog: {
-						enabled: true,
-						color: 0x000000,
-						intensity: .15
-					},
+				fog: {
+					enabled: true,
+					color: "#000000",
+					intensity: .15
 				},
 
 				bobImposedMoves: {
