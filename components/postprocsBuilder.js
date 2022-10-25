@@ -54,7 +54,7 @@ class PostprocsBuilder {
 
 		const shaderBleach = BleachBypassShader;
 
-		const grayScale = new ShaderPass( LuminosityShader );
+		const grayScaleShader = new ShaderPass( LuminosityShader );
 
 
 		switch(postProcInfos.type){
@@ -70,7 +70,7 @@ class PostprocsBuilder {
 				sobelShader.uniforms["resolution"].value.x = window.innerWidth * window.devicePixelRatio;
 				sobelShader.uniforms["resolution"].value.y = window.innerHeight * window.devicePixelRatio;
 
-				shadersArrayToReturn.push(grayScale);
+				shadersArrayToReturn.push(grayScaleShader);
 				shadersArrayToReturn.push(sobelShader);
 				break;
 
@@ -88,7 +88,7 @@ class PostprocsBuilder {
 			case "rgbShift":
 				const rgbShiftShader = new ShaderPass( RGBShiftShader );
 				
-				rgbShiftShader.uniforms["amount"].value = 0.006;
+				rgbShiftShader.uniforms["amount"].value = postProcInfos.amount;
 
 				this._IsAlreadyGamma() ? null : shadersArrayToReturn.push(gammaCorrectionShader);
 				shadersArrayToReturn.push( rgbShiftShader );
@@ -152,7 +152,9 @@ class PostprocsBuilder {
 				break;
 
 			case "grayscale":
-				shadersArrayToReturn.push(grayScale);
+				// console.log("grayscale - - - - >", grayScaleShader);
+				// grayScaleShader.uniforms["tDiffuse"].value = postProcInfos.amount
+				shadersArrayToReturn.push(grayScaleShader);
 				break;
 
 			case "afterimage":
