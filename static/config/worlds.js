@@ -130,21 +130,33 @@ const worlds = [
 
 				postproc: [
 
+					
+
 					// {
-					// 	type: "vignette",
-					// 	darkness: 1,
-					// 	offset: 1.3
+					// 	type: "dotscreen",
+					// 	dotSize: 400
 					// },
 
+					// {
+					// 	type: "rgbShift",
+					// 	amount: 0.006
+					// },
+					
 					{
-						type: "dotscreen",
-						dotSize: 400
+						type: "sepia",
+						amount: 1
 					},
+
 					{
 						type: "rgbShift",
 						amount: 0.006
 					},
 					
+					{
+						type: "vignette",
+						darkness: 1.5,
+						offset: 1.3
+					},
 
 					
 					// {

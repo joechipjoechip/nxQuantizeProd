@@ -113,8 +113,9 @@ class PostprocsBuilder {
 			case "sepia":
 				const shaderSepia = SepiaShader;
 				const effectSepia = new ShaderPass( shaderSepia );
-				effectSepia.uniforms[ 'amount' ].value = 0.9;
+				effectSepia.uniforms[ 'amount' ].value = postProcInfos.amount;
 
+				this._IsAlreadyGamma() ? null : shadersArrayToReturn.push(gammaCorrectionShader);
 				shadersArrayToReturn.push(effectSepia)
 
 				break;
