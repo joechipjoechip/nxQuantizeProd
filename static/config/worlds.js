@@ -132,6 +132,15 @@ const worlds = [
 
 				postproc: [
 
+					{
+						type: "bloom",
+						value: {
+							strength: 0.6,
+							threshold: 0.15,
+							radius: 0.6
+						}
+					},
+
 					// {
 					// 	type: "dotscreen",
 					// 	dotSize: 400
@@ -167,10 +176,10 @@ const worlds = [
 					// 	type: "afterimage",
 					// 	damp: 0.8
 					// }
-					{
-						type: "pixel",
-						pixelSize: 1
-					}
+					// {
+					// 	type: "pixel",
+					// 	pixelSize: 1
+					// }
 					
 
 
@@ -245,6 +254,7 @@ const worlds = [
 							radius: 0.3
 						}
 					},
+
 				]
 
 			},
@@ -334,6 +344,12 @@ const worlds = [
 							radius: 0.999
 						}
 					},
+
+					
+					// {
+					// 	type: "pixel",
+					// 	pixelSize: 2
+					// }
 				]
 
 			}
