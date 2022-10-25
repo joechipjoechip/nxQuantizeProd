@@ -151,6 +151,7 @@ class SequencesBuilder {
 						canvas: this._canvas,
 						camera: this._camera,
 						scene: this._scene,
+						currentSequenceLib: this._sequencesLib[sequenceInfos.id]
 					}
 				)
 			);

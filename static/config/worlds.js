@@ -129,6 +129,24 @@ const worlds = [
 				},
 
 				postproc: [
+
+					// {
+					// 	type: "vignette",
+					// 	darkness: 1,
+					// 	offset: 1.3
+					// },
+
+					{
+						type: "dotscreen",
+						dotSize: 400
+					},
+					{
+						type: "rgbShift",
+						amount: 0.006
+					},
+					
+
+					
 					// {
 					// 	type: "glitch"
 					// },
@@ -189,6 +207,11 @@ const worlds = [
 				},
 
 				postproc: [
+					
+					{
+						type: "grain"
+					}
+					
 					// {
 					// 	type: "blur",
 					// 	focusTarget: "bob",
@@ -198,14 +221,15 @@ const worlds = [
 					// 		maxblur: 0.005
 					// 	}
 					// },
-					{
-						type: "bloom",
-						value: {
-							strength: 0.9,
-							threshold: 0.35,
-							radius: 0.3
-						}
-					},
+					
+					// {
+					// 	type: "bloom",
+					// 	value: {
+					// 		strength: 0.9,
+					// 		threshold: 0.35,
+					// 		radius: 0.3
+					// 	}
+					// },
 				]
 
 			},
@@ -239,6 +263,7 @@ const worlds = [
 				},
 
 				postproc: [
+					
 					// {
 					// 	type: "blur",
 					// 	focusTarget: "bob",
