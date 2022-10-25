@@ -120,7 +120,7 @@ const worlds = [
 				},
 				
 				fog: {
-					enabled: true,
+					enabled: false,
 					color: "#0D063B",
 					intensity: .3
 				},
@@ -132,18 +132,25 @@ const worlds = [
 
 				postproc: [
 
+					
+
+					// {
+					// 	type: "bloom",
+					// 	value: {
+					// 		strength: .5,
+					// 		threshold: 0.45,
+					// 		radius: 0.01
+					// 	}
+					// },
+
 					{
-						type: "bloom",
-						value: {
-							strength: 0.6,
-							threshold: 0.15,
-							radius: 0.6
-						}
+						type: "rgbShift",
+						amount: 0.12
 					},
 
 					// {
 					// 	type: "dotscreen",
-					// 	dotSize: 400
+					// 	dotSize: 4
 					// },
 
 
@@ -155,10 +162,7 @@ const worlds = [
 					// 	type: "glitch"
 					// },
 
-					// {
-					// 	type: "rgbShift",
-					// 	amount: 0.006
-					// },
+					
 					
 					// {
 					// 	type: "vignette",
@@ -255,6 +259,7 @@ const worlds = [
 						}
 					},
 
+
 				]
 
 			},
@@ -286,11 +291,20 @@ const worlds = [
 				},
 
 				postproc: [
+					
+					{
+						type: "rgbShift",
+						amount: 0.12
+					},
 					{
 						type: "film",
 						linesAmount: 650,
 						opacity: 0.8,
 						aberration: 0.2
+					},
+					{
+						type: "pixel",
+						pixelSize: 0.5
 					},
 					{
 						type: "grayscale"
