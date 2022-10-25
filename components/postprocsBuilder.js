@@ -8,7 +8,7 @@ import { DotScreenShader } from 'three/examples/jsm/shaders/DotScreenShader.js';
 import { RGBShiftShader } from 'three/examples/jsm/shaders/RGBShiftShader.js';
 
 import { BleachBypassShader } from 'three/examples/jsm/shaders/BleachBypassShader.js';
-import { ColorifyShader } from 'three/examples/jsm/shaders/ColorifyShader.js';
+// import { ColorifyShader } from 'three/examples/jsm/shaders/ColorifyShader.js';
 import { HorizontalBlurShader } from 'three/examples/jsm/shaders/HorizontalBlurShader.js';
 import { VerticalBlurShader } from 'three/examples/jsm/shaders/VerticalBlurShader.js';
 import { SepiaShader } from 'three/examples/jsm/shaders/SepiaShader.js';
@@ -79,6 +79,7 @@ class PostprocsBuilder {
 				dotscreenShader.uniforms[ 'scale' ].value = postProcInfos.dotSize;
 				
 				this._IsAlreadyGamma() ? null : shadersArrayToReturn.push(gammaCorrectionShader);
+				
 				shadersArrayToReturn.push(dotscreenShader);
 				
 				break;
