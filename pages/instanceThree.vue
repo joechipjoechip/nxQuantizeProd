@@ -103,11 +103,13 @@
 
 		mounted(){
 
-			this.scene1 = new SceneBuilder({
+			const createScene1 = new SceneBuilder({
 				worldConfig: this.worldConfig, 
 				canvas: this.$refs.canvas,
 				sequenceID: this.sequenceID,
 			});
+
+			this.scene1 = createScene1.getSceneAndSequencesElements();
 
 			console.log("scene1 -> ", this.scene1)
 
@@ -487,8 +489,6 @@
 						this.renderer.render(this.scene1.scene, this.scene1.camera)
 
 					}
-
-					console.log("this.scene1 : ", this.scene1);
 
 					this.deltaTime = this.deltaTime % this.frameRate;
 

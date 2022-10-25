@@ -16,6 +16,7 @@ class AssetsLoadWatcher {
 		this._glb = false;
 		this._bakeds = false;
 		this._allReady = false;
+		this._sceneIsReady = false;
 
 	}
 
@@ -110,7 +111,6 @@ class SceneBuilder {
 		// Start
 		this.loadsManager();
 
-		return this;
 		
 	}
 
@@ -274,8 +274,6 @@ class SceneBuilder {
 
 		this.refreshAndStartScene();
 
-		return this;
-
 	}
 
 	applyBakedOnMeshes(){
@@ -434,7 +432,11 @@ class SceneBuilder {
 		// this value is watched in instanceThree.vue
 		// and allow rendering start
 		this.sceneIsReady = true;
+		
+	}
 
+	getSceneAndSequencesElements(){
+		return this;
 	}
 
 };
