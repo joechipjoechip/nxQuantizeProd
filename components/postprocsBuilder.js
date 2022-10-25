@@ -19,10 +19,7 @@ import { VignetteShader } from 'three/examples/jsm/shaders/VignetteShader.js';
 import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js';
 import { BokehPass } from 'three/examples/jsm/postprocessing/BokehPass.js';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
-
 import { FilmPass } from 'three/examples/jsm/postprocessing/FilmPass.js';
-import { DotScreenPass } from 'three/examples/jsm/postprocessing/DotScreenPass.js';
-import { MaskPass, ClearMaskPass } from 'three/examples/jsm/postprocessing/MaskPass.js';
 
 class PostprocsBuilder {
 	// Some effects needs a shaderPass + an effectPass
@@ -55,6 +52,8 @@ class PostprocsBuilder {
 
 		const shaderBleach = BleachBypassShader;
 
+		const grayScale = new ShaderPass( LuminosityShader );
+
 
 		switch(postProcInfos.type){
 
@@ -64,7 +63,6 @@ class PostprocsBuilder {
 				break;
 				
 			case "sobel":
-				const grayScale = new ShaderPass( LuminosityShader );
 				const sobelShader = new ShaderPass(SobelOperatorShader);
 				
 				sobelShader.uniforms["resolution"].value.x = window.innerWidth * window.devicePixelRatio;
@@ -83,7 +81,6 @@ class PostprocsBuilder {
 				this._IsAlreadyGamma() ? null : shadersArrayToReturn.push(gammaCorrectionShader);
 
 				shadersArrayToReturn.push(dotscreenShader);
-				
 				break;
 				
 			case "rgbShift":
@@ -105,8 +102,6 @@ class PostprocsBuilder {
 				shadersArrayToReturn.push( effectVBlur );
 				shadersArrayToReturn.push( effectVBlur );
 				this._IsAlreadyGamma() ? null : shadersArrayToReturn.push(gammaCorrectionShader);
-				
-				
 				break;
 			
 			case "sepia":
@@ -127,14 +122,31 @@ class PostprocsBuilder {
 
 				this._IsAlreadyGamma() ? null : shadersArrayToReturn.push(gammaCorrectionShader);
 				shadersArrayToReturn.push(effectVignette);
-
 				break;
 
 			case "bleach":
 				const effectBleach = new ShaderPass( shaderBleach );
 				effectBleach.uniforms["opacity"].value = postProcInfos.amount;
-				shadersArrayToReturn.push( effectBleach );
+				shadersArrayToReturn.push(effectBleach);
 				this._IsAlreadyGamma() ? null : shadersArrayToReturn.push(gammaCorrectionShader);
+				break;
+
+			case "film":
+				const { linesAmount, opacity, aberration } = postProcInfos;
+
+				const filmPass = new FilmPass(
+					opacity,
+					aberration,
+					linesAmount,
+					false
+				);
+        		// effectFilm.renderToScreen = true;
+				shadersArrayToReturn.push(filmPass);
+				this._IsAlreadyGamma() ? null : shadersArrayToReturn.push(gammaCorrectionShader);
+				break;
+
+			case "grayscale":
+				shadersArrayToReturn.push(grayScale);
 				break;
 
 		}

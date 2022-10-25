@@ -265,7 +265,17 @@ const worlds = [
 					shift: false
 				},
 
-				postproc: [],
+				postproc: [
+					{
+						type: "film",
+						linesAmount: 650,
+						opacity: 0.8,
+						aberration: 0.2
+					},
+					{
+						type: "grayscale"
+					},
+				],
 
 			},
 			{

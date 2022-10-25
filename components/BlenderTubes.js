@@ -12,7 +12,7 @@ class BlenderTubes{
 		this._sequenceInfos = params.sequenceInfos;
 		this._sequenceInfosID = params.sequenceInfos.id.replace(".", "-");
 
-		console.log("blendert tubes -- - - > ", this._sequenceInfosID);
+		console.log("Blender tubes build for : ", this._sequenceInfosID);
 
 
 		this._blenderPoints = this._ParseBlenderPoints(params.blenderPoints);
@@ -54,8 +54,6 @@ class BlenderTubes{
 			result[pointIndex] = point;
 
 		});
-							
-		console.log("blender points parsed : ", result);
 
 		return result;
 

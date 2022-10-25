@@ -17,7 +17,8 @@ class DynamicLightsBuilder {
 		this._BuildSun();
 		this._BuildLights();
 
-		console.log("- - - - > all createdLights : ", this._createdLights);
+		console.log("! ! ! all blenderLights : ", this._blenderLights);
+		console.log("! ! ! all createdLights : ", this._createdLights);
 
 		return this._createdLights;
 
@@ -37,8 +38,6 @@ class DynamicLightsBuilder {
 
 	_BuildLights(){
 
-		console.log("les blender lights : ", this._blenderLights)
-
 		this._blenderLights.forEach((blenderLight, index) => {
 
 			// debug
@@ -49,8 +48,6 @@ class DynamicLightsBuilder {
 			const isPointLight = blenderLight.name.includes("point");
 			const isSpotlight = blenderLight.name.includes("spot-for-bob-shadow");
 			const sequenceID = blenderLight.name.split("_")[1].replace("-", ".");
-
-			console.log("check : ", sequenceID)
 
 			let createdLight;
 
@@ -76,8 +73,6 @@ class DynamicLightsBuilder {
 				// update manually type (because if not, blender export set it as "Object-3D")
 				// and yes, rect areas from blender become here spotlights !
 				blenderLight.type = "SpotLight";
-
-				console.log("blenderLight ", blenderLight)
 
 				createdLight = new THREE.SpotLight(
 					`#${blenderLight.userData.hexColor}` || 0xFFFFFF, // color
