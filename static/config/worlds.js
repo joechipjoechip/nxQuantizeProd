@@ -157,6 +157,13 @@ const worlds = [
 					// 	offset: 1.3
 					// },
 
+					// {
+					// 	// obscurci
+					// 	type: "bleach",
+					// 	amount: 0.5
+					// }
+					
+
 
 					
 					
@@ -219,7 +226,8 @@ const worlds = [
 				postproc: [
 					
 					{
-						type: "grain"
+						type: "grain",
+						amount: 0.75
 					}
 					
 					// {

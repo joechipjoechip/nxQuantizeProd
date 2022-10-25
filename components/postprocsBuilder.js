@@ -53,6 +53,8 @@ class PostprocsBuilder {
 		const gammaCorrectionShader = (new ShaderPass(GammaCorrectionShader));
 		gammaCorrectionShader.isGamma = true;
 
+		const shaderBleach = BleachBypassShader;
+
 
 		switch(postProcInfos.type){
 
@@ -79,7 +81,7 @@ class PostprocsBuilder {
 				dotscreenShader.uniforms[ 'scale' ].value = postProcInfos.dotSize;
 				
 				this._IsAlreadyGamma() ? null : shadersArrayToReturn.push(gammaCorrectionShader);
-				
+
 				shadersArrayToReturn.push(dotscreenShader);
 				
 				break;
@@ -93,21 +95,17 @@ class PostprocsBuilder {
 				shadersArrayToReturn.push( rgbShiftShader );
 			break;
 
-			case "grain":
-				const shaderBleach = BleachBypassShader;
-				const effectBleach = new ShaderPass( shaderBleach );
+			case "grain":	
 				const effectHBlur = new ShaderPass( HorizontalBlurShader );
 				const effectVBlur = new ShaderPass( VerticalBlurShader );
 				
-				effectBleach.uniforms[ 'opacity' ].value = 0.4;
-
-				effectHBlur.uniforms[ 'h' ].value = 2 / ( window.innerWidth / 1.6 );
-				effectVBlur.uniforms[ 'v' ].value = 2 / ( window.innerHeight / 1.6 );
+				effectHBlur.uniforms[ 'h' ].value = 2 / ( window.innerWidth / postProcInfos.amount );
+				effectVBlur.uniforms[ 'v' ].value = 2 / ( window.innerHeight / postProcInfos.amount );
 				
 				shadersArrayToReturn.push( effectVBlur );
 				shadersArrayToReturn.push( effectVBlur );
 				this._IsAlreadyGamma() ? null : shadersArrayToReturn.push(gammaCorrectionShader);
-				shadersArrayToReturn.push( effectBleach );
+				
 				
 				break;
 			
@@ -130,6 +128,13 @@ class PostprocsBuilder {
 				this._IsAlreadyGamma() ? null : shadersArrayToReturn.push(gammaCorrectionShader);
 				shadersArrayToReturn.push(effectVignette);
 
+				break;
+
+			case "bleach":
+				const effectBleach = new ShaderPass( shaderBleach );
+				effectBleach.uniforms[ 'opacity' ].value = postProcInfos.amount;
+				shadersArrayToReturn.push( effectBleach );
+				this._IsAlreadyGamma() ? null : shadersArrayToReturn.push(gammaCorrectionShader);
 				break;
 
 		}
