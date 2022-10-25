@@ -37,6 +37,8 @@ class DynamicLightsBuilder {
 
 	_BuildLights(){
 
+		console.log("les blender lights : ", this._blenderLights)
+
 		this._blenderLights.forEach((blenderLight, index) => {
 
 			// debug
@@ -45,11 +47,16 @@ class DynamicLightsBuilder {
 			if( blenderLight.name.includes("no_dynamic") ){ return; }
 
 			const isPointLight = blenderLight.name.includes("point");
-			const isSpotlight = blenderLight.name.includes("area");
+			const isSpotlight = blenderLight.name.includes("spot-for-bob-shadow");
+			const sequenceID = blenderLight.name.split("_")[1].replace("-", ".");
+
+			console.log("check : ", sequenceID)
+
 			let createdLight;
 
 			if( isPointLight ){
 
+				blenderLight.type = "PointLight";
 
 				createdLight = new THREE.PointLight(
 					blenderLight.color,
@@ -58,13 +65,17 @@ class DynamicLightsBuilder {
 					blenderLight.decay * 1
 				);
 
+				createdLight.name = `point-light-#${sequenceID}#`;
+
 			}
 
 			if( isSpotlight ){
 
+				
+
 				// update manually type (because if not, blender export set it as "Object-3D")
 				// and yes, rect areas from blender become here spotlights !
-				blenderLight.type = "spotlight";
+				blenderLight.type = "SpotLight";
 
 				console.log("blenderLight ", blenderLight)
 
@@ -77,24 +88,23 @@ class DynamicLightsBuilder {
 					0 // decay
 				);
 
-				createdLight.name += "--needFakeBob--";
+				createdLight.name = `spot-for-bob-shadow--needFakeBob--#${sequenceID}#`;
 
 			}
 
 			// AND THEN :
 
-			if( createdLight ){
-
-				createdLight.name += `LIGHT-${blenderLight.type.toLowerCase()}-${index}`;
+			if( createdLight && createdLight.name.includes("--needFakeBob--")){
 	
 				createdLight.position.copy(blenderLight.position);
 				createdLight.rotation.copy(blenderLight.rotation);
 
 				if( isSpotlight ){
 
-					createdLight.name = "CASTING-SHADOW_" + createdLight.name;
+					createdLight.name += "__CASTING-SHADOW";
 
-					createdLight.castShadow = true;
+					createdLight.castShadow = false;
+					// will be activated at threeinstance.vue at activeGoodCastShadows()
 
 					createdLight.shadow.mapSize.width = 1024;
 					createdLight.shadow.mapSize.height = 1024;

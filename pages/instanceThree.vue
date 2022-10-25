@@ -109,6 +109,8 @@
 				sequenceID: this.sequenceID,
 			});
 
+			console.log("scene1 -> ", this.scene1)
+
 		},
 
 		methods: {
@@ -161,6 +163,8 @@
 
 				this.killOldSequence(oldSequenceID);
 
+				this.activeGoodCastShadows(newSequenceID, oldSequenceID);
+
 				this.postProcChangeHandler(newSequenceID);
 
 				this.bobImposedGestureHandler(newSequenceID);
@@ -188,6 +192,18 @@
 
 					});
 				}
+
+			},
+
+			activeGoodCastShadows( newSequenceID, oldSequenceID ){
+
+				this.scene1.sequencesElements[oldSequenceID]?.activeLights.forEach(light => {
+					light.castShadow = false;
+				});
+
+				this.scene1.sequencesElements[newSequenceID]?.activeLights.forEach(light => {
+					light.castShadow = true;
+				});
 
 			},
 
@@ -407,10 +423,10 @@
 				}
 
 				// if any shadow is casted
-				if( this.scene1.sceneElements.dynamicLights?.length ){
+				if( this.scene1.sequencesElements[this.sequenceID].activeLights?.length ){
 
 					currentSceneElements.bob.controller._controls.UpdateDynamicLightShadowCamera(
-						this.scene1.sceneElements.dynamicLights.filter(light => light.name.includes("CASTING-SHADOW"))
+						this.scene1.sequencesElements[this.sequenceID].activeLights
 					);
 
 				}
@@ -471,6 +487,8 @@
 						this.renderer.render(this.scene1.scene, this.scene1.camera)
 
 					}
+
+					console.log("this.scene1 : ", this.scene1);
 
 					this.deltaTime = this.deltaTime % this.frameRate;
 

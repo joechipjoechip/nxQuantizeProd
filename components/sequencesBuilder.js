@@ -18,7 +18,7 @@ class SequencesBuilder {
 		this._canvas = params.canvas
 
 		// all we do here is to build this _sequencesLib
-		// _sequenceLib in the end, will be this.act1.sequencesElements in sceneBuilder.js
+		// _sequenceLib in the end, will be this.scene1.sequencesElements in sceneBuilder.js
 		this._sequencesLib = {};
 
 		this._Build();
@@ -38,12 +38,15 @@ class SequencesBuilder {
 				helpersConfig: sequenceInfos.helpers,
 				helpers: {},
 				timelines: {},
+				activeLights: [],
 				thirdPersonCamera: null,
 				bobImposedMoves: null,
 				focusTarget: null
 			};
 
 			this._BuildPostprocsCollections(sequenceInfos);
+
+			this._BuildActiveLights(sequenceInfos);
 
 			this._BuildHelpers(sequenceInfos);
 
@@ -53,6 +56,16 @@ class SequencesBuilder {
 			
 		});
 
+	}
+
+	_BuildActiveLights( sequenceInfos ){
+
+		this._sceneElements.dynamicLights.forEach(light => {
+			// console.log("_BuildActiveLights : ", light, sequenceInfos);
+			if( light.name.includes(sequenceInfos.id)){
+				this._sequencesLib[sequenceInfos.id].activeLights.push(light);
+			}
+		})
 	}
 
 	_BuildHelpers( sequenceInfos ){

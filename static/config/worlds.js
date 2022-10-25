@@ -132,16 +132,16 @@ const worlds = [
 
 					
 
-					{
-						type: "dotscreen",
-						dotSize: 400
-					},
-
-
 					// {
-					// 	type: "sepia",
-					// 	amount: 1
+					// 	type: "dotscreen",
+					// 	dotSize: 400
 					// },
+
+
+					{
+						type: "sepia",
+						amount: 1
+					},
 					// {
 					// 	type: "glitch"
 					// },
@@ -151,11 +151,11 @@ const worlds = [
 					// 	amount: 0.006
 					// },
 					
-					{
-						type: "vignette",
-						darkness: 1.5,
-						offset: 1.3
-					},
+					// {
+					// 	type: "vignette",
+					// 	darkness: 1.5,
+					// 	offset: 1.3
+					// },
 
 
 					

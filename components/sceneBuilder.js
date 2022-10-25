@@ -110,6 +110,8 @@ class SceneBuilder {
 		// Start
 		this.loadsManager();
 
+		return this;
+		
 	}
 
 	loadsManager(){
@@ -272,6 +274,8 @@ class SceneBuilder {
 
 		this.refreshAndStartScene();
 
+		return this;
+
 	}
 
 	applyBakedOnMeshes(){
@@ -418,6 +422,7 @@ class SceneBuilder {
 				that: this
 			}
 		);
+
 
 	}
 

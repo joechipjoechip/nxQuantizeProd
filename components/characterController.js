@@ -272,6 +272,8 @@ class BasicCharacterController {
 
 	UpdateDynamicLightShadowCamera( lightsToUpdateShadowCamera ){
 
+		// console.log("- - - au update de la shadow on recois : ", lightsToUpdateShadowCamera)
+
 		lightsToUpdateShadowCamera.forEach(lightToUpdate => {
 
 			const fakeBob = this._params.scene.children.find(child => child.name.includes("--needFakeBob--"))?.target;
