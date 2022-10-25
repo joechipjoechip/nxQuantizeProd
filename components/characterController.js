@@ -227,7 +227,7 @@ class BasicCharacterController {
 		this._raycaster.set(
 			new THREE.Vector3(
 				controlObject.position.x, 
-				controlObject.position.y + 1, 
+				controlObject.position.y + 0.1, 
 				controlObject.position.z, 
 			),
 			new THREE.Vector3(0,-1,0)
@@ -244,28 +244,33 @@ class BasicCharacterController {
 
 	HandleGravity( controlObject ){
 
-		const currentY = controlObject.position.y;
+		// const currentY = controlObject.position.y;
 
-		const newY = this._raycaster
+		return this._raycaster
 				.intersectObjects( this._params.scene.children )
 				.find(intersected => intersected.object.name === "landscape")?.point.y;
 		
-		if( newY ){
 
-			const diff = Math.abs(currentY - newY);
+		// finalement pas besoin de faire tout ça, j'ai juste replacé le raycaster juste au dessus de la tete de bob
+		// mais sait-on jamais, je laisse ça là
+
+		
+		// if( newY ){
+
+		// 	const diff = Math.abs(currentY - newY);
 	
-			if( diff > 0.01 ){
-				// écart trop grand : on garde le courant
-				return currentY;
-			} else {
-				return newY;
-			}
+		// 	if( diff > 0.01 ){
+		// 		// écart trop grand : on garde le courant
+		// 		return currentY;
+		// 	} else {
+		// 		return newY;
+		// 	}
 
-		} else {
+		// } else {
 
-			return currentY;
+		// 	return currentY;
 
-		}
+		// }
 
 
 	}

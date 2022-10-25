@@ -16,7 +16,6 @@ class BlenderTubes{
 
 
 		this._blenderPoints = this._ParseBlenderPoints(params.blenderPoints);
-		// this._otherPoints = blenderPoints.filter(point => point.name.indexOf("bob-") !== -1);
 		this._target = params.blenderPoints.find(point => (point.name.includes("_target") && point.name.includes(this._sequenceInfosID)));
 
 		this._tube = null;
@@ -33,7 +32,8 @@ class BlenderTubes{
 
 	_ParseBlenderPoints( blenderPoints ){
 
-		//return blenderPoints reOrdered :
+		// return blenderPoints reOrdered :
+		// because blender glb exports mess it all
 
 		// plan-1-1_0
 		// plan-1-1_target
