@@ -50,7 +50,7 @@ class PostprocsBuilder {
 
 		const shadersArrayToReturn = [];
 
-		const gammaCorrectionShader = (new ShaderPass(GammaCorrectionShader));
+		const gammaCorrectionShader = new ShaderPass(GammaCorrectionShader);
 		gammaCorrectionShader.isGamma = true;
 
 		const shaderBleach = BleachBypassShader;
@@ -67,8 +67,8 @@ class PostprocsBuilder {
 				const grayScale = new ShaderPass( LuminosityShader );
 				const sobelShader = new ShaderPass(SobelOperatorShader);
 				
-				sobelShader.uniforms[ 'resolution' ].value.x = window.innerWidth * window.devicePixelRatio;
-				sobelShader.uniforms[ 'resolution' ].value.y = window.innerHeight * window.devicePixelRatio;
+				sobelShader.uniforms["resolution"].value.x = window.innerWidth * window.devicePixelRatio;
+				sobelShader.uniforms["resolution"].value.y = window.innerHeight * window.devicePixelRatio;
 
 				shadersArrayToReturn.push(grayScale);
 				shadersArrayToReturn.push(sobelShader);
@@ -78,7 +78,7 @@ class PostprocsBuilder {
 
 				const dotscreenShader = new ShaderPass( DotScreenShader );
 
-				dotscreenShader.uniforms[ 'scale' ].value = postProcInfos.dotSize;
+				dotscreenShader.uniforms["scale"].value = postProcInfos.dotSize;
 				
 				this._IsAlreadyGamma() ? null : shadersArrayToReturn.push(gammaCorrectionShader);
 
@@ -89,7 +89,7 @@ class PostprocsBuilder {
 			case "rgbShift":
 				const rgbShiftShader = new ShaderPass( RGBShiftShader );
 				
-				rgbShiftShader.uniforms[ 'amount' ].value = 0.006;
+				rgbShiftShader.uniforms["amount"].value = 0.006;
 
 				this._IsAlreadyGamma() ? null : shadersArrayToReturn.push(gammaCorrectionShader);
 				shadersArrayToReturn.push( rgbShiftShader );
@@ -99,8 +99,8 @@ class PostprocsBuilder {
 				const effectHBlur = new ShaderPass( HorizontalBlurShader );
 				const effectVBlur = new ShaderPass( VerticalBlurShader );
 				
-				effectHBlur.uniforms[ 'h' ].value = 2 / ( window.innerWidth / postProcInfos.amount );
-				effectVBlur.uniforms[ 'v' ].value = 2 / ( window.innerHeight / postProcInfos.amount );
+				effectHBlur.uniforms["h"].value = 2 / ( window.innerWidth / postProcInfos.amount );
+				effectVBlur.uniforms["v"].value = 2 / ( window.innerHeight / postProcInfos.amount );
 				
 				shadersArrayToReturn.push( effectVBlur );
 				shadersArrayToReturn.push( effectVBlur );
@@ -122,8 +122,8 @@ class PostprocsBuilder {
 			case "vignette":
 				const effectVignette = new ShaderPass( VignetteShader );
 
-				effectVignette.uniforms[ 'offset' ].value = postProcInfos.offset;
-				effectVignette.uniforms[ 'darkness' ].value = postProcInfos.darkness;
+				effectVignette.uniforms["offset"].value = postProcInfos.offset;
+				effectVignette.uniforms["darkness"].value = postProcInfos.darkness;
 
 				this._IsAlreadyGamma() ? null : shadersArrayToReturn.push(gammaCorrectionShader);
 				shadersArrayToReturn.push(effectVignette);
@@ -132,7 +132,7 @@ class PostprocsBuilder {
 
 			case "bleach":
 				const effectBleach = new ShaderPass( shaderBleach );
-				effectBleach.uniforms[ 'opacity' ].value = postProcInfos.amount;
+				effectBleach.uniforms["opacity"].value = postProcInfos.amount;
 				shadersArrayToReturn.push( effectBleach );
 				this._IsAlreadyGamma() ? null : shadersArrayToReturn.push(gammaCorrectionShader);
 				break;

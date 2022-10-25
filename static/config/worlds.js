@@ -225,19 +225,9 @@ const worlds = [
 
 				postproc: [
 					
-					{
-						type: "grain",
-						amount: 0.75
-					}
-					
 					// {
-					// 	type: "blur",
-					// 	focusTarget: "bob",
-					// 	value: {
-					// 		focus: 1,
-					// 		aperture: 0.025,
-					// 		maxblur: 0.005
-					// 	}
+					// 	type: "grain",
+					// 	amount: 0.75
 					// },
 					
 					// {
@@ -288,15 +278,16 @@ const worlds = [
 					// 	value: {
 					// 		focus: 1,
 					// 		aperture: 0.025,
-					// 		maxblur: 0.005
+					// 		maxblur: 0.008
 					// 	}
 					// },
+					
 					{
 						type: "bloom",
 						value: {
 							strength: 0.9,
 							threshold: 0.35,
-							radius: 0.3
+							radius: 0.999
 						}
 					},
 				]
