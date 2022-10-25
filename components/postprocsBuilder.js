@@ -13,6 +13,7 @@ import { HorizontalBlurShader } from 'three/examples/jsm/shaders/HorizontalBlurS
 import { VerticalBlurShader } from 'three/examples/jsm/shaders/VerticalBlurShader.js';
 import { SepiaShader } from 'three/examples/jsm/shaders/SepiaShader.js';
 import { VignetteShader } from 'three/examples/jsm/shaders/VignetteShader.js';
+import { PixelShader } from 'three/examples/jsm/shaders/PixelShader.js';
 
 
 
@@ -20,6 +21,7 @@ import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js';
 import { BokehPass } from 'three/examples/jsm/postprocessing/BokehPass.js';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
 import { FilmPass } from 'three/examples/jsm/postprocessing/FilmPass.js';
+import { AfterimagePass } from 'three/examples/jsm/postprocessing/AfterimagePass.js';
 
 class PostprocsBuilder {
 	// Some effects needs a shaderPass + an effectPass
@@ -122,13 +124,16 @@ class PostprocsBuilder {
 
 				this._IsAlreadyGamma() ? null : shadersArrayToReturn.push(gammaCorrectionShader);
 				shadersArrayToReturn.push(effectVignette);
+
 				break;
 
 			case "bleach":
 				const effectBleach = new ShaderPass( shaderBleach );
 				effectBleach.uniforms["opacity"].value = postProcInfos.amount;
+
 				shadersArrayToReturn.push(effectBleach);
 				this._IsAlreadyGamma() ? null : shadersArrayToReturn.push(gammaCorrectionShader);
+
 				break;
 
 			case "film":
@@ -140,13 +145,31 @@ class PostprocsBuilder {
 					linesAmount,
 					false
 				);
-        		// effectFilm.renderToScreen = true;
+
 				shadersArrayToReturn.push(filmPass);
 				this._IsAlreadyGamma() ? null : shadersArrayToReturn.push(gammaCorrectionShader);
+
 				break;
 
 			case "grayscale":
 				shadersArrayToReturn.push(grayScale);
+				break;
+
+			case "afterimage":
+				const afterimage = new AfterimagePass();
+				afterimage.uniforms["damp"].value = postProcInfos.damp;
+
+				shadersArrayToReturn.push(afterimage);
+				break;
+
+			case "pixel":
+				const pixelPass = new ShaderPass( PixelShader );
+				pixelPass.uniforms["resolution"].value = new THREE.Vector2(this._canvas.width, this._canvas.height);
+				// pixelPass.uniforms["resolution"].value.multiplyScalar(window.devicePixelRatio);
+				// debugger;
+				pixelPass.uniforms["pixelSize"].value = postProcInfos.pixelSize;
+				this._IsAlreadyGamma() ? null : shadersArrayToReturn.push(gammaCorrectionShader);
+				shadersArrayToReturn.push(pixelPass);
 				break;
 
 		}

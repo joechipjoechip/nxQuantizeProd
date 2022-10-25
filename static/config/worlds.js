@@ -96,7 +96,10 @@ const worlds = [
 				},
 
 				postproc: [
-					
+					{
+						type: "afterimage",
+						damp: 0.99
+					}
 				]
 
 			},
@@ -129,8 +132,6 @@ const worlds = [
 
 				postproc: [
 
-					
-
 					// {
 					// 	type: "dotscreen",
 					// 	dotSize: 400
@@ -161,6 +162,15 @@ const worlds = [
 					// 	type: "bleach",
 					// 	amount: 0.5
 					// }
+
+					// {
+					// 	type: "afterimage",
+					// 	damp: 0.8
+					// }
+					{
+						type: "pixel",
+						pixelSize: 1
+					}
 					
 
 
