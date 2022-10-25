@@ -239,6 +239,58 @@ const worlds = [
 			},
 			{
 				id: "1.3",
+				baseFov: 35,
+
+				type: "blender-points",
+
+				animatedMesh: false,
+
+				helpers: {
+					orbit: true,
+					tubes: false,
+					timelines: false
+				},
+				
+				fog: {
+					enabled: false,
+					color: "#040116",
+					intensity: .35
+				},
+
+				bobImposedMoves: {
+					forward: true,
+					shift: false
+				},
+
+				postproc: [],
+
+				tubeInfos: {
+					duration: 25,
+					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
+					isUsingTarget: true,
+					steps: [
+						// n steps are possibles
+						// n has nothing to do with the number of points for the curve
+						{
+							// this amount is a percent of the global duration
+							amount: 50,
+							fov: 60,
+							stepEase: "linear"
+						},
+						{
+							// this amount is a percent of the global duration
+							amount: 50,
+							fov: 40,
+							stepEase: "linear"
+						},
+						
+					]
+				},
+
+
+			},
+			{
+				id: "1.4",
 				baseFov: 95,
 
 				// type: "blender-points",

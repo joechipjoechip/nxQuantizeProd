@@ -10,9 +10,14 @@ class BlenderTubes{
 		this._camera = params.camera;
 
 		this._sequenceInfos = params.sequenceInfos;
+		this._sequenceInfosID = params.sequenceInfos.id.replace(".", "-");
+
+		console.log("blendert tubes -- - - > ", this._sequenceInfosID);
+
+
 		this._blenderPoints = this._ParseBlenderPoints(params.blenderPoints);
 		// this._otherPoints = blenderPoints.filter(point => point.name.indexOf("bob-") !== -1);
-		this._target = params.blenderPoints.find(point => point.name.indexOf("_target") !== -1);
+		this._target = params.blenderPoints.find(point => (point.name.includes("_target") && point.name.includes(this._sequenceInfosID)));
 
 		this._tube = null;
 		this._tubeTravelTargetPosition = null;
@@ -34,7 +39,11 @@ class BlenderTubes{
 		// plan-1-1_target
 		// (eventuellement : bob-position)
 
-		const curvePoints = blenderPoints.filter(point => ( point.name.indexOf("plan-") !== -1 && point.name.indexOf("_target") === -1 ));
+		const curvePoints = blenderPoints.filter(point => ( 
+			point.name.indexOf("plan-") !== -1 
+			&& !point.name.includes("_target")
+			&& point.name.includes(this._sequenceInfosID)
+		));
 
 		const result = [];
 
