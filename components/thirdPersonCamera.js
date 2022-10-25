@@ -8,12 +8,24 @@ class ThirdPersonCamera {
 
 		this._params = params;
 		this._camera = params.camera;
-    	this._specs = core.generatedCamerasSpecs[params.cameraType]
+    	this._specs = core.generatedCamerasSpecs[params.cameraType];
+		this._scene = this._camera.parent;
   
 		this._currentPosition = new THREE.Vector3();
 		// console.log("dans la class third person : this._camera.position : ", this._camera.position);
 		this._currentPosition.copy(this._camera.position);
 		this._currentLookat = new THREE.Vector3();
+		this._raycaster = new THREE.Raycaster();
+		this._raycasterDirection = new THREE.Vector3(0,-1,0);
+		
+		this._raycaster.set(
+			new THREE.Vector3(
+				this._camera.position.x,
+				this._camera.position.y,
+				this._camera.position.z
+			),
+			this._raycasterDirection
+		);
 
 
 		this._camera.name = "third-person-camera";
@@ -72,23 +84,50 @@ class ThirdPersonCamera {
   
 	Update( timeElapsed, mousePos ){
 
-	  const idealOffset = this._CalculateIdealOffset(timeElapsed);
-	  const idealLookat = this._CalculateIdealLookat(mousePos);
-  
-	  // t = facteur de latence du positionnement de la camera : 
-    // où 1 = straight
-	  // const t = 0.02;
-	  // const t = 4.0 * timeElapsed;
-    // best implementation :
-	  const t = (1.0 - Math.pow(0.1, timeElapsed)) * this._specs.straightness;
-  
-	  this._currentPosition.lerp(idealOffset, t);
-	  this._currentLookat.lerp(idealLookat, t);
+		const idealOffset = this._CalculateIdealOffset(timeElapsed);
+		const idealLookat = this._CalculateIdealLookat(mousePos);
+	
+		// t = facteur de latence du positionnement de la camera : 
+		// où 1 = straight
+		// const t = 0.02;
+		// const t = 4.0 * timeElapsed;
+		// best implementation :
+		const t = (1.0 - Math.pow(0.1, timeElapsed)) * this._specs.straightness;
 
-  
-	  this._camera.position.copy(this._currentPosition);
-	  this._camera.lookAt(this._currentLookat);
+		
+	
+		this._currentPosition.lerp(idealOffset, t);
+		this._currentLookat.lerp(idealLookat, t);
 
+		this._raycaster.set(
+				new THREE.Vector3(
+					this._currentPosition.x, 
+					this._currentPosition.y + 1, 
+					this._currentPosition.z, 
+				),
+				new THREE.Vector3(0,-1,0)
+			);
+
+		this.HandlerGround();
+
+		this._camera.position.copy(this._currentPosition);
+		this._camera.lookAt(this._currentLookat);
+
+	}
+
+	HandlerGround(){
+
+		const hit = this._raycaster
+				.intersectObjects(this._scene.children)
+				?.find(intersected => intersected.object.name === "landscape" && intersected.object.name !== "shadow");
+
+		if( hit?.distance && hit.distance > 1){
+			this._currentPosition.y = hit.point.y + this._specs.offset.y;
+		}
+		
+		// console.log("distance : ", hit.distance)
+
+		// selon l'angle on pourrait décaler la cam .. mais à voir 
 	}
 	
 }
