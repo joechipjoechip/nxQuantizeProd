@@ -138,10 +138,10 @@ const worlds = [
 					// },
 
 
-					{
-						type: "sepia",
-						amount: 1
-					},
+					// {
+					// 	type: "sepia",
+					// 	amount: 1
+					// },
 					// {
 					// 	type: "glitch"
 					// },

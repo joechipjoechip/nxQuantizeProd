@@ -197,11 +197,11 @@
 
 			activeGoodCastShadows( newSequenceID, oldSequenceID ){
 
-				this.scene1.sequencesElements[oldSequenceID]?.activeLights.forEach(light => {
+				this.scene1.sequencesElements[oldSequenceID]?.activeShadows.forEach(light => {
 					light.castShadow = false;
 				});
 
-				this.scene1.sequencesElements[newSequenceID]?.activeLights.forEach(light => {
+				this.scene1.sequencesElements[newSequenceID]?.activeShadows.forEach(light => {
 					light.castShadow = true;
 				});
 
@@ -423,10 +423,10 @@
 				}
 
 				// if any shadow is casted
-				if( this.scene1.sequencesElements[this.sequenceID].activeLights?.length ){
+				if( this.scene1.sequencesElements[this.sequenceID].activeShadows?.length ){
 
 					currentSceneElements.bob.controller._controls.UpdateDynamicLightShadowCamera(
-						this.scene1.sequencesElements[this.sequenceID].activeLights
+						this.scene1.sequencesElements[this.sequenceID].activeShadows
 					);
 
 				}

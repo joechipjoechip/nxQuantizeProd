@@ -38,7 +38,7 @@ class SequencesBuilder {
 				helpersConfig: sequenceInfos.helpers,
 				helpers: {},
 				timelines: {},
-				activeLights: [],
+				activeShadows: [],
 				thirdPersonCamera: null,
 				bobImposedMoves: null,
 				focusTarget: null
@@ -61,11 +61,14 @@ class SequencesBuilder {
 	_BuildActiveLights( sequenceInfos ){
 
 		this._sceneElements.dynamicLights.forEach(light => {
-			// console.log("_BuildActiveLights : ", light, sequenceInfos);
-			if( light.name.includes(sequenceInfos.id)){
-				this._sequencesLib[sequenceInfos.id].activeLights.push(light);
+
+			if( light.name.includes(sequenceInfos.id) ){
+				// || light.name.includes("#allSequences#")
+				this._sequencesLib[sequenceInfos.id].activeShadows.push(light);
 			}
-		})
+
+		});
+
 	}
 
 	_BuildHelpers( sequenceInfos ){
