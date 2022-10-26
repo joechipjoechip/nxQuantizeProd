@@ -96,10 +96,15 @@ const worlds = [
 				},
 
 				postproc: [
-					{
-						type: "afterimage",
-						damp: 0.99
-					}
+					// {
+					// 	type: "afterimage",
+					// 	damp: 0.99
+					// }
+					// {
+					// 	type: "kaleidoscope",
+					// 	sides: 4,
+					// 	angle: 90
+					// }
 				]
 
 			},
@@ -132,6 +137,12 @@ const worlds = [
 
 				postproc: [
 
+					{
+						type: "kaleidoscope",
+						sides: 1,
+						angle: 45
+					}
+
 					
 
 					// {
@@ -143,10 +154,10 @@ const worlds = [
 					// 	}
 					// },
 
-					{
-						type: "rgbShift",
-						amount: 0.12
-					},
+					// {
+					// 	type: "rgbShift",
+					// 	amount: 0.12
+					// },
 
 					// {
 					// 	type: "dotscreen",
@@ -292,10 +303,10 @@ const worlds = [
 
 				postproc: [
 					
-					{
-						type: "rgbShift",
-						amount: 0.12
-					},
+					// {
+					// 	type: "rgbShift",
+					// 	amount: 0.12
+					// },
 					{
 						type: "film",
 						linesAmount: 650,

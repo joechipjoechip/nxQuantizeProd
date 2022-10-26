@@ -14,6 +14,7 @@ import { VerticalBlurShader } from 'three/examples/jsm/shaders/VerticalBlurShade
 import { SepiaShader } from 'three/examples/jsm/shaders/SepiaShader.js';
 import { VignetteShader } from 'three/examples/jsm/shaders/VignetteShader.js';
 import { PixelShader } from 'three/examples/jsm/shaders/PixelShader.js';
+import { KaleidoShader } from 'three/examples/jsm/shaders/KaleidoShader.js';
 
 
 
@@ -172,6 +173,18 @@ class PostprocsBuilder {
 				pixelPass.uniforms["pixelSize"].value = postProcInfos.pixelSize;
 				this._IsAlreadyGamma() ? null : shadersArrayToReturn.push(gammaCorrectionShader);
 				shadersArrayToReturn.push(pixelPass);
+				break;
+
+			case "kaleidoscope":
+				const kaleidoscopePass = new ShaderPass(KaleidoShader);
+
+				kaleidoscopePass.uniforms["sides"].value = postProcInfos.sides;
+				kaleidoscopePass.uniforms["angle"].value = postProcInfos.angle * Math.PI;
+
+				this._IsAlreadyGamma() ? null : shadersArrayToReturn.push(gammaCorrectionShader);
+
+				shadersArrayToReturn.push(kaleidoscopePass);
+
 				break;
 
 		}
