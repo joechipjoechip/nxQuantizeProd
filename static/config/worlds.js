@@ -236,7 +236,7 @@ const worlds = [
 
 				// type: "blender-points",
 				type: "third-person",
-				cameraType: "movingHips",
+				cameraType: "gtaLike",
 
 				animatedMesh: false,
 
@@ -310,19 +310,20 @@ const worlds = [
 					// 	type: "rgbShift",
 					// 	amount: 0.12
 					// },
+					// {
+					// 	type: "grayscale"
+					// },
 					{
 						type: "film",
 						linesAmount: 650,
 						opacity: 0.8,
 						aberration: 0.2
 					},
-					{
-						type: "pixel",
-						pixelSize: 0.5
-					},
-					{
-						type: "grayscale"
-					},
+					// {
+					// 	type: "pixel",
+					// 	pixelSize: 0.5
+					// },
+					
 				],
 
 			},
@@ -362,6 +363,10 @@ const worlds = [
 					// 		maxblur: 0.008
 					// 	}
 					// },
+					// {
+					// 	type: "pixel",
+					// 	pixelSize: 1
+					// },
 					
 					{
 						type: "bloom",
@@ -372,11 +377,8 @@ const worlds = [
 						}
 					},
 
+
 					
-					// {
-					// 	type: "pixel",
-					// 	pixelSize: 2
-					// }
 				]
 
 			}

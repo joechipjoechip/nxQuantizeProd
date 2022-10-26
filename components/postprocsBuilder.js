@@ -155,12 +155,13 @@ class PostprocsBuilder {
 			case "grayscale":
 				// console.log("grayscale - - - - >", grayScaleShader);
 				// grayScaleShader.uniforms["tDiffuse"].value = postProcInfos.amount
+				// this._IsAlreadyGamma() ? null : shadersArrayToReturn.push(gammaCorrectionShader);
 				shadersArrayToReturn.push(grayScaleShader);
 				break;
 
 			case "afterimage":
 				const afterimage = new AfterimagePass();
-				afterimage.uniforms["damp"].value = postProcInfos.damp;
+				afterimage.uniforms["damp"].value = postProcInfos.amount;
 
 				shadersArrayToReturn.push(afterimage);
 				break;

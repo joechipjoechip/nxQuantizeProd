@@ -55,8 +55,19 @@ class BasicCharacterController {
 
 			fbx.traverse(c => {
 				// console.log("c : ", c);
+
 				if( c.type !== "Bone" ){
 					c.castShadow = true;
+					
+					// if( c.material ){
+					// 	c.material.forEach(material => {
+					// 		material.aoMapIntensity = 0;
+					// 		material.shininess = 0;
+					// 		material.refractionRatio = material.refractionRatio / 10;
+					// 		material.flatShading = true;
+					// 		debugger;
+					// 	})
+					// }
 					// c.receiveShadow = true;
 				}
 
@@ -162,6 +173,9 @@ class BasicCharacterController {
 
 		if (this._input._keys.forward || this._input._keys.fly) {
 			velocity.z += acc.z * timeInSeconds;
+			if( this._input._keys.fly ){
+				velocity.y -= acc.y * (timeInSeconds / 3.5);
+			}
 		}
 
 		if (this._input._keys.backward) {

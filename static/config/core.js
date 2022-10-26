@@ -22,18 +22,18 @@ const core = {
 		gtaLike: {
 			offset: {
 				x: 0,
-				y: 0.1,
-				z: -0.15
+				y: 0.033,
+				z: -0.08
 			},
 			lookAt: {
 				x: 0,
 				y: 0.05,
-				z: 0.6
+				z: 1.45
 			},
-			straightness: 0.02,
+			straightness: 0.014,
 			mouseOrientationPonderation: {
-				x: 1.5,
-				y: 1.5
+				x: 0.2,
+				y: 0.2
 			}
 		},
 		hips: {

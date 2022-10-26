@@ -109,13 +109,9 @@ class DynamicLightsBuilder {
 
 			if( isSpotlight ){
 
-				
-
 				// update manually type (because if not, blender export set it as "Object-3D")
 				// and yes, rect areas from blender become here spotlights !
 				blenderLight.type = "SpotLight";
-
-				debugger;
 
 				createdLight = new THREE.SpotLight(
 					`#${blenderLight.userData.hexColor}` || 0xFFFFFF, // color
