@@ -148,8 +148,12 @@ class BasicCharacterController {
 
 		const acc = this._acceleration.clone();
 
-		if (this._input._keys.shift) {
+		if (this._input._keys.shift && !this._input._keys.fly ) {
 			acc.multiplyScalar(3.0);
+		}
+
+		if(this._input._keys.fly ){
+			acc.multiplyScalar(4.0);
 		}
 
 		if (this._stateMachine._currentState?.Name == 'dance') {
@@ -239,7 +243,7 @@ class BasicCharacterController {
 	
 			controlObject.position.y = this.HandleGravity(controlObject);
 
-		}
+		} 
 
 		this._position.copy(controlObject.position);
 

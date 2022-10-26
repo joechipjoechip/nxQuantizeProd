@@ -114,7 +114,7 @@ const worlds = [
 
 				// type: "blender-points",
 				type: "third-person",
-				cameraType: "hips",
+				cameraType: "movingHips",
 
 				animatedMesh: false,
 
@@ -253,8 +253,8 @@ const worlds = [
 				},
 
 				bobImposedMoves: {
-					forward: true,
-					shift: false
+					// forward: true,
+					// shift: false
 				},
 
 				postproc: [
@@ -300,8 +300,8 @@ const worlds = [
 				},
 
 				bobImposedMoves: {
-					forward: true,
-					shift: false
+					// forward: true,
+					// shift: false
 				},
 
 				postproc: [
@@ -331,7 +331,7 @@ const worlds = [
 				baseFov: 95,
 
 				type: "third-person",
-				cameraType: "movingHips",
+				cameraType: "movingFly",
 
 				animatedMesh: false,
 
@@ -348,8 +348,7 @@ const worlds = [
 				},
 
 				bobImposedMoves: {
-					forward: true,
-					shift: false
+					fly: true
 				},
 
 				postproc: [

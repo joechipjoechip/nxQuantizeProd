@@ -14,6 +14,7 @@ class DynamicLightsBuilder {
 		this._core = core;
 		this._sunConfig = params.sunConfig;
 
+		this._ParseBlenderLights();
 		this._BuildSun();
 		this._BuildLights();
 
@@ -36,6 +37,45 @@ class DynamicLightsBuilder {
 		this._createdLights.push(sun);
 	}
 
+	_ParseBlenderLights(){
+
+		this._blenderLights.forEach((blenderLight) => {
+
+			let sequenceID = blenderLight.name.split("_")[1];
+			let sequencesArr = [];
+	
+			if( sequenceID.includes("&") ){
+
+				sequencesArr = sequenceID.split("&");
+
+				sequenceID = sequencesArr.shift();
+
+				sequencesArr.forEach(sequenceOtherID => {
+
+					blenderLight.name = blenderLight.name.replace(sequenceOtherID, "").replace(/&/gi, "");
+
+				});
+
+			}
+	
+			if( sequencesArr.length ){
+
+				sequencesArr.forEach(sequenceOtherID => {
+
+					const newBlenderLight = blenderLight.clone();
+					
+					newBlenderLight.name = newBlenderLight.name.replace(sequenceID, sequenceOtherID);
+
+					this._blenderLights.push(newBlenderLight);
+
+				});
+			}
+
+		});
+
+
+	}
+
 	_BuildLights(){
 
 		this._blenderLights.forEach((blenderLight, index) => {
@@ -45,10 +85,11 @@ class DynamicLightsBuilder {
 
 			if( blenderLight.name.includes("no_dynamic") ){ return; }
 
-			const isPointLight = blenderLight.name.includes("point");
-			const isSpotlight = blenderLight.name.includes("spot-for-bob-shadow");
 			const sequenceID = blenderLight.name.split("_")[1].replace("-", ".");
 
+			const isPointLight = blenderLight.name.includes("point");
+			const isSpotlight = blenderLight.name.includes("spot-for-bob-shadow");
+			
 			let createdLight;
 
 			if( isPointLight ){
@@ -74,9 +115,11 @@ class DynamicLightsBuilder {
 				// and yes, rect areas from blender become here spotlights !
 				blenderLight.type = "SpotLight";
 
+				debugger;
+
 				createdLight = new THREE.SpotLight(
 					`#${blenderLight.userData.hexColor}` || 0xFFFFFF, // color
-					30, //intensity
+					blenderLight.intensity / 10, //intensity
 					0, // Distance
 					Math.PI/300, //angle (radians)
 					0, // penumbra

@@ -272,7 +272,14 @@
 				}
 
 
-				// and handle shadows (if bob is flying, we dont need shadows)
+				this.bobFlingShadowsHandler(sequenceBobImposedMoves);
+
+
+			},
+
+			bobFlingShadowsHandler( sequenceBobImposedMoves ){
+
+				// if bob is flying, we dont need shadows
 				if( sequenceBobImposedMoves?.fly ){
 					this.scene1.scene.traverse(child => {
 
@@ -281,7 +288,6 @@
 						}
 					})
 				}
-
 
 			},
 
@@ -452,7 +458,10 @@
 				if( currentSequenceElements.thirdPersonCamera ){
 					currentSequenceElements.thirdPersonCamera.Update(
 						elapsedTime, 
-						this.mousePos
+						this.mousePos,
+						{
+							isFlying: currentSequenceElements.bobImposedMoves?.fly
+						}
 					);
 				}
 

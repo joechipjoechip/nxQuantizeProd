@@ -82,7 +82,7 @@ class ThirdPersonCamera {
 	  return idealLookat;
 	}
   
-	Update( timeElapsed, mousePos ){
+	Update( timeElapsed, mousePos, optionsObj ){
 
 		const idealOffset = this._CalculateIdealOffset(timeElapsed);
 		const idealLookat = this._CalculateIdealLookat(mousePos);
@@ -99,16 +99,20 @@ class ThirdPersonCamera {
 		this._currentPosition.lerp(idealOffset, t);
 		this._currentLookat.lerp(idealLookat, t);
 
-		this._raycaster.set(
-				new THREE.Vector3(
-					this._currentPosition.x, 
-					this._currentPosition.y + 1, 
-					this._currentPosition.z, 
-				),
-				new THREE.Vector3(0,-1,0)
-			);
+		if( !optionsObj?.isFlying ){
 
-		this.HandlerGround();
+			this._raycaster.set(
+					new THREE.Vector3(
+						this._currentPosition.x, 
+						this._currentPosition.y + 1, 
+						this._currentPosition.z, 
+					),
+					new THREE.Vector3(0,-1,0)
+				);
+	
+			this.HandlerGround();
+
+		}
 
 		this._camera.position.copy(this._currentPosition);
 		this._camera.lookAt(this._currentLookat);

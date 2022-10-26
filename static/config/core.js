@@ -64,7 +64,7 @@ const core = {
 				y: -0.025,
 				z: 1
 			},
-			straightness: 0.05,
+			straightness: 0.015,
 			mouseOrientationPonderation: {
 				x: 0.65,
 				y: 0.45
@@ -108,36 +108,36 @@ const core = {
 		},
 		fly: {
 			offset: {
-				x: 0,
-				y: 0.045,
-				z: -0.04
+				x: 0.03,
+				y: 0.035,
+				z: -0.035
 			},
 			lookAt: {
 				x: 0,
-				y: -0.08,
-				z: 0.35
+				y: 0,
+				z: 0.05
 			},
-			straightness: 0.04,
+			straightness: 0.03,
 			mouseOrientationPonderation: {
-				x: 0.25,
-				y: 0.25
-			}
+				x: 0.02,
+				y: 0.02
+			},
 		},
 		movingFly: {
 			offset: {
 				x: 0,
-				y: 0.035,
-				z: -0.005
+				y: 0.03,
+				z: 0.02
 			},
 			lookAt: {
 				x: 0,
-				y: -0.08,
-				z: 0.45
+				y: 0,
+				z: 0.05
 			},
-			straightness: 0.03,
+			straightness: 0.02,
 			mouseOrientationPonderation: {
-				x: 0.25,
-				y: 0.35
+				x: 0.02,
+				y: 0.02
 			},
 			motion: {
 				// motion will move the camera continuously
@@ -146,15 +146,15 @@ const core = {
 				x: {
 					// ratios
 					range: 0.06,
-					velocity: 0.5
+					velocity: 0.4
 				},
 				y: {
-					range: 0.07,
-					velocity: 0.5
+					range: 0.015,
+					velocity: 0.1
 				},
 				z: {
-					range: -0.07,
-					velocity: 0.6
+					range: -0.04,
+					velocity: 0.1
 				},
 			},
 		},
