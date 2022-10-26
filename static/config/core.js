@@ -123,7 +123,7 @@ const core = {
 				y: 0.25
 			}
 		},
-		motionFly: {
+		movingFly: {
 			offset: {
 				x: 0,
 				y: 0.035,

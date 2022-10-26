@@ -114,7 +114,7 @@ const worlds = [
 
 				// type: "blender-points",
 				type: "third-person",
-				cameraType: "fly",
+				cameraType: "hips",
 
 				animatedMesh: false,
 
@@ -133,7 +133,7 @@ const worlds = [
 				bobImposedMoves: {
 					// forward: true,
 					// shift: true,
-					fly: true
+					// fly: true
 				},
 
 				postproc: [
