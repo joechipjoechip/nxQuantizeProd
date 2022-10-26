@@ -57,7 +57,7 @@ class BasicCharacterController {
 				// console.log("c : ", c);
 				if( c.type !== "Bone" ){
 					c.castShadow = true;
-					c.receiveShadow = true;
+					// c.receiveShadow = true;
 				}
 
 			});
@@ -95,6 +95,7 @@ class BasicCharacterController {
 			loader.load('run.fbx', (a) => { _OnLoad('run', a); });
 			loader.load('idle.fbx', (a) => { _OnLoad('idle', a); });
 			loader.load('dance.fbx', (a) => { _OnLoad('dance', a); });
+			loader.load('fly.fbx', (a) => { _OnLoad('fly', a); });
 
 		});
 
@@ -119,7 +120,7 @@ class BasicCharacterController {
 		return this._target.quaternion;
 	}
 
-	Update(timeInSeconds, mousePos) {
+	Update(timeInSeconds, mousePos, optionsObj) {
 		if (!this._target) {
 			return;
 		}
@@ -155,7 +156,7 @@ class BasicCharacterController {
 			acc.multiplyScalar(0.0);
 		}
 
-		if (this._input._keys.forward) {
+		if (this._input._keys.forward || this._input._keys.fly) {
 			velocity.z += acc.z * timeInSeconds;
 		}
 
@@ -225,16 +226,20 @@ class BasicCharacterController {
 		controlObject.position.add(forward);
 		controlObject.position.add(sideways);
 
-		this._raycaster.set(
-			new THREE.Vector3(
-				controlObject.position.x, 
-				controlObject.position.y + 0.1, 
-				controlObject.position.z, 
-			),
-			new THREE.Vector3(0,-1,0)
-		);
+		if( !optionsObj.isFlying ){
 
-		controlObject.position.y = this.HandleGravity(controlObject);
+			this._raycaster.set(
+				new THREE.Vector3(
+					controlObject.position.x, 
+					controlObject.position.y + 0.1, 
+					controlObject.position.z, 
+				),
+				new THREE.Vector3(0,-1,0)
+			);
+	
+			controlObject.position.y = this.HandleGravity(controlObject);
+
+		}
 
 		this._position.copy(controlObject.position);
 
@@ -332,6 +337,7 @@ class BasicCharacterControllerInput {
 			right: false || this._imposedMoves.right,
 			space: false || this._imposedMoves.space,
 			shift: false || this._imposedMoves.shift,
+			fly: false || this._imposedMoves.fly
 		};
 
 		document.addEventListener('keydown', ( event ) => this._onKeyDown( event ), false);
@@ -405,10 +411,10 @@ class FiniteStateMachine {
 		const prevState = this._currentState;
 		
 		if (prevState) {
-		if (prevState.Name == name) {
-			return;
-		}
-		prevState.Exit();
+			if (prevState.Name == name) {
+				return;
+			}
+			prevState.Exit();
 		}
 
 		const state = new this._states[name](this);
@@ -419,7 +425,7 @@ class FiniteStateMachine {
 
 	Update(timeElapsed, input) {
 		if (this._currentState) {
-		this._currentState.Update(timeElapsed, input);
+			this._currentState.Update(timeElapsed, input);
 		}
 	}
 };
@@ -438,6 +444,7 @@ class CharacterFSM extends FiniteStateMachine {
 		this._AddState('walk-back', WalkStateBack);
 		this._AddState('run', RunState);
 		this._AddState('dance', DanceState);
+		this._AddState('fly', FlyState);
 	}
 };
 
@@ -503,6 +510,56 @@ class DanceState extends State {
 	}
 };
 
+
+class FlyState extends State {
+	constructor(parent) {
+		super(parent);
+	}
+
+	get Name() {
+		return 'fly';
+	}
+
+	Enter(prevState) {
+		const curAction = this._parent._proxy._animations['fly'].action;
+		if (prevState) {
+			const prevAction = this._parent._proxy._animations[prevState.Name].action;
+
+			curAction.enabled = true;
+
+			if (prevState.Name == 'run') {
+				const ratio = curAction.getClip().duration / prevAction.getClip().duration;
+				curAction.time = prevAction.time * ratio;
+			} else {
+				curAction.time = 0.0;
+				curAction.setEffectiveTimeScale(1.0);
+				curAction.setEffectiveWeight(1.0);
+			}
+
+			curAction.crossFadeFrom(prevAction, 0.5, true);
+			curAction.play();
+		} else {
+			curAction.play();
+		}
+	}
+
+	Exit() {
+	}
+
+	Update(timeElapsed, input) {
+
+
+
+		if (input._keys.fly) {
+			this._parent.SetState('fly');
+			return;
+		}
+			
+
+
+		this._parent.SetState('idle');
+	}
+};
 
 class WalkState extends State {
 	constructor(parent) {
@@ -665,15 +722,15 @@ class IdleState extends State {
 	Enter(prevState) {
 		const idleAction = this._parent._proxy._animations['idle'].action;
 		if (prevState) {
-		const prevAction = this._parent._proxy._animations[prevState.Name].action;
-		idleAction.time = 0.0;
-		idleAction.enabled = true;
-		idleAction.setEffectiveTimeScale(1.0);
-		idleAction.setEffectiveWeight(1.0);
-		idleAction.crossFadeFrom(prevAction, 0.5, true);
-		idleAction.play();
+			const prevAction = this._parent._proxy._animations[prevState.Name].action;
+			idleAction.time = 0.0;
+			idleAction.enabled = true;
+			idleAction.setEffectiveTimeScale(1.0);
+			idleAction.setEffectiveWeight(1.0);
+			idleAction.crossFadeFrom(prevAction, 0.5, true);
+			idleAction.play();
 		} else {
-		idleAction.play();
+			idleAction.play();
 		}
 	}
 
@@ -687,6 +744,8 @@ class IdleState extends State {
 			this._parent.SetState('walk-back');
 		} else if (input._keys.space) {
 			this._parent.SetState('dance');
+		} else if( input._keys.fly){
+			this._parent.SetState('fly');
 		}
 	}
 };

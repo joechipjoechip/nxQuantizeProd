@@ -271,6 +271,18 @@
 
 				}
 
+
+				// and handle shadows (if bob is flying, we dont need shadows)
+				if( sequenceBobImposedMoves?.fly ){
+					this.scene1.scene.traverse(child => {
+
+						if( child.castShadow ){
+							child.castShadow = false;
+						}
+					})
+				}
+
+
 			},
 
 			bobNewPositionHandler( newSequenceID ){
@@ -427,12 +439,21 @@
 
 				// if any bob in the scene, he needs update for his moves
 				if( currentSceneElements.bob.controller ){
-					currentSceneElements.bob.controller._controls.Update(deltaTime, this.mousePos);
+					currentSceneElements.bob.controller._controls.Update(
+						deltaTime, 
+						this.mousePos,
+						{
+							isFlying: currentSequenceElements.bobImposedMoves?.fly
+						}
+					);
 				}
 
 				// if third-person camera in the scene, it needs updates too
 				if( currentSequenceElements.thirdPersonCamera ){
-					currentSequenceElements.thirdPersonCamera.Update(elapsedTime, this.mousePos);
+					currentSequenceElements.thirdPersonCamera.Update(
+						elapsedTime, 
+						this.mousePos
+					);
 				}
 
 				// if any blur effect, focus needs updates : 

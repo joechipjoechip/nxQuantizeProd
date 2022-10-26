@@ -88,6 +88,7 @@ const core = {
 				},
 			},
 		},
+		
 		helmet: {
 			offset: {
 				x: 0,
@@ -104,7 +105,59 @@ const core = {
 				x: -0.08,
 				y: 0.08
 			}
-		}	
+		},
+		fly: {
+			offset: {
+				x: 0,
+				y: 0.045,
+				z: -0.04
+			},
+			lookAt: {
+				x: 0,
+				y: -0.08,
+				z: 0.35
+			},
+			straightness: 0.04,
+			mouseOrientationPonderation: {
+				x: 0.25,
+				y: 0.25
+			}
+		},
+		motionFly: {
+			offset: {
+				x: 0,
+				y: 0.035,
+				z: -0.005
+			},
+			lookAt: {
+				x: 0,
+				y: -0.08,
+				z: 0.45
+			},
+			straightness: 0.03,
+			mouseOrientationPonderation: {
+				x: 0.25,
+				y: 0.35
+			},
+			motion: {
+				// motion will move the camera continuously
+				// with a sin() (so -1 to 1)
+				// and it's related at the offset values
+				x: {
+					// ratios
+					range: 0.06,
+					velocity: 0.5
+				},
+				y: {
+					range: 0.07,
+					velocity: 0.5
+				},
+				z: {
+					range: -0.07,
+					velocity: 0.6
+				},
+			},
+		},
 	},
 	
 	guiConfig: {

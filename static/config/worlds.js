@@ -114,7 +114,7 @@ const worlds = [
 
 				// type: "blender-points",
 				type: "third-person",
-				cameraType: "hips",
+				cameraType: "fly",
 
 				animatedMesh: false,
 
@@ -132,7 +132,8 @@ const worlds = [
 
 				bobImposedMoves: {
 					// forward: true,
-					// shift: true
+					// shift: true,
+					fly: true
 				},
 
 				postproc: [
@@ -205,7 +206,7 @@ const worlds = [
 					// 	type: "sobel"
 					// },
 
-					
+
 					// {
 					// 	type: "blur",
 					// 	focusTarget: "bob",
