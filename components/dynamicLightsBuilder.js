@@ -101,11 +101,11 @@ class DynamicLightsBuilder {
 					createdLight.castShadow = false;
 					// will be activated at threeinstance.vue at activeGoodCastShadows()
 
-					createdLight.shadow.mapSize.width = 1024;
-					createdLight.shadow.mapSize.height = 1024;
+					createdLight.shadow.mapSize.width = 256;
+					createdLight.shadow.mapSize.height = 256;
 					createdLight.shadow.camera.near = 0.01;
-					createdLight.shadow.camera.far = 25;
-					createdLight.shadow.radius = 7;
+					createdLight.shadow.camera.far = 15;
+					createdLight.shadow.radius = 2;
 				
 					// createdLight.updateMatrix(true);
 				}

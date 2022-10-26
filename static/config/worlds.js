@@ -137,11 +137,11 @@ const worlds = [
 
 				postproc: [
 
-					{
-						type: "kaleidoscope",
-						sides: 1,
-						angle: 45
-					}
+					// {
+					// 	type: "kaleidoscope",
+					// 	sides: 1,
+					// 	angle: 45
+					// }
 
 					
 
@@ -204,6 +204,8 @@ const worlds = [
 					// {
 					// 	type: "sobel"
 					// },
+
+					
 					// {
 					// 	type: "blur",
 					// 	focusTarget: "bob",
