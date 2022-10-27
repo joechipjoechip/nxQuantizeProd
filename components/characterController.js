@@ -305,38 +305,28 @@ class BasicCharacterController {
 
 		lightsToUpdateShadowCamera.forEach(lightToUpdate => {
 
-			const fakeBob = this._params.scene.children.find(child => child.name.includes("--needFakeBob--"))?.target;
 
-			if( fakeBob ){
-				
-				fakeBob.position.copy(this._position);
-
-				lightToUpdate.target.position.copy(this._position);
-				lightToUpdate.focus = 10;
-
-				// au cas où ..
-				// const distance = ((lightToUpdate.position.distanceTo(this._position)) / 3.6);
-
-				if( core.debug.lightsHelpers.light || core.debug.lightsHelpers.shadow ){
-
-					this._params.scene.children
-						.filter(child =>  child.name.toLowerCase().includes("light") && child.name.toLowerCase().includes("helper"))
-							?.forEach(helper => {
-							// console.log("helpers : ", helper.name)
-							helper.update();
-						});	
-
-				}
+			lightToUpdate.target.position.copy(this._position);
+			lightToUpdate.needsUpdate = true;
 
 
-			} 
+			// au cas où ..
+			// const distance = ((lightToUpdate.position.distanceTo(this._position)) / 3.6);
 
-			
+			if( core.debug.lightsHelpers.light || core.debug.lightsHelpers.shadow ){
+
+				this._params.scene.children
+					.filter(child =>  child.name.toLowerCase().includes("light") && child.name.toLowerCase().includes("helper"))
+						?.forEach(helper => {
+						// console.log("helpers : ", helper.name)
+						helper.update();
+					});	
+
+			}
+
 		});
 
-
 	}
-
 
 };
 
