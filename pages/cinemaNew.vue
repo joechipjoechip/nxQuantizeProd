@@ -72,11 +72,32 @@
 
 			stopAnimation(){
 
+				const currentTimelines = this.$refs.instancethree.scene1.sequencesElements[this.sequenceID].timelines;
+				const currentTimelinesKeys = Object.keys(currentTimelines);
+
 				this.$refs.instancethree.debug.animated = !this.$refs.instancethree.debug.animated;
 
 				if( this.$refs.instancethree.debug.animated ){
+
 					this.$refs.instancethree.mainTick();
+
 				}
+
+
+				if( currentTimelinesKeys.length ){
+
+					currentTimelinesKeys.forEach(tlKey => {
+
+						if( !currentTimelines[tlKey] ){ return; }
+
+						currentTimelines[tlKey].isActive() ? 
+							currentTimelines[tlKey].pause() 
+							: currentTimelines[tlKey].play();
+
+					});
+
+				}
+
 
 			},
 
