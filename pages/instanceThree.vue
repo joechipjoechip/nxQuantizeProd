@@ -179,6 +179,10 @@
 
 				this.worldBackgroundColorHandler(newSequenceID);
 
+				setTimeout(() => {
+					this.$parent.curtainActive = false;
+				}, 100)
+	
 			},
 
 			killOldSequence( oldSequenceID ){

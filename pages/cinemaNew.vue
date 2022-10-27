@@ -5,6 +5,12 @@
 		<button @click="stopAnimation">start/stop animation</button>
 		<button @click="changeSequenceHandler">next sequence</button>
 
+		<div 
+			class="curtain"
+			:class="{ active: curtainActive }"
+		>
+		</div>
+
 		<instancethree 
 			ref="instancethree"
 			:sequenceID="sequenceID"
@@ -31,7 +37,8 @@
 				mousePos: {
 					x: window.innerWidth / 2,
 					y: window.innerHeight / 2
-				}
+				},
+				curtainActive: false
 			}
 		},
 
@@ -75,30 +82,37 @@
 
 			changeSequenceHandler(){
 				// très basique pour l'instant, mais c'est bien
-				// ce mécanisme (refait) qui change la séquence en cours
-				// pour l'instant
+				// ce mécanisme qui change la séquence en cours pour linstant
+				// (plus tard ce sera calé sur le currentTime de l'audio)
 
 				console.log("change scene triggered");
 
-				const oldSequenceID = this.sequenceID;
+				this.curtainActive = true;
 
-				switch(this.sequenceID){
-					case "1.0":
-						this.sequenceID = "1.1"
-						break
-					case "1.1":
-						this.sequenceID = "1.2"
-						break
-					case "1.2":
-						this.sequenceID = "1.3"
-						break
-					case "1.3":
-						this.sequenceID = "1.4"
-						break
-					default:
-						this.sequenceID = "1.0"
-						break
-				}
+				setTimeout(() => {
+
+					switch(this.sequenceID){
+						case "1.0":
+							this.sequenceID = "1.1"
+							break
+						case "1.1":
+							this.sequenceID = "1.2"
+							break
+						case "1.2":
+							this.sequenceID = "1.3"
+							break
+						case "1.3":
+							this.sequenceID = "1.4"
+							break
+						default:
+							this.sequenceID = "1.0"
+							break
+					}
+
+
+				}, 300)
+
+				
 
 				// free memory and ressources
 				// this.$refs.instancethree.scene1.sequencesElements[oldSequenceID] = null;
@@ -118,13 +132,24 @@ body {
 
 button {
   background-color: beige;
-
-  &.running {
-    background-color: greenyellow;
-  }
-
-  &.stoped {
-    background-color: red;
-  }
 }
+
+.curtain{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #000000;
+	pointer-events: none;
+	opacity: 0;
+
+	will-change: opacity;
+	transition: opacity .3s ease;
+
+	&.active {
+		opacity: 1
+	}
+}
+
 </style>
