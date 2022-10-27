@@ -163,9 +163,13 @@
 
 			sequenceChangeHandler( newSequenceID, oldSequenceID ){
 
-				this.killOldSequence(oldSequenceID);
+				// debugger;
 
-				
+				const triggerTimeDecay = this.scene1.sequencesElements[newSequenceID].cameraTriggerTimeDecay;
+
+				console.log("wsh le decay : ", triggerTimeDecay)
+
+				this.killOldSequence(oldSequenceID);
 
 				this.postProcChangeHandler(newSequenceID);
 
@@ -180,6 +184,12 @@
 				this.worldBackgroundColorHandler(newSequenceID);
 
 				this.activeGoodCastShadows(newSequenceID, oldSequenceID);
+
+				if( triggerTimeDecay ){
+					this.scene1.sceneElements.newSequenceTriggerTime = this.clock.getElapsedTime() + triggerTimeDecay;
+				} else {
+					this.scene1.sceneElements.newSequenceTriggerTime = this.clock.getElapsedTime();
+				}
 
 				setTimeout(() => {
 					this.$parent.curtainActive = false;
@@ -492,6 +502,7 @@
 				// if third-person camera in the scene, it needs updates too
 				if( currentSequenceElements.thirdPersonCamera ){
 					currentSequenceElements.thirdPersonCamera.Update(
+						this.scene1.sceneElements.newSequenceTriggerTime,
 						elapsedTime, 
 						this.mousePos,
 						{

@@ -43,7 +43,8 @@ class SequencesBuilder {
 				thirdPersonCamera: null,
 				bobImposedMoves: null,
 				focusTarget: null,
-				bobInitialPosition: new THREE.Vector3(0,0,0)
+				bobInitialPosition: new THREE.Vector3(0,0,0),
+				cameraTriggerTimeDecay: sequenceInfos.cameraTriggerTimeDecay
 			};
 
 			this._BuildPostprocsCollections(sequenceInfos);

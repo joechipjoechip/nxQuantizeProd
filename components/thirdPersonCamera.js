@@ -82,9 +82,11 @@ class ThirdPersonCamera {
 	  return idealLookat;
 	}
   
-	Update( timeElapsed, mousePos, optionsObj ){
+	Update( triggerTime, timeElapsed, mousePos, optionsObj ){
 
-		const idealOffset = this._CalculateIdealOffset(timeElapsed);
+		const realTime = timeElapsed - triggerTime;
+
+		const idealOffset = this._CalculateIdealOffset(realTime);
 		const idealLookat = this._CalculateIdealLookat(mousePos);
 	
 		// t = facteur de latence du positionnement de la camera : 

@@ -114,6 +114,7 @@ const worlds = [
 
 				// type: "blender-points",
 				type: "third-person",
+				cameraTriggerTimeDecay: 6,
 				cameraType: "movingHips",
 
 				animatedMesh: false,
@@ -237,6 +238,7 @@ const worlds = [
 				// type: "blender-points",
 				type: "third-person",
 				cameraType: "gtaLike",
+				cameraTriggerTimeDecay: 10,
 
 				animatedMesh: false,
 
@@ -283,6 +285,7 @@ const worlds = [
 
 				
 				type: "third-person",
+				cameraTriggerTimeDecay: 10,
 				cameraType: "movingHips",
 
 				animatedMesh: false,
@@ -332,6 +335,7 @@ const worlds = [
 				baseFov: 95,
 
 				type: "third-person",
+				cameraTriggerTimeDecay: 3,
 				cameraType: "movingFly",
 
 				animatedMesh: false,
