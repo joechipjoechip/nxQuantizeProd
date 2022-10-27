@@ -2,7 +2,7 @@
 	<div>
 
 		<button @click="changeSequenceHandler">change scene</button>
-		<button @click="stopAnimation">start/stop animation</button>
+		<button @click="playPauseAnimationHandler">start/stop animation</button>
 		<button @click="changeSequenceHandler">next sequence</button>
 
 		<div 
@@ -46,6 +46,9 @@
 
 			window.addEventListener("resize", this.onResize);
 
+			window.addEventListener("blur", this.playPauseAnimationHandler)
+			window.addEventListener("focus", this.playPauseAnimationHandler)
+
 		},
 
 		methods: {
@@ -70,7 +73,7 @@
 
 			},
 
-			stopAnimation(){
+			playPauseAnimationHandler(){
 
 				const currentTimelines = this.$refs.instancethree.scene1.sequencesElements[this.sequenceID].timelines;
 				const currentTimelinesKeys = Object.keys(currentTimelines);
