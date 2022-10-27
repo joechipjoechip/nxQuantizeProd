@@ -105,7 +105,7 @@
 							this.sequenceID = "1.4"
 							break
 						default:
-							this.sequenceID = "1.0"
+							this.sequenceID = "1.1"
 							break
 					}
 

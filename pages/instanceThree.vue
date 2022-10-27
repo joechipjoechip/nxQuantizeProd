@@ -165,7 +165,7 @@
 
 				this.killOldSequence(oldSequenceID);
 
-				this.activeGoodCastShadows(newSequenceID, oldSequenceID);
+				
 
 				this.postProcChangeHandler(newSequenceID);
 
@@ -178,6 +178,8 @@
 				this.cameraFovChangeHandler(newSequenceID);
 
 				this.worldBackgroundColorHandler(newSequenceID);
+
+				this.activeGoodCastShadows(newSequenceID, oldSequenceID);
 
 				setTimeout(() => {
 					this.$parent.curtainActive = false;
@@ -207,10 +209,12 @@
 
 				this.scene1.sequencesElements[oldSequenceID]?.activeShadows.forEach(light => {
 					light.castShadow = false;
+					// light.visible = false;
 				});
 
 				this.scene1.sequencesElements[newSequenceID]?.activeShadows.forEach(light => {
 					light.castShadow = true;
+					// light.visible = true;
 				});
 
 			},
@@ -283,14 +287,17 @@
 
 			bobFlyingShadowsHandler( sequenceBobImposedMoves ){
 
+				const bob = this.scene1.scene.children.find(child => child.name === "bob");
+
 				// if bob is flying, we dont need shadows
 				if( sequenceBobImposedMoves?.fly ){
-					this.scene1.scene.traverse(child => {
 
-						if( child.castShadow ){
-							child.castShadow = false;
-						}
-					})
+					bob.castShadow = false;
+					
+				} else {
+					
+					bob.castShadow = true;
+					
 				}
 
 			},

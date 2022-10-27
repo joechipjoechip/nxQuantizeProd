@@ -34,6 +34,24 @@ const core = {
 			mouseOrientationPonderation: {
 				x: 0.2,
 				y: 0.2
+			},
+			motion: {
+				// motion will move the camera continuously
+				// with a sin() (so -1 to 1)
+				// and it's related at the offset values
+				x: {
+					// ratios
+					range: 0.03,
+					velocity: 0.4
+				},
+				y: {
+					range: 0,
+					velocity: 0
+				},
+				z: {
+					range: -0.05,
+					velocity: 0.2
+				},
 			}
 		},
 		hips: {
