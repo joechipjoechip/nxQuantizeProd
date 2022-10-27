@@ -253,8 +253,8 @@ const worlds = [
 				},
 
 				bobImposedMoves: {
-					// forward: true,
-					// shift: false
+					forward: true,
+					shift: true
 				},
 
 				postproc: [

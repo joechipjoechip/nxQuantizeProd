@@ -254,9 +254,9 @@
 
 				const sequenceBobImposedMoves = this.scene1.sequencesElements[newSequenceID].bobImposedMoves;
 
-				if( sequenceBobImposedMoves ){
+				this.scene1.sceneElements.bob.controller._controls._input._keys = {};
 
-					this.scene1.sceneElements.bob.controller._controls._input._imposedMoves = {};
+				if( sequenceBobImposedMoves ){
 
 					this.scene1.sceneElements.bob.controller._controls._input._imposedMoves = sequenceBobImposedMoves;
 
@@ -272,12 +272,12 @@
 				}
 
 
-				this.bobFlingShadowsHandler(sequenceBobImposedMoves);
+				this.bobFlyingShadowsHandler(sequenceBobImposedMoves);
 
 
 			},
 
-			bobFlingShadowsHandler( sequenceBobImposedMoves ){
+			bobFlyingShadowsHandler( sequenceBobImposedMoves ){
 
 				// if bob is flying, we dont need shadows
 				if( sequenceBobImposedMoves?.fly ){
