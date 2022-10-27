@@ -81,6 +81,10 @@
 
 					this.$refs.instancethree.mainTick();
 
+					this.$refs.instancethree.clock.start();
+
+				} else {
+					this.$refs.instancethree.clock.stop();
 				}
 
 

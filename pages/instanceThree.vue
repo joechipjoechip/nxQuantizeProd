@@ -454,11 +454,11 @@
 			},
 
 			checkStuffsToAnimateAtRender( elapsedTime, deltaTime ){
+				// a lot of stuffs to animate here
 
 				const currentSceneElements = this.scene1.sceneElements;
 				const currentSequenceElements = this.scene1.sequencesElements[this.sequenceID];
 
-				// a lot of stuffs to animate here
 
 
 				// if an orbit helper is set
