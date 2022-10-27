@@ -46,8 +46,8 @@
 
 			window.addEventListener("resize", this.onResize);
 
-			window.addEventListener("blur", this.playPauseAnimationHandler)
-			window.addEventListener("focus", this.playPauseAnimationHandler)
+			window.addEventListener("blur", this.focusBlurHandler)
+			window.addEventListener("focus", this.focusBlurHandler)
 
 		},
 
@@ -62,6 +62,16 @@
 
 			},
 
+			focusBlurHandler( event ){
+
+				if( event.type === "focus" ){
+					this.playPauseAnimationHandler(true);
+				} else {
+					this.playPauseAnimationHandler(false);
+				}
+
+			},
+
 			mouseMoveHandler( event ){
 				
 				this.mousePos = {
@@ -73,14 +83,18 @@
 
 			},
 
-			playPauseAnimationHandler(){
+			
+
+			playPauseAnimationHandler( fromFocus ){
 
 				const currentTimelines = this.$refs.instancethree.scene1.sequencesElements[this.sequenceID].timelines;
 				const currentTimelinesKeys = Object.keys(currentTimelines);
 
+				const goPlay = !this.$refs.instancethree.debug.animated;
+
 				this.$refs.instancethree.debug.animated = !this.$refs.instancethree.debug.animated;
 
-				if( this.$refs.instancethree.debug.animated ){
+				if( goPlay && fromFocus ){
 
 					this.$refs.instancethree.mainTick();
 
