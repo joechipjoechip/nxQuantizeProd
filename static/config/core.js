@@ -61,13 +61,13 @@ const core = {
 			},
 			lookAt: {
 				x: 0,
-				y: -0.025,
-				z: 1
+				y: 0.017,
+				z: 0.01
 			},
 			straightness: 0.015,
 			mouseOrientationPonderation: {
-				x: 0.65,
-				y: 0.45
+				x: 0.015,
+				y: 0.026
 			},
 			motion: {
 				// motion will move the camera continuously
