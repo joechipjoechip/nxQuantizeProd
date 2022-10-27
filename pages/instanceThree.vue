@@ -298,9 +298,32 @@
 				const formatedID = newSequenceID.replace(".", "-");
 				const newCoords = this.scene1.sceneElements.positionsCollection.find(obj => obj.name.includes("bob") && obj.name.includes(formatedID));
 
+				const thirdPersonInstance = this.scene1.sequencesElements[newSequenceID]?.thirdPersonCamera;
+
 				if( newCoords ){
+
 					this.scene1.sceneElements.bob.controller._controls.Position = newCoords.position;
 					this.scene1.sceneElements.bob.controller._controls.Rotation = newCoords.rotation;
+
+					if( thirdPersonInstance ){
+
+						const oldStraightness = thirdPersonInstance._specs.straightness;
+						thirdPersonInstance._specs.straightness = 1;
+						
+						thirdPersonInstance._camera.position.copy(newCoords.position);
+						thirdPersonInstance._camera.rotation.copy(newCoords.rotation);
+
+						setTimeout(() => {
+							thirdPersonInstance._specs.straightness = oldStraightness;
+						}, 5);
+						
+					} else {
+
+						this.scene1.camera.position.copy(newCoords.position);
+						this.scene1.camera.rotation.copy(newCoords.rotation);
+
+					}
+
 				}
 
 			},
@@ -309,6 +332,7 @@
 
 				const baseFov = this.scene1.camera.fov;
 				const destinationFov = worlds[0].sequences.find(seq => seq.id === newSequenceID).baseFov;
+
 				const animatedObject = {
 					animatedFov: baseFov
 				};

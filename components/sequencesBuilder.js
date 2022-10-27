@@ -42,7 +42,8 @@ class SequencesBuilder {
 				fog: sequenceInfos.fog,
 				thirdPersonCamera: null,
 				bobImposedMoves: null,
-				focusTarget: null
+				focusTarget: null,
+				bobInitialPosition: new THREE.Vector3(0,0,0)
 			};
 
 			this._BuildPostprocsCollections(sequenceInfos);

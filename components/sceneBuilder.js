@@ -168,29 +168,15 @@ class SceneBuilder {
 
 	}
 
-	glbParser( glbFile, indexGlb ){
+	glbParser( glbFile ){
+
+		this.sceneElements.landscape = glbFile.scene.getObjectByName("landscape");
+
+		this.sceneElements.initialCamera = glbFile.scene.getObjectByName("camera");
+
+		this.createLandscapeShadow(this.sceneElements.landscape.clone());
 
 		glbFile.scene.traverse(child => {
-
-			switch( child.name ){
-
-				// find map
-				case "landscape":
-					this.sceneElements.landscape = child;
-					this.createLandscapeShadow(child.clone());
-					break;
-
-				// find camera intial position
-				case "camera":
-					this.sceneElements.initialCamera = child;
-					break;
-
-				// find bob initial position
-				case "bob-position":
-					this.sceneElements.bob.initialPosition = child;
-					break;
-
-			}
 				
 			// find camera paths for blenderTubes
 			if( child.name.includes("plan-") ){

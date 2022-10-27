@@ -126,7 +126,7 @@ class BasicCharacterController {
 
 	get Rotation() {
 		if (!this._target) {
-		return new THREE.Quaternion();
+			return new THREE.Quaternion();
 		}
 		return this._target.quaternion;
 	}
