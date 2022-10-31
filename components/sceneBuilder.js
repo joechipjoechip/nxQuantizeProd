@@ -153,7 +153,7 @@ class SceneBuilder {
 
 		filePath = filePath.join("/");
 
-		this.sceneElements.bob.controller = new CharacterController({
+		this.sceneElements.bob = new CharacterController({
 			file: {
 				path: filePath,
 				name: fileName
@@ -363,8 +363,6 @@ class SceneBuilder {
 				this.scene.add(emissiveBuilt);
 			});
 
-
-		debugger;
 		// dynamic lights
 		this.sceneElements.dynamicLights
 			.forEach(light => {

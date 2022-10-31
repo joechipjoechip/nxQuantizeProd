@@ -18,6 +18,7 @@ class BasicCharacterControllerProxy {
 class BasicCharacterController {
 	constructor(params) {
 		this._Init(params);
+		this._LoadModels();
 	}
 
 	async _Init(params) {
@@ -39,8 +40,6 @@ class BasicCharacterController {
 		);
 		this._raycaster = new THREE.Raycaster();
 		this._moveScaledRatio = this._params.bobInfos.scale * 100 * 2;
-
-		this._LoadModels();
 	}
 
 	_LoadModels() {
@@ -765,7 +764,7 @@ class CharacterController {
 
 	constructor(params) {
 
-		this._controls = new BasicCharacterController(params);
+		this._instance = new BasicCharacterController(params);
 
 	}
 

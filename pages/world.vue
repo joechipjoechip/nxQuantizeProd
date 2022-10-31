@@ -456,7 +456,7 @@
 				this.generatedCameras[cameraType] = cameraToAdd;
 
 				this.thirdPersonCamera[cameraType] = new ThirdPersonCamera({
-					target: this.linkController._controls,
+					target: this.linkcontroller._instance,
 					camera: this.generatedCameras[cameraType],
 					specs: this.core.generatedCamerasSpecs[cameraType]
 				});
@@ -940,11 +940,11 @@
 
 				if( this.linkController ){
 
-					this.linkController._controls.Update(deltaTime);
+					this.linkcontroller._instance.Update(deltaTime);
 
 					if( this.dynamicLights?.[0] ){
 
-						this.linkController._controls.UpdateDynamicLightShadowCamera(this.dynamicLights[0]);
+						this.linkcontroller._instance.UpdateDynamicLightShadowCamera(this.dynamicLights[0]);
 						
 					}
 
