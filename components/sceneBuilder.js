@@ -188,7 +188,7 @@ class SceneBuilder {
 			}
 
 			// find lights
-			if( child.name.includes("light-") ){
+			if( child.name.includes("light") ){
 
 				this.sceneElements.blenderLights.push(child);
 
@@ -363,6 +363,8 @@ class SceneBuilder {
 				this.scene.add(emissiveBuilt);
 			});
 
+
+		debugger;
 		// dynamic lights
 		this.sceneElements.dynamicLights
 			.forEach(light => {

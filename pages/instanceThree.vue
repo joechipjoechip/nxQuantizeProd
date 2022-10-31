@@ -218,14 +218,11 @@
 			activeGoodCastShadows( newSequenceID, oldSequenceID ){
 
 				this.scene1.sequencesElements[oldSequenceID]?.activeShadows.forEach(light => {
-					light.castShadow = false;
-					// light.visible = false;
+					this.updateInactiveSpotlight(light);
 				});
 
 				this.scene1.sequencesElements[newSequenceID]?.activeShadows.forEach(light => {
-					light.castShadow = true;
-					// light.visible = true;
-					this.updateSpotlightAngle(light, newSequenceID)
+					this.updateActiveSpotlight(light, newSequenceID)
 				});
 
 			},
@@ -244,20 +241,37 @@
 
 			},
 
-			updateSpotlightAngle( light, newSequenceID ){
+			updateInactiveSpotlight( lightToUpdate ){
+				lightToUpdate.intensity = 0;
+
+				if( lightToUpdate.name.includes("for-bob-shadow") ){
+					lightToUpdate.castShadow = false;
+				}
+			},
+
+			updateActiveSpotlight( lightToUpdate, newSequenceID ){
 
 				const formatedID = newSequenceID.replace(".", "-");
 				const newCoords = this.scene1.sceneElements.positionsCollection.find(obj => obj.name.includes("bob") && obj.name.includes(formatedID))?.position;
 
 				if( !newCoords ){ return; }
 
-				const distance = newCoords.distanceTo(light.position);
+				const distance = newCoords.distanceTo(lightToUpdate.position);
 
 				if( distance ){
 
-					light.angle = (Math.PI/100) / distance;
+					// console.log("- - - - - - update angle and intensity - - - - - - ", distance)
 
+					lightToUpdate.angle = (Math.PI/100) / distance;
+
+					lightToUpdate.intensity = (1 / distance) + 1;
+	
 				}
+
+				if( lightToUpdate.name.includes("for-bob-shadow") ){
+					lightToUpdate.castShadow = true;
+				}
+
 
 
 			},

@@ -93,15 +93,15 @@ class DynamicLightsBuilder {
 			
 			let createdLight;
 
+			console.log("light blender name : ", blenderLight.name);
+
 			if( isPointLight ){
 
 				blenderLight.type = "PointLight";
 
 				createdLight = new THREE.PointLight(
 					blenderLight.color,
-					blenderLight.intensity / 10,
-					blenderLight.distance,
-					blenderLight.decay * 1
+					blenderLight.intensity / 10
 				);
 
 				createdLight.name = `point-light-#${sequenceID}#`;
@@ -116,9 +116,9 @@ class DynamicLightsBuilder {
 
 				createdLight = new THREE.SpotLight(
 					`#${blenderLight.userData.hexColor}` || 0xFFFFFF, // color
-					blenderLight.intensity / 10, //intensity
+					0, //intensity
 					0, // Distance
-					Math.PI/300, //angle (radians)
+					0, //angle (radians)
 					0, // penumbra
 					0 // decay
 				);
@@ -150,11 +150,17 @@ class DynamicLightsBuilder {
 					// createdLight.updateMatrix(true);
 				}
 
+				
+			}
+
+			if( createdLight ){
+
 				this._createdLights.push(createdLight);
 	
 				this._BuildHelper(createdLight, index);
-
+				
 			}
+
 
 
 		});

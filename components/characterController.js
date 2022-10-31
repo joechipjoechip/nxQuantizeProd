@@ -303,7 +303,10 @@ class BasicCharacterController {
 
 		// console.log("- - - au update de la shadow on recois : ", lightsToUpdateShadowCamera)
 
+		
 		lightsToUpdateShadowCamera.forEach(lightToUpdate => {
+
+			if( !lightToUpdate.name.includes("for-bob-shadow") ){ return; }
 
 
 			lightToUpdate.target.position.copy(this._position);
