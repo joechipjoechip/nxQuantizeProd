@@ -764,7 +764,7 @@ class CharacterController {
 
 	constructor(params) {
 
-		this._instance = new BasicCharacterController(params);
+		this._controls = new BasicCharacterController(params);
 
 	}
 

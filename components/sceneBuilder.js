@@ -166,6 +166,8 @@ class SceneBuilder {
 			sceneBuilderThis: this
 		});
 
+		console.log("- - - - - - - - - - - dès que bob est créé : this.sceneElements.bob = ", this.sceneElements.bob);
+
 	}
 
 	glbParser( glbFile ){

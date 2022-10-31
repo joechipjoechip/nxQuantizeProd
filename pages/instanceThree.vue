@@ -305,20 +305,20 @@
 
 				const sequenceBobImposedMoves = this.scene1.sequencesElements[newSequenceID].bobImposedMoves;
 
-				this.scene1.sceneElements.bob._instance._input._keys = {};
+				this.scene1.sceneElements.bob._controls._input._keys = {};
 
 				if( sequenceBobImposedMoves ){
 
-					this.scene1.sceneElements.bob._instance._input._imposedMoves = sequenceBobImposedMoves;
+					this.scene1.sceneElements.bob._controls._input._imposedMoves = sequenceBobImposedMoves;
 
 					Object.keys(sequenceBobImposedMoves).forEach(imposedKey => {
-						this.scene1.sceneElements.bob._instance._input._keys[imposedKey] = sequenceBobImposedMoves[imposedKey];
+						this.scene1.sceneElements.bob._controls._input._keys[imposedKey] = sequenceBobImposedMoves[imposedKey];
 					});
 
 
 				} else {
 
-					this.scene1.sceneElements.bob._instance._input._imposedMoves = {};
+					this.scene1.sceneElements.bob._controls._input._imposedMoves = {};
 
 				}
 
@@ -347,7 +347,7 @@
 
 			bobNewPositionHandler( newSequenceID ){
 
-				if( !this.scene1.sceneElements.bob._instance ){ return; }
+				if( !this.scene1.sceneElements.bob._controls ){ return; }
 
 				const formatedID = newSequenceID.replace(".", "-");
 				const newCoords = this.scene1.sceneElements.positionsCollection.find(obj => obj.name.includes("bob") && obj.name.includes(formatedID));
@@ -356,8 +356,8 @@
 
 				if( newCoords ){
 
-					this.scene1.sceneElements.bob._instance.Position = newCoords.position;
-					this.scene1.sceneElements.bob._instance.Rotation = newCoords.rotation;
+					this.scene1.sceneElements.bob._controls.Position = newCoords.position;
+					this.scene1.sceneElements.bob._controls.Rotation = newCoords.rotation;
 
 					if( thirdPersonInstance ){
 
@@ -525,7 +525,7 @@
 
 				// if any bob in the scene, he needs update for his moves
 				if( currentSceneElements.bob ){
-					currentSceneElements.bob._instance.Update(
+					currentSceneElements.bob._controls.Update(
 						deltaTime / currentSequenceElements.slowmo,
 						this.mousePos,
 						{
@@ -554,7 +554,7 @@
 				// if any shadow is casted
 				if( this.scene1.sequencesElements[this.sequenceID].activeShadows?.length ){
 
-					currentSceneElements.bob._instance.UpdateDynamicLightShadowCamera(
+					currentSceneElements.bob._controls.UpdateDynamicLightShadowCamera(
 						this.scene1.sequencesElements[this.sequenceID].activeShadows
 					);
 
@@ -581,12 +581,13 @@
 				const { x, y, z } = currentSequenceElements.thirdPersonCamera._camera.position;
 
 				// compute distance beetween camera and target
-				const distance = new THREE.Vector3(x,y,z).distanceTo({...currentSequenceElements.focusTarget._position});
+				const distance = new THREE.Vector3(x,y,z).distanceTo({...currentSequenceElements.focusTarget._controls._position});
+
 
 				// update focus value in blur effect
 				blurPostproc.effectsPass[0].uniforms.focus.value = distance
 
-				// console.log("blurPostproc stuffs distance --> ", distance, currentSequenceElements.focusTarget.controller._instance._position, x, y, z)
+				// console.log("blurPostproc stuffs distance --> ", distance, currentSequenceElements.focusTarget)
 
 			},
 

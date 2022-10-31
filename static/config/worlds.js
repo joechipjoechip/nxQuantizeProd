@@ -190,14 +190,14 @@ const worlds = [
 
 					
 					
-					// {
-					// 	type: "vignette",
-					// 	darkness: 1.5,
-					// 	offset: 1.3
-					// },
+					{
+						type: "vignette",
+						darkness: 1.5,
+						offset: 1.04
+					},
 
 					// {
-					// 	// obscurci
+					// 	obscurci
 					// 	type: "bleach",
 					// 	amount: 0.5
 					// }
@@ -219,18 +219,6 @@ const worlds = [
 					// {
 					// 	type: "sobel"
 					// },
-
-
-					{
-						type: "blur",
-						focusTarget: "bob",
-						value: {
-							focus: 1,
-							aperture: 0.025,
-							maxblur: 0.005
-						}
-					},
-
 				
 
 					// {
@@ -281,23 +269,31 @@ const worlds = [
 					// 	amount: 0.75
 					// },
 					
+					{
+						type: "bloom",
+						value: {
+							strength: 0.9,
+							threshold: 0.35,
+							radius: 0.3
+						}
+					},
+
+					
+
 					// {
-					// 	type: "bloom",
+					// 	type: "blur",
+					// 	focusTarget: "bob",
 					// 	value: {
-					// 		strength: 0.9,
-					// 		threshold: 0.35,
-					// 		radius: 0.3
+					// 		focus: 1,
+					// 		aperture: 0.025,
+					// 		maxblur: 0.005
 					// 	}
 					// },
 
 					{
-						type: "blur",
-						focusTarget: "bob",
-						value: {
-							focus: 1,
-							aperture: 0.025,
-							maxblur: 0.005
-						}
+						type: "vignette",
+						darkness: 1.5,
+						offset: 1.15
 					},
 
 
