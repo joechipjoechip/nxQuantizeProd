@@ -12,7 +12,7 @@ class DynamicLightsBuilder {
 		this._blenderLights = params.lightsArr;
 		this._createdLights = [];
 		this._core = core;
-		this._sunConfig = params.sunConfig;
+		this._ambientConfig = params.ambientConfig;
 
 		this._ParseBlenderLights();
 		this._BuildSun();
@@ -27,9 +27,10 @@ class DynamicLightsBuilder {
 
 	_BuildSun(){
 
-		const sun = new THREE.AmbientLight(
-			this._sunConfig.color, 
-			this._sunConfig.intensity
+		const sun = new THREE.HemisphereLight(
+			this._ambientConfig.sunColor, 
+			this._ambientConfig.groundColor, 
+			this._ambientConfig.intensity
 		);
 
 		sun.name = "light-sun";
@@ -143,7 +144,7 @@ class DynamicLightsBuilder {
 					createdLight.shadow.mapSize.width = 256;
 					createdLight.shadow.mapSize.height = 256;
 					createdLight.shadow.camera.near = 0.01;
-					createdLight.shadow.camera.far = 15;
+					createdLight.shadow.camera.far = 25;
 					createdLight.shadow.radius = 2;
 				
 					// createdLight.updateMatrix(true);

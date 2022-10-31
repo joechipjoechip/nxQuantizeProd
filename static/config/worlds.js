@@ -5,13 +5,17 @@ const worlds = [
 
 		main: {
 
-			spaceColor: "#160D54",
-			spaceColorDarker: "#0D063B",
-			spaceColorWithBloom: "#040116",
+			// spaceColor: "#160D54",
+			// spaceColorDarker: "#0D063B",
+			// spaceColorWithBloom: "#040116",
+			spaceColor: "#002038",
+			spaceColorDarker: "#001220",
+			spaceColorWithBloom: "#000B14",
 
-			sun: {
-				color: "#FFFFFF",
-				intensity: 0.07
+			ambient: {
+				sunColor: "#FFFFFF",
+				intensity: 0.2,
+				groundColor: "#00467B"
 			},
 
 			fog: {
@@ -23,9 +27,9 @@ const worlds = [
 			meshInfos: {
 
 				world: {
-					glbPath: "/assets/3d/worlds/five/five.glb",
+					glbPath: "/assets/3d/worlds/epicValley/epicValley.glb",
 					imagePath: {
-						landscape: "/assets/3d/worlds/five/fiveBake.jpg",
+						landscape: "/assets/3d/worlds/epicValley/epicValleyBake.jpg",
 						// sky: "/assets/3d/worlds/bones/skyBake.jpg"
 					}
 				},
@@ -67,13 +71,13 @@ const worlds = [
 				},
 				
 				fog: {
-					enabled: true,
+					enabled: false,
 					color: "#0D063B",
 					intensity: .15
 				},
 
 				tubeInfos: {
-					duration: 25,
+					duration: 5,
 					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
 					isUsingTarget: true,
 					steps: [
@@ -105,6 +109,15 @@ const worlds = [
 					// 	sides: 4,
 					// 	angle: 90
 					// }
+
+					// {
+					// 	type: "bloom",
+					// 	value: {
+					// 		strength: .5,
+					// 		threshold: 0.45,
+					// 		radius: 0.01
+					// 	}
+					// },
 				]
 
 			},
@@ -208,15 +221,15 @@ const worlds = [
 					// },
 
 
-					// {
-					// 	type: "blur",
-					// 	focusTarget: "bob",
-					// 	value: {
-					// 		focus: 1,
-					// 		aperture: 0.025,
-					// 		maxblur: 0.005
-					// 	}
-					// },
+					{
+						type: "blur",
+						focusTarget: "bob",
+						value: {
+							focus: 1,
+							aperture: 0.025,
+							maxblur: 0.005
+						}
+					},
 
 				
 
@@ -237,7 +250,7 @@ const worlds = [
 
 				// type: "blender-points",
 				type: "third-person",
-				cameraType: "gtaLike",
+				cameraType: "movingHips",
 				cameraTriggerTimeDecay: 10,
 
 				animatedMesh: false,
@@ -259,6 +272,8 @@ const worlds = [
 					shift: true
 				},
 
+				slowmo: 5,
+
 				postproc: [
 					
 					// {
@@ -266,14 +281,25 @@ const worlds = [
 					// 	amount: 0.75
 					// },
 					
+					// {
+					// 	type: "bloom",
+					// 	value: {
+					// 		strength: 0.9,
+					// 		threshold: 0.35,
+					// 		radius: 0.3
+					// 	}
+					// },
+
 					{
-						type: "bloom",
+						type: "blur",
+						focusTarget: "bob",
 						value: {
-							strength: 0.9,
-							threshold: 0.35,
-							radius: 0.3
+							focus: 1,
+							aperture: 0.025,
+							maxblur: 0.005
 						}
 					},
+
 
 
 				]
@@ -297,7 +323,7 @@ const worlds = [
 				},
 				
 				fog: {
-					enabled: true,
+					enabled: false,
 					color: "#160D54",
 					intensity: .2
 				},
@@ -308,6 +334,29 @@ const worlds = [
 				},
 
 				postproc: [
+
+				
+
+
+					{
+						type: "bloom",
+						value: {
+							strength: 0.3,
+							threshold: 0.35,
+							radius: 0.99
+						}
+					},
+
+					// {
+					// 	type: "blur",
+					// 	focusTarget: "bob",
+					// 	value: {
+					// 		focus: 1,
+					// 		aperture: 0.025,
+					// 		maxblur: 0.005
+					// 	}
+					// },
+
 					
 					// {
 					// 	type: "rgbShift",
@@ -316,12 +365,12 @@ const worlds = [
 					// {
 					// 	type: "grayscale"
 					// },
-					{
-						type: "film",
-						linesAmount: 650,
-						opacity: 0.8,
-						aberration: 0.2
-					},
+					// {
+					// 	type: "film",
+					// 	linesAmount: 650,
+					// 	opacity: 0.8,
+					// 	aberration: 0.2
+					// },
 					// {
 					// 	type: "pixel",
 					// 	pixelSize: 0.5
@@ -347,7 +396,7 @@ const worlds = [
 				},
 				
 				fog: {
-					enabled: true,
+					enabled: false,
 					color: "#000000",
 					intensity: .15
 				},

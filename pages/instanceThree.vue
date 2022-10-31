@@ -167,8 +167,6 @@
 
 				const triggerTimeDecay = this.scene1.sequencesElements[newSequenceID].cameraTriggerTimeDecay;
 
-				console.log("wsh le decay : ", triggerTimeDecay)
-
 				this.killOldSequence(oldSequenceID);
 
 				this.postProcChangeHandler(newSequenceID);
@@ -184,6 +182,8 @@
 				this.worldBackgroundColorHandler(newSequenceID);
 
 				this.activeGoodCastShadows(newSequenceID, oldSequenceID);
+
+				// this.updateSpotlightAngle(newSequenceID);
 
 				if( triggerTimeDecay ){
 					this.scene1.sceneElements.newSequenceTriggerTime = this.clock.getElapsedTime() + triggerTimeDecay;
@@ -225,6 +225,7 @@
 				this.scene1.sequencesElements[newSequenceID]?.activeShadows.forEach(light => {
 					light.castShadow = true;
 					// light.visible = true;
+					this.updateSpotlightAngle(light, newSequenceID)
 				});
 
 			},
@@ -240,6 +241,24 @@
 				if( enabled ){
 					this.scene1.scene.fog = new THREE.FogExp2(color, intensity);
 				}
+
+			},
+
+			updateSpotlightAngle( light, newSequenceID ){
+
+				const formatedID = newSequenceID.replace(".", "-");
+				const newCoords = this.scene1.sceneElements.positionsCollection.find(obj => obj.name.includes("bob") && obj.name.includes(formatedID))?.position;
+
+				if( !newCoords ){ return; }
+
+				const distance = newCoords.distanceTo(light.position);
+
+				if( distance ){
+
+					light.angle = (Math.PI/100) / distance;
+
+				}
+
 
 			},
 
@@ -345,6 +364,8 @@
 
 					}
 
+				} else {
+					console.log("- - - - - - !! no new coords !! - - - - - - - ")
 				}
 
 			},
@@ -491,7 +512,7 @@
 				// if any bob in the scene, he needs update for his moves
 				if( currentSceneElements.bob.controller ){
 					currentSceneElements.bob.controller._controls.Update(
-						deltaTime, 
+						deltaTime / currentSequenceElements.slowmo,
 						this.mousePos,
 						{
 							isFlying: currentSequenceElements.bobImposedMoves?.fly

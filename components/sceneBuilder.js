@@ -177,6 +177,8 @@ class SceneBuilder {
 		this.createLandscapeShadow(this.sceneElements.landscape.clone());
 
 		glbFile.scene.traverse(child => {
+
+			// console.log("child -> ", child.name);
 				
 			// find camera paths for blenderTubes
 			if( child.name.includes("plan-") ){
@@ -193,7 +195,7 @@ class SceneBuilder {
 			}
 
 			// find emissive shapes
-			if( child.name.includes("emissive-shape") ){
+			if( child.name.includes("emissive") ){
 
 				this.sceneElements.emissiveShapesFromBlender.push(child);
 
@@ -277,7 +279,7 @@ class SceneBuilder {
 		// dynamic lights
 		this.sceneElements.dynamicLights = new DynamicLightsBuilder({
 			lightsArr: this.sceneElements.blenderLights,
-			sunConfig: this.worldConfig.main.sun
+			ambientConfig: this.worldConfig.main.ambient
 		});
 
 		// emissive shapes
@@ -298,7 +300,9 @@ class SceneBuilder {
 	createEmissiveShape( shapeFromBlender ){
 
 		const emissiveMaterial = new THREE.MeshBasicMaterial({
-			color: `#${shapeFromBlender.userData.hexColor || 'FFFFFF'}`
+			emissive: `#${shapeFromBlender.userData.hexColor || 'FFFFFF'}`,
+			emissiveIntensity: 2,
+			// side: THREE.DoubleSide
 		});
 
 		shapeFromBlender.material = emissiveMaterial;
