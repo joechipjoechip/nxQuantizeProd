@@ -364,7 +364,6 @@
 					const formatedID = newSequenceID.replace(".", "-");
 					const newCoords = this.scene1.sceneElements.positionsCollection.find(obj => obj.name.includes("bob") && obj.name.includes(formatedID));
 	
-					console.log("la con de ses grand mort  : ", this.scene1.sequencesElements[newSequenceID] )
 					const thirdPersonInstance = this.scene1.sequencesElements[newSequenceID]?.thirdPersonCamera[bobKey];
 	
 					if( newCoords ){

@@ -169,7 +169,7 @@ class SceneBuilder {
 				name: bobKey
 			});
 	
-			console.log("- - - - - - - - - - - dès que bob est créé : this.sceneElements.bob = ", this.sceneElements.bob);
+			console.log("un bob a été ajouté à this.sceneElements.bobs = ", this.sceneElements.bobs);
 
 		})
 
