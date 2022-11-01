@@ -313,20 +313,22 @@
 
 				Object.keys(this.scene1.sceneElements.bobs).forEach(bobKey => {
 
-					this.scene1.sceneElements.bobs[bobKey]._controls._input._keys = {};
+					const goodBob = this.scene1.sceneElements.bobs[bobKey];
+
+					goodBob._controls._input._keys = {};
 
 					if( sequenceBobImposedMoves ){
 
-						this.scene1.sceneElements.bobs[bobKey]._controls._input._imposedMoves = sequenceBobImposedMoves;
+						goodBob._controls._input._imposedMoves = sequenceBobImposedMoves;
 
 						Object.keys(sequenceBobImposedMoves).forEach(imposedKey => {
-							this.scene1.sceneElements.bobs[bobKey]._controls._input._keys[imposedKey] = sequenceBobImposedMoves[imposedKey];
+							goodBob._controls._input._keys[imposedKey] = sequenceBobImposedMoves[imposedKey];
 						});
 
 
 					} else {
 
-						this.scene1.sceneElements.bobs[bobKey]._controls._input._imposedMoves = {};
+						goodBob._controls._input._imposedMoves = {};
 
 					}
 
@@ -358,8 +360,9 @@
 			bobNewPositionHandler( newSequenceID ){
 
 				Object.keys(this.scene1.sceneElements.bobs).forEach(bobKey => {
+					const goodBob = this.scene1.sceneElements.bobs[bobKey];
 
-					if( !this.scene1.sceneElements.bobs[bobKey]._controls ){ return; }
+					if( !goodBob._controls ){ return; }
 	
 					const formatedID = newSequenceID.replace(".", "-");
 					const newCoords = this.scene1.sceneElements.positionsCollection.find(obj => obj.name.includes("bob") && obj.name.includes(formatedID));
@@ -368,8 +371,8 @@
 	
 					if( newCoords ){
 	
-						this.scene1.sceneElements.bobs[bobKey]._controls.Position = newCoords.position;
-						this.scene1.sceneElements.bobs[bobKey]._controls.Rotation = newCoords.rotation;
+						goodBob._controls.Position = newCoords.position;
+						goodBob._controls.Rotation = newCoords.rotation;
 	
 						if( thirdPersonInstance ){
 	
@@ -405,13 +408,15 @@
 
 				Object.keys(this.scene1.sceneElements.bobs).forEach(bobKey => {
 
-					if( this.scene1.sceneElements.bobs[bobKey]._controls._target.name === sequenceBobName ){
+					const goodBob = this.scene1.sceneElements.bobs[bobKey];
 
-						this.scene1.sceneElements.bobs[bobKey]._controls._target.visible = true;
+					if( goodBob._controls._target.name === sequenceBobName ){
+
+						goodBob._controls._target.visible = true;
 						
 					} else {
 
-						this.scene1.sceneElements.bobs[bobKey]._controls._target.visible = false;
+						goodBob._controls._target.visible = false;
 
 					}
 
