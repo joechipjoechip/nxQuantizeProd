@@ -359,22 +359,22 @@ class BasicCharacterControllerInput {
 
 		switch (event.keyCode) {
 			case 90: // z
-				this._keys.forward = true;
+				this._keys.forward = this._imposedMoves.hasOwnProperty("forward") ? this._imposedMoves.forward : true;
 				break;
 			case 81: // q
-				this._keys.left = true;
+				this._keys.left = this._imposedMoves.hasOwnProperty("left") ? this._imposedMoves.left : true;
 				break;
 			case 83: // s
-				this._keys.backward = true;
+				this._keys.backward = this._imposedMoves.hasOwnProperty("backward") ? this._imposedMoves.backward : true;
 				break;
 			case 68: // d
-				this._keys.right = true;
+				this._keys.right = this._imposedMoves.hasOwnProperty("right") ? this._imposedMoves.right : true;
 				break;
 			case 32: // SPACE
-				this._keys.space = true;
+				this._keys.space = this._imposedMoves.hasOwnProperty("space") ? this._imposedMoves.space : true;
 				break;
 			case 16: // SHIFT
-				this._keys.shift = true;
+				this._keys.shift = this._imposedMoves.hasOwnProperty("shift") ? this._imposedMoves.shift : true;
 			break;
 		}
 

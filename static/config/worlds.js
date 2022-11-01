@@ -14,8 +14,8 @@ const worlds = [
 
 			ambient: {
 				sunColor: "#FFFFFF",
-				intensity: 0.2,
-				groundColor: "#00467B"
+				intensity: 0.6,
+				groundColor: "#04007A"
 			},
 
 			fog: {
@@ -257,7 +257,9 @@ const worlds = [
 
 				bobImposedMoves: {
 					forward: true,
-					shift: true
+					shift: true,
+					left: false,
+					right: false
 				},
 
 				slowmo: 5,
