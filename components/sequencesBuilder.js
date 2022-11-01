@@ -40,12 +40,13 @@ class SequencesBuilder {
 				timelines: {},
 				activeShadows: [],
 				fog: sequenceInfos.fog,
-				thirdPersonCamera: null,
+				thirdPersonCamera: {},
 				bobImposedMoves: null,
 				focusTarget: null,
 				bobInitialPosition: new THREE.Vector3(0,0,0),
 				cameraTriggerTimeDecay: sequenceInfos.cameraTriggerTimeDecay,
-				slowmo: sequenceInfos.slowmo ? sequenceInfos.slowmo : 1
+				slowmo: sequenceInfos.slowmo ? sequenceInfos.slowmo : 1,
+				sequenceBobName: sequenceInfos.sequenceBobName
 			};
 
 			this._BuildPostprocsCollections(sequenceInfos);
@@ -182,8 +183,8 @@ class SequencesBuilder {
 	
 	_BuildThirdPersonCamera( sequenceInfos ){
 
-		this._sequencesLib[sequenceInfos.id].thirdPersonCamera = new ThirdPersonCamera({
-			target: this._sceneElements.bob._controls,
+		this._sequencesLib[sequenceInfos.id].thirdPersonCamera[sequenceInfos.sequenceBobName] = new ThirdPersonCamera({
+			target: this._sceneElements.bobs[sequenceInfos.sequenceBobName]._controls,
 			camera: this._camera,
 			cameraType: sequenceInfos.cameraType
 		});

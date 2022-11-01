@@ -65,7 +65,9 @@
 
 				debug: {
 					animated: true
-				}
+				},
+
+				currentBobName: null
 			}
 
 		},
@@ -163,9 +165,11 @@
 
 			sequenceChangeHandler( newSequenceID, oldSequenceID ){
 
-				// debugger;
-
 				const triggerTimeDecay = this.scene1.sequencesElements[newSequenceID].cameraTriggerTimeDecay;
+
+				this.currentBobName = this.scene1.sequencesElements[newSequenceID].sequenceBobName;
+
+
 
 				this.killOldSequence(oldSequenceID);
 
@@ -176,6 +180,8 @@
 				this.bobImposedGestureHandler(newSequenceID);
 
 				this.bobNewPositionHandler(newSequenceID);
+
+				this.bobVisibilitySwitcher(newSequenceID);
 
 				this.cameraFovChangeHandler(newSequenceID);
 
@@ -305,35 +311,39 @@
 
 				const sequenceBobImposedMoves = this.scene1.sequencesElements[newSequenceID].bobImposedMoves;
 
-				this.scene1.sceneElements.bob._controls._input._keys = {};
+				Object.keys(this.scene1.sceneElements.bobs).forEach(bobKey => {
 
-				if( sequenceBobImposedMoves ){
+					this.scene1.sceneElements.bobs[bobKey]._controls._input._keys = {};
 
-					this.scene1.sceneElements.bob._controls._input._imposedMoves = sequenceBobImposedMoves;
+					if( sequenceBobImposedMoves ){
 
-					Object.keys(sequenceBobImposedMoves).forEach(imposedKey => {
-						this.scene1.sceneElements.bob._controls._input._keys[imposedKey] = sequenceBobImposedMoves[imposedKey];
-					});
+						this.scene1.sceneElements.bobs[bobKey]._controls._input._imposedMoves = sequenceBobImposedMoves;
 
-
-				} else {
-
-					this.scene1.sceneElements.bob._controls._input._imposedMoves = {};
-
-				}
+						Object.keys(sequenceBobImposedMoves).forEach(imposedKey => {
+							this.scene1.sceneElements.bobs[bobKey]._controls._input._keys[imposedKey] = sequenceBobImposedMoves[imposedKey];
+						});
 
 
-				this.bobFlyingShadowsHandler(sequenceBobImposedMoves);
+					} else {
+
+						this.scene1.sceneElements.bobs[bobKey]._controls._input._imposedMoves = {};
+
+					}
+
+
+					this.bobFlyingShadowsHandler(sequenceBobImposedMoves);
+
+				})
 
 
 			},
 
 			bobFlyingShadowsHandler( sequenceBobImposedMoves ){
 
-				const bob = this.scene1.scene.children.find(child => child.name === "bob");
+				const bob = this.scene1.sceneElements.bobs[this.currentBobName]._controls._target;
 
 				// if bob is flying, we dont need shadows
-				if( sequenceBobImposedMoves?.fly ){
+				if( bob && sequenceBobImposedMoves?.fly ){
 
 					bob.castShadow = false;
 					
@@ -347,40 +357,66 @@
 
 			bobNewPositionHandler( newSequenceID ){
 
-				if( !this.scene1.sceneElements.bob._controls ){ return; }
+				Object.keys(this.scene1.sceneElements.bobs).forEach(bobKey => {
 
-				const formatedID = newSequenceID.replace(".", "-");
-				const newCoords = this.scene1.sceneElements.positionsCollection.find(obj => obj.name.includes("bob") && obj.name.includes(formatedID));
+					if( !this.scene1.sceneElements.bobs[bobKey]._controls ){ return; }
+	
+					const formatedID = newSequenceID.replace(".", "-");
+					const newCoords = this.scene1.sceneElements.positionsCollection.find(obj => obj.name.includes("bob") && obj.name.includes(formatedID));
+	
+					console.log("la con de ses grand mort  : ", this.scene1.sequencesElements[newSequenceID] )
+					const thirdPersonInstance = this.scene1.sequencesElements[newSequenceID]?.thirdPersonCamera[bobKey];
+	
+					if( newCoords ){
+	
+						this.scene1.sceneElements.bobs[bobKey]._controls.Position = newCoords.position;
+						this.scene1.sceneElements.bobs[bobKey]._controls.Rotation = newCoords.rotation;
+	
+						if( thirdPersonInstance ){
+	
+							const oldStraightness = thirdPersonInstance._specs.straightness;
+							thirdPersonInstance._specs.straightness = 1;
+							
+							thirdPersonInstance._camera.position.copy(newCoords.position);
+							thirdPersonInstance._camera.rotation.copy(newCoords.rotation);
+	
+							setTimeout(() => {
+								thirdPersonInstance._specs.straightness = oldStraightness;
+							}, 5);
+							
+						} else {
+	
+							this.scene1.camera.position.copy(newCoords.position);
+							this.scene1.camera.rotation.copy(newCoords.rotation);
+	
+						}
+	
+					} else {
+						console.log("- - - - - - !! no new coords !! - - - - - - - ")
+					}
 
-				const thirdPersonInstance = this.scene1.sequencesElements[newSequenceID]?.thirdPersonCamera;
+				});
 
-				if( newCoords ){
 
-					this.scene1.sceneElements.bob._controls.Position = newCoords.position;
-					this.scene1.sceneElements.bob._controls.Rotation = newCoords.rotation;
+			},
 
-					if( thirdPersonInstance ){
+			bobVisibilitySwitcher( newSequenceID ){
 
-						const oldStraightness = thirdPersonInstance._specs.straightness;
-						thirdPersonInstance._specs.straightness = 1;
-						
-						thirdPersonInstance._camera.position.copy(newCoords.position);
-						thirdPersonInstance._camera.rotation.copy(newCoords.rotation);
+				const sequenceBobName = this.scene1.sequencesElements[newSequenceID].sequenceBobName;
 
-						setTimeout(() => {
-							thirdPersonInstance._specs.straightness = oldStraightness;
-						}, 5);
+				Object.keys(this.scene1.sceneElements.bobs).forEach(bobKey => {
+
+					if( this.scene1.sceneElements.bobs[bobKey]._controls._target.name === sequenceBobName ){
+
+						this.scene1.sceneElements.bobs[bobKey]._controls._target.visible = true;
 						
 					} else {
 
-						this.scene1.camera.position.copy(newCoords.position);
-						this.scene1.camera.rotation.copy(newCoords.rotation);
+						this.scene1.sceneElements.bobs[bobKey]._controls._target.visible = false;
 
 					}
 
-				} else {
-					console.log("- - - - - - !! no new coords !! - - - - - - - ")
-				}
+				});
 
 			},
 
@@ -523,9 +559,10 @@
 
 				}
 
+				// debugger;
 				// if any bob in the scene, he needs update for his moves
-				if( currentSceneElements.bob ){
-					currentSceneElements.bob._controls.Update(
+				if( currentSceneElements.bobs[this.currentBobName] ){
+					currentSceneElements.bobs[this.currentBobName]._controls.Update(
 						deltaTime / currentSequenceElements.slowmo,
 						this.mousePos,
 						{
@@ -535,8 +572,8 @@
 				}
 
 				// if third-person camera in the scene, it needs updates too
-				if( currentSequenceElements.thirdPersonCamera ){
-					currentSequenceElements.thirdPersonCamera.Update(
+				if( currentSequenceElements.thirdPersonCamera[this.currentBobName] ){
+					currentSequenceElements.thirdPersonCamera[this.currentBobName].Update(
 						this.scene1.sceneElements.newSequenceTriggerTime,
 						elapsedTime, 
 						this.mousePos,
@@ -554,7 +591,7 @@
 				// if any shadow is casted
 				if( this.scene1.sequencesElements[this.sequenceID].activeShadows?.length ){
 
-					currentSceneElements.bob._controls.UpdateDynamicLightShadowCamera(
+					currentSceneElements.bobs.link._controls.UpdateDynamicLightShadowCamera(
 						this.scene1.sequencesElements[this.sequenceID].activeShadows
 					);
 

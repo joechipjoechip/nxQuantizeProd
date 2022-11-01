@@ -32,10 +32,31 @@ const worlds = [
 						landscape: "/assets/3d/worlds/epicValley/epicValleyBake.jpg",
 						// sky: "/assets/3d/worlds/bones/skyBake.jpg"
 					}
-				},
+				}
 
-				bob: {
+			},
+
+			bobs: {
+				link: {
+					name: "link",
 					glbPath: "/assets/3d/persos/bob/bob.fbx",
+					moveFolder: "/assets/3d/persos/moveSmallGuy",
+					infos: {
+						scale: 0.0008,
+						// scale: 1,z
+						velocity: {
+							// x & z -> displacement
+							x: 0.5,
+							z: 0.5,
+							// y -> rotation
+							y: 0.1,
+						}
+					}
+				},
+				juan: {
+					name: "juan",
+					glbPath: "/assets/3d/persos/bob2/bob.fbx",
+					moveFolder: "/assets/3d/persos/moveSmallGuy",
 					infos: {
 						scale: 0.0008,
 						// scale: 1,z
@@ -48,7 +69,6 @@ const worlds = [
 						}
 					}
 				}
-
 			}
 
 		},
@@ -57,6 +77,7 @@ const worlds = [
 			{
 				id: "1.0",
 				baseFov: 65,
+				sequenceBobName: "link",
 
 				type: "blender-points",
 				// type: "third-person",
@@ -124,6 +145,7 @@ const worlds = [
 			{
 				id: "1.1",
 				baseFov: 27,
+				sequenceBobName: "juan",
 
 				// type: "blender-points",
 				type: "third-person",
@@ -235,6 +257,7 @@ const worlds = [
 			{
 				id: "1.2",
 				baseFov: 35,
+				sequenceBobName: "link",
 
 				// type: "blender-points",
 				type: "third-person",
@@ -306,6 +329,7 @@ const worlds = [
 			{
 				id: "1.3",
 				baseFov: 35,
+				sequenceBobName: "link",
 
 				
 				type: "third-person",
@@ -380,6 +404,7 @@ const worlds = [
 			{
 				id: "1.4",
 				baseFov: 95,
+				sequenceBobName: "link",
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 3,

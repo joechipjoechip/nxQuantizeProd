@@ -84,7 +84,7 @@ class SceneBuilder {
 		this.sceneElements = {
 			landscape: null,
 			sky: null,
-			bob: {},
+			bobs: {},
 			initialCamera: null,
 			tubes: [],
 			blenderLights: [],
@@ -148,25 +148,31 @@ class SceneBuilder {
 
 		const { position, rotation } = this.sceneElements.positionsCollection.find(blenderObject => blenderObject.name === "bob-position_1-0");
 
-		let filePath = this.worldConfig.main.meshInfos.bob.glbPath.split("/");
-		const fileName = filePath.pop();
+		Object.keys(this.worldConfig.main.bobs).forEach(bobKey => {
 
-		filePath = filePath.join("/");
+			let filePath = this.worldConfig.main.bobs[bobKey].glbPath.split("/");
+			const fileName = filePath.pop();
+	
+			filePath = filePath.join("/");
+	
+			this.sceneElements.bobs[bobKey] = new CharacterController({
+				file: {
+					path: filePath,
+					name: fileName
+				},
+				scene: this.scene,
+				camera: this.currentCamera,
+				bobInfos: Object.assign(this.worldConfig.main.bobs[bobKey].infos, {
+					start: { position, rotation }
+				}),
+				sceneBuilderThis: this,
+				name: bobKey
+			});
+	
+			console.log("- - - - - - - - - - - dès que bob est créé : this.sceneElements.bob = ", this.sceneElements.bob);
 
-		this.sceneElements.bob = new CharacterController({
-			file: {
-				path: filePath,
-				name: fileName
-			},
-			scene: this.scene,
-			camera: this.currentCamera,
-			bobInfos: Object.assign(this.worldConfig.main.meshInfos.bob.infos, {
-				start: { position, rotation }
-			}),
-			sceneBuilderThis: this
-		});
+		})
 
-		console.log("- - - - - - - - - - - dès que bob est créé : this.sceneElements.bob = ", this.sceneElements.bob);
 
 	}
 

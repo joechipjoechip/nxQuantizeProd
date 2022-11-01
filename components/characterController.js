@@ -73,7 +73,7 @@ class BasicCharacterController {
 			});
 
 			this._target = fbx;
-			this._target.name = "bob";
+			this._target.name = this._params.name;
 			
 			this._target.position.copy(this._params.bobInfos.start.position);
 			this._target.rotation.copy(this._params.bobInfos.start.rotation);
