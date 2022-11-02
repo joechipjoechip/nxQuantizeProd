@@ -49,13 +49,15 @@
 				scene1: null,
 
 				// Animation
-				frameRate: 1/60,
+				frameRate: 1/30,
 				deltaTime: 0,
 
 				// Others
 				canvasSizeRef: { 
 					width: window.innerWidth, 
 					height: window.innerHeight
+					// width: 1280,
+					// height: 700
 				},
 				mousePos: {
 					x: 0,
@@ -476,7 +478,8 @@
 				});
 
 				this.renderer.setSize(this.canvasSizeRef.width, this.canvasSizeRef.height);
-				this.renderer.setPixelRatio(window.devicePixelRatio);
+
+				this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
 				this.renderer.setClearColor(currentWorldConfig.main.spaceColor);
 
@@ -608,6 +611,16 @@
 					this.scene1.camera.lookAt(
 						currentSequenceElements.blenderTubesManager._tubeTravelTargetPosition
 					);
+
+				}
+
+
+				// if any particles
+				if( currentSceneElements.particlesCollection.length ){
+
+					currentSceneElements.particlesCollection.forEach(particleInstance => {
+						particleInstance._builtParticle.material.uniforms.uTime.value = elapsedTime / (currentSequenceElements.slowmo || 1);
+					});
 
 				}
 

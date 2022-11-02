@@ -23,6 +23,13 @@ const worlds = [
 				color: 0xff9500,
 				intensity: .15
 			},
+
+			particles: [
+				{
+					type: "fireflies",
+					count: 200
+				}
+			],
 			
 			meshInfos: {
 
@@ -294,14 +301,14 @@ const worlds = [
 					// 	amount: 0.75
 					// },
 					
-					{
-						type: "bloom",
-						value: {
-							strength: 0.9,
-							threshold: 0.35,
-							radius: 0.3
-						}
-					},
+					// {
+					// 	type: "bloom",
+					// 	value: {
+					// 		strength: 0.9,
+					// 		threshold: 0.35,
+					// 		radius: 0.3
+					// 	}
+					// },
 
 					
 

@@ -6,6 +6,7 @@ import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 import { SequencesBuilder } from '@/components/sequencesBuilder.js';
 import { CharacterController } from '@/components/characterController.js';
 import { DynamicLightsBuilder } from '@/components/dynamicLightsBuilder.js';
+import { ParticlesBuilder } from '@/components/particlesBuilder.js';
 
 class AssetsLoadWatcher {
 
@@ -92,6 +93,8 @@ class SceneBuilder {
 			emissiveShapesFromBlender: [],
 			emissiveShapesBuilt: [],
 			positionsCollection: [],
+			particlesWorld: this.worldConfig.main.particles,
+			particlesCollection: [],
 			happenings: {},
 			misc: {
 				landscape: {
@@ -293,7 +296,16 @@ class SceneBuilder {
 		// emissive shapes
 		this.sceneElements.emissiveShapesFromBlender.forEach(emissiveShape => {
 			this.createEmissiveShape(emissiveShape);
-		})
+		});
+
+		// particles
+		this.sceneElements.particlesWorld.forEach(particle => {
+
+			this.sceneElements.particlesCollection.push(
+				new ParticlesBuilder(particle)
+			);
+		
+		});
 
 		// fakebob
 		const fakeBob = new THREE.Object3D();
@@ -386,7 +398,11 @@ class SceneBuilder {
 				
 			});
 
-
+		// particles
+		this.sceneElements.particlesCollection
+			.forEach(item => {
+				this.scene.add(item._builtParticle);
+			});
 
 		// debug objects
 		this.sceneElements.debugObjects
