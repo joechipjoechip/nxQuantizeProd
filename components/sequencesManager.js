@@ -6,12 +6,15 @@ import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 
 class SequencesManager{
 
-	constructor(sceneTransmitted, canvas, canvasSizeRef, cinema){
+	constructor(sceneTransmitted, cinema, renderer, clock, canvasSizeRef){
 
 		this.scene1 = sceneTransmitted;
-		this.canvas = canvas;
-		this.canvasSizeRef = canvasSizeRef;
 		this.cinema = cinema;
+		this.renderer = renderer;
+		this.composer = null;
+		this.clock = clock;
+		this.canvasSizeRef = canvasSizeRef;
+
 
 	}
 
@@ -42,9 +45,9 @@ class SequencesManager{
 		this.activeGoodCastShadows(newSequenceID, oldSequenceID);
 
 		if( triggerTimeDecay ){
-			this.scene1.sceneElements.newSequenceTriggerTime = this.scene1.clock.getElapsedTime() + triggerTimeDecay;
+			this.scene1.sceneElements.newSequenceTriggerTime = this.clock.getElapsedTime() + triggerTimeDecay;
 		} else {
-			this.scene1.sceneElements.newSequenceTriggerTime = this.scene1.clock.getElapsedTime();
+			this.scene1.sceneElements.newSequenceTriggerTime = this.clock.getElapsedTime();
 		}
 
 		setTimeout(() => {
@@ -144,7 +147,7 @@ class SequencesManager{
 
 			if( sequencePostProcObj.effect ){
 
-				this.scene1.composer.addPass(this.scene1.sequencesElements[newSequenceID].postproc.effect)
+				this.composer.addPass(this.scene1.sequencesElements[newSequenceID].postproc.effect)
 
 			}
 
@@ -152,8 +155,8 @@ class SequencesManager{
 
 		} else {
 
-			this.scene1.renderPass = null;
-			this.scene1.composer = null;
+			this.renderPass = null;
+			this.composer = null;
 
 		}
 
@@ -312,52 +315,15 @@ class SequencesManager{
 
 	}
 
-	worldBackgroundColorHandler(newSequenceID){
-
-		const newSequenceHasPostProc = worlds[0].sequences.find(seq => seq.id === newSequenceID).postproc?.length;
-
-		if( newSequenceHasPostProc ){
-			this.scene1.composer.renderer.setClearColor(this.scene1.worldConfig.main.spaceColorWithBloom);
-		} else {
-			this.scene1.renderer.setClearColor(this.scene1.worldConfig.main.spaceColor);
-		}
-
-	}
-
-	initRenderer( currentWorldConfig ){
-
-		// Renderer
-		this.scene1.renderer = new THREE.WebGLRenderer({
-			canvas: this.canvas,
-			// ne peut pas être déclaré en dehors de l'instanciation
-			antialias: true
-		});
-
-		this.scene1.renderer.setSize(this.canvasSizeRef.width, this.canvasSizeRef.height);
-
-		this.scene1.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-		this.scene1.renderer.setClearColor(currentWorldConfig.main.spaceColor);
-
-		this.scene1.renderer.outputEncoding = THREE.sRGBEncoding;
-
-		this.scene1.renderer.shadowMap.enabled = true;
-
-		this.scene1.renderer.shadowMap.type = THREE.PCFShadowMap;
-
-		this.scene1.clock = new THREE.Clock();
-
-	}
-
 	initComposer(){
 
-		this.scene1.renderPass = new RenderPass(this.scene1.scene, this.scene1.camera);
+		this.renderPass = new RenderPass(this.scene1.scene, this.scene1.camera);
 
-		this.scene1.composer = new EffectComposer(this.scene1.renderer);
+		this.composer = new EffectComposer(this.renderer);
 
-		this.scene1.composer.setSize(this.canvasSizeRef.width, this.canvasSizeRef.height);
+		this.composer.setSize(this.canvasSizeRef.width, this.canvasSizeRef.height);
 
-		this.scene1.composer.setPixelRatio(window.devicePixelRatio);
+		this.composer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
 	}
 
@@ -372,7 +338,7 @@ class SequencesManager{
 
 		if( sequencePostprocs ){
 
-			this.scene1.composer.addPass(this.scene1.renderPass);
+			this.composer.addPass(this.renderPass);
 
 			sequencePostprocs.forEach(sequencePostproc => {
 
@@ -383,7 +349,7 @@ class SequencesManager{
 
 						sequencePostproc[keyToCheck].forEach(oneKeyedPass => {
 
-							this.scene1.composer.addPass(oneKeyedPass);
+							this.composer.addPass(oneKeyedPass);
 
 						});
 
@@ -396,6 +362,19 @@ class SequencesManager{
 		}
 
 	}
+
+	worldBackgroundColorHandler(newSequenceID){
+
+		const newSequenceHasPostProc = worlds[0].sequences.find(seq => seq.id === newSequenceID).postproc?.length;
+
+		if( newSequenceHasPostProc ){
+			this.composer.renderer.setClearColor(this.scene1.worldConfig.main.spaceColorWithBloom);
+		} else {
+			this.renderer.setClearColor(this.scene1.worldConfig.main.spaceColor);
+		}
+
+	}
+
 
 }
 
