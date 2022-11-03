@@ -40,6 +40,7 @@ class SequencesBuilder {
 				timelines: {},
 				activeShadows: [],
 				fog: sequenceInfos.fog,
+				camera: this._camera,
 				thirdPersonCamera: {},
 				bobImposedMoves: null,
 				focusTarget: null,

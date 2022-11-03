@@ -6,7 +6,7 @@ import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 
 class SequencesManager{
 
-	constructor(sceneTransmitted, cinema, renderer, clock, canvasSizeRef){
+	constructor(sceneTransmitted, cinema, renderer, clock, canvasSizeRef, mousePos){
 
 		this.scene1 = sceneTransmitted;
 		this.cinema = cinema;
@@ -14,11 +14,15 @@ class SequencesManager{
 		this.composer = null;
 		this.clock = clock;
 		this.canvasSizeRef = canvasSizeRef;
-
+		this.currentSequenceID = null;
+		this.currentBobName = null;
+		this.mousePos = mousePos;
 
 	}
 
 	sequenceChangeHandler( newSequenceID, oldSequenceID ){
+
+		this.currentSequenceID = newSequenceID;
 
 		console.log("____ _ _ _ change trigger : ", oldSequenceID, newSequenceID);
 
@@ -43,6 +47,8 @@ class SequencesManager{
 		this.worldBackgroundColorHandler(newSequenceID);
 
 		this.activeGoodCastShadows(newSequenceID, oldSequenceID);
+		
+		
 
 		if( triggerTimeDecay ){
 			this.scene1.sceneElements.newSequenceTriggerTime = this.clock.getElapsedTime() + triggerTimeDecay;
@@ -249,6 +255,8 @@ class SequencesManager{
 
 				} else {
 
+					console.log(" here --> this.scene1.camera--> ", this.scene1.camera);
+
 					this.scene1.camera.position.copy(newCoords.position);
 					this.scene1.camera.rotation.copy(newCoords.rotation);
 
@@ -331,7 +339,7 @@ class SequencesManager{
 
 		const keysToCheck = ["shadersPass", "effectsPass"];
 
-		const currentSequence = this.scene1.sequencesElements[this.sequenceID];
+		const currentSequence = this.scene1.sequencesElements[this.currentSequenceID];
 
 		const sequencePostprocs = currentSequence?.postproc;
 
@@ -372,6 +380,110 @@ class SequencesManager{
 		} else {
 			this.renderer.setClearColor(this.scene1.worldConfig.main.spaceColor);
 		}
+
+	}
+
+	checkStuffsToAnimateAtRender( elapsedTime, deltaTime ){
+		// a lot of stuffs to animate here
+
+		const currentSceneElements = this.scene1.sceneElements;
+		const currentSequenceElements = this.scene1.sequencesElements[this.currentSequenceID];
+
+
+
+		// if an orbit helper is set
+		currentSequenceElements.helpers.orbit?.update();
+
+
+		// if any timeline is supposed to .play()
+		if( currentSequenceElements.timelines ){
+
+			Object.keys(currentSequenceElements.timelines).forEach(key => {
+
+				if( currentSequenceElements.timelines[key]?.progress() === 0 ){
+					currentSequenceElements.timelines[key].play();
+				}
+
+			});
+
+		}
+
+		// debugger;
+		// if any bob in the scene, he needs update for his moves
+		if( currentSceneElements.bobs[this.currentBobName] ){
+			currentSceneElements.bobs[this.currentBobName]._controls.Update(
+				deltaTime / currentSequenceElements.slowmo,
+				this.mousePos,
+				{
+					isFlying: currentSequenceElements.bobImposedMoves?.fly
+				}
+			);
+		}
+
+		// if third-person camera in the scene, it needs updates too
+		if( currentSequenceElements.thirdPersonCamera[this.currentBobName] ){
+			currentSequenceElements.thirdPersonCamera[this.currentBobName].Update(
+				this.scene1.sceneElements.newSequenceTriggerTime,
+				elapsedTime, 
+				this.mousePos,
+				{
+					isFlying: currentSequenceElements.bobImposedMoves?.fly
+				}
+			);
+		}
+
+		// if any blur effect, focus needs updates : 
+		if( currentSequenceElements.focusTarget ){
+			this.focusTargetAndBlurTheRestHandler(currentSequenceElements);
+		}
+
+		// if any shadow is casted
+		if( this.scene1.sequencesElements[this.currentSequenceID].activeShadows?.length ){
+
+			currentSceneElements.bobs.link._controls.UpdateDynamicLightShadowCamera(
+				this.scene1.sequencesElements[this.currentSequenceID].activeShadows
+			);
+
+		}
+
+
+		// if any BlenderTube is supposed to be played with its lookAt()
+		if( currentSequenceElements.blenderTubesManager?._tubeTravelTargetPosition ){
+
+			this.scene1.camera.lookAt(
+				currentSequenceElements.blenderTubesManager._tubeTravelTargetPosition
+			);
+
+		}
+
+
+		// if any particles
+		if( currentSceneElements.particlesCollection.length ){
+
+			currentSceneElements.particlesCollection.forEach(particleInstance => {
+				particleInstance._builtParticle.material.uniforms.uTime.value = elapsedTime / (currentSequenceElements.slowmo || 1);
+			});
+
+		}
+
+		// etc..
+
+	}
+
+	focusTargetAndBlurTheRestHandler( currentSequenceElements ){
+
+		const blurPostproc = currentSequenceElements.postproc.find(postproc => postproc.postprocType === "blur");
+
+		const { x, y, z } = currentSequenceElements.thirdPersonCamera._camera.position;
+
+		// compute distance beetween camera and target
+		const distance = new THREE.Vector3(x,y,z).distanceTo({...currentSequenceElements.focusTarget._controls._position});
+
+
+		// update focus value in blur effect
+		blurPostproc.effectsPass[0].uniforms.focus.value = distance
+
+		// console.log("blurPostproc stuffs distance --> ", distance, currentSequenceElements.focusTarget)
 
 	}
 
