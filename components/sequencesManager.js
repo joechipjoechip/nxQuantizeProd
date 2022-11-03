@@ -383,7 +383,7 @@ class SequencesManager{
 
 	}
 
-	checkStuffsToAnimateAtRender(deltaTime ){
+	checkStuffsToAnimateAtRender(deltaTime, currentMousePos){
 		// a lot of stuffs to animate here
 
 		const elapsedTime = this.clock.getElapsedTime();
@@ -415,7 +415,7 @@ class SequencesManager{
 		if( currentSceneElements.bobs[this.currentBobName] ){
 			currentSceneElements.bobs[this.currentBobName]._controls.Update(
 				deltaTime / currentSequenceElements.slowmo,
-				this.mousePos,
+				currentMousePos,
 				{
 					isFlying: currentSequenceElements.bobImposedMoves?.fly
 				}
@@ -427,7 +427,7 @@ class SequencesManager{
 			currentSequenceElements.thirdPersonCamera[this.currentBobName].Update(
 				this.scene1.sceneElements.newSequenceTriggerTime,
 				elapsedTime, 
-				this.mousePos,
+				currentMousePos,
 				{
 					isFlying: currentSequenceElements.bobImposedMoves?.fly
 				}

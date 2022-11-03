@@ -204,7 +204,7 @@
 
 				this.deltaTime += this.clock.getDelta();
 
-				this.sequencesManager.checkStuffsToAnimateAtRender(this.deltaTime);
+				this.sequencesManager.checkStuffsToAnimateAtRender(this.deltaTime, this.mousePos);
 				
 				// NOW CHECK IF FRAMERATE IS GOOD
 				if( this.deltaTime > this.frameRate ){
