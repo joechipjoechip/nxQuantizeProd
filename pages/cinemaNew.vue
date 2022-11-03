@@ -1,9 +1,11 @@
 <template>
 	<div>
 
-		<button @click="changeSequenceHandler">change scene</button>
-		<button @click="playPauseAnimationHandler">start/stop animation</button>
-		<button @click="changeSequenceHandler">next sequence</button>
+		<div class="debug-buttons-container">
+			<button @click="changeSequenceHandler">change scene</button>
+			<button @click="playPauseAnimationHandler">start/stop animation</button>
+			<button @click="changeSequenceHandler">next sequence</button>
+		</div>
 
 		<div 
 			class="curtain"
@@ -176,22 +178,24 @@ button {
   background-color: beige;
 }
 
-.curtain{
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: #000000;
-	pointer-events: none;
-	opacity: 0;
+.curtain {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  transition: opacity .3s ease;
+  will-change: opacity;
+  opacity: 0;
+  pointer-events: none;
 
-	will-change: opacity;
-	transition: opacity .3s ease;
-
-	&.active {
-		opacity: 1
-	}
+  &.active {
+    opacity: 1;
+  }
 }
 
+.debug-buttons-container {
+  position: absolute;
+}
 </style>

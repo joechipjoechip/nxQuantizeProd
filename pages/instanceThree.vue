@@ -253,11 +253,14 @@ p {
   position: absolute;
   top: 25px;
   left: 5px;
+  padding: 0;
+  margin: 0;
   background-color: rgba(0,0,200, .5);
   pointer-events: none;
 
   * {
     padding: 0 15px;
+    margin: 0;
     color: white;
   }
 }
