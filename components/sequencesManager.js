@@ -383,8 +383,10 @@ class SequencesManager{
 
 	}
 
-	checkStuffsToAnimateAtRender( elapsedTime, deltaTime ){
+	checkStuffsToAnimateAtRender(deltaTime ){
 		// a lot of stuffs to animate here
+
+		const elapsedTime = this.clock.getElapsedTime();
 
 		const currentSceneElements = this.scene1.sceneElements;
 		const currentSequenceElements = this.scene1.sequencesElements[this.currentSequenceID];
@@ -441,7 +443,8 @@ class SequencesManager{
 		if( this.scene1.sequencesElements[this.currentSequenceID].activeShadows?.length ){
 
 			currentSceneElements.bobs.link._controls.UpdateDynamicLightShadowCamera(
-				this.scene1.sequencesElements[this.currentSequenceID].activeShadows
+				this.scene1.sequencesElements[this.currentSequenceID].activeShadows,
+				this.currentSequenceID
 			);
 
 		}

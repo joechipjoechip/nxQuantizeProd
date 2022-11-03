@@ -298,22 +298,16 @@ class BasicCharacterController {
 
 	}
 
-	UpdateDynamicLightShadowCamera( lightsToUpdateShadowCamera ){
+	UpdateDynamicLightShadowCamera( lightsToUpdateShadowCamera, currentSequenceID ){
 
 		// console.log("- - - au update de la shadow on recois : ", lightsToUpdateShadowCamera)
 
+		const lightToUpdate = lightsToUpdateShadowCamera.find(light => light.name.includes("for-bob-shadow") && light.name.includes(currentSequenceID));
 		
-		lightsToUpdateShadowCamera.forEach(lightToUpdate => {
-
-			if( !lightToUpdate.name.includes("for-bob-shadow") ){ return; }
-
-
+		if( lightToUpdate ){
+			
 			lightToUpdate.target.position.copy(this._position);
 			lightToUpdate.needsUpdate = true;
-
-
-			// au cas où ..
-			// const distance = ((lightToUpdate.position.distanceTo(this._position)) / 3.6);
 
 			if( core.debug.lightsHelpers.light || core.debug.lightsHelpers.shadow ){
 
@@ -326,7 +320,7 @@ class BasicCharacterController {
 
 			}
 
-		});
+		}
 
 	}
 

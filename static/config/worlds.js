@@ -27,7 +27,7 @@ const worlds = [
 			particles: [
 				{
 					type: "fireflies",
-					count: 200
+					count: 20
 				}
 			],
 			
@@ -153,7 +153,7 @@ const worlds = [
 			{
 				id: "1.1",
 				baseFov: 27,
-				sequenceBobName: "juan",
+				sequenceBobName: "link",
 
 				// type: "blender-points",
 				type: "third-person",
@@ -337,7 +337,7 @@ const worlds = [
 			{
 				id: "1.3",
 				baseFov: 35,
-				sequenceBobName: "link",
+				sequenceBobName: "juan",
 
 				
 				type: "third-person",
