@@ -249,7 +249,7 @@ class BasicCharacterController {
 		if( lightToUpdate ){
 			
 			lightToUpdate.target.position.copy(this._position);
-			lightToUpdate.needsUpdate = true;
+			// lightToUpdate.needsUpdate = true;
 
 			if( core.debug.lightsHelpers.light || core.debug.lightsHelpers.shadow ){
 

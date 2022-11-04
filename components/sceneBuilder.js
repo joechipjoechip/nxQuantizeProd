@@ -438,7 +438,7 @@ class SceneBuilder {
 		// fakebob
 		const fakeBob = new THREE.Object3D();
 		fakeBob.name = "fakeBob";
-		fakeBob.position.copy(new THREE.Vector3());
+		fakeBob.position.copy(new THREE.Vector3(0,0,0));
 
 		this.sceneElements.fakeBob = fakeBob;
 		
