@@ -24,12 +24,19 @@ const worlds = [
 				intensity: .15
 			},
 
-			particles: [
-				{
-					type: "fireflies",
-					count: 200
-				}
-			],
+			// particles: [
+			// 	{
+			// 		type: "fireflies",
+			// 		count: 200,
+			// 		particleSize: 50,
+			// 		additive: false,
+			// 		blockSize: {
+			// 			x: 8,
+			// 			y: -0.5,
+			// 			z: 14
+			// 		}
+			// 	}
+			// ],
 			
 			meshInfos: {
 
@@ -209,19 +216,29 @@ const worlds = [
 					// 	amount: 0.12
 					// },
 
-					{
-						type: "dotscreen",
-						dotSize: 4
-					},
+					// {
+					// 	type: "dotscreen",
+					// 	dotSize: 4
+					// },
 
 
 					// {
 					// 	type: "sepia",
 					// 	amount: 1
 					// },
-					// {
-					// 	type: "glitch"
-					// },
+
+					{
+						type: "bloom",
+						value: {
+							strength: 0.9,
+							threshold: 0.35,
+							radius: 0.3
+						}
+					},
+
+					{
+						type: "glitch"
+					},
 
 					
 					
@@ -237,6 +254,7 @@ const worlds = [
 					// 	type: "afterimage",
 					// 	damp: 0.8
 					// }
+					
 					// {
 					// 	type: "pixel",
 					// 	pixelSize: 1
@@ -252,14 +270,7 @@ const worlds = [
 					// },
 				
 
-					// {
-					// 	type: "bloom",
-					// 	value: {
-					// 		strength: 0.9,
-					// 		threshold: 0.35,
-					// 		radius: 0.3
-					// 	}
-					// },
+					
 				]
 
 			},

@@ -26,7 +26,7 @@ class ParticlesBuilder{
 	
 	_BuildFireflies( particlesInfos ){
 
-		const count = particlesInfos.count;
+		const { count, particleSize, additive, blockSize } = particlesInfos;
 
 		const geometry = new THREE.BufferGeometry();
 
@@ -41,7 +41,7 @@ class ParticlesBuilder{
 			vertexShader: firefliesVertexShader,
 			fragmentShader: firefliesFragmentShader,
 			transparent: true,
-			// blending: THREE.AdditiveBlending,
+			blending: additive ? THREE.AdditiveBlending : null,
 			depthWrite: false,
 			uniforms: {
 				uTime: {
@@ -51,7 +51,7 @@ class ParticlesBuilder{
 					value: Math.min(window.devicePixelRatio, 2)
 				},
 				uSize: {
-					value: 40
+					value: particleSize
 				}
 			}
 		});
@@ -63,11 +63,10 @@ class ParticlesBuilder{
 
 
 		for(let i = 0; i < count; i++){
-			positionArray[i * 3 + 0] = (Math.random() - 0.5) * 8
-			positionArray[i * 3 + 1] = Math.random() * 4
-			positionArray[i * 3 + 2] = (Math.random() - 0.5) * 14
-			// le 8 le 4 le 14 :  sont arbitraires, ca correpond à la taille de la scene 
-			// pour une répartition homogène
+			positionArray[i * 3 + 0] = (Math.random() - 0.5) * blockSize.x
+			positionArray[i * 3 + 1] = Math.random() * blockSize.y
+			positionArray[i * 3 + 2] = (Math.random() - 0.5) * blockSize.z
+			
 			scaleArray[i] = Math.random();
 		}
 

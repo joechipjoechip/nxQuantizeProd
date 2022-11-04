@@ -97,7 +97,7 @@
 
 			sequenceID(newVal, oldVal){
 
-				this.sequencesManager.sequenceChangeHandler(newVal, oldVal);
+				this.sequencesManager1.sequenceChangeHandler(newVal, oldVal);
 
 			}
 
@@ -155,7 +155,7 @@
 
 				this.initRenderer(this.scene1.worldConfig);
 
-				this.sequencesManager = new SequencesManager(
+				this.sequencesManager1 = new SequencesManager(
 					this.scene1,
 					this.$parent,
 					this.renderer,
@@ -164,7 +164,7 @@
 					this.mousePos
 				);
 
-				this.sequencesManager.sequenceChangeHandler(this.sequenceID);
+				this.sequencesManager1.sequenceChangeHandler(this.sequenceID);
 
 				this.mainTick();
 
@@ -204,16 +204,16 @@
 
 				this.deltaTime += this.clock.getDelta();
 
-				this.sequencesManager.checkStuffsToAnimateAtRender(this.deltaTime, this.mousePos);
+				this.sequencesManager1.checkStuffsToAnimateAtRender(this.deltaTime, this.mousePos);
 				
 				// NOW CHECK IF FRAMERATE IS GOOD
 				if( this.deltaTime > this.frameRate ){
 
 					// NOW COMPUTE RENDER
-					if( this.sequencesManager.composer ){
+					if( this.sequencesManager1.composer ){
 						console.log("use composer");
 						
-						this.sequencesManager.composer.render();
+						this.sequencesManager1.composer.render();
 						
 					} else {
 						console.log("use classic renderer");

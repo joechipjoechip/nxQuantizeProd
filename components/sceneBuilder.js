@@ -97,7 +97,7 @@ class SceneBuilder {
 			emissiveShapesFromBlender: [],
 			emissiveShapesBuilt: [],
 			positionsCollection: [],
-			particlesWorld: this.worldConfig.main.particles,
+			particlesWorld: this.worldConfig.main.particles || [],
 			particlesCollection: [],
 			happenings: {},
 			bobMoves: {},
