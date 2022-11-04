@@ -34,15 +34,16 @@ const worlds = [
 			meshInfos: {
 
 				world: {
-					glbPath: "/assets/3d/worlds/epicValley/epicValley.glb",
+					glbPath: "/assets/3d/worlds/Five/Five.glb",
 					imagePath: {
-						landscape: "/assets/3d/worlds/epicValley/epicValleyBake.jpg",
+						landscape: "/assets/3d/worlds/Five/FiveBake.jpg",
 						// sky: "/assets/3d/worlds/bones/skyBake.jpg"
 					}
 				}
 
 			},
 
+			bobsMoveFolder: "./assets/3d/persos/moves/smallGuy/",
 			bobs: {
 				link: {
 					name: "link",
@@ -74,9 +75,7 @@ const worlds = [
 						}
 					}
 				}
-			},
-
-			bobsMoveFolder: "./assets/3d/persos/moves/smallGuy/"
+			}
 
 		},
 
@@ -183,10 +182,16 @@ const worlds = [
 				postproc: [
 
 					// {
+					// 	type: "vignette",
+					// 	darkness: 1.5,
+					// 	offset: 1.04
+					// },
+
+					// {
 					// 	type: "kaleidoscope",
 					// 	sides: 1,
-					// 	angle: 45
-					// }
+					// 	angle: -25
+					// },
 
 					
 
@@ -204,10 +209,10 @@ const worlds = [
 					// 	amount: 0.12
 					// },
 
-					// {
-					// 	type: "dotscreen",
-					// 	dotSize: 4
-					// },
+					{
+						type: "dotscreen",
+						dotSize: 4
+					},
 
 
 					// {
@@ -220,11 +225,7 @@ const worlds = [
 
 					
 					
-					{
-						type: "vignette",
-						darkness: 1.5,
-						offset: 1.04
-					},
+					
 
 					// {
 					// 	obscurci

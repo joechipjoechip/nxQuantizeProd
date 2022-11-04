@@ -129,7 +129,7 @@ class SequencesManager{
 
 			// console.log("- - - - - - update angle and intensity - - - - - - ", distance)
 
-			lightToUpdate.angle = (Math.PI/100) / distance;
+			lightToUpdate.angle = (Math.PI/80) / distance;
 
 			lightToUpdate.intensity = (1 / distance) + 1;
 

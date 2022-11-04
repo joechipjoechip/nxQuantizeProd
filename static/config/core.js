@@ -3,7 +3,7 @@ const core = {
 	debug: {
 		lightsHelpers: {
 			light: false,
-			shadow: true
+			shadow: false
 		}
 	},
 
@@ -163,7 +163,7 @@ const core = {
 				y: 0,
 				z: 0.05
 			},
-			straightness: 0.02,
+			straightness: 0.04,
 			mouseOrientationPonderation: {
 				x: 0.02,
 				y: 0.02
