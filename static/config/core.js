@@ -17,6 +17,17 @@ const core = {
 		}
 	},
 
+	movesSpecs: {
+		smallGuy: [
+			"walk",
+			"walk-back",
+			"run",
+			"idle",
+			"dance",
+			"fly"
+		]
+	},
+
 	generatedCamerasSpecs: {
 		// pos qui vont etre ajoutées à la position de la target (link)
 		gtaLike: {

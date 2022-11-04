@@ -27,7 +27,7 @@ const worlds = [
 			particles: [
 				{
 					type: "fireflies",
-					count: 20
+					count: 2000
 				}
 			],
 			
@@ -46,8 +46,8 @@ const worlds = [
 			bobs: {
 				link: {
 					name: "link",
-					glbPath: "/assets/3d/persos/bob/bob.fbx",
-					moveFolder: "/assets/3d/persos/moveSmallGuy",
+					fbxPath: "/assets/3d/persos/bob/bob.fbx",
+					moveFolder: "smallGuy",
 					infos: {
 						scale: 0.0008,
 						// scale: 1,z
@@ -62,8 +62,8 @@ const worlds = [
 				},
 				juan: {
 					name: "juan",
-					glbPath: "/assets/3d/persos/bob2/bob.fbx",
-					moveFolder: "/assets/3d/persos/moveSmallGuy",
+					fbxPath: "/assets/3d/persos/bob2/bob.fbx",
+					moveFolder: "smallGuy",
 					infos: {
 						scale: 0.0008,
 						// scale: 1,z
@@ -265,7 +265,7 @@ const worlds = [
 			{
 				id: "1.2",
 				baseFov: 35,
-				sequenceBobName: "link",
+				sequenceBobName: "juan",
 
 				// type: "blender-points",
 				type: "third-person",

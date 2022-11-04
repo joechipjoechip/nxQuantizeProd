@@ -5,6 +5,7 @@ import { core } from '@/static/config/core.js';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
 
 class BasicCharacterControllerProxy {
+
 	constructor(animations) {
 		this._animations = animations;
 	}
@@ -17,13 +18,20 @@ class BasicCharacterControllerProxy {
 
 class BasicCharacterController {
 	constructor(params) {
+
 		this._Init(params);
-		this._LoadModels();
 	}
 
 	async _Init(params) {
 		this._params = params;
+
 		this._sceneBuilderThis = params.sceneBuilderThis;
+		this._target = params.target;
+		this._mixer = params.mixer;
+		this._animations = params.animations;
+		this._scene = params.scene
+
+
 		this._decceleration = new THREE.Vector3(-0.0005, -0.0001, -5.0);
 		this._acceleration = new THREE.Vector3(
 			this._params.bobInfos.velocity.x,
@@ -33,81 +41,17 @@ class BasicCharacterController {
 		this._velocity = new THREE.Vector3(0, 0, 0);
 		this._position = new THREE.Vector3();
 
-		this._animations = {};
 		this._input = new BasicCharacterControllerInput();
+
 		this._stateMachine = new CharacterFSM(
 			new BasicCharacterControllerProxy(this._animations)
 		);
+
 		this._raycaster = new THREE.Raycaster();
+
 		this._moveScaledRatio = this._params.bobInfos.scale * 100 * 2;
-	}
 
-	_LoadModels() {
-
-		const loader = new FBXLoader();
-
-		loader.setPath(`.${this._params.file.path}/`);
-
-		loader.load(this._params.file.name, (fbx) => {
-
-			fbx.scale.setScalar(this._params.bobInfos.scale);
-
-			fbx.traverse(c => {
-				// console.log("c : ", c);
-
-				if( c.type !== "Bone" ){
-					c.castShadow = true;
-					
-					// if( c.material ){
-					// 	c.material.forEach(material => {
-					// 		material.aoMapIntensity = 0;
-					// 		material.shininess = 0;
-					// 		material.refractionRatio = material.refractionRatio / 10;
-					// 		material.flatShading = true;
-					// 		debugger;
-					// 	})
-					// }
-					// c.receiveShadow = true;
-				}
-
-			});
-
-			this._target = fbx;
-			this._target.name = this._params.name;
-			
-			this._target.position.copy(this._params.bobInfos.start.position);
-			this._target.rotation.copy(this._params.bobInfos.start.rotation);
-
-			this._params.scene.add(this._target);
-
-			this._mixer = new THREE.AnimationMixer(this._target);
-
-			this._manager = new THREE.LoadingManager();
-			this._manager.onLoad = () => {
-				this._stateMachine.SetState('idle');
-				this._sceneBuilderThis.onceBobIsLoaded();
-			};
-
-			const _OnLoad = (animName, anim) => {
-				const clip = anim.animations[0];
-				const action = this._mixer.clipAction(clip);
-
-				this._animations[animName] = {
-					clip: clip,
-					action: action,
-				};
-			};
-
-			const loader = new FBXLoader(this._manager);
-			loader.setPath(`.${this._params.file.path}/`);
-			loader.load('walk.fbx', (a) => { _OnLoad('walk', a); });
-			loader.load('walk-back.fbx', (a) => { _OnLoad('walk-back', a); });
-			loader.load('run.fbx', (a) => { _OnLoad('run', a); });
-			loader.load('idle.fbx', (a) => { _OnLoad('idle', a); });
-			loader.load('dance.fbx', (a) => { _OnLoad('dance', a); });
-			loader.load('fly.fbx', (a) => { _OnLoad('fly', a); });
-
-		});
+		this._stateMachine.SetState('idle');
 
 	}
 
@@ -270,7 +214,7 @@ class BasicCharacterController {
 		// const currentY = controlObject.position.y;
 
 		return this._raycaster
-				.intersectObjects( this._params.scene.children )
+				.intersectObjects( this._scene.children )
 				.find(intersected => intersected.object.name === "landscape")?.point.y;
 		
 

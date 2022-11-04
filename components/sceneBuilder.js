@@ -1,3 +1,5 @@
+import { core } from '@/static/config/core.js';
+
 // THREE
 import * as THREE from 'three';
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js"
@@ -7,6 +9,8 @@ import { SequencesBuilder } from '@/components/sequencesBuilder.js';
 import { CharacterController } from '@/components/characterController.js';
 import { DynamicLightsBuilder } from '@/components/dynamicLightsBuilder.js';
 import { ParticlesBuilder } from '@/components/particlesBuilder.js';
+
+import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
 
 class AssetsLoadWatcher {
 
@@ -96,6 +100,8 @@ class SceneBuilder {
 			particlesWorld: this.worldConfig.main.particles,
 			particlesCollection: [],
 			happenings: {},
+			bobMoves: {},
+			bobFiles: {},
 			misc: {
 				landscape: {
 					texture: null,
@@ -147,37 +153,154 @@ class SceneBuilder {
 
 	}
 
+
+	async loadBobTarget( mainObj ){
+
+		return new Promise(res => {
+
+			const loader = new FBXLoader();
+			let target;
+
+			let filePath = mainObj.fbxPath.split("/");
+			const fileName = filePath.pop();
+			filePath = filePath.join("/");
+
+			loader.setPath(`.${filePath}/`);
+
+			loader.load(fileName, (fbx) => {
+
+				fbx.scale.setScalar(mainObj.infos.scale);
+
+				fbx.traverse(c => {
+					if( c.type !== "Bone" ){
+						c.castShadow = true;
+					}
+				});
+
+				target = fbx;
+				target.name = mainObj.name;
+				
+				target.position.copy(mainObj.position);
+				target.rotation.copy(mainObj.rotation);
+				
+				res(target);
+
+			});
+			
+		});
+
+	}
+
+	async loadMoves( targets ){
+
+		return new Promise(res => {
+
+			const mixers = {};
+			const animations = {};
+	
+			targets.forEach(target => {
+	
+				mixers[target.name] = new THREE.AnimationMixer(target);
+	
+			});
+	
+			const manager = new THREE.LoadingManager();
+			const loader = new FBXLoader(manager);
+	
+			manager.onLoad = () => {
+				res({ animations, mixers });
+			};
+
+			const _OnLoad = (animName, anim) => {
+				
+				const clip = anim.animations[0];
+
+				Object.keys(mixers).forEach(mixerKey => {
+	
+					const action = mixers[mixerKey].clipAction(clip);
+	
+					if( !animations.hasOwnProperty(mixerKey) ){
+						animations[mixerKey] = {};
+					}
+	
+					animations[mixerKey][animName] = {
+						clip: clip,
+						action: action
+					};
+	
+				});
+	
+			};
+	
+			loader.setPath("./assets/3d/persos/moves/smallGuy/");
+	
+			core.movesSpecs.smallGuy.forEach(fbxAnimName => {
+	
+				loader.load(`${fbxAnimName}.fbx`, (a) => { _OnLoad(fbxAnimName, a); });
+	
+			});
+
+		});
+
+	}
+
 	createBob(){
 
 		const { position, rotation } = this.sceneElements.positionsCollection.find(blenderObject => blenderObject.name === "bob-position_1-0");
 
+		const promises = [];
+
 		Object.keys(this.worldConfig.main.bobs).forEach(bobKey => {
 
-			let filePath = this.worldConfig.main.bobs[bobKey].glbPath.split("/");
-			const fileName = filePath.pop();
-	
-			filePath = filePath.join("/");
-	
-			this.sceneElements.bobs[bobKey] = new CharacterController({
-				file: {
-					path: filePath,
-					name: fileName
+			const bobInfos = Object.assign(
+				{ position, rotation },
+				this.worldConfig.main.bobs[bobKey]
+			);
+
+			promises.push(this.loadBobTarget(bobInfos));
+			
+		});
+
+
+		Promise.all([promises[0], promises[1]])
+			.then(
+				targets => {
+
+					// console.log("promise.all -> result all : ", targets);
+
+					targets.forEach(bobFbx => {
+						this.scene.add(bobFbx);
+					});
+
+					this.loadMoves(targets).then(movesObj => {
+
+						targets.forEach(target => {
+
+							this.sceneElements.bobs[target.name] = new CharacterController({
+								scene: this.scene,
+								target,
+								animations: movesObj.animations[target.name],
+								mixer: movesObj.mixers[target.name],
+								bobInfos: this.worldConfig.main.bobs[target.name].infos
+							});
+
+						});
+
+						this.onceBobIsLoaded();
+
+
+					});
+
 				},
-				scene: this.scene,
-				camera: this.currentCamera,
-				bobInfos: Object.assign(this.worldConfig.main.bobs[bobKey].infos, {
-					start: { position, rotation }
-				}),
-				sceneBuilderThis: this,
-				name: bobKey
-			});
-	
-			console.log("un bob a été ajouté à this.sceneElements.bobs = ", this.sceneElements.bobs);
+				reason => {
 
-		})
+					console.log("reason : ", reason)
 
+				}
+			);
 
 	}
+
 
 	glbParser( glbFile ){
 
@@ -382,6 +505,11 @@ class SceneBuilder {
 			.forEach(emissiveBuilt => {
 				this.scene.add(emissiveBuilt);
 			});
+
+		// // bobs 
+		// Object.keys(this.sceneElements.bobs).forEach(bobKey => {
+		// 	this.scene.add(this.sceneElements.bobs[bobKey]);
+		// })
 
 		// dynamic lights
 		this.sceneElements.dynamicLights
