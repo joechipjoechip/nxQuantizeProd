@@ -238,8 +238,6 @@ class SequencesManager{
 
 				if( thirdPersonInstance ){
 
-					console.log("thirdperson instance spotted : ", thirdPersonInstance);
-
 					const oldStraightness = thirdPersonInstance._specs.straightness;
 					thirdPersonInstance._specs.straightness = 1;
 					
@@ -254,8 +252,6 @@ class SequencesManager{
 					this.scene1.camera.position.copy(thirdPersonInstance._camera.position);
 
 				} else {
-
-					console.log(" here --> this.scene1.camera--> ", this.scene1.camera);
 
 					this.scene1.camera.position.copy(newCoords.position);
 					this.scene1.camera.rotation.copy(newCoords.rotation);

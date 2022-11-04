@@ -30,7 +30,7 @@ class AssetsLoadWatcher {
 		this._glb = x;
 		this.computeReadyness();
 		if( x ){
-			this._that.createBob();
+			this._that.initBob();
 		}
 	}
 
@@ -163,9 +163,9 @@ class SceneBuilder {
 
 			let filePath = mainObj.fbxPath.split("/");
 			const fileName = filePath.pop();
-			filePath = filePath.join("/");
+			filePath = filePath.join("/") + "/";
 
-			loader.setPath(`.${filePath}/`);
+			loader.setPath(filePath);
 
 			loader.load(fileName, (fbx) => {
 
@@ -232,7 +232,7 @@ class SceneBuilder {
 	
 			};
 	
-			loader.setPath("./assets/3d/persos/moves/smallGuy/");
+			loader.setPath(this.worldConfig.main.bobsMoveFolder);
 	
 			core.movesSpecs.smallGuy.forEach(fbxAnimName => {
 	
@@ -244,7 +244,7 @@ class SceneBuilder {
 
 	}
 
-	createBob(){
+	initBob(){
 
 		const { position, rotation } = this.sceneElements.positionsCollection.find(blenderObject => blenderObject.name === "bob-position_1-0");
 
@@ -262,7 +262,7 @@ class SceneBuilder {
 		});
 
 
-		Promise.all([promises[0], promises[1]])
+		Promise.all([...promises])
 			.then(
 				targets => {
 
@@ -272,24 +272,7 @@ class SceneBuilder {
 						this.scene.add(bobFbx);
 					});
 
-					this.loadMoves(targets).then(movesObj => {
-
-						targets.forEach(target => {
-
-							this.sceneElements.bobs[target.name] = new CharacterController({
-								scene: this.scene,
-								target,
-								animations: movesObj.animations[target.name],
-								mixer: movesObj.mixers[target.name],
-								bobInfos: this.worldConfig.main.bobs[target.name].infos
-							});
-
-						});
-
-						this.onceBobIsLoaded();
-
-
-					});
+					this.loadMovesAndCreateBob(targets);
 
 				},
 				reason => {
@@ -298,6 +281,28 @@ class SceneBuilder {
 
 				}
 			);
+
+	}
+
+	loadMovesAndCreateBob( targets ){
+
+		this.loadMoves(targets).then(movesObj => {
+
+			targets.forEach(target => {
+
+				this.sceneElements.bobs[target.name] = new CharacterController({
+					scene: this.scene,
+					target,
+					animations: movesObj.animations[target.name],
+					mixer: movesObj.mixers[target.name],
+					bobInfos: this.worldConfig.main.bobs[target.name].infos
+				});
+
+			});
+
+			this.onceBobIsLoaded();
+
+		});
 
 	}
 

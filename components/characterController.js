@@ -2,8 +2,6 @@ import * as THREE from 'three';
 
 import { core } from '@/static/config/core.js';
 
-import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
-
 class BasicCharacterControllerProxy {
 
 	constructor(animations) {
