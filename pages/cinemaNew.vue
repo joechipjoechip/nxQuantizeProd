@@ -197,5 +197,7 @@ button {
 
 .debug-buttons-container {
   position: absolute;
+  top: 0;
+  left: 200px;
 }
 </style>

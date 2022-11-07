@@ -236,9 +236,9 @@ const worlds = [
 						}
 					},
 
-					{
-						type: "glitch"
-					},
+					// {
+					// 	type: "glitch"
+					// },
 
 					
 					

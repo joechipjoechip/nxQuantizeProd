@@ -379,6 +379,7 @@ class SceneBuilder {
 
 	}
 
+
 	onceAssetsAreLoaded(){
 
 		console.log("onceAssetsLoaded triggered");

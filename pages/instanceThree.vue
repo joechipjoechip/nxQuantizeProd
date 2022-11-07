@@ -47,7 +47,7 @@
 				scene1: null,
 
 				// Animation
-				frameRate: 1/30,
+				frameRate: 1/106,
 				deltaTime: 0,
 
 				// Others
@@ -251,7 +251,7 @@ p {
 
 .debug-space {
   position: absolute;
-  top: 25px;
+  bottom: 25px;
   left: 5px;
   padding: 0;
   margin: 0;
