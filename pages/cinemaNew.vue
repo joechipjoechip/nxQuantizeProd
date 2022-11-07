@@ -14,8 +14,11 @@
 		</div>
 
 		<instancethree 
+			v-if="worlds && bobs"
 			ref="instancethree"
 			:sequenceID="sequenceID"
+			:worlds="worlds"
+			:bobs="bobs"
 		/>
 
 	</div>
@@ -24,6 +27,9 @@
 <script>
 
 	import instanceThree from "./instanceThree.vue";
+
+	import { PrimaryLoadManager } from '@/components/primaryLoadManager.js';
+
 	
 	export default {
 
@@ -40,20 +46,67 @@
 					x: window.innerWidth / 2,
 					y: window.innerHeight / 2
 				},
-				curtainActive: false
+				curtainActive: false,
+				allIsLoaded: false,
+
+				worlds: null,
+				glbs: [],
+				textures: [],
+				bobs: []
+			}
+		},
+
+		watch: {
+			glbs(){
+				this.checkIfAllIsLoaded();
+			},
+			textures(){
+				this.checkIfAllIsLoaded();
+			},
+			bobs(){
+				this.checkIfAllIsLoaded();
+			},
+
+			allIsLoaded( newVal ){
+				if( newVal ){
+					console.log("ok, all is well loaded");
+				}
 			}
 		},
 
 		mounted(){
 
 			window.addEventListener("resize", this.onResize);
+			window.addEventListener("blur", this.focusBlurHandler);
+			window.addEventListener("focus", this.focusBlurHandler);
 
-			window.addEventListener("blur", this.focusBlurHandler)
-			window.addEventListener("focus", this.focusBlurHandler)
+			this.$nuxt.$on("assets-have-been-loaded", this.handleAssetsLoaded);
+
+			new PrimaryLoadManager(this);
+
+		},
+
+		beforeDestroy(){
+
+			this.$nuxt.$off("assets-have-been-loaded", this.handleAssetsLoaded);
 
 		},
 
 		methods: {
+
+			handleAssetsLoaded( assetsPack ){
+
+				this[assetsPack.type] = assetsPack.assets;
+
+			},
+
+			checkIfAllIsLoaded(){
+
+				if( this.bobs.length && this.textures.length && this.glbs.length ){
+					this.allIsLoaded = true;
+				}
+
+			},
 
 			onResize(){
 				// à refaire puisque maintenant le canvas est ici
@@ -81,11 +134,9 @@
 					y: (((event.offsetY + this.canvasSizeRef.height / 2) / this.canvasSizeRef.height) - 1) * -2
 				};
 
-				console.log("mousepos : ", this.mousePos.x)
+				// console.log("mousepos : ", this.mousePos.x)
 
 			},
-
-			
 
 			playPauseAnimationHandler( fromFocus ){
 

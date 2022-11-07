@@ -34,6 +34,16 @@
 			sequenceID: {
 				type: String,
 				required: true
+			},
+
+			worlds: {
+				type: Object,
+				required: true
+			},
+
+			bob: {
+				type: Object,
+				required: true
 			}
 
 		},
@@ -105,13 +115,17 @@
 
 		mounted(){
 
-			const createScene1 = new SceneBuilder({
-				worldConfig: this.worldConfig, 
-				canvas: this.$refs.canvas,
-				sequenceID: this.sequenceID,
-			});
 
-			this.scene1 = createScene1.getSceneAndSequencesElements();
+
+			// const createScene1 = new SceneBuilder({
+			// 	worldConfig: this.worldConfig, 
+			// 	canvas: this.$refs.canvas,
+			// 	sequenceID: this.sequenceID,
+			// });
+
+			// // 
+
+			// this.scene1 = createScene1.getSceneAndSequencesElements();
 
 		},
 

@@ -277,7 +277,7 @@ class SceneBuilder {
 				},
 				reason => {
 
-					console.log("reason : ", reason)
+					console.log("Promise.all fails : reason : ", reason)
 
 				}
 			);
