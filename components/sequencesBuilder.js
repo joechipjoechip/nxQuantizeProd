@@ -187,6 +187,7 @@ class SequencesBuilder {
 		this._sequencesLib[sequenceInfos.id].thirdPersonCamera[sequenceInfos.sequenceBobName] = new ThirdPersonCamera({
 			target: this._sceneElements.bobs[sequenceInfos.sequenceBobName]._controls,
 			camera: this._camera,
+			scene: this._scene,
 			cameraType: sequenceInfos.cameraType
 		});
 

@@ -219,9 +219,9 @@ class SequencesManager{
 	}
 
 	bobNewPositionHandler( newSequenceID ){
-
 		
 		Object.keys(this.scene1.sceneElements.bobs).forEach(bobKey => {
+
 			const goodBob = this.scene1.sceneElements.bobs[bobKey];
 
 			if( !goodBob._controls ){ return; }
@@ -230,7 +230,7 @@ class SequencesManager{
 			const newCoords = this.scene1.sceneElements.positionsCollection.find(obj => obj.name.includes("bob") && obj.name.includes(formatedID));
 
 			const thirdPersonInstance = this.scene1.sequencesElements[newSequenceID]?.thirdPersonCamera[bobKey];
-
+			
 			if( newCoords ){
 
 				goodBob._controls.Position = newCoords.position;

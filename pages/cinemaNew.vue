@@ -14,11 +14,12 @@
 		</div>
 
 		<instancethree 
-			v-if="worlds && bobs"
+			v-if="allIsLoaded"
 			ref="instancethree"
 			:sequenceID="sequenceID"
-			:worlds="worlds"
+			:glbs="glbs"
 			:bobs="bobs"
+			:textures="textures"
 		/>
 
 	</div>
@@ -47,9 +48,8 @@
 					y: window.innerHeight / 2
 				},
 				curtainActive: false,
-				allIsLoaded: false,
 
-				worlds: null,
+				allIsLoaded: false,
 				glbs: [],
 				textures: [],
 				bobs: []
@@ -69,7 +69,7 @@
 
 			allIsLoaded( newVal ){
 				if( newVal ){
-					console.log("ok, all is well loaded");
+					console.log("all assets are loaded");
 				}
 			}
 		},

@@ -9,7 +9,7 @@ class ThirdPersonCamera {
 		this._params = params;
 		this._camera = params.camera;
     	this._specs = core.generatedCamerasSpecs[params.cameraType];
-		this._scene = this._camera.parent;
+		this._scene = params.scene;
   
 		this._currentPosition = new THREE.Vector3();
 		// console.log("dans la class third person : this._camera.position : ", this._camera.position);

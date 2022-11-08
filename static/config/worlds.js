@@ -29,7 +29,7 @@ const worlds = [
 			// 		type: "fireflies",
 			// 		count: 200,
 			// 		particleSize: 50,
-			// 		additive: false,
+			// 		additive: true,
 			// 		blockSize: {
 			// 			x: 8,
 			// 			y: -0.5,
@@ -181,7 +181,7 @@ const worlds = [
 				},
 
 				bobImposedMoves: {
-					// forward: true,
+					forward: true,
 					// shift: true,
 					// fly: true
 				},
@@ -227,14 +227,14 @@ const worlds = [
 					// 	amount: 1
 					// },
 
-					{
-						type: "bloom",
-						value: {
-							strength: 0.9,
-							threshold: 0.35,
-							radius: 0.3
-						}
-					},
+					// {
+					// 	type: "bloom",
+					// 	value: {
+					// 		strength: 0.9,
+					// 		threshold: 0.35,
+					// 		radius: 0.3
+					// 	}
+					// },
 
 					// {
 					// 	type: "glitch"

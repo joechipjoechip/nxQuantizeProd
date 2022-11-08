@@ -11,74 +11,27 @@ import { DynamicLightsBuilder } from '@/components/dynamicLightsBuilder.js';
 import { ParticlesBuilder } from '@/components/particlesBuilder.js';
 
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
+import { createNoSubstitutionTemplateLiteral } from 'typescript';
 
-class AssetsLoadWatcher {
 
-	constructor(params){
-
-		this._that = params;
-		
-		this._glb = false;
-		this._bakeds = false;
-		this._allReady = false;
-		this._sceneIsReady = false;
-
-	}
-
-	set glb(x){
-		console.log("set glb")
-		this._glb = x;
-		this.computeReadyness();
-		if( x ){
-			this._that.initBob();
-		}
-	}
-
-	get glb(){
-		return this._glb;
-	}
-
-	set allReady(x){
-		this._allReady = x;
-
-		if( this._allReady ){
-			this._that.onceAssetsAreLoaded();
-		}
-	}
-
-	get allReady(){
-		return this._allReady;
-	}
-
-	computeReadyness(){
-		if( this.glb && this.bakeds ){
-			this.allReady = true;
-		}
-	}
-
-};
 
 class SceneBuilder {
 
 	constructor( params ) {
 
 		// Get data from instanciation
-		const { canvas, worldConfig, sequenceID } = params;
+		const { canvas, worldConfig, sequenceID, glb, texture, bobs } = params;
 
 		this.canvas = canvas;
 		this.worldConfig = worldConfig;
 		this.sequenceID = sequenceID;
+		this.glb = glb;
+		this.texture = texture;
 
-		// Internal variables
-		this.assetsManager = new AssetsLoadWatcher(this);
-
-		// _ Loaders
-		this.dracoLoader = new DRACOLoader();
-		this.glbLoader = new GLTFLoader();
-		this.textureLoader = new THREE.TextureLoader();
-		// _ _ to load compressed glTF (so glB files) we need a DracoLoader
-		this.dracoLoader.setDecoderPath("assets/js/draco/");
-		this.glbLoader.setDRACOLoader(this.dracoLoader);
+		this.bobs = {};
+		bobs.forEach(bob => {
+			this.bobs[bob.name] = bob.instance;
+		});
 
 		// _ Three elements
 		this.aspectRatio = window.innerWidth / window.innerHeight;
@@ -89,7 +42,7 @@ class SceneBuilder {
 		this.sceneElements = {
 			landscape: null,
 			sky: null,
-			bobs: {},
+			bobs: this.bobs,
 			initialCamera: null,
 			tubes: [],
 			blenderLights: [],
@@ -99,223 +52,53 @@ class SceneBuilder {
 			positionsCollection: [],
 			particlesWorld: this.worldConfig.main.particles || [],
 			particlesCollection: [],
-			happenings: {},
-			bobMoves: {},
-			bobFiles: {},
-			misc: {
-				landscape: {
-					texture: null,
-					material: null
-				},
-				sky: {
-					texture: null,
-					material: null
-				}
-			}
+			happenings: {}
 		};
 
 		this.orbit = null;
 		this.sceneIsReady = false;
-
-		// Start
-		this.loadsManager();
-
 		
 	}
 
-	loadsManager(){
-
-		this.loadGlb();
-
-		this.loadTextures();
-
-	}
-
-	loadGlb(){
-
-		Object.keys(this.worldConfig.main.meshInfos).forEach((key, index) => {
-
-			const extension = this.worldConfig.main.meshInfos[key].glbPath.split(".")[1];
-
-			switch( extension ){
-
-				case "glb":
-					// load GLB files
-					this.glbLoader.load(
-						this.worldConfig.main.meshInfos[key].glbPath, 
-						glbFile => { this.glbParser(glbFile, index) }
-					);
-					break;
-
-			}
-
-		});
-
-	}
-
-
-	async loadBobTarget( mainObj ){
+	createScene(){
 
 		return new Promise(res => {
 
-			const loader = new FBXLoader();
-			let target;
+			this.glbParser(this.glb);
 
-			let filePath = mainObj.fbxPath.split("/");
-			const fileName = filePath.pop();
-			filePath = filePath.join("/") + "/";
+			this.bindBobAndScene();
+	
+			this.createAndApplyBakedMaterial(this.texture);
+	
+			this.createElementsOnTheFly();
+	
+			this.sequencesBuild();
+	
+			this.composeScene();
+	
+			this.initScene();
+	
+			this.refreshAndStartScene();
 
-			loader.setPath(filePath);
-
-			loader.load(fileName, (fbx) => {
-
-				fbx.scale.setScalar(mainObj.infos.scale);
-
-				fbx.traverse(c => {
-					if( c.type !== "Bone" ){
-						c.castShadow = true;
-					}
-				});
-
-				target = fbx;
-				target.name = mainObj.name;
-				
-				target.position.copy(mainObj.position);
-				target.rotation.copy(mainObj.rotation);
-				
-				res(target);
-
-			});
-			
-		});
-
-	}
-
-	async loadMoves( targets ){
-
-		return new Promise(res => {
-
-			const mixers = {};
-			const animations = {};
-	
-			targets.forEach(target => {
-	
-				mixers[target.name] = new THREE.AnimationMixer(target);
-	
-			});
-	
-			const manager = new THREE.LoadingManager();
-			const loader = new FBXLoader(manager);
-	
-			manager.onLoad = () => {
-				res({ animations, mixers });
-			};
-
-			const _OnLoad = (animName, anim) => {
-				
-				const clip = anim.animations[0];
-
-				Object.keys(mixers).forEach(mixerKey => {
-	
-					const action = mixers[mixerKey].clipAction(clip);
-	
-					if( !animations.hasOwnProperty(mixerKey) ){
-						animations[mixerKey] = {};
-					}
-	
-					animations[mixerKey][animName] = {
-						clip: clip,
-						action: action
-					};
-	
-				});
-	
-			};
-	
-			loader.setPath(this.worldConfig.main.bobsMoveFolder);
-	
-			core.movesSpecs.smallGuy.forEach(fbxAnimName => {
-	
-				loader.load(`${fbxAnimName}.fbx`, (a) => { _OnLoad(fbxAnimName, a); });
-	
-			});
+			res(this);
 
 		});
 
 	}
 
-	initBob(){
+	glbParser( glbObj ){
 
-		const { position, rotation } = this.sceneElements.positionsCollection.find(blenderObject => blenderObject.name === "bob-position_1-0");
+		if( !glbObj ){
+			debugger;
+		}
 
-		const promises = [];
+		this.sceneElements.landscape = glbObj.glbFile.scene.getObjectByName("landscape");
 
-		Object.keys(this.worldConfig.main.bobs).forEach(bobKey => {
-
-			const bobInfos = Object.assign(
-				{ position, rotation },
-				this.worldConfig.main.bobs[bobKey]
-			);
-
-			promises.push(this.loadBobTarget(bobInfos));
-			
-		});
-
-
-		Promise.all([...promises])
-			.then(
-				targets => {
-
-					// console.log("promise.all -> result all : ", targets);
-
-					targets.forEach(bobFbx => {
-						this.scene.add(bobFbx);
-					});
-
-					this.loadMovesAndCreateBob(targets);
-
-				},
-				reason => {
-
-					console.log("Promise.all fails : reason : ", reason)
-
-				}
-			);
-
-	}
-
-	loadMovesAndCreateBob( targets ){
-
-		this.loadMoves(targets).then(movesObj => {
-
-			targets.forEach(target => {
-
-				this.sceneElements.bobs[target.name] = new CharacterController({
-					scene: this.scene,
-					target,
-					animations: movesObj.animations[target.name],
-					mixer: movesObj.mixers[target.name],
-					bobInfos: this.worldConfig.main.bobs[target.name].infos
-				});
-
-			});
-
-			this.onceBobIsLoaded();
-
-		});
-
-	}
-
-
-	glbParser( glbFile ){
-
-		this.sceneElements.landscape = glbFile.scene.getObjectByName("landscape");
-
-		this.sceneElements.initialCamera = glbFile.scene.getObjectByName("camera");
+		this.sceneElements.initialCamera = glbObj.glbFile.scene.getObjectByName("camera");
 
 		this.createLandscapeShadow(this.sceneElements.landscape.clone());
 
-		glbFile.scene.traverse(child => {
+		glbObj.glbFile.scene.traverse(child => {
 
 			// console.log("child -> ", child.name);
 				
@@ -362,55 +145,36 @@ class SceneBuilder {
 
 		});
 
-		this.assetsManager.glb = true;
-
 	}
 
-	loadTextures(){
+	bindBobAndScene(){
 
-		Object.keys(this.worldConfig.main.meshInfos.world.imagePath).forEach((key, index) => {
+		Object.keys(this.bobs).forEach(bobKey => {
 
-			this.sceneElements.misc[key].texture = this.textureLoader.load(
-				this.worldConfig.main.meshInfos.world.imagePath[key],
-				() => this.createBakedMaterial(key, index)
-			);
+			this.scene.add(this.bobs[bobKey]._controls._target);
+
+			this.bobs[bobKey]._controls._scene = this.scene;
 
 		});
 
-	}
-
-
-	onceAssetsAreLoaded(){
-
-		console.log("onceAssetsLoaded triggered");
-
-		this.applyBakedOnMeshes();
-
-		this.createElementsOnTheFly();
-
-		this.composeScene();
-
-		this.initScene();
 
 	}
 
-	onceBobIsLoaded(){
+	createAndApplyBakedMaterial( textureTransmitted ){
 
-		console.log("onceBobIsLoaded triggered");
+		// create baked material
+		const texture = textureTransmitted.file;
 
-		this.sequencesBuild();
+		texture.flipY = false;
 
-		this.refreshAndStartScene();
+		texture.encoding = THREE.sRGBEncoding;
 
-	}
-
-	applyBakedOnMeshes(){
-
-		Object.keys(this.worldConfig.main.meshInfos.world.imagePath).forEach(key => {
-
-			this.sceneElements[key].material = this.sceneElements.misc[key].material;
-
+		const bakedMaterial = new THREE.MeshBasicMaterial({
+			map: texture
 		});
+
+		// apply baked material
+		this.sceneElements.landscape.material = bakedMaterial;
 
 	}
 
@@ -480,19 +244,20 @@ class SceneBuilder {
 
 	}
 
-	createBakedMaterial( key, index ){
+	sequencesBuild(){
 
-		this.sceneElements.misc[key].texture.flipY = false;
+		// console.log("at sequence build --> camera = ", this.camera);
 
-		this.sceneElements.misc[key].texture.encoding = THREE.sRGBEncoding;
-
-		this.sceneElements.misc[key].material = new THREE.MeshBasicMaterial({
-			map: this.sceneElements.misc[key].texture
-		});
-
-		if( index === Object.keys(this.worldConfig.main.meshInfos.world.imagePath).length - 1 ){
-			this.assetsManager.bakeds = true;
-		}
+		this.sequencesElements = new SequencesBuilder(
+			{
+				sequences: this.worldConfig.sequences,
+				scene: this.scene,
+				sceneElements: this.sceneElements,
+				camera: this.camera,
+				canvas: this.canvas,
+				that: this
+			}
+		);
 
 	}
 
@@ -512,9 +277,9 @@ class SceneBuilder {
 				this.scene.add(emissiveBuilt);
 			});
 
-		// // bobs 
-		// Object.keys(this.sceneElements.bobs).forEach(bobKey => {
-		// 	this.scene.add(this.sceneElements.bobs[bobKey]);
+		// bobs 
+		// Object.keys(this.bobs).forEach(bobKey => {
+		// 	this.scene.add(this.bobs[bobKey]._controls._target);
 		// })
 
 		// dynamic lights
@@ -556,35 +321,10 @@ class SceneBuilder {
 
 	}
 
-	sequencesBuild(){
-
-		this.sequencesElements = new SequencesBuilder(
-			{
-				sequences: this.worldConfig.sequences,
-				scene: this.scene,
-				sceneElements: this.sceneElements,
-				camera: this.camera,
-				canvas: this.canvas,
-				that: this
-			}
-		);
-
-
-	}
-
 	refreshAndStartScene(){
 
 		this.camera.updateProjectionMatrix();
-
-		// we say : ok good, ready
-		// this value is watched in instanceThree.vue
-		// and allow rendering start
-		this.sceneIsReady = true;
 		
-	}
-
-	getSceneAndSequencesElements(){
-		return this;
 	}
 
 };

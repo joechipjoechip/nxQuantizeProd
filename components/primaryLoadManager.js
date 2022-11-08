@@ -11,7 +11,7 @@ import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 
 class PrimaryLoadManager{
 
-	constructor(vm){
+	constructor( vm ){
 
 		this.vm = vm;
 
@@ -36,7 +36,7 @@ class PrimaryLoadManager{
 		// load worlds
 		worlds.forEach((world, index) => {
 
-			this._LoadGlb(world);
+			this._LoadGlb(world, index);
 
 			this._LoadTexture(world, index);
 			
@@ -130,7 +130,7 @@ class PrimaryLoadManager{
 	
 				targets.forEach((target, index) => {
 	
-					this.bobs.push({
+					this.bobs[index] = {
 						name: target.name,
 						instance: new CharacterController({
 							scene: null,
@@ -139,17 +139,20 @@ class PrimaryLoadManager{
 							mixer: movesObj.mixers[target.name],
 							bobInfos: this.entities.bobs[target.name].infos
 						})
-					});
+					};
 	
 				});
 	
 				// console.log("BOBS ARE LOADED : ", this.bobs);
+				if( this.bobs.filter(bob => bob).length === Object.keys(this.entities.bobs).length ){
 
-				this.vm.$nuxt.$emit("assets-have-been-loaded", {
-						type: "bobs",
-						assets: this.bobs
-					}
-				);
+					this.vm.$nuxt.$emit("assets-have-been-loaded", {
+							type: "bobs",
+							assets: this.bobs
+						}
+					);
+
+				}
 	
 			});
 
@@ -211,18 +214,18 @@ class PrimaryLoadManager{
 
 	}
 
-	_LoadGlb( worldData ){
+	_LoadGlb( worldData, index ){
 
 		this.glbLoader.load(
 			worldData.main.meshInfos.glbPath, 
 			glbFile => { 
 
-				this.glbs.push({
+				this.glbs[index] = {
 					name: worldData.name,
 					glbFile
-				});
+				};
 
-				if( this.glbs.length === this.worlds.length ){
+				if( this.glbs.filter(glb => glb).length === this.worlds.length ){
 
 					this.vm.$nuxt.$emit("assets-have-been-loaded",
 						{
@@ -246,7 +249,7 @@ class PrimaryLoadManager{
 			file: this.textureLoader.load(worldData.main.meshInfos.imagePath.landscape)
 		}
 
-		if( this.textures.length === this.worlds.length ){
+		if( this.textures.filter(texture => texture).length === this.worlds.length ){
 			this.vm.$nuxt.$emit("assets-have-been-loaded", 
 				{
 					type: "textures",

@@ -41,7 +41,6 @@ class ParticlesBuilder{
 			vertexShader: firefliesVertexShader,
 			fragmentShader: firefliesFragmentShader,
 			transparent: true,
-			blending: additive ? THREE.AdditiveBlending : null,
 			depthWrite: false,
 			uniforms: {
 				uTime: {
@@ -55,6 +54,10 @@ class ParticlesBuilder{
 				}
 			}
 		});
+
+		if( additive ){
+			material.blending = THREE.AdditiveBlending;
+		}
 
 		const meshToAdd = new THREE.Points(geometry, material);
 

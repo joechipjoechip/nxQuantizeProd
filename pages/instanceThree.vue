@@ -36,13 +36,18 @@
 				required: true
 			},
 
-			worlds: {
-				type: Object,
+			glbs: {
+				type: Array,
 				required: true
 			},
 
-			bob: {
-				type: Object,
+			textures: {
+				type: Array,
+				required: true
+			},
+
+			bobs: {
+				type: Array,
 				required: true
 			}
 
@@ -77,16 +82,21 @@
 					animated: true
 				},
 
-				currentBobName: null
+				currentBobName: null,
+
+				createScene1: null,
+				
+				scene1: null
 			}
 
 		},
 
 		watch: {
 
-			"scene1.sceneIsReady"( newVal ){
+			scene1( newVal ){
 
 				if( newVal ){
+					console.log("ok we have a scene1");
 					this.onceSceneIsReady()
 				}
 
@@ -115,21 +125,48 @@
 
 		mounted(){
 
-
-
-			// const createScene1 = new SceneBuilder({
-			// 	worldConfig: this.worldConfig, 
-			// 	canvas: this.$refs.canvas,
-			// 	sequenceID: this.sequenceID,
-			// });
-
-			// // 
-
-			// this.scene1 = createScene1.getSceneAndSequencesElements();
+			this.createScene();
 
 		},
 
 		methods: {
+
+			async createScene(){
+
+				const sceneSkeleton = new SceneBuilder({
+					worldConfig: this.worldConfig, 
+					sequenceID: this.sequenceID,
+					canvas: this.$refs.canvas,
+
+					glb: this.glbs[0],
+					texture: this.textures[0],
+					bobs: this.bobs
+				})
+				
+				this.scene1 = await sceneSkeleton.createScene();
+
+				console.log("so scene1 = ", this.scene1);
+
+			},
+
+			onceSceneIsReady(){
+
+				this.initRenderer(this.scene1.worldConfig);
+
+				this.sequencesManager1 = new SequencesManager(
+					this.scene1,
+					this.$parent,
+					this.renderer,
+					this.clock,
+					this.canvasSizeRef,
+					this.mousePos
+				);
+
+				this.sequencesManager1.sequenceChangeHandler(this.sequenceID);
+
+				this.mainTick();
+
+			},
 
 			mouseMoveHandler( event ){
 				
@@ -162,25 +199,6 @@
 					},
 					onUpdateParams: [this]
 				});
-
-			},
-
-			onceSceneIsReady(){
-
-				this.initRenderer(this.scene1.worldConfig);
-
-				this.sequencesManager1 = new SequencesManager(
-					this.scene1,
-					this.$parent,
-					this.renderer,
-					this.clock,
-					this.canvasSizeRef,
-					this.mousePos
-				);
-
-				this.sequencesManager1.sequenceChangeHandler(this.sequenceID);
-
-				this.mainTick();
 
 			},
 			
