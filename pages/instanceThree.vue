@@ -113,9 +113,9 @@
 
 				this.sceneBundle.current = this.sceneBundle[newVal.type];
 
-				this.sequencesManager.current.sequenceChangeHandler(this.sequenceID);
+				this.sceneSkeleton[newVal.type].refreshBobs(this.bobs, this.sceneBundle.current.scene);
 
-				this.sceneSkeleton.current.refreshBobs(this.bobs);
+				this.sequencesManager.current.sequenceChangeHandler(this.sequenceID);
 
 			},
 

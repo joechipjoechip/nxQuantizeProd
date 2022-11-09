@@ -320,10 +320,12 @@ class SceneBuilder {
 		
 	}
 
-	refreshBobs(newBobs){
+	refreshBobs(newBobs, newScene){
 
 		newBobs.forEach(bob => {
 			this.bobs[bob.name] = bob.instance;
+			this.bobs[bob.name]._controls._scene = newScene;
+			newScene.add(this.bobs[bob.name]._controls._target);
 		});
 
 	}
