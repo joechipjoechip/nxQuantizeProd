@@ -59,7 +59,6 @@
 				core,
 				// Config from worlds.js
 				worldConfig: worlds.find( world => world.sequences.find( seq => seq.id === this.sequenceID ) ),
-				scene1: null,
 
 				// Animation
 				frameRate: 1/106,
@@ -84,22 +83,47 @@
 
 				currentBobName: null,
 
-				createScene1: null,
+				sceneSkeleton: {
+					current: null,
+					primary: null,
+					secondary: null
+				},
 				
-				scene1: null
+				sceneBundle: {
+					current: null,
+					primary: null,
+					secondary: null
+				},
+
+				sequencesManager: {
+					current: null,
+					primary: null,
+					secondary: null
+				}
+
 			}
 
 		},
 
 		watch: {
 
-			scene1( newVal ){
+			"sceneSkeleton.current"(newVal){
 
-				if( newVal ){
-					console.log("ok we have a scene1");
-					this.onceSceneIsReady()
-				}
+				this.sequencesManager.current = this.sequencesManager[newVal.type];
 
+				this.sceneBundle.current = this.sceneBundle[newVal.type];
+
+				this.sequencesManager.current.sequenceChangeHandler(this.sequenceID);
+
+				this.sceneSkeleton.current.refreshBobs(this.bobs);
+
+			},
+
+			"sceneBundle.primary"(){
+				this.checkIfAllSceneAreReady();
+			},
+			"sceneBundle.secondary"(){
+				this.checkIfAllSceneAreReady();
 			},
 
 			mousePos(){
@@ -117,7 +141,7 @@
 
 			sequenceID(newVal, oldVal){
 
-				this.sequencesManager1.sequenceChangeHandler(newVal, oldVal);
+				this.sequencesManager.current.sequenceChangeHandler(newVal, oldVal);
 
 			}
 
@@ -133,28 +157,54 @@
 
 			async createScene(){
 
-				const sceneSkeleton = new SceneBuilder({
-					worldConfig: this.worldConfig, 
+				this.sceneSkeleton.primary = new SceneBuilder({
+					worldConfig: worlds[0], 
 					sequenceID: this.sequenceID,
 					canvas: this.$refs.canvas,
 
 					glb: this.glbs[0],
 					texture: this.textures[0],
-					bobs: this.bobs
-				})
+					bobs: this.bobs,
+					type: "primary"
+				});
 				
-				this.scene1 = await sceneSkeleton.createScene();
+				this.sceneSkeleton.secondary = new SceneBuilder({
+					worldConfig: worlds[1], 
+					sequenceID: this.sequenceID,
+					canvas: this.$refs.canvas,
 
-				console.log("so scene1 = ", this.scene1);
+					glb: this.glbs[1],
+					texture: this.textures[1],
+					bobs: this.bobs,
+					type: "secondary"
+				});
+
+				this.sceneBundle.primary = await this.sceneSkeleton.primary.createScene();
+
+				this.sceneBundle.secondary = await this.sceneSkeleton.secondary.createScene();
 
 			},
 
-			onceSceneIsReady(){
+			checkIfAllSceneAreReady(){
+				
+				if( this.sceneBundle.primary && this.sceneBundle.secondary ){
 
-				this.initRenderer(this.scene1.worldConfig);
+					this.onceScenesAreReady();
 
-				this.sequencesManager1 = new SequencesManager(
-					this.scene1,
+					this.sceneSkeleton.current = this.sceneSkeleton.primary;
+
+					this.mainTick();
+
+				}
+
+			},
+
+			onceScenesAreReady(){
+
+				this.initRenderer(this.sceneBundle.primary.worldConfig);
+
+				this.sequencesManager.primary = new SequencesManager(
+					this.sceneBundle.primary,
 					this.$parent,
 					this.renderer,
 					this.clock,
@@ -162,9 +212,32 @@
 					this.mousePos
 				);
 
-				this.sequencesManager1.sequenceChangeHandler(this.sequenceID);
+				this.sequencesManager.secondary = new SequencesManager(
+					this.sceneBundle.secondary,
+					this.$parent,
+					this.renderer,
+					this.clock,
+					this.canvasSizeRef,
+					this.mousePos
+				);
 
-				this.mainTick();
+				this.sequencesManager.current = this.sequencesManager.primary;
+
+				this.sequencesManager.current.sequenceChangeHandler(this.sequenceID);
+
+			},
+
+			changeSceneHandler(){
+
+				if( this.sceneBundle.current.name === this.sceneBundle.primary.name ){
+
+					this.sceneSkeleton.current = this.sceneSkeleton.secondary;
+
+				} else {
+
+					this.sceneSkeleton.current = this.sceneSkeleton.primary;
+
+				}
 
 			},
 
@@ -236,21 +309,21 @@
 
 				this.deltaTime += this.clock.getDelta();
 
-				this.sequencesManager1.checkStuffsToAnimateAtRender(this.deltaTime, this.mousePos);
+				this.sequencesManager.current.checkStuffsToAnimateAtRender(this.deltaTime, this.mousePos);
 				
 				// NOW CHECK IF FRAMERATE IS GOOD
 				if( this.deltaTime > this.frameRate ){
 
 					// NOW COMPUTE RENDER
-					if( this.sequencesManager1.composer ){
-						console.log("use composer");
+					if( this.sequencesManager.current.composer ){
+						console.log("use composer : ", this.sequencesManager.current.name);
 						
-						this.sequencesManager1.composer.render();
+						this.sequencesManager.current.composer.render();
 						
 					} else {
-						console.log("use classic renderer");
+						console.log("use classic renderer : ", this.sceneBundle.current.name);
 
-						this.renderer.render(this.scene1.scene, this.scene1.camera);
+						this.renderer.render(this.sceneBundle.current.scene, this.sceneBundle.current.camera);
 
 					}
 

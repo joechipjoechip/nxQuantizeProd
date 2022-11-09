@@ -218,27 +218,39 @@ class PrimaryLoadManager{
 
 		this.glbLoader.load(
 			worldData.main.meshInfos.glbPath, 
-			glbFile => { 
+			glbFile => {
 
 				this.glbs[index] = {
 					name: worldData.name,
+					landscape: glbFile.scene.getObjectByName("landscape"),
 					glbFile
 				};
 
-				if( this.glbs.filter(glb => glb).length === this.worlds.length ){
+				// if( glbFile.scene.getObjectByName("landscape") ){
+				// 	console.log("on a bien un landscape : ", worldData.name);
+				// }
 
-					this.vm.$nuxt.$emit("assets-have-been-loaded",
-						{
-							type: "glbs",
-							assets: this.glbs
-						}
-					);
-
+				
+				if( this.glbs.filter(glbObj => glbObj.landscape).length === this.worlds.length ){
+		
+					this._DeclareGlbsLoadEnded();
+		
 				}
 
 			}
 		);
 			
+
+	}
+
+	_DeclareGlbsLoadEnded(){
+
+		this.vm.$nuxt.$emit("assets-have-been-loaded",
+			{
+				type: "glbs",
+				assets: this.glbs
+			}
+		);
 
 	}
 

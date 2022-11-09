@@ -3,7 +3,7 @@ const entities = {
 	bobs: {
 		link: {
 			name: "link",
-			fbxPath: "./assets/3d/persos/bob/bob.fbx",
+			fbxPath: "./assets/3d/persos/link.fbx",
 			infos: {
 				scale: 0.0008,
 				// scale: 1,z
@@ -18,7 +18,22 @@ const entities = {
 		},
 		juan: {
 			name: "juan",
-			fbxPath: "./assets/3d/persos/bob2/bob.fbx",
+			fbxPath: "./assets/3d/persos/juan.fbx",
+			infos: {
+				scale: 0.0008,
+				// scale: 1,z
+				velocity: {
+					// x & z -> displacement
+					x: 0.5,
+					z: 0.5,
+					// y -> rotation
+					y: 0.1,
+				}
+			}
+		},
+		queen: {
+			name: "queen",
+			fbxPath: "./assets/3d/persos/queen.fbx",
 			infos: {
 				scale: 0.0008,
 				// scale: 1,z

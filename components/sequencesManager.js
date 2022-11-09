@@ -6,9 +6,10 @@ import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 
 class SequencesManager{
 
-	constructor(sceneTransmitted, cinema, renderer, clock, canvasSizeRef, mousePos){
+	constructor(sceneBundle, cinema, renderer, clock, canvasSizeRef, mousePos){
 
-		this.scene1 = sceneTransmitted;
+		this.sceneBundlePassed = sceneBundle;
+		this.name = sceneBundle.name;
 		this.cinema = cinema;
 		this.renderer = renderer;
 		this.composer = null;
@@ -26,9 +27,9 @@ class SequencesManager{
 
 		console.log("____ _ _ _ change trigger : ", oldSequenceID, newSequenceID);
 
-		const triggerTimeDecay = this.scene1.sequencesElements[newSequenceID].cameraTriggerTimeDecay;
+		const triggerTimeDecay = this.sceneBundlePassed.sequencesElements[newSequenceID].cameraTriggerTimeDecay;
 
-		this.currentBobName = this.scene1.sequencesElements[newSequenceID].sequenceBobName;
+		this.currentBobName = this.sceneBundlePassed.sequencesElements[newSequenceID].sequenceBobName;
 
 		this.killOldSequence(oldSequenceID);
 
@@ -51,9 +52,9 @@ class SequencesManager{
 		
 
 		if( triggerTimeDecay ){
-			this.scene1.sceneElements.newSequenceTriggerTime = this.clock.getElapsedTime() + triggerTimeDecay;
+			this.sceneBundlePassed.sceneElements.newSequenceTriggerTime = this.clock.getElapsedTime() + triggerTimeDecay;
 		} else {
-			this.scene1.sceneElements.newSequenceTriggerTime = this.clock.getElapsedTime();
+			this.sceneBundlePassed.sceneElements.newSequenceTriggerTime = this.clock.getElapsedTime();
 		}
 
 		setTimeout(() => {
@@ -65,7 +66,7 @@ class SequencesManager{
 	killOldSequence( oldSequenceID ){
 		if(!oldSequenceID){ return; }
 
-		const oldTimelines = this.scene1.sequencesElements[oldSequenceID]?.timelines;
+		const oldTimelines = this.sceneBundlePassed.sequencesElements[oldSequenceID]?.timelines;
 
 		if( oldTimelines ){
 			Object.keys(oldTimelines).forEach(timelineKey => {
@@ -84,11 +85,11 @@ class SequencesManager{
 
 	activeGoodCastShadows( newSequenceID, oldSequenceID ){
 
-		this.scene1.sequencesElements[oldSequenceID]?.activeShadows.forEach(light => {
+		this.sceneBundlePassed.sequencesElements[oldSequenceID]?.activeShadows.forEach(light => {
 			this.updateInactiveSpotlight(light);
 		});
 
-		this.scene1.sequencesElements[newSequenceID]?.activeShadows.forEach(light => {
+		this.sceneBundlePassed.sequencesElements[newSequenceID]?.activeShadows.forEach(light => {
 			this.updateActiveSpotlight(light, newSequenceID)
 		});
 
@@ -96,14 +97,14 @@ class SequencesManager{
 	
 	updateFog( newSequenceID ){
 
-		if( !this.scene1.sequencesElements[newSequenceID].fog ){ return; }
+		if( !this.sceneBundlePassed.sequencesElements[newSequenceID].fog ){ return; }
 
-		const { color, intensity, enabled } =  this.scene1.sequencesElements[newSequenceID].fog;
+		const { color, intensity, enabled } =  this.sceneBundlePassed.sequencesElements[newSequenceID].fog;
 
-		this.scene1.scene.fog = null; 
+		this.sceneBundlePassed.scene.fog = null; 
 		
 		if( enabled ){
-			this.scene1.scene.fog = new THREE.FogExp2(color, intensity);
+			this.sceneBundlePassed.scene.fog = new THREE.FogExp2(color, intensity);
 		}
 
 	}
@@ -119,7 +120,7 @@ class SequencesManager{
 	updateActiveSpotlight( lightToUpdate, newSequenceID ){
 
 		const formatedID = newSequenceID.replace(".", "-");
-		const newCoords = this.scene1.sceneElements.positionsCollection.find(obj => obj.name.includes("bob") && obj.name.includes(formatedID))?.position;
+		const newCoords = this.sceneBundlePassed.sceneElements.positionsCollection.find(obj => obj.name.includes("bob") && obj.name.includes(formatedID))?.position;
 
 		if( !newCoords ){ return; }
 
@@ -145,7 +146,7 @@ class SequencesManager{
 
 	postProcChangeHandler( newSequenceID ){
 
-		const sequencePostProcObj = this.scene1.sequencesElements[newSequenceID].postproc?.length;
+		const sequencePostProcObj = this.sceneBundlePassed.sequencesElements[newSequenceID].postproc?.length;
 
 		if( sequencePostProcObj ){
 
@@ -153,7 +154,7 @@ class SequencesManager{
 
 			if( sequencePostProcObj.effect ){
 
-				this.composer.addPass(this.scene1.sequencesElements[newSequenceID].postproc.effect)
+				this.composer.addPass(this.sceneBundlePassed.sequencesElements[newSequenceID].postproc.effect)
 
 			}
 
@@ -170,11 +171,11 @@ class SequencesManager{
 
 	bobImposedGestureHandler( newSequenceID ){
 
-		const sequenceBobImposedMoves = this.scene1.sequencesElements[newSequenceID].bobImposedMoves;
+		const sequenceBobImposedMoves = this.sceneBundlePassed.sequencesElements[newSequenceID].bobImposedMoves;
 
-		Object.keys(this.scene1.sceneElements.bobs).forEach(bobKey => {
+		Object.keys(this.sceneBundlePassed.sceneElements.bobs).forEach(bobKey => {
 
-			const goodBob = this.scene1.sceneElements.bobs[bobKey];
+			const goodBob = this.sceneBundlePassed.sceneElements.bobs[bobKey];
 
 			goodBob._controls._input._keys = {};
 
@@ -203,7 +204,7 @@ class SequencesManager{
 
 	bobFlyingShadowsHandler( sequenceBobImposedMoves ){
 
-		const bob = this.scene1.sceneElements.bobs[this.currentBobName]._controls._target;
+		const bob = this.sceneBundlePassed.sceneElements.bobs[this.currentBobName]._controls._target;
 
 		// if bob is flying, we dont need shadows
 		if( bob && sequenceBobImposedMoves?.fly ){
@@ -220,16 +221,16 @@ class SequencesManager{
 
 	bobNewPositionHandler( newSequenceID ){
 		
-		Object.keys(this.scene1.sceneElements.bobs).forEach(bobKey => {
+		Object.keys(this.sceneBundlePassed.sceneElements.bobs).forEach(bobKey => {
 
-			const goodBob = this.scene1.sceneElements.bobs[bobKey];
+			const goodBob = this.sceneBundlePassed.sceneElements.bobs[bobKey];
 
 			if( !goodBob._controls ){ return; }
 
 			const formatedID = newSequenceID.replace(".", "-");
-			const newCoords = this.scene1.sceneElements.positionsCollection.find(obj => obj.name.includes("bob") && obj.name.includes(formatedID));
+			const newCoords = this.sceneBundlePassed.sceneElements.positionsCollection.find(obj => obj.name.includes("bob") && obj.name.includes(formatedID));
 
-			const thirdPersonInstance = this.scene1.sequencesElements[newSequenceID]?.thirdPersonCamera[bobKey];
+			const thirdPersonInstance = this.sceneBundlePassed.sequencesElements[newSequenceID]?.thirdPersonCamera[bobKey];
 			
 			if( newCoords ){
 
@@ -249,12 +250,12 @@ class SequencesManager{
 						thirdPersonInstance._specs.straightness = oldStraightness;
 					}, 5);
 					
-					this.scene1.camera.position.copy(thirdPersonInstance._camera.position);
+					this.sceneBundlePassed.camera.position.copy(thirdPersonInstance._camera.position);
 
 				} else {
 
-					this.scene1.camera.position.copy(newCoords.position);
-					this.scene1.camera.rotation.copy(newCoords.rotation);
+					this.sceneBundlePassed.camera.position.copy(newCoords.position);
+					this.sceneBundlePassed.camera.rotation.copy(newCoords.rotation);
 
 				}
 
@@ -269,11 +270,11 @@ class SequencesManager{
 
 	bobVisibilitySwitcher( newSequenceID ){
 
-		const sequenceBobName = this.scene1.sequencesElements[newSequenceID].sequenceBobName;
+		const sequenceBobName = this.sceneBundlePassed.sequencesElements[newSequenceID].sequenceBobName;
 
-		Object.keys(this.scene1.sceneElements.bobs).forEach(bobKey => {
+		Object.keys(this.sceneBundlePassed.sceneElements.bobs).forEach(bobKey => {
 
-			const goodBob = this.scene1.sceneElements.bobs[bobKey];
+			const goodBob = this.sceneBundlePassed.sceneElements.bobs[bobKey];
 
 			if( goodBob._controls._target.name === sequenceBobName ){
 
@@ -291,27 +292,27 @@ class SequencesManager{
 
 	cameraFovChangeHandler( newSequenceID ){
 
-		const baseFov = this.scene1.camera.fov;
+		const baseFov = this.sceneBundlePassed.camera.fov;
 		const destinationFov = worlds[0].sequences.find(seq => seq.id === newSequenceID).baseFov;
 
 		const animatedObject = {
 			animatedFov: baseFov
 		};
 
-		this.scene1.sequencesElements[newSequenceID].timelines.adjustFov = new TimelineLite();
-		this.scene1.sequencesElements[newSequenceID].timelines.adjustFov.to(
+		this.sceneBundlePassed.sequencesElements[newSequenceID].timelines.adjustFov = new TimelineLite();
+		this.sceneBundlePassed.sequencesElements[newSequenceID].timelines.adjustFov.to(
 			animatedObject,
 			2,
 			{
 				animatedFov: destinationFov,
 
 				onUpdate: () => {
-					this.scene1.camera.fov = animatedObject.animatedFov;
-					// console.log("ajusting fov, from/to : ", this.scene1.camera.fov);
+					this.sceneBundlePassed.camera.fov = animatedObject.animatedFov;
+					// console.log("ajusting fov, from/to : ", this.sceneBundlePassed.camera.fov);
 				},
 
 				onComplete: () => {
-					this.scene1.sequencesElements[newSequenceID].timelines.adjustFov = null;
+					this.sceneBundlePassed.sequencesElements[newSequenceID].timelines.adjustFov = null;
 				}
 
 			}
@@ -321,7 +322,7 @@ class SequencesManager{
 
 	initComposer(){
 
-		this.renderPass = new RenderPass(this.scene1.scene, this.scene1.camera);
+		this.renderPass = new RenderPass(this.sceneBundlePassed.scene, this.sceneBundlePassed.camera);
 
 		this.composer = new EffectComposer(this.renderer);
 
@@ -335,7 +336,7 @@ class SequencesManager{
 
 		const keysToCheck = ["shadersPass", "effectsPass"];
 
-		const currentSequence = this.scene1.sequencesElements[this.currentSequenceID];
+		const currentSequence = this.sceneBundlePassed.sequencesElements[this.currentSequenceID];
 
 		const sequencePostprocs = currentSequence?.postproc;
 
@@ -372,9 +373,9 @@ class SequencesManager{
 		const newSequenceHasPostProc = worlds[0].sequences.find(seq => seq.id === newSequenceID).postproc?.length;
 
 		if( newSequenceHasPostProc ){
-			this.composer.renderer.setClearColor(this.scene1.worldConfig.main.spaceColorWithBloom);
+			this.composer.renderer.setClearColor(this.sceneBundlePassed.worldConfig.main.spaceColorWithBloom);
 		} else {
-			this.renderer.setClearColor(this.scene1.worldConfig.main.spaceColor);
+			this.renderer.setClearColor(this.sceneBundlePassed.worldConfig.main.spaceColor);
 		}
 
 	}
@@ -384,13 +385,17 @@ class SequencesManager{
 
 		const elapsedTime = this.clock.getElapsedTime();
 
-		const currentSceneElements = this.scene1.sceneElements;
-		const currentSequenceElements = this.scene1.sequencesElements[this.currentSequenceID];
+		const currentSceneElements = this.sceneBundlePassed.sceneElements;
+		const currentSequenceElements = this.sceneBundlePassed.sequencesElements[this.currentSequenceID];
 
 
+
+		if( !currentSequenceElements ){
+			debugger;
+		}
 
 		// if an orbit helper is set
-		currentSequenceElements.helpers.orbit?.update();
+		currentSequenceElements.helpers?.orbit?.update();
 
 
 		// if any timeline is supposed to .play()
@@ -421,7 +426,7 @@ class SequencesManager{
 		// if third-person camera in the scene, it needs updates too
 		if( currentSequenceElements.thirdPersonCamera[this.currentBobName] ){
 			currentSequenceElements.thirdPersonCamera[this.currentBobName].Update(
-				this.scene1.sceneElements.newSequenceTriggerTime,
+				this.sceneBundlePassed.sceneElements.newSequenceTriggerTime,
 				elapsedTime, 
 				currentMousePos,
 				{
@@ -449,7 +454,7 @@ class SequencesManager{
 		// if any BlenderTube is supposed to be played with its lookAt()
 		if( currentSequenceElements.blenderTubesManager?._tubeTravelTargetPosition ){
 
-			this.scene1.camera.lookAt(
+			this.sceneBundlePassed.camera.lookAt(
 				currentSequenceElements.blenderTubesManager._tubeTravelTargetPosition
 			);
 

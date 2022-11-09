@@ -10,13 +10,15 @@ class SceneBuilder {
 	constructor( params ) {
 
 		// Get data from instanciation
-		const { canvas, worldConfig, sequenceID, glb, texture, bobs } = params;
+		const { canvas, worldConfig, sequenceID, glb, texture, bobs, type } = params;
 
+		this.name = worldConfig.name;
 		this.canvas = canvas;
 		this.worldConfig = worldConfig;
 		this.sequenceID = sequenceID;
 		this.glb = glb;
 		this.texture = texture;
+		this.type = type;
 
 		this.bobs = {};
 		bobs.forEach(bob => {
@@ -30,6 +32,7 @@ class SceneBuilder {
 		this.scene = new THREE.Scene();
 		this.sequencesElements = {};
 		this.sceneElements = {
+			name: this.worldConfig.name,
 			landscape: null,
 			sky: null,
 			bobs: this.bobs,
@@ -78,13 +81,13 @@ class SceneBuilder {
 
 	glbParser( glbObj ){
 
-		if( !glbObj ){
-			debugger;
-		}
-
-		this.sceneElements.landscape = glbObj.glbFile.scene.getObjectByName("landscape");
+		this.sceneElements.landscape = glbObj.landscape;
 
 		this.sceneElements.initialCamera = glbObj.glbFile.scene.getObjectByName("camera");
+
+		if( !this.sceneElements.landscape ){
+			debugger;
+		}
 
 		this.createLandscapeShadow(this.sceneElements.landscape.clone());
 
@@ -315,6 +318,14 @@ class SceneBuilder {
 
 		this.camera.updateProjectionMatrix();
 		
+	}
+
+	refreshBobs(newBobs){
+
+		newBobs.forEach(bob => {
+			this.bobs[bob.name] = bob.instance;
+		});
+
 	}
 
 };

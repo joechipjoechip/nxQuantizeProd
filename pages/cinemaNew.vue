@@ -2,7 +2,7 @@
 	<div>
 
 		<div class="debug-buttons-container">
-			<button @click="changeSequenceHandler">change scene</button>
+			<button @click="changeSceneHandler">change scene</button>
 			<button @click="playPauseAnimationHandler">start/stop animation</button>
 			<button @click="changeSequenceHandler">next sequence</button>
 		</div>
@@ -28,6 +28,9 @@
 <script>
 
 	import instanceThree from "./instanceThree.vue";
+
+	import { worlds } from '@/static/config/worlds.js';
+	import { entities } from '@/static/config/entities.js';
 
 	import { PrimaryLoadManager } from '@/components/primaryLoadManager.js';
 
@@ -102,8 +105,16 @@
 
 			checkIfAllIsLoaded(){
 
-				if( this.bobs.length && this.textures.length && this.glbs.length ){
+				if( 
+					this.bobs.length		 === Object.keys(entities.bobs).length
+					&& this.textures.length  === worlds.length
+					&& this.glbs.length 	 === worlds.length
+				){
+
 					this.allIsLoaded = true;
+
+				} else {
+					console.log("nope, le allIsLoaded reste à false ");
 				}
 
 			},
@@ -140,7 +151,7 @@
 
 			playPauseAnimationHandler( fromFocus ){
 
-				const currentTimelines = this.$refs.instancethree.scene1.sequencesElements[this.sequenceID].timelines;
+				const currentTimelines = this.$refs.instancethree.sceneBundle.current.sequencesElements[this.sequenceID].timelines;
 				const currentTimelinesKeys = Object.keys(currentTimelines);
 
 				const goPlay = !this.$refs.instancethree.debug.animated;
@@ -175,12 +186,18 @@
 
 			},
 
+			changeSceneHandler(){
+
+				this.$refs.instancethree.changeSceneHandler();
+
+			},
+
 			changeSequenceHandler(){
 				// très basique pour l'instant, mais c'est bien
 				// ce mécanisme qui change la séquence en cours pour linstant
 				// (plus tard ce sera calé sur le currentTime de l'audio)
 
-				console.log("change scene triggered");
+				console.log("change sequence triggered");
 
 				this.curtainActive = true;
 
