@@ -1,19 +1,9 @@
-import { core } from '@/static/config/core.js';
-
 // THREE
 import * as THREE from 'three';
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js"
-import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 
 import { SequencesBuilder } from '@/components/sequencesBuilder.js';
-import { CharacterController } from '@/components/characterController.js';
 import { DynamicLightsBuilder } from '@/components/dynamicLightsBuilder.js';
 import { ParticlesBuilder } from '@/components/particlesBuilder.js';
-
-import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
-import { createNoSubstitutionTemplateLiteral } from 'typescript';
-
-
 
 class SceneBuilder {
 
