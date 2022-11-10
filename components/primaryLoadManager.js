@@ -122,42 +122,37 @@ class PrimaryLoadManager{
 
 	_LoadMovesAndCreateBob( targets ){
 
-		return new Promise(res => {
+		this._LoadMoves(targets).then((movesObj) => {
 
-			this._LoadMoves(targets).then((movesObj) => {
+			this.bobs = [];
 
-				this.bobs = [];
-	
-				targets.forEach((target, index) => {
-	
-					this.bobs[index] = {
-						name: target.name,
-						instance: new CharacterController({
-							scene: null,
-							target,
-							animations: movesObj.animations[target.name],
-							mixer: movesObj.mixers[target.name],
-							bobInfos: this.entities.bobs[target.name].infos
-						})
-					};
-	
-				});
-	
-				// console.log("BOBS ARE LOADED : ", this.bobs);
-				if( this.bobs.filter(bob => bob).length === Object.keys(this.entities.bobs).length ){
+			targets.forEach((target, index) => {
 
-					this.vm.$nuxt.$emit("assets-have-been-loaded", {
-							type: "bobs",
-							assets: this.bobs
-						}
-					);
+				this.bobs[index] = {
+					name: target.name,
+					instance: new CharacterController({
+						scene: null,
+						target,
+						animations: movesObj.animations[target.name],
+						mixer: movesObj.mixers[target.name],
+						bobInfos: this.entities.bobs[target.name].infos
+					})
+				};
 
-				}
-	
 			});
 
-		})
+			// console.log("BOBS ARE LOADED : ", this.bobs);
+			if( this.bobs.filter(bob => bob).length === Object.keys(this.entities.bobs).length ){
 
+				this.vm.$nuxt.$emit("assets-have-been-loaded", {
+						type: "bobs",
+						assets: this.bobs
+					}
+				);
+
+			}
+
+		});
 
 	}
 
