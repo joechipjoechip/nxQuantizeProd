@@ -31,11 +31,6 @@
 
 		props: {
 
-			sequenceID: {
-				type: String,
-				required: true
-			},
-
 			glbs: {
 				type: Array,
 				required: true
@@ -63,6 +58,9 @@
 				// Animation
 				frameRate: 1/106,
 				deltaTime: 0,
+
+				sequenceID: "1.0",
+				lastKnownSequenceID: "1.0",
 
 				// Others
 				canvasSizeRef: { 
@@ -113,7 +111,7 @@
 
 				this.sceneBundle.current = this.sceneBundle[newVal.type];
 
-				this.sceneSkeleton[newVal.type].refreshBobs(this.bobs, this.sceneBundle.current.scene);
+				this.sceneSkeleton.current.refreshBobs(this.bobs, this.sceneBundle.current.scene);
 
 				this.sequencesManager.current.sequenceChangeHandler(this.sequenceID);
 

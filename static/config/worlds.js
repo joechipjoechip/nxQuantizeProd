@@ -522,15 +522,15 @@ const worlds = [
 			
 			meshInfos: {
 
-				glbPath: "/assets/3d/worlds/faceCyborg/faceCyborg.glb",
+				glbPath: "/assets/3d/worlds/epicValley/epicValley.glb",
 				imagePath: {
-					landscape: "/assets/3d/worlds/faceCyborg/faceCyborgBake.jpg",
+					landscape: "/assets/3d/worlds/epicValley/epicValleyBake.jpg",
 					// sky: "/assets/3d/worlds/bones/skyBake.jpg"
 				}
 
 			},
 
-			entities: ["link", "juan"],
+			entities: ["link", "juan", "queen"],
 
 			// bobsMoveFolder: "./assets/3d/persos/moves/smallGuy/",
 			// bobs: {
@@ -641,7 +641,7 @@ const worlds = [
 			{
 				id: "1.1",
 				baseFov: 27,
-				sequenceBobName: "juan",
+				sequenceBobName: "queen",
 
 				// type: "blender-points",
 				type: "third-person",
@@ -663,7 +663,7 @@ const worlds = [
 				},
 
 				bobImposedMoves: {
-					// forward: true,
+					forward: true,
 					// shift: true,
 					// fly: true
 				},

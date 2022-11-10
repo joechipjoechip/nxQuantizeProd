@@ -201,30 +201,23 @@
 
 				this.curtainActive = true;
 
-				setTimeout(() => {
-
-					switch(this.sequenceID){
-						case "1.0":
-							this.sequenceID = "1.1"
-							break
-						case "1.1":
-							this.sequenceID = "1.2"
-							break
-						case "1.2":
-							this.sequenceID = "1.3"
-							break
-						case "1.3":
-							this.sequenceID = "1.4"
-							break
-						default:
-							this.sequenceID = "1.1"
-							break
-					}
-
-
-				}, 300)
-
-				
+				switch(this.$refs.instancethree.sequenceID){
+					case "1.0":
+						this.$refs.instancethree.sequenceID = "1.1"
+						break
+					case "1.1":
+						this.$refs.instancethree.sequenceID = "1.2"
+						break
+					case "1.2":
+						this.$refs.instancethree.sequenceID = "1.3"
+						break
+					case "1.3":
+						this.$refs.instancethree.sequenceID = "1.4"
+						break
+					default:
+						this.$refs.instancethree.sequenceID = "1.0"
+						break
+				}
 
 				// free memory and ressources
 				// this.$refs.instancethree.scene1.sequencesElements[oldSequenceID] = null;

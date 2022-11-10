@@ -18,6 +18,7 @@ class SequencesManager{
 		this.currentSequenceID = null;
 		this.currentBobName = null;
 		this.mousePos = mousePos;
+		this.isPlaying = false;
 
 	}
 
@@ -39,7 +40,7 @@ class SequencesManager{
 
 		this.bobImposedGestureHandler(newSequenceID);
 
-		this.bobNewPositionHandler(newSequenceID);
+		this.bobAndCameraNewPositionHandler(newSequenceID);
 
 		this.bobVisibilitySwitcher(newSequenceID);
 
@@ -110,11 +111,11 @@ class SequencesManager{
 	}
 
 	updateInactiveSpotlight( lightToUpdate ){
-		lightToUpdate.intensity = 0;
 
 		if( lightToUpdate.name.includes("for-bob-shadow") ){
 			lightToUpdate.castShadow = false;
 		}
+
 	}
 
 	updateActiveSpotlight( lightToUpdate, newSequenceID ){
@@ -219,7 +220,7 @@ class SequencesManager{
 
 	}
 
-	bobNewPositionHandler( newSequenceID ){
+	bobAndCameraNewPositionHandler( newSequenceID ){
 		
 		Object.keys(this.sceneBundlePassed.sceneElements.bobs).forEach(bobKey => {
 
@@ -248,7 +249,7 @@ class SequencesManager{
 					
 					setTimeout(() => {
 						thirdPersonInstance._specs.straightness = oldStraightness;
-					}, 5);
+					}, 50);
 					
 					this.sceneBundlePassed.camera.position.copy(thirdPersonInstance._camera.position);
 
