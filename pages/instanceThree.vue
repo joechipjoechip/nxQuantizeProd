@@ -187,7 +187,9 @@
 				
 				if( this.sceneBundle.primary && this.sceneBundle.secondary ){
 
-					this.onceScenesAreReady();
+					this.initRenderer(this.sceneBundle.primary.worldConfig);
+
+					this.createSequencesManagers();
 
 					this.sceneSkeleton.current = this.sceneSkeleton.primary;
 
@@ -197,9 +199,7 @@
 
 			},
 
-			onceScenesAreReady(){
-
-				this.initRenderer(this.sceneBundle.primary.worldConfig);
+			createSequencesManagers(){
 
 				this.sequencesManager.primary = new SequencesManager(
 					this.sceneBundle.primary,
