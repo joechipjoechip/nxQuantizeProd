@@ -129,6 +129,8 @@ class ThirdPersonCamera {
 
 		if( hit?.distance && hit.distance > 1){
 			this._currentPosition.y = hit.point.y + this._specs.offset.y;
+		} else {
+			this._currentPosition.y = this._specs.offset.y;
 		}
 		
 		// console.log("distance : ", hit.distance)

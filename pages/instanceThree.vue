@@ -107,10 +107,10 @@
 
 			"sceneSkeleton.current"(newVal){
 
-				this.sequencesManager.current = this.sequencesManager[newVal.type];
-
 				this.sceneBundle.current = this.sceneBundle[newVal.type];
-
+				
+				this.sequencesManager.current = this.sequencesManager[newVal.type];
+				
 				this.sceneSkeleton.current.refreshBobs(this.bobs, this.sceneBundle.current.scene);
 
 				this.sequencesManager.current.sequenceChangeHandler(this.sequenceID);
