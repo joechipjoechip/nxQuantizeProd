@@ -24,19 +24,19 @@ const worlds = [
 				intensity: .15
 			},
 
-			// particles: [
-			// 	{
-			// 		type: "fireflies",
-			// 		count: 200,
-			// 		particleSize: 50,
-			// 		additive: true,
-			// 		blockSize: {
-			// 			x: 8,
-			// 			y: -0.5,
-			// 			z: 14
-			// 		}
-			// 	}
-			// ],
+			particles: [
+				{
+					type: "fireflies",
+					count: 2000,
+					particleSize: 30,
+					additive: true,
+					blockSize: {
+						x: 8,
+						y: -0.5,
+						z: 14
+					}
+				}
+			],
 			
 			meshInfos: {
 
@@ -49,40 +49,6 @@ const worlds = [
 			},
 
 			entities: ["link", "juan"],
-
-			// bobsMoveFolder: "./assets/3d/persos/moves/smallGuy/",
-			// bobs: {
-			// 	link: {
-			// 		name: "link",
-			// 		fbxPath: "./assets/3d/persos/bob/bob.fbx",
-			// 		infos: {
-			// 			scale: 0.0008,
-			// 			// scale: 1,z
-			// 			velocity: {
-			// 				// x & z -> displacement
-			// 				x: 0.5,
-			// 				z: 0.5,
-			// 				// y -> rotation
-			// 				y: 0.1,
-			// 			}
-			// 		}
-			// 	},
-			// 	juan: {
-			// 		name: "juan",
-			// 		fbxPath: "./assets/3d/persos/bob2/bob.fbx",
-			// 		infos: {
-			// 			scale: 0.0008,
-			// 			// scale: 1,z
-			// 			velocity: {
-			// 				// x & z -> displacement
-			// 				x: 0.5,
-			// 				z: 0.5,
-			// 				// y -> rotation
-			// 				y: 0.1,
-			// 			}
-			// 		}
-			// 	}
-			// }
 
 		},
 
@@ -140,9 +106,9 @@ const worlds = [
 					// }
 					// {
 					// 	type: "kaleidoscope",
-					// 	sides: 4,
+					// 	sides: 1,
 					// 	angle: 90
-					// }
+					// },
 
 					// {
 					// 	type: "bloom",
@@ -159,7 +125,7 @@ const worlds = [
 			{
 				id: "1.1",
 				baseFov: 27,
-				sequenceBobName: "juan",
+				sequenceBobName: "link",
 
 				// type: "blender-points",
 				type: "third-person",
@@ -187,6 +153,23 @@ const worlds = [
 				},
 
 				postproc: [
+
+					
+
+					{
+						type: "bloom",
+						value: {
+							strength: .85,
+							threshold: 0.045,
+							radius: 0.1
+						}
+					},
+
+					// {
+					// 	type: "kaleidoscope",
+					// 	sides: 2,
+					// 	angle: -45
+					// },
 
 					// {
 					// 	type: "vignette",
