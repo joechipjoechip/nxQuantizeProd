@@ -156,18 +156,18 @@ const worlds = [
 
 					
 
-					{
-						type: "bloom",
-						value: {
-							strength: .85,
-							threshold: 0.045,
-							radius: 0.1
-						}
-					},
+					// {
+					// 	type: "bloom",
+					// 	value: {
+					// 		strength: .85,
+					// 		threshold: 0.045,
+					// 		radius: 0.1
+					// 	}
+					// },
 
 					// {
 					// 	type: "kaleidoscope",
-					// 	sides: 2,
+					// 	sides: 1,
 					// 	angle: -45
 					// },
 
@@ -194,21 +194,23 @@ const worlds = [
 					// 	}
 					// },
 
+					{
+						type: "sepia",
+						amount: 1
+					},
+
 					// {
 					// 	type: "rgbShift",
 					// 	amount: 0.12
 					// },
 
-					// {
-					// 	type: "dotscreen",
-					// 	dotSize: 4
-					// },
+					{
+						type: "dotscreen",
+						dotSize: 4
+					},
 
 
-					// {
-					// 	type: "sepia",
-					// 	amount: 1
-					// },
+					
 
 					// {
 					// 	type: "bloom",

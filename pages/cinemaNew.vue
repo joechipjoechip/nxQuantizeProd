@@ -120,11 +120,9 @@
 			},
 
 			onResize(){
-				// à refaire puisque maintenant le canvas est ici
 
-				// this.$children.forEach(child => {
-				// 	child.updateCanvasRefSize();
-				// });
+				this.$refs.instancethree.canvasSizeRef.width = window.innerWidth;
+				this.$refs.instancethree.canvasSizeRef.height = window.innerHeight;
 
 			},
 
@@ -139,10 +137,12 @@
 			},
 
 			mouseMoveHandler( event ){
+
+				if( !this.$refs.instancethree ){ return; }
 				
 				this.mousePos = {
-					x: (((event.offsetX + this.canvasSizeRef.width / 2) / this.canvasSizeRef.width) - 1) * 2,
-					y: (((event.offsetY + this.canvasSizeRef.height / 2) / this.canvasSizeRef.height) - 1) * -2
+					x: (((event.offsetX + this.$refs.instancethree.canvasSizeRef.width / 2) / this.$refs.instancethree.canvasSizeRef.width) - 1) * 2,
+					y: (((event.offsetY + this.$refs.instancethree.canvasSizeRef.height / 2) / this.$refs.instancethree.canvasSizeRef.height) - 1) * -2
 				};
 
 				// console.log("mousepos : ", this.mousePos.x)

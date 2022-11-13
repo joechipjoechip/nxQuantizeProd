@@ -118,10 +118,10 @@
 			},
 
 			"sceneBundle.primary"(){
-				this.checkIfAllSceneAreReady();
+				this.checkIfAllScenesAreReady();
 			},
 			"sceneBundle.secondary"(){
-				this.checkIfAllSceneAreReady();
+				this.checkIfAllScenesAreReady();
 			},
 
 			mousePos(){
@@ -141,6 +141,16 @@
 
 				this.sequencesManager.current.sequenceChangeHandler(newVal, oldVal);
 
+			},
+
+			"canvasSizeRef.width"(){
+				this.renderer.setSize(this.canvasSizeRef.width, this.canvasSizeRef.height);
+
+				Object.keys(this.sceneSkeleton).forEach(skeletonKey => {
+
+					this.sceneSkeleton[skeletonKey].onResize(this.canvasSizeRef);
+					
+				});
 			}
 
 		},
@@ -183,7 +193,7 @@
 
 			},
 
-			checkIfAllSceneAreReady(){
+			checkIfAllScenesAreReady(){
 				
 				if( this.sceneBundle.primary && this.sceneBundle.secondary ){
 

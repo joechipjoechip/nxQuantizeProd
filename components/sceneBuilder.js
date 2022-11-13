@@ -330,6 +330,16 @@ class SceneBuilder {
 
 	}
 
+	onResize( canvasSizeRef ){
+
+		this.aspectRatio = canvasSizeRef.width / canvasSizeRef.height;
+
+		this.camera.aspect = this.aspectRatio;
+
+		this.camera.updateProjectionMatrix();
+
+	}
+
 };
 
 
