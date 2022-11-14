@@ -20,6 +20,7 @@
 			:glbs="glbs"
 			:bobs="bobs"
 			:textures="textures"
+			:downScale="downScale"
 		/>
 
 	</div>
@@ -46,6 +47,7 @@
 				// cette valeur, à terme, sera une props envoyée par 
 				// le component qui écoutera l'audio
 				sequenceID: "1.0",
+				downScale: 1.5,
 				mousePos: {
 					x: window.innerWidth / 2,
 					y: window.innerHeight / 2
@@ -121,8 +123,8 @@
 
 			onResize(){
 
-				this.$refs.instancethree.canvasSizeRef.width = window.innerWidth;
-				this.$refs.instancethree.canvasSizeRef.height = window.innerHeight;
+				this.$refs.instancethree.canvasSizeRef.width = window.innerWidth / this.downScale;
+				this.$refs.instancethree.canvasSizeRef.height = window.innerHeight / this.downScale;
 
 			},
 

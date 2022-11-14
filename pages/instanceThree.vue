@@ -47,6 +47,11 @@
 			bobs: {
 				type: Array,
 				required: true
+			},
+
+			downScale: {
+				type: Number,
+				required: true
 			}
 
 		},
@@ -67,8 +72,8 @@
 
 				// Others
 				canvasSizeRef: { 
-					width: window.innerWidth, 
-					height: window.innerHeight
+					width: window.innerWidth / this.downScale, 
+					height: window.innerHeight / this.downScale
 					// width: 1280,
 					// height: 700
 				},
@@ -306,7 +311,7 @@
 					antialias: true
 				});
 
-				this.renderer.setSize(this.canvasSizeRef.width, this.canvasSizeRef.height);
+				this.renderer.setSize(this.canvasSizeRef.width / 2, this.canvasSizeRef.height / 2);
 
 				this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
@@ -373,6 +378,8 @@
 
 canvas {
   z-index: 3;
+  width: 100% !important;
+  height: 100% !important;
   // position: fixed;
   // top: 0;
   // left: 0;
