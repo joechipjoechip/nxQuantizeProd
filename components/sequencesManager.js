@@ -419,7 +419,9 @@ class SequencesManager{
 				deltaTime / currentSequenceElements.slowmo,
 				currentMousePos,
 				{
-					isFlying: currentSequenceElements.bobImposedMoves?.fly
+					// isFlying: currentSequenceElements.bobImposedMoves?.fly,
+					// isFloating: currentSequenceElements.bobImposedMoves?.floating,
+					bobNeedsToHandleGround: !(currentSequenceElements.bobImposedMoves?.fly || currentSequenceElements.bobImposedMoves?.floating)
 				}
 			);
 		}
@@ -431,8 +433,9 @@ class SequencesManager{
 				elapsedTime, 
 				currentMousePos,
 				{
-					isFlying: currentSequenceElements.bobImposedMoves?.fly
-				}
+					cameraNeedsToHandleGround: !(currentSequenceElements.bobImposedMoves?.fly || currentSequenceElements.bobImposedMoves?.floating)
+				},
+				
 			);
 		}
 

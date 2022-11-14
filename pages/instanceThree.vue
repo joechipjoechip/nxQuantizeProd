@@ -5,6 +5,7 @@
 			<pre>
 				<p v-if="sequenceID">current sequence : {{ sequenceID }}</p>
 			</pre>
+			<div ref="stats" class="stats"></div>
 		</div>
 		<canvas 
 			class="webgl" 
@@ -26,6 +27,8 @@
 
 	// THREE
 	import * as THREE from 'three';
+
+	import * as Stats from 'stats.js';
 
 	export default {
 
@@ -76,8 +79,11 @@
 				mouseRecenterTimeoutID: null,
 
 				debug: {
-					animated: true
+					animated: true,
+					stats: true
 				},
+
+				stats: new Stats(),
 
 				currentBobName: null,
 
@@ -156,6 +162,14 @@
 		},
 
 		mounted(){
+
+			if( this.debug.stats ){
+
+				this.stats.showPanel(0);
+	
+				this.$refs.stats.appendChild(this.stats.dom);
+
+			}
 
 			this.createScene();
 
@@ -313,7 +327,9 @@
 
 				if( !this.debug.animated ) return;
 
-				window.requestAnimationFrame(this.mainTick);
+				if( this.debug.stats ){
+					this.stats.begin();
+				}
 
 				this.deltaTime += this.clock.getDelta();
 
@@ -328,7 +344,7 @@
 						
 						this.sequencesManager.current.composer.render();
 						
-					} else {
+					} else if( this.sceneBundle.current ) {
 						console.log("use classic renderer : ", this.sceneBundle.current.name);
 
 						this.renderer.render(this.sceneBundle.current.scene, this.sceneBundle.current.camera);
@@ -338,6 +354,13 @@
 					this.deltaTime = this.deltaTime % this.frameRate;
 
 				}
+
+				if( this.debug.stats ){
+					this.stats.end();
+				}
+
+				window.requestAnimationFrame(this.mainTick);
+
 			}
 
 		}

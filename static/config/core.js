@@ -24,7 +24,8 @@ const core = {
 			"run",
 			"idle",
 			"dance",
-			"fly"
+			"fly",
+			"floating"
 		]
 	},
 
@@ -43,8 +44,8 @@ const core = {
 			},
 			straightness: 0.014,
 			mouseOrientationPonderation: {
-				x: 0.2,
-				y: 0.2
+				x: 0.92,
+				y: 0.92
 			},
 			motion: {
 				// motion will move the camera continuously
@@ -187,27 +188,41 @@ const core = {
 				},
 			},
 		},
-	},
-	
-	guiConfig: {
-		elements: {},
-		actions: {
-			position: {
-				step: 0.001,
-				min: -5,
-				max: 5
+		movingFloating: {
+			offset: {
+				x: 0,
+				y: 0.025,
+				z: -0.03
 			},
-			rotation: {
-				step: 0.1,
-				min: -5,
-				max: 5
+			lookAt: {
+				x: 0,
+				y: 0,
+				z: 0.05
 			},
-			scale: {
-				step: 0.000001,
-				min: 0,
-				max: 0.025
-			}
-		}
+			straightness: 0.04,
+			mouseOrientationPonderation: {
+				x: 0.02,
+				y: 0.02
+			},
+			motion: {
+				// motion will move the camera continuously
+				// with a sin() (so -1 to 1)
+				// and it's related at the offset values
+				x: {
+					// ratios
+					range: 0.06,
+					velocity: 0.4
+				},
+				y: {
+					range: 0.015,
+					velocity: 0.1
+				},
+				z: {
+					range: -0.04,
+					velocity: 0.1
+				},
+			},
+		},
 	}
 
 }
