@@ -194,32 +194,32 @@ const worlds = [
 					// 	}
 					// },
 
-					{
-						type: "sepia",
-						amount: 1
-					},
+					// {
+					// 	type: "sepia",
+					// 	amount: 1
+					// },
 
 					// {
 					// 	type: "rgbShift",
 					// 	amount: 0.12
 					// },
 
-					{
-						type: "dotscreen",
-						dotSize: 4
-					},
+					// {
+					// 	type: "dotscreen",
+					// 	dotSize: 4
+					// },
 
 
 					
 
-					// {
-					// 	type: "bloom",
-					// 	value: {
-					// 		strength: 0.9,
-					// 		threshold: 0.35,
-					// 		radius: 0.3
-					// 	}
-					// },
+					{
+						type: "bloom",
+						value: {
+							strength: 0.9,
+							threshold: 0.35,
+							radius: 0.3
+						}
+					},
 
 					// {
 					// 	type: "glitch"
@@ -409,11 +409,11 @@ const worlds = [
 			{
 				id: "1.4",
 				baseFov: 95,
-				sequenceBobName: "link",
+				sequenceBobName: "queen",
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 3,
-				cameraType: "movingFly",
+				cameraType: "movingFloating",
 
 				animatedMesh: false,
 
@@ -430,7 +430,7 @@ const worlds = [
 				},
 
 				bobImposedMoves: {
-					fly: true
+					floating: true
 				},
 
 				postproc: [
@@ -914,6 +914,8 @@ const worlds = [
 				bobImposedMoves: {
 					fly: true
 				},
+
+				slowmo: 5,
 
 				postproc: [
 					

@@ -101,7 +101,7 @@ class ThirdPersonCamera {
 		this._currentPosition.lerp(idealOffset, t);
 		this._currentLookat.lerp(idealLookat, t);
 
-		if( !optionsObj?.isFlying ){
+		if( optionsObj?.cameraNeedsToHandleGround ){
 
 			this._raycaster.set(
 					new THREE.Vector3(

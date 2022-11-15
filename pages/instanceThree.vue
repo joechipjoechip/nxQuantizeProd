@@ -5,6 +5,7 @@
 			<pre>
 				<p v-if="sequenceID">current sequence : {{ sequenceID }}</p>
 			</pre>
+			<div ref="stats" class="stats"></div>
 		</div>
 		<canvas 
 			class="webgl" 
@@ -27,6 +28,8 @@
 	// THREE
 	import * as THREE from 'three';
 
+	import * as Stats from 'stats.js';
+
 	export default {
 
 		props: {
@@ -43,6 +46,11 @@
 
 			bobs: {
 				type: Array,
+				required: true
+			},
+
+			downScale: {
+				type: Number,
 				required: true
 			}
 
@@ -64,8 +72,8 @@
 
 				// Others
 				canvasSizeRef: { 
-					width: window.innerWidth, 
-					height: window.innerHeight
+					width: window.innerWidth / this.downScale, 
+					height: window.innerHeight / this.downScale
 					// width: 1280,
 					// height: 700
 				},
@@ -76,8 +84,11 @@
 				mouseRecenterTimeoutID: null,
 
 				debug: {
-					animated: true
+					animated: true,
+					stats: true
 				},
+
+				stats: new Stats(),
 
 				currentBobName: null,
 
@@ -156,6 +167,14 @@
 		},
 
 		mounted(){
+
+			if( this.debug.stats ){
+
+				this.stats.showPanel(0);
+	
+				this.$refs.stats.appendChild(this.stats.dom);
+
+			}
 
 			this.createScene();
 
@@ -292,7 +311,7 @@
 					antialias: true
 				});
 
-				this.renderer.setSize(this.canvasSizeRef.width, this.canvasSizeRef.height);
+				this.renderer.setSize(this.canvasSizeRef.width / 2, this.canvasSizeRef.height / 2);
 
 				this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
@@ -313,7 +332,9 @@
 
 				if( !this.debug.animated ) return;
 
-				window.requestAnimationFrame(this.mainTick);
+				if( this.debug.stats ){
+					this.stats.begin();
+				}
 
 				this.deltaTime += this.clock.getDelta();
 
@@ -328,7 +349,7 @@
 						
 						this.sequencesManager.current.composer.render();
 						
-					} else {
+					} else if( this.sceneBundle.current ) {
 						console.log("use classic renderer : ", this.sceneBundle.current.name);
 
 						this.renderer.render(this.sceneBundle.current.scene, this.sceneBundle.current.camera);
@@ -338,6 +359,13 @@
 					this.deltaTime = this.deltaTime % this.frameRate;
 
 				}
+
+				if( this.debug.stats ){
+					this.stats.end();
+				}
+
+				window.requestAnimationFrame(this.mainTick);
+
 			}
 
 		}
@@ -350,6 +378,8 @@
 
 canvas {
   z-index: 3;
+  width: 100% !important;
+  height: 100% !important;
   // position: fixed;
   // top: 0;
   // left: 0;
