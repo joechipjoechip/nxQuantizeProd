@@ -61,15 +61,10 @@ class BlenderTubes{
 
 		if( !this._blenderPoints ){ return; }
 
-		const smoothedCurvePoints = this._blenderPoints.map(object3d => {
-
-			return new THREE.Vector3(
-				object3d.position.x, 
-				object3d.position.y, 
-				object3d.position.z
-			);
-
-		});
+		const smoothedCurvePoints = 
+			this._blenderPoints
+				.map(object3d => new THREE.Vector3(object3d.position.x, object3d.position.y, object3d.position.z))
+				.filter(obj => obj);
 
 		// Et Ensuite on construit tout ça :
 		const tubeParentPath = new THREE.Object3D();
