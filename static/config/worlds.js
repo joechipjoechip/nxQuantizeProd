@@ -40,9 +40,9 @@ const worlds = [
 			
 			meshInfos: {
 
-				glbPath: "/assets/3d/worlds/five/five.glb",
+				glbPath: "/assets/3d/worlds/veryLowPoly/veryLowPoly.glb",
 				imagePath: {
-					landscape: "/assets/3d/worlds/five/fiveBake.jpg",
+					landscape: "/assets/3d/worlds/veryLowPoly/veryLowPolyBake.jpg",
 					// sky: "/assets/3d/worlds/bones/skyBake.jpg"
 				}
 
