@@ -27,12 +27,13 @@ const worlds = [
 			particles: [
 				{
 					type: "fireflies",
-					count: 2000,
+					count: 200,
 					particleSize: 30,
 					additive: true,
+					timeRatio: 1.0,
 					blockSize: {
 						x: 8,
-						y: -0.5,
+						y: 1.5,
 						z: 14
 					}
 				}
@@ -320,11 +321,11 @@ const worlds = [
 					// 	}
 					// },
 
-					{
-						type: "vignette",
-						darkness: 1.5,
-						offset: 1.15
-					},
+					// {
+					// 	type: "vignette",
+					// 	darkness: 1.5,
+					// 	offset: 1.15
+					// },
 
 
 
@@ -365,14 +366,14 @@ const worlds = [
 				
 
 
-					{
-						type: "bloom",
-						value: {
-							strength: 0.3,
-							threshold: 0.35,
-							radius: 0.99
-						}
-					},
+					// {
+					// 	type: "bloom",
+					// 	value: {
+					// 		strength: 0.3,
+					// 		threshold: 0.35,
+					// 		radius: 0.99
+					// 	}
+					// },
 
 					// {
 					// 	type: "blur",

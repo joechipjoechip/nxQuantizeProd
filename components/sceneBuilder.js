@@ -42,6 +42,8 @@ class SceneBuilder {
 			dynamicLights: [],
 			emissiveShapesFromBlender: [],
 			emissiveShapesBuilt: [],
+			standardMeshesFromBlender: [],
+			standardMeshesBuilt: [],
 			positionsCollection: [],
 			particlesWorld: this.worldConfig.main.particles || [],
 			particlesCollection: [],
@@ -116,6 +118,13 @@ class SceneBuilder {
 
 			}
 
+			// find standard meshes
+			if( child.name.includes("standard-mesh") ){
+
+				this.sceneElements.standardMeshesFromBlender.push(child);
+
+			}
+
 			// find misc positions
 			if( child.name.includes("position_") ){
 
@@ -184,6 +193,11 @@ class SceneBuilder {
 			this.createEmissiveShape(emissiveShape);
 		});
 
+		// standard meshes
+		this.sceneElements.standardMeshesFromBlender.forEach(mesh => {
+			this.createStandardMesh(mesh);
+		});
+
 		// particles
 		this.sceneElements.particlesWorld.forEach(particle => {
 
@@ -205,15 +219,33 @@ class SceneBuilder {
 
 	createEmissiveShape( shapeFromBlender ){
 
-		const emissiveMaterial = new THREE.MeshBasicMaterial({
-			emissive: `#${shapeFromBlender.userData.hexColor || 'FFFFFF'}`,
-			emissiveIntensity: 2,
-			// side: THREE.DoubleSide
+		const emissiveMaterial = new THREE.MeshStandardMaterial({
+			emissive: `#${shapeFromBlender.userData.hexColor || 'FF0000'}`,
+			emissiveIntensity: shapeFromBlender.userData.strength / 10,
+			side: THREE.DoubleSide
 		});
 
 		shapeFromBlender.material = emissiveMaterial;
 
 		this.sceneElements.emissiveShapesBuilt.push(shapeFromBlender)
+
+	}
+
+	createStandardMesh( mesh ){
+
+		// debugger;
+
+		// const phongMaterial = new THREE.MeshPhongMaterial({
+		// 	color: `#${mesh.userData?.hexColor}` || "#FFFFFF",
+		// 	specular: 0xFF0000,
+		// 	shininess: mesh.userData?.shininess || 0.8,
+		// 	roughness: 0.2
+		// });
+		// const phongMaterial = new THREE.MeshStandardMaterial({...mesh.material});
+
+		// mesh.material = phongMaterial;
+
+		this.sceneElements.standardMeshesBuilt.push(mesh)
 
 	}
 
@@ -269,6 +301,12 @@ class SceneBuilder {
 			.forEach(emissiveBuilt => {
 				this.scene.add(emissiveBuilt);
 			});
+
+		// standard meshes
+		this.sceneElements.standardMeshesBuilt
+			.forEach(mesh => {
+				this.scene.add(mesh);
+			})
 
 		// bobs 
 		// Object.keys(this.bobs).forEach(bobKey => {

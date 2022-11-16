@@ -26,7 +26,7 @@ class ParticlesBuilder{
 	
 	_BuildFireflies( particlesInfos ){
 
-		const { count, particleSize, additive, blockSize } = particlesInfos;
+		const { count, particleSize, additive, blockSize, timeRatio } = particlesInfos;
 
 		const geometry = new THREE.BufferGeometry();
 
@@ -44,7 +44,10 @@ class ParticlesBuilder{
 			depthWrite: false,
 			uniforms: {
 				uTime: {
-					value: 0
+					value: 0 
+				},
+				uTimeRatio: {
+					value: timeRatio
 				},
 				uPixelRatio: {
 					value: Math.min(window.devicePixelRatio, 2)

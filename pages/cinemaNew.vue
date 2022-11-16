@@ -47,7 +47,7 @@
 				// cette valeur, à terme, sera une props envoyée par 
 				// le component qui écoutera l'audio
 				sequenceID: "1.0",
-				downScale: 1.5,
+				downScale: 1,
 				mousePos: {
 					x: window.innerWidth / 2,
 					y: window.innerHeight / 2

@@ -228,7 +228,9 @@ class BasicCharacterController {
 
 		return this._raycaster
 				.intersectObjects( this._scene.children )
-				.find(intersected => intersected.object.name === "landscape")?.point.y || controlObject.position.y;
+				.find(intersected => {
+					return intersected.object.name === "landscape" || intersected.object.name.includes("ground")
+				})?.point.y || controlObject.position.y;
 		
 
 		// finalement pas besoin de faire tout ça, j'ai juste replacé le raycaster juste au dessus de la tete de bob

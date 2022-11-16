@@ -125,7 +125,9 @@ class ThirdPersonCamera {
 
 		const hit = this._raycaster
 				.intersectObjects(this._scene.children)
-				?.find(intersected => intersected.object.name === "landscape" && intersected.object.name !== "shadow");
+				?.find(intersected => {
+					return (intersected.object.name === "landscape" && intersected.object.name !== "shadow") || intersected.object.name.includes("ground")
+				});
 
 		if( hit?.distance && hit.distance > 1){
 			this._currentPosition.y = hit.point.y + this._specs.offset.y;

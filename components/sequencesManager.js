@@ -133,7 +133,8 @@ class SequencesManager{
 
 			lightToUpdate.angle = (Math.PI/80) / distance;
 
-			lightToUpdate.intensity = (1 / distance) + 1;
+			// lightToUpdate.intensity = ((1 / distance) + 1) / 10;
+			// lightToUpdate.intensity = 0;
 
 		}
 

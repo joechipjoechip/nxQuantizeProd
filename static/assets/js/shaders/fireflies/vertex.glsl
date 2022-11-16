@@ -1,12 +1,13 @@
 uniform float uPixelRatio;
 uniform float uSize;
 uniform float uTime;
+uniform float uTimeratio;
 
 attribute float aScale;
 
 void main(){
 	vec4 modelPosition = modelMatrix * vec4(position, 1.0);
-	modelPosition.y += ((sin(uTime + modelPosition.x * 10.0)) / 10.0) * aScale * 0.8;
+	modelPosition.y += ((sin((uTime * uTimeratio) + modelPosition.x * 10.0)) / 10.0) * aScale * 0.8;
 
 	vec4 viewPosition = viewMatrix * modelPosition;
 	vec4 projectionPosition = projectionMatrix * viewPosition;
