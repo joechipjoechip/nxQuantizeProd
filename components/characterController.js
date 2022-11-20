@@ -270,7 +270,7 @@ class BasicCharacterController {
 
 			if( core.debug.lightsHelpers.light || core.debug.lightsHelpers.shadow ){
 
-				this._params.scene.children
+				this._params.scene?.children
 					.filter(child =>  child.name.toLowerCase().includes("light") && child.name.toLowerCase().includes("helper"))
 						?.forEach(helper => {
 						// console.log("helpers : ", helper.name)
