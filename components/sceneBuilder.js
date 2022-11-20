@@ -164,16 +164,33 @@ class SceneBuilder {
 
 	createAndApplyBakedMaterial( textureTransmitted ){
 
+		
 		// create baked material
+		let bakedMaterial;
 		const texture = textureTransmitted.file;
 
 		texture.flipY = false;
 
 		texture.encoding = THREE.sRGBEncoding;
 
-		const bakedMaterial = new THREE.MeshBasicMaterial({
-			map: texture
-		});
+		if( textureTransmitted.options.metalness ){
+
+			bakedMaterial = new THREE.MeshStandardMaterial({
+				map: texture,
+	
+				roughness: textureTransmitted.options.roughness || 0, 
+				metalness: textureTransmitted.options.metalness || 0
+			});
+
+
+		} else {
+
+			bakedMaterial = new THREE.MeshBasicMaterial({
+				map: texture
+			});
+
+		}
+
 
 		// apply baked material
 		this.sceneElements.landscape.material = bakedMaterial;

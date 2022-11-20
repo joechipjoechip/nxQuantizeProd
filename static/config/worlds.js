@@ -45,6 +45,10 @@ const worlds = [
 				imagePath: {
 					landscape: "/assets/3d/worlds/veryLowPoly/veryLowPolyBake.jpg",
 					// sky: "/assets/3d/worlds/bones/skyBake.jpg"
+				},
+				options: {
+					metalness: 0.2,
+					roughness: 0.85
 				}
 
 			},
@@ -513,8 +517,8 @@ const worlds = [
 					landscape: "/assets/3d/worlds/epicValley/epicValleyBake.jpg",
 					// sky: "/assets/3d/worlds/bones/skyBake.jpg"
 				}
-
 			},
+
 
 			entities: ["link", "juan", "queen"],
 

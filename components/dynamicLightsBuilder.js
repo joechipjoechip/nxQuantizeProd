@@ -101,7 +101,7 @@ class DynamicLightsBuilder {
 
 				createdLight = new THREE.PointLight(
 					blenderLight.color,
-					blenderLight.intensity / 10
+					blenderLight.intensity / 100
 				);
 
 				createdLight.name = `point-light-#${sequenceID}#`;

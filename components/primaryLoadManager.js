@@ -253,7 +253,11 @@ class PrimaryLoadManager{
 
 		this.textures[index] = {
 			name: worldData.name,
-			file: this.textureLoader.load(worldData.main.meshInfos.imagePath.landscape)
+			file: this.textureLoader.load(worldData.main.meshInfos.imagePath.landscape),
+			options: {
+				metalness: worldData.main.meshInfos.options?.metalness,
+				roughness: worldData.main.meshInfos.options?.roughness
+			}
 		}
 
 		if( this.textures.filter(texture => texture).length === this.worlds.length ){
