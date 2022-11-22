@@ -206,9 +206,9 @@
 					type: "secondary"
 				});
 
-				this.sceneBundle.primary = await this.sceneSkeleton.primary.createScene();
+				this.sceneBundle.primary = await this.sceneSkeleton.primary.returnBundle();
 
-				this.sceneBundle.secondary = await this.sceneSkeleton.secondary.createScene();
+				this.sceneBundle.secondary = await this.sceneSkeleton.secondary.returnBundle();
 
 			},
 
@@ -311,7 +311,7 @@
 					antialias: true
 				});
 
-				this.renderer.setSize(this.canvasSizeRef.width / 2, this.canvasSizeRef.height / 2);
+				this.renderer.setSize(this.canvasSizeRef.width / this.downScale, this.canvasSizeRef.height / this.downScale);
 
 				this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 

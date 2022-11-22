@@ -55,7 +55,7 @@ class SceneBuilder {
 		
 	}
 
-	createScene(){
+	returnBundle(){
 
 		return new Promise(res => {
 
