@@ -853,7 +853,10 @@ const worlds = [
 				},
 
 				bobImposedMoves: {
-					// forward: true,
+					hiphop: true,
+					forward: false,
+					backward: false,
+					shift: false
 					// shift: false
 				},
 
