@@ -54,8 +54,11 @@ class ThirdPersonCamera {
 		}
 
 		idealOffset.applyQuaternion(this._params.target.Rotation);
+
 		idealOffset.add(this._params.target.Position);
+
 		console.log("position de bob y : ", this._params.target.Position.y);
+		
 		return idealOffset;
 	}
   
@@ -96,8 +99,6 @@ class ThirdPersonCamera {
 		// const t = 4.0 * timeElapsed;
 		// best implementation :
 		const t = (1.0 - Math.pow(0.1, timeElapsed)) * this._specs.straightness;
-
-		
 	
 		this._currentPosition.lerp(idealOffset, t);
 		this._currentLookat.lerp(idealLookat, t);

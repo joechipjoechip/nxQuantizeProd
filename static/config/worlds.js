@@ -424,7 +424,7 @@ const worlds = [
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 3,
-				cameraType: "movingHips",
+				cameraType: "hips",
 
 				animatedMesh: false,
 
