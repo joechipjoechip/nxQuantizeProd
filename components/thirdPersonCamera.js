@@ -33,53 +33,54 @@ class ThirdPersonCamera {
   
 	_CalculateIdealOffset( timeElapsed ){
 
-    let idealOffset;
+		let idealOffset;
 
-    if( this._specs.motion ){
+		if( this._specs.motion ){
 
-      idealOffset = new THREE.Vector3(
-        this._specs.offset.x + (Math.sin(timeElapsed * this._specs.motion.x.velocity) * this._specs.motion.x.range),
-        this._specs.offset.y + (Math.sin(timeElapsed * this._specs.motion.y.velocity) * this._specs.motion.y.range),
-        this._specs.offset.z + (Math.abs((Math.sin(timeElapsed * this._specs.motion.z.velocity)) * -1) * this._specs.motion.z.range)
-      );
+			idealOffset = new THREE.Vector3(
+				this._specs.offset.x + (Math.sin(timeElapsed * this._specs.motion.x.velocity) * this._specs.motion.x.range),
+				this._specs.offset.y + (Math.sin(timeElapsed * this._specs.motion.y.velocity) * this._specs.motion.y.range),
+				this._specs.offset.z + (Math.abs((Math.sin(timeElapsed * this._specs.motion.z.velocity)) * -1) * this._specs.motion.z.range)
+			);
 
-    } else {
+		} else {
 
-      idealOffset = new THREE.Vector3(
-        this._specs.offset.x,
-        this._specs.offset.y,
-        this._specs.offset.z
-      );
+			idealOffset = new THREE.Vector3(
+				this._specs.offset.x,
+				this._specs.offset.y,
+				this._specs.offset.z
+			);
 
-    }
+		}
 
-	  idealOffset.applyQuaternion(this._params.target.Rotation);
-	  idealOffset.add(this._params.target.Position);
-	  return idealOffset;
+		idealOffset.applyQuaternion(this._params.target.Rotation);
+		idealOffset.add(this._params.target.Position);
+		console.log("position de bob y : ", this._params.target.Position.y);
+		return idealOffset;
 	}
   
 	_CalculateIdealLookat( mousePos ){
 
-    const mouseVector = new THREE.Vector3(
-      mousePos.x * this._specs.mouseOrientationPonderation.x * -1, 
-      mousePos.y * this._specs.mouseOrientationPonderation.y,
-      0
-    );
+		const mouseVector = new THREE.Vector3(
+			mousePos.x * this._specs.mouseOrientationPonderation.x * -1, 
+			mousePos.y * this._specs.mouseOrientationPonderation.y,
+			0
+		);
 
-    const idealLookat = new THREE.Vector3(
-      this._specs.lookAt.x,  
-      this._specs.lookAt.y,
-      this._specs.lookAt.z
-    );
+		const idealLookat = new THREE.Vector3(
+			this._specs.lookAt.x,  
+			this._specs.lookAt.y,
+			this._specs.lookAt.z
+		);
 
 
-	  mouseVector.applyQuaternion(this._params.target.Rotation);
-	  idealLookat.applyQuaternion(this._params.target.Rotation);
+		mouseVector.applyQuaternion(this._params.target.Rotation);
+		idealLookat.applyQuaternion(this._params.target.Rotation);
 
-	  idealLookat.add(this._params.target.Position);
-	  idealLookat.add(mouseVector);
+		idealLookat.add(this._params.target.Position);
+		idealLookat.add(mouseVector);
 
-	  return idealLookat;
+		return idealLookat;
 	}
   
 	Update( triggerTime, timeElapsed, mousePos, optionsObj ){
@@ -101,7 +102,7 @@ class ThirdPersonCamera {
 		this._currentPosition.lerp(idealOffset, t);
 		this._currentLookat.lerp(idealLookat, t);
 
-		if( optionsObj?.cameraNeedsToHandleGround ){
+		if( optionsObj.cameraNeedsToHandleGround ){
 
 			this._raycaster.set(
 					new THREE.Vector3(
