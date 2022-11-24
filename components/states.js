@@ -16,7 +16,7 @@ class DanceState extends State {
 		super(parent);
 
 		this._FinishedCallback = () => {
-		this._Finished();
+			this._Finished();
 		}
 	}
 
@@ -61,6 +61,8 @@ class DanceState extends State {
 	}
 };
 
+
+
 class FloatingState extends State {
 	constructor(parent) {
 		super(parent);
@@ -93,14 +95,133 @@ class FloatingState extends State {
 
 	Update(timeElapsed, input) {
 
-
-
 		if (input._keys.floating) {
 			this._parent.SetState('floating');
 			return;
 		}
-			
 
+		this._parent.SetState('idle');
+	}
+};
+
+class JazzState extends State {
+	constructor(parent) {
+		super(parent);
+	}
+
+	get Name() {
+		return 'jazz';
+	}
+
+	Enter(prevState) {
+		const curAction = this._parent._proxy._animations['jazz'].action;
+		if (prevState) {
+			const prevAction = this._parent._proxy._animations[prevState.Name].action;
+
+			curAction.enabled = true;
+
+			curAction.time = 0.0;
+			curAction.setEffectiveTimeScale(1.0);
+			curAction.setEffectiveWeight(1.0);
+
+			curAction.crossFadeFrom(prevAction, 0.5, true);
+			curAction.play();
+		} else {
+			curAction.play();
+		}
+	}
+
+	Exit() {
+	}
+
+	Update(timeElapsed, input) {
+
+		if (input._keys.jazz) {
+			this._parent.SetState('jazz');
+			return;
+		}
+
+		this._parent.SetState('idle');
+	}
+};
+
+class HiphopState extends State {
+	constructor(parent) {
+		super(parent);
+	}
+
+	get Name() {
+		return 'hiphop';
+	}
+
+	Enter(prevState) {
+		const curAction = this._parent._proxy._animations['hiphop'].action;
+		if (prevState) {
+			const prevAction = this._parent._proxy._animations[prevState.Name].action;
+
+			curAction.enabled = true;
+
+			curAction.time = 0.0;
+			curAction.setEffectiveTimeScale(1.0);
+			curAction.setEffectiveWeight(1.0);
+
+			curAction.crossFadeFrom(prevAction, 0.5, true);
+			curAction.play();
+		} else {
+			curAction.play();
+		}
+	}
+
+	Exit() {
+	}
+
+	Update(timeElapsed, input) {
+
+		if (input._keys.hiphop) {
+			this._parent.SetState('hiphop');
+			return;
+		}
+
+		this._parent.SetState('idle');
+	}
+};
+
+class ClimbState extends State {
+	constructor(parent) {
+		super(parent);
+	}
+
+	get Name() {
+		return 'climb';
+	}
+
+	Enter(prevState) {
+		const curAction = this._parent._proxy._animations['climb'].action;
+		if (prevState) {
+			const prevAction = this._parent._proxy._animations[prevState.Name].action;
+
+			curAction.enabled = true;
+
+			curAction.time = 0.0;
+			curAction.setEffectiveTimeScale(1.0);
+			curAction.setEffectiveWeight(1.0);
+
+			curAction.crossFadeFrom(prevAction, 0.5, true);
+			curAction.play();
+		} else {
+			curAction.play();
+		}
+	}
+
+	Exit() {
+	}
+
+	Update(timeElapsed, input) {
+
+		if (input._keys.climb) {
+			this._parent.SetState('climb');
+			return;
+		}
 
 		this._parent.SetState('idle');
 	}
@@ -344,6 +465,12 @@ class IdleState extends State {
 			this._parent.SetState('fly');
 		} else if( input._keys.floating){
 			this._parent.SetState('floating');
+		} else if( input._keys.jazz){
+			this._parent.SetState('jazz');
+		} else if( input._keys.hiphop){
+			this._parent.SetState('hiphop');
+		} else if( input._keys.climb){
+			this._parent.SetState('climb');
 		}
 	}
 };
@@ -358,5 +485,8 @@ export {
 	RunState,
 	IdleState,
 
-	FloatingState
+	FloatingState,
+	JazzState,
+	HiphopState,
+	ClimbState
 };

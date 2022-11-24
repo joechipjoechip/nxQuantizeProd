@@ -19,6 +19,7 @@ class SequencesManager{
 		this.currentBobName = null;
 		this.mousePos = mousePos;
 		this.isPlaying = false;
+		this.handleGround = true;
 
 	}
 
@@ -28,9 +29,17 @@ class SequencesManager{
 
 		console.log("____ _ _ _ change trigger : ", oldSequenceID, newSequenceID);
 
-		const triggerTimeDecay = this.sceneBundlePassed.sequencesElements[newSequenceID].cameraTriggerTimeDecay;
+		const currentSequenceElements = this.sceneBundlePassed.sequencesElements[newSequenceID];
 
-		this.currentBobName = this.sceneBundlePassed.sequencesElements[newSequenceID].sequenceBobName;
+		const triggerTimeDecay = currentSequenceElements.cameraTriggerTimeDecay;
+
+		this.currentBobName = currentSequenceElements.sequenceBobName;
+
+		this.handleGround = !(
+			currentSequenceElements.bobImposedMoves?.fly 
+			|| currentSequenceElements.bobImposedMoves?.floating 
+			|| currentSequenceElements.bobImposedMoves?.climb
+		);
 
 		this.killOldSequence(oldSequenceID);
 
@@ -420,9 +429,7 @@ class SequencesManager{
 				deltaTime / currentSequenceElements.slowmo,
 				currentMousePos,
 				{
-					// isFlying: currentSequenceElements.bobImposedMoves?.fly,
-					// isFloating: currentSequenceElements.bobImposedMoves?.floating,
-					bobNeedsToHandleGround: !(currentSequenceElements.bobImposedMoves?.fly || currentSequenceElements.bobImposedMoves?.floating)
+					bobNeedsToHandleGround: this.handleGround
 				}
 			);
 		}
@@ -434,7 +441,7 @@ class SequencesManager{
 				elapsedTime, 
 				currentMousePos,
 				{
-					cameraNeedsToHandleGround: !(currentSequenceElements.bobImposedMoves?.fly || currentSequenceElements.bobImposedMoves?.floating)
+					cameraNeedsToHandleGround: this.handleGround
 				},
 				
 			);

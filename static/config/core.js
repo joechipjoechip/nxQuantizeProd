@@ -25,7 +25,10 @@ const core = {
 			"idle",
 			"dance",
 			"fly",
-			"floating"
+			"floating",
+			"jazz",
+			"hiphop",
+			"climb"
 		]
 	},
 

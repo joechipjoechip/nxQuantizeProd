@@ -313,7 +313,9 @@
 
 				this.renderer.setSize(this.canvasSizeRef.width / this.downScale, this.canvasSizeRef.height / this.downScale);
 
-				this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+				this.renderer.setPixelRatio(1);
+
+				console.log("--------------> initRender with : ", this.canvasSizeRef.width);
 
 				this.renderer.setClearColor(currentWorldConfig.main.spaceColor);
 

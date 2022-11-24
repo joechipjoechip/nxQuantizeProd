@@ -9,7 +9,10 @@ import {
 	WalkStateBack,
 	RunState,
 	IdleState,
-	FloatingState
+	FloatingState,
+	JazzState,
+	HiphopState,
+	ClimbState
 } from '@/components/states.js'
 
 class BasicCharacterControllerProxy {
@@ -22,7 +25,6 @@ class BasicCharacterControllerProxy {
 		return this._animations;
 	}
 };
-
 
 class BasicCharacterController {
 	constructor(params) {
@@ -122,16 +124,16 @@ class BasicCharacterController {
 			acc.multiplyScalar(0.0);
 		}
 
+		if( this._input._keys.hiphop ){
+			velocity.z += acc.z * timeInSeconds / 3.5;
+		}
+
+		if( this._input._keys.climb ){
+			velocity.y += acc.y * (timeInSeconds / 3.5);
+		}
+
 		if (this._input._keys.forward || this._input._keys.fly) {
 			velocity.z += acc.z * timeInSeconds;
-
-			if( this._input._keys.fly ){
-				velocity.y -= acc.y * (timeInSeconds / 3.5);
-			}
-			
-			if( this._input._keys.floating ){
-				velocity.y += acc.y * (timeInSeconds / 3.5);
-			}
 		}
 
 		if (this._input._keys.backward) {
@@ -194,11 +196,17 @@ class BasicCharacterController {
 		sideways.applyQuaternion(controlObject.quaternion);
 		sideways.normalize();
 
+		const upway = new THREE.Vector3(0, 1, 0);
+		upway.applyQuaternion(controlObject.quaternion);
+		upway.normalize();
+		
 		sideways.multiplyScalar(velocity.x * timeInSeconds);
 		forward.multiplyScalar((velocity.z * timeInSeconds) * (this._moveScaledRatio));
+		upway.multiplyScalar(velocity.y * timeInSeconds * this._moveScaledRatio);
 
 		controlObject.position.add(forward);
 		controlObject.position.add(sideways);
+		controlObject.position.add(upway);
 
 		if( optionsObj.bobNeedsToHandleGround ){
 
@@ -302,6 +310,9 @@ class BasicCharacterControllerInput {
 			shift: false || this._imposedMoves.shift,
 			fly: false || this._imposedMoves.fly,
 			floating: false || this._imposedMoves.floating,
+			jazz: false || this._imposedMoves.jazz,
+			hiphop: false || this._imposedMoves.hiphop,
+			climb: false || this._imposedMoves.climb,
 		};
 
 		document.addEventListener('keydown', ( event ) => this._onKeyDown( event ), false);
@@ -360,7 +371,6 @@ class BasicCharacterControllerInput {
 
 };
 
-
 class FiniteStateMachine {
 	constructor() {
 		this._states = {};
@@ -394,7 +404,6 @@ class FiniteStateMachine {
 	}
 };
 
-
 class CharacterFSM extends FiniteStateMachine {
 	constructor(proxy) {
 		super();
@@ -411,6 +420,9 @@ class CharacterFSM extends FiniteStateMachine {
 		this._AddState('fly', FlyState);
 
 		this._AddState('floating', FloatingState);
+		this._AddState('jazz', JazzState);
+		this._AddState('hiphop', HiphopState);
+		this._AddState('climb', ClimbState);
 	}
 };
 

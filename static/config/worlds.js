@@ -420,11 +420,11 @@ const worlds = [
 			{
 				id: "1.4",
 				baseFov: 95,
-				sequenceBobName: "queen",
+				sequenceBobName: "juan",
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 3,
-				cameraType: "movingFloating",
+				cameraType: "movingHips",
 
 				animatedMesh: false,
 
@@ -441,7 +441,11 @@ const worlds = [
 				},
 
 				bobImposedMoves: {
-					floating: true
+					climb: true,
+					left: false,
+					right: false,
+					space: false,
+					shift: false
 				},
 
 				postproc: [
