@@ -641,7 +641,7 @@ const worlds = [
 			{
 				id: "1.1",
 				baseFov: 27,
-				sequenceBobName: "queen",
+				sequenceBobName: "juan",
 
 				// type: "blender-points",
 				type: "third-person",
