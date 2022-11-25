@@ -522,9 +522,9 @@ const worlds = [
 			
 			meshInfos: {
 
-				glbPath: "/assets/3d/worlds/epicValley/epicValley.glb",
+				glbPath: "/assets/3d/worlds/forestWing/forestWing.glb",
 				imagePath: {
-					landscape: "/assets/3d/worlds/epicValley/epicValleyBake.jpg",
+					landscape: "/assets/3d/worlds/forestWing/forestWingBake.jpg",
 					// sky: "/assets/3d/worlds/bones/skyBake.jpg"
 				}
 			},
@@ -641,11 +641,11 @@ const worlds = [
 			{
 				id: "1.1",
 				baseFov: 27,
-				sequenceBobName: "juan",
+				sequenceBobName: "link",
 
 				// type: "blender-points",
 				type: "third-person",
-				cameraTriggerTimeDecay: 6,
+				cameraTriggerTimeDecay: 2,
 				cameraType: "movingHips",
 
 				animatedMesh: false,
@@ -782,12 +782,10 @@ const worlds = [
 
 				bobImposedMoves: {
 					forward: true,
-					shift: true,
-					left: false,
-					right: false
+					shift: true
 				},
 
-				slowmo: 5,
+				// slowmo: 5,
 
 				postproc: [
 					
@@ -831,7 +829,7 @@ const worlds = [
 			{
 				id: "1.3",
 				baseFov: 35,
-				sequenceBobName: "juan",
+				sequenceBobName: "link",
 
 				
 				type: "third-person",
@@ -954,9 +952,9 @@ const worlds = [
 					{
 						type: "bloom",
 						value: {
-							strength: 0.9,
+							strength: 0.3,
 							threshold: 0.35,
-							radius: 0.999
+							radius: 0.99
 						}
 					},
 

@@ -57,8 +57,6 @@ class ThirdPersonCamera {
 
 		idealOffset.add(this._params.target.Position);
 
-		console.log("position de bob y : ", this._params.target.Position.y);
-		
 		return idealOffset;
 	}
   
