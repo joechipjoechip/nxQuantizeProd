@@ -156,6 +156,41 @@ const core = {
 				y: 0.02
 			},
 		},
+		behindFly: {
+			offset: {
+				x: 0,
+				y: 0.04,
+				z: -0.0001
+			},
+			lookAt: {
+				x: 0,
+				y: 0,
+				z: 2
+			},
+			straightness: 0.04,
+			mouseOrientationPonderation: {
+				x: 0.02,
+				y: 0.02
+			},
+			motion: {
+				// motion will move the camera continuously
+				// with a sin() (so -1 to 1)
+				// and it's related at the offset values
+				x: {
+					// ratios
+					range: 0.006,
+					velocity: 0.4
+				},
+				y: {
+					range: 0.015,
+					velocity: 0.1
+				},
+				z: {
+					range: 0,
+					velocity: 0.9
+				},
+			},
+		},
 		movingFly: {
 			offset: {
 				x: 0,
