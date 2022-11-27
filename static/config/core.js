@@ -158,9 +158,9 @@ const core = {
 		},
 		behindFly: {
 			offset: {
-				x: 0,
+				x: 0.03,
 				y: 0.015,
-				z: 0.05
+				z: 0.015
 			},
 			lookAt: {
 				x: 0,
@@ -178,16 +178,16 @@ const core = {
 				// and it's related at the offset values
 				x: {
 					// ratios
-					range: 0.06,
-					velocity: 0.1
+					range: -0.06,
+					velocity: 0.15
 				},
 				y: {
-					range: 0.03,
-					velocity: 0.1
+					range: -0.03,
+					velocity: 0.25
 				},
 				z: {
 					range: -0.12,
-					velocity: 0.2
+					velocity: 0.1
 				},
 			},
 		},

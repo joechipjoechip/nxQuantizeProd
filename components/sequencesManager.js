@@ -490,11 +490,12 @@ class SequencesManager{
 
 		const blurPostproc = currentSequenceElements.postproc.find(postproc => postproc.postprocType === "blur");
 
-		const { x, y, z } = currentSequenceElements.thirdPersonCamera._camera.position;
+		const goodTarget = currentSequenceElements.focusTarget._controls._target.name;
+
+		const { x, y, z } = currentSequenceElements.thirdPersonCamera[goodTarget]._camera.position;
 
 		// compute distance beetween camera and target
 		const distance = new THREE.Vector3(x,y,z).distanceTo({...currentSequenceElements.focusTarget._controls._position});
-
 
 		// update focus value in blur effect
 		blurPostproc.effectsPass[0].uniforms.focus.value = distance

@@ -159,7 +159,7 @@ class SequencesBuilder {
 
 		sequenceInfos.postproc.forEach(effectObj => {
 
-			const target = this._sceneElements[effectObj.focusTarget];
+			const target = this._sceneElements.bobs[effectObj.focusTarget];
 
 			if( target ){
 				this._sequencesLib[sequenceInfos.id].focusTarget = target;

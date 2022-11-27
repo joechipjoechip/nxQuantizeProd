@@ -939,11 +939,11 @@ const worlds = [
 					
 					{
 						type: "blur",
-						focusTarget: "bob",
+						focusTarget: "link",
 						value: {
 							focus: 1,
 							aperture: 0.025,
-							maxblur: 0.008
+							maxblur: 0.007
 						}
 					},
 					// },
