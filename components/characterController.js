@@ -117,7 +117,7 @@ class BasicCharacterController {
 		}
 
 		if(this._input._keys.fly ){
-			acc.multiplyScalar(4.0);
+			acc.multiplyScalar(150.0);
 		}
 
 		if (this._stateMachine._currentState?.Name == 'dance') {

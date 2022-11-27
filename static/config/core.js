@@ -159,8 +159,8 @@ const core = {
 		behindFly: {
 			offset: {
 				x: 0,
-				y: 0.04,
-				z: -0.0001
+				y: 0.029,
+				z: -0.01
 			},
 			lookAt: {
 				x: 0,

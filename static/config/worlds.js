@@ -503,7 +503,7 @@ const worlds = [
 			fog: {
 				enabled: true,
 				color: 0xff9500,
-				intensity: .15
+				intensity: .25
 			},
 
 			particles: [
@@ -514,9 +514,9 @@ const worlds = [
 					additive: true,
 					timeRatio: 1.0,
 					blockSize: {
-						x: 5,
-						y: 2,
-						z: 5
+						x: 3,
+						y: 5,
+						z: 10
 					}
 				}
 			],
@@ -923,9 +923,9 @@ const worlds = [
 				},
 				
 				fog: {
-					enabled: false,
+					enabled: true,
 					color: "#000000",
-					intensity: .15
+					intensity: .1
 				},
 
 				bobImposedMoves: {
@@ -937,28 +937,29 @@ const worlds = [
 
 				postproc: [
 					
-					// {
-					// 	type: "blur",
-					// 	focusTarget: "bob",
-					// 	value: {
-					// 		focus: 1,
-					// 		aperture: 0.025,
-					// 		maxblur: 0.008
-					// 	}
+					{
+						type: "blur",
+						focusTarget: "bob",
+						value: {
+							focus: 1,
+							aperture: 0.025,
+							maxblur: 0.008
+						}
+					},
 					// },
 					// {
 					// 	type: "pixel",
 					// 	pixelSize: 1
 					// },
 					
-					{
-						type: "bloom",
-						value: {
-							strength: 0.3,
-							threshold: 0.35,
-							radius: 0.99
-						}
-					},
+					// {
+					// 	type: "bloom",
+					// 	value: {
+					// 		strength: 0.3,
+					// 		threshold: 0.35,
+					// 		radius: 0.99
+					// 	}
+					// },
 
 
 					
