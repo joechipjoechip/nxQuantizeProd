@@ -933,7 +933,7 @@ const worlds = [
 					shift: true
 				},
 
-				slowmo: 5,
+				// slowmo: 5,
 
 				postproc: [
 					

@@ -159,13 +159,13 @@ const core = {
 		behindFly: {
 			offset: {
 				x: 0,
-				y: 0.029,
-				z: -0.01
+				y: 0.015,
+				z: 0.05
 			},
 			lookAt: {
 				x: 0,
 				y: 0,
-				z: 2
+				z: 0.5
 			},
 			straightness: 0.04,
 			mouseOrientationPonderation: {
@@ -178,16 +178,16 @@ const core = {
 				// and it's related at the offset values
 				x: {
 					// ratios
-					range: 0.006,
-					velocity: 0.4
+					range: 0.06,
+					velocity: 0.1
 				},
 				y: {
-					range: 0.015,
+					range: 0.03,
 					velocity: 0.1
 				},
 				z: {
-					range: 0,
-					velocity: 0.9
+					range: -0.12,
+					velocity: 0.2
 				},
 			},
 		},
