@@ -152,9 +152,9 @@ const worlds = [
 				},
 				
 				fog: {
-					enabled: false,
+					enabled: true,
 					color: "#0D063B",
-					intensity: .3
+					intensity: .5
 				},
 
 				bobImposedMoves: {
@@ -533,40 +533,6 @@ const worlds = [
 
 			entities: ["link", "juan", "queen"],
 
-			// bobsMoveFolder: "./assets/3d/persos/moves/smallGuy/",
-			// bobs: {
-			// 	link: {
-			// 		name: "link",
-			// 		fbxPath: "./assets/3d/persos/bob/bob.fbx",
-			// 		infos: {
-			// 			scale: 0.0008,
-			// 			// scale: 1,z
-			// 			velocity: {
-			// 				// x & z -> displacement
-			// 				x: 0.5,
-			// 				z: 0.5,
-			// 				// y -> rotation
-			// 				y: 0.1,
-			// 			}
-			// 		}
-			// 	},
-			// 	juan: {
-			// 		name: "juan",
-			// 		fbxPath: "./assets/3d/persos/bob2/bob.fbx",
-			// 		infos: {
-			// 			scale: 0.0008,
-			// 			// scale: 1,z
-			// 			velocity: {
-			// 				// x & z -> displacement
-			// 				x: 0.5,
-			// 				z: 0.5,
-			// 				// y -> rotation
-			// 				y: 0.1,
-			// 			}
-			// 		}
-			// 	}
-			// }
-
 		},
 
 		sequences: [
@@ -907,7 +873,7 @@ const worlds = [
 			},
 			{
 				id: "1.4",
-				baseFov: 95,
+				baseFov: 35,
 				sequenceBobName: "link",
 
 				type: "third-person",
@@ -937,15 +903,15 @@ const worlds = [
 
 				postproc: [
 					
-					{
-						type: "blur",
-						focusTarget: "link",
-						value: {
-							focus: 1,
-							aperture: 0.025,
-							maxblur: 0.007
-						}
-					},
+					// {
+					// 	type: "blur",
+					// 	focusTarget: "link",
+					// 	value: {
+					// 		focus: 1,
+					// 		aperture: 0.025,
+					// 		maxblur: 0.007
+					// 	}
+					// },
 					// },
 					// {
 					// 	type: "pixel",

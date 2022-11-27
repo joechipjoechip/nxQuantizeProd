@@ -81,12 +81,12 @@ class SequencesManager{
 		if( oldTimelines ){
 			Object.keys(oldTimelines).forEach(timelineKey => {
 
-				if( oldTimelines ){
+				if( oldTimelines[timelineKey] ){
 					oldTimelines[timelineKey]?.kill();
 					oldTimelines[timelineKey] = null;
 				}
 
-				console.log("oldTimeline killed : ", timelineKey);
+				console.log("oldTimeline killed : ", oldSequenceID, timelineKey);
 
 			});
 		}
@@ -303,9 +303,9 @@ class SequencesManager{
 
 	cameraFovChangeHandler( newSequenceID ){
 
-		const goodWorld = this.sceneBundlePassed.worldConfig;
-		const baseFov = this.sceneBundlePassed.camera.fov;
-		const destinationFov = goodWorld.sequences.find(seq => seq.id === newSequenceID).baseFov;
+		const goodCamera = this.sceneBundlePassed.scene.children.find(child => child.name === "third-person-camera");
+		const baseFov = goodCamera.fov;
+		const destinationFov = this.sceneBundlePassed.worldConfig.sequences.find(seq => seq.id === newSequenceID).baseFov;
 
 		const animatedObject = {
 			animatedFov: baseFov
@@ -319,8 +319,7 @@ class SequencesManager{
 				animatedFov: destinationFov,
 
 				onUpdate: () => {
-					this.sceneBundlePassed.camera.fov = animatedObject.animatedFov;
-					// console.log("ajusting fov, from/to : ", this.sceneBundlePassed.camera.fov);
+					goodCamera.fov = animatedObject.animatedFov;
 				},
 
 				onComplete: () => {
