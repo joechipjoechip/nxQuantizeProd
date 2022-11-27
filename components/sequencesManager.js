@@ -303,8 +303,9 @@ class SequencesManager{
 
 	cameraFovChangeHandler( newSequenceID ){
 
+		const goodWorld = this.sceneBundlePassed.worldConfig;
 		const baseFov = this.sceneBundlePassed.camera.fov;
-		const destinationFov = worlds[0].sequences.find(seq => seq.id === newSequenceID).baseFov;
+		const destinationFov = goodWorld.sequences.find(seq => seq.id === newSequenceID).baseFov;
 
 		const animatedObject = {
 			animatedFov: baseFov
@@ -381,9 +382,10 @@ class SequencesManager{
 
 	worldBackgroundColorHandler(newSequenceID){
 
-		const newSequenceHasPostProc = worlds[0].sequences.find(seq => seq.id === newSequenceID).postproc?.length;
+		const goodWorld = this.sceneBundlePassed.worldConfig;
+		const newSequenceHasPostProc = goodWorld.sequences.find(seq => seq.id === newSequenceID).postproc?.length;
 
-		if( newSequenceHasPostProc ){
+		if( newSequenceHasPostProc && this.composer.renderer ){
 			this.composer.renderer.setClearColor(this.sceneBundlePassed.worldConfig.main.spaceColorWithBloom);
 		} else {
 			this.renderer.setClearColor(this.sceneBundlePassed.worldConfig.main.spaceColor);
@@ -491,6 +493,10 @@ class SequencesManager{
 		const blurPostproc = currentSequenceElements.postproc.find(postproc => postproc.postprocType === "blur");
 
 		const goodTarget = currentSequenceElements.focusTarget._controls._target.name;
+
+		if( !goodTarget ){
+			return;
+		}
 
 		const { x, y, z } = currentSequenceElements.thirdPersonCamera[goodTarget]._camera.position;
 
