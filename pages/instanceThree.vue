@@ -315,8 +315,6 @@
 
 				this.renderer.setPixelRatio(1);
 
-				console.log("--------------> initRender with : ", this.canvasSizeRef.width);
-
 				this.renderer.setClearColor(currentWorldConfig.main.spaceColor);
 
 				this.renderer.outputEncoding = THREE.sRGBEncoding;
