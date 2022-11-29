@@ -419,9 +419,9 @@ const worlds = [
 				},
 				
 				fog: {
-					enabled: false,
-					color: "#000000",
-					intensity: .15
+					enabled: true,
+					color: "#FFFFFF",
+					intensity: .35
 				},
 
 				alice: {
@@ -458,7 +458,7 @@ const worlds = [
 						value: {
 							strength: .7,
 							threshold: 0.045,
-							radius: 0.1
+							radius: 0.6
 						}
 					},
 				]
@@ -600,6 +600,9 @@ const worlds = [
 				},
 
 				bobImposedMoves: {
+					forward: true,
+					left: false,
+					right: false
 				},
 
 				postproc: [
@@ -698,8 +701,8 @@ const worlds = [
 					move: {
 						jazz: true
 					},
-					scale: 0.008,
-					slowmo: 4
+					scale: 0.003,
+					slowmo: 9
 				},
 
 				bobImposedMoves: {
