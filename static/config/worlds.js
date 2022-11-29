@@ -1,3 +1,87 @@
+// {
+// 	type: "bloom",
+// 	value: {
+// 		strength: .85,
+// 		threshold: 0.045,
+// 		radius: 0.1
+// 	}
+// },
+
+// {
+// 	type: "kaleidoscope",
+// 	sides: 1,
+// 	angle: -45
+// },
+
+// {
+// 	type: "vignette",
+// 	darkness: 1.5,
+// 	offset: 1.04
+// },
+
+// {
+// 	type: "kaleidoscope",
+// 	sides: 1,
+// 	angle: -25
+// },
+
+// {
+// 	type: "bloom",
+// 	value: {
+// 		strength: .5,
+// 		threshold: 0.45,
+// 		radius: 0.01
+// 	}
+// },
+
+// {
+// 	type: "sepia",
+// 	amount: 1
+// },
+
+// {
+// 	type: "rgbShift",
+// 	amount: 0.12
+// },
+
+// {
+// 	type: "dotscreen",
+// 	dotSize: 4
+// },
+
+// {
+// 	type: "bloom",
+// 	value: {
+// 		strength: 0.9,
+// 		threshold: 0.35,
+// 		radius: 0.3
+// 	}
+// },
+
+// {
+// 	type: "glitch"
+// },
+
+// {
+// 	obscurci
+// 	type: "bleach",
+// 	amount: 0.5
+// }
+
+// {
+// 	type: "afterimage",
+// 	damp: 0.8
+// }
+
+// {
+// 	type: "pixel",
+// 	pixelSize: 1
+// }
+
+// {
+// 	type: "sobel"
+// },
+
 const worlds = [
 
 	{
@@ -43,8 +127,7 @@ const worlds = [
 
 				glbPath: "/assets/3d/worlds/veryLowPoly/veryLowPoly.glb",
 				imagePath: {
-					landscape: "/assets/3d/worlds/veryLowPoly/veryLowPolyBake.jpg",
-					// sky: "/assets/3d/worlds/bones/skyBake.jpg"
+					landscape: "/assets/3d/worlds/veryLowPoly/veryLowPolyBake.jpg"
 				},
 				options: {
 					metalness: 0.2,
@@ -64,8 +147,6 @@ const worlds = [
 				sequenceBobName: "link",
 
 				type: "blender-points",
-				// type: "third-person",
-				// cameraType: "movingHips",
 
 				animatedMesh: false,
 
@@ -110,27 +191,7 @@ const worlds = [
 					]
 				},
 
-				postproc: [
-					// {
-					// 	type: "afterimage",
-					// 	damp: 0.99
-					// }
-					// {
-					// 	type: "kaleidoscope",
-					// 	sides: 1,
-					// 	angle: 90
-					// },
-
-					// {
-					// 	type: "bloom",
-					// 	value: {
-					// 		strength: .5,
-					// 		threshold: 0.45,
-					// 		radius: 0.01
-					// 	}
-					// },
-
-				]
+				postproc: []
 
 			},
 			{
@@ -158,70 +219,10 @@ const worlds = [
 				},
 
 				bobImposedMoves: {
-					forward: true,
-					// shift: true,
-					// fly: true
+					forward: true
 				},
 
 				postproc: [
-
-					
-
-					// {
-					// 	type: "bloom",
-					// 	value: {
-					// 		strength: .85,
-					// 		threshold: 0.045,
-					// 		radius: 0.1
-					// 	}
-					// },
-
-					// {
-					// 	type: "kaleidoscope",
-					// 	sides: 1,
-					// 	angle: -45
-					// },
-
-					// {
-					// 	type: "vignette",
-					// 	darkness: 1.5,
-					// 	offset: 1.04
-					// },
-
-					// {
-					// 	type: "kaleidoscope",
-					// 	sides: 1,
-					// 	angle: -25
-					// },
-
-					
-
-					// {
-					// 	type: "bloom",
-					// 	value: {
-					// 		strength: .5,
-					// 		threshold: 0.45,
-					// 		radius: 0.01
-					// 	}
-					// },
-
-					// {
-					// 	type: "sepia",
-					// 	amount: 1
-					// },
-
-					// {
-					// 	type: "rgbShift",
-					// 	amount: 0.12
-					// },
-
-					// {
-					// 	type: "dotscreen",
-					// 	dotSize: 4
-					// },
-
-
-					
 
 					{
 						type: "bloom",
@@ -230,42 +231,7 @@ const worlds = [
 							threshold: 0.35,
 							radius: 0.3
 						}
-					},
-
-					// {
-					// 	type: "glitch"
-					// },
-
-					
-					
-					
-
-					// {
-					// 	obscurci
-					// 	type: "bleach",
-					// 	amount: 0.5
-					// }
-
-					// {
-					// 	type: "afterimage",
-					// 	damp: 0.8
-					// }
-					
-					// {
-					// 	type: "pixel",
-					// 	pixelSize: 1
-					// }
-					
-
-
-					
-					
-
-					// {
-					// 	type: "sobel"
-					// },
-				
-
+					}
 					
 				]
 
@@ -275,7 +241,6 @@ const worlds = [
 				baseFov: 35,
 				sequenceBobName: "link",
 
-				// type: "blender-points",
 				type: "third-person",
 				cameraType: "movingHips",
 				cameraTriggerTimeDecay: 10,
@@ -303,43 +268,7 @@ const worlds = [
 
 				slowmo: 5,
 
-				postproc: [
-					
-					// {
-					// 	type: "grain",
-					// 	amount: 0.75
-					// },
-					
-					// {
-					// 	type: "bloom",
-					// 	value: {
-					// 		strength: 0.9,
-					// 		threshold: 0.35,
-					// 		radius: 0.3
-					// 	}
-					// },
-
-					
-
-					// {
-					// 	type: "blur",
-					// 	focusTarget: "bob",
-					// 	value: {
-					// 		focus: 1,
-					// 		aperture: 0.025,
-					// 		maxblur: 0.005
-					// 	}
-					// },
-
-					// {
-					// 	type: "vignette",
-					// 	darkness: 1.5,
-					// 	offset: 1.15
-					// },
-
-
-
-				]
+				postproc: []
 
 			},
 			{
@@ -366,55 +295,9 @@ const worlds = [
 					intensity: .2
 				},
 
-				bobImposedMoves: {
-					// forward: true,
-					// shift: false
-				},
+				bobImposedMoves: {},
 
-				postproc: [
-
-				
-
-
-					// {
-					// 	type: "bloom",
-					// 	value: {
-					// 		strength: 0.3,
-					// 		threshold: 0.35,
-					// 		radius: 0.99
-					// 	}
-					// },
-
-					// {
-					// 	type: "blur",
-					// 	focusTarget: "bob",
-					// 	value: {
-					// 		focus: 1,
-					// 		aperture: 0.025,
-					// 		maxblur: 0.005
-					// 	}
-					// },
-
-					
-					// {
-					// 	type: "rgbShift",
-					// 	amount: 0.12
-					// },
-					// {
-					// 	type: "grayscale"
-					// },
-					// {
-					// 	type: "film",
-					// 	linesAmount: 650,
-					// 	opacity: 0.8,
-					// 	aberration: 0.2
-					// },
-					// {
-					// 	type: "pixel",
-					// 	pixelSize: 0.5
-					// },
-					
-				],
+				postproc: [],
 
 			},
 			{
@@ -450,20 +333,6 @@ const worlds = [
 
 				postproc: [
 					
-					// {
-					// 	type: "blur",
-					// 	focusTarget: "bob",
-					// 	value: {
-					// 		focus: 1,
-					// 		aperture: 0.025,
-					// 		maxblur: 0.008
-					// 	}
-					// },
-					// {
-					// 	type: "pixel",
-					// 	pixelSize: 1
-					// },
-					
 					{
 						type: "bloom",
 						value: {
@@ -471,10 +340,8 @@ const worlds = [
 							threshold: 0.35,
 							radius: 0.999
 						}
-					},
+					}
 
-
-					
 				]
 
 			}
@@ -487,9 +354,6 @@ const worlds = [
 
 		main: {
 
-			// spaceColor: "#160D54",
-			// spaceColorDarker: "#0D063B",
-			// spaceColorWithBloom: "#040116",
 			spaceColor: "#03000D",
 			spaceColorDarker: "#010005",
 			spaceColorWithBloom: "#010003",
@@ -525,8 +389,7 @@ const worlds = [
 
 				glbPath: "/assets/3d/worlds/caveEntrance/caveEntrance.glb",
 				imagePath: {
-					landscape: "/assets/3d/worlds/caveEntrance/caveEntranceBake.jpg",
-					// sky: "/assets/3d/worlds/bones/skyBake.jpg"
+					landscape: "/assets/3d/worlds/caveEntrance/caveEntranceBake.jpg"
 				}
 			},
 
@@ -542,8 +405,6 @@ const worlds = [
 				sequenceBobName: "link",
 
 				type: "blender-points",
-				// type: "third-person",
-				// cameraType: "movingHips",
 
 				animatedMesh: false,
 
@@ -583,16 +444,7 @@ const worlds = [
 				},
 
 				postproc: [
-					// {
-					// 	type: "afterimage",
-					// 	damp: 0.99
-					// }
-					// {
-					// 	type: "kaleidoscope",
-					// 	sides: 4,
-					// 	angle: 90
-					// }
-
+			
 					{
 						type: "bloom",
 						value: {
@@ -610,7 +462,6 @@ const worlds = [
 				baseFov: 27,
 				sequenceBobName: "link",
 
-				// type: "blender-points",
 				type: "third-person",
 				cameraTriggerTimeDecay: 2,
 				cameraType: "gtaLike",
@@ -630,51 +481,9 @@ const worlds = [
 				},
 
 				bobImposedMoves: {
-					// forward: true,
-					// shift: true,
-					// fly: true
 				},
 
 				postproc: [
-
-					// {
-					// 	type: "vignette",
-					// 	darkness: 1.5,
-					// 	offset: 1.04
-					// },
-
-					// {
-					// 	type: "kaleidoscope",
-					// 	sides: 1,
-					// 	angle: -25
-					// },
-
-					
-
-					// {
-					// 	type: "bloom",
-					// 	value: {
-					// 		strength: .5,
-					// 		threshold: 0.45,
-					// 		radius: 0.01
-					// 	}
-					// },
-
-					// {
-					// 	type: "rgbShift",
-					// 	amount: 0.12
-					// },
-
-					// {
-					// 	type: "dotscreen",
-					// 	dotSize: 4
-					// },
-
-
-					// {
-					// 	type: "sepia",
-					// 	amount: 1
-					// },
 
 					{
 						type: "bloom",
@@ -684,41 +493,6 @@ const worlds = [
 							radius: 0.99
 						}
 					},
-
-					// {
-					// 	type: "glitch"
-					// },
-
-					
-					
-					
-
-					// {
-					// 	obscurci
-					// 	type: "bleach",
-					// 	amount: 0.5
-					// }
-
-					// {
-					// 	type: "afterimage",
-					// 	damp: 0.8
-					// }
-					
-					// {
-					// 	type: "pixel",
-					// 	pixelSize: 1
-					// }
-					
-
-
-					
-					
-
-					// {
-					// 	type: "sobel"
-					// },
-				
-
 					
 				]
 
@@ -728,7 +502,6 @@ const worlds = [
 				baseFov: 35,
 				sequenceBobName: "link",
 
-				// type: "blender-points",
 				type: "third-person",
 				cameraType: "movingHips",
 				cameraTriggerTimeDecay: 10,
@@ -751,25 +524,7 @@ const worlds = [
 					forward: true
 				},
 
-				// slowmo: 5,
-
 				postproc: [
-					
-					// {
-					// 	type: "grain",
-					// 	amount: 0.75
-					// },
-					
-					// {
-					// 	type: "bloom",
-					// 	value: {
-					// 		strength: 0.9,
-					// 		threshold: 0.35,
-					// 		radius: 0.3
-					// 	}
-					// },
-
-					
 
 					{
 						type: "blur",
@@ -780,14 +535,6 @@ const worlds = [
 							maxblur: 0.005
 						}
 					},
-
-					// {
-					// 	type: "vignette",
-					// 	darkness: 1.5,
-					// 	offset: 1.15
-					// },
-
-
 
 				]
 
@@ -826,23 +573,6 @@ const worlds = [
 
 				postproc: [
 
-					// {
-					// 	type: "grain",
-					// 	amount: 0.75
-					// },
-
-				
-
-
-					// {
-					// 	type: "bloom",
-					// 	value: {
-					// 		strength: 0.3,
-					// 		threshold: 0.35,
-					// 		radius: 0.99
-					// 	}
-					// },
-
 					{
 						type: "blur",
 						focusTarget: "link",
@@ -852,25 +582,6 @@ const worlds = [
 							maxblur: 0.005
 						}
 					},
-
-					
-					// {
-					// 	type: "rgbShift",
-					// 	amount: 0.12
-					// },
-					// {
-					// 	type: "grayscale"
-					// },
-					// {
-					// 	type: "film",
-					// 	linesAmount: 650,
-					// 	opacity: 0.8,
-					// 	aberration: 0.2
-					// },
-					// {
-					// 	type: "pixel",
-					// 	pixelSize: 0.5
-					// },
 					
 				],
 
@@ -902,37 +613,7 @@ const worlds = [
 					fly: true
 				},
 
-				// slowmo: 5,
-
-				postproc: [
-					
-					// {
-					// 	type: "blur",
-					// 	focusTarget: "link",
-					// 	value: {
-					// 		focus: 1,
-					// 		aperture: 0.025,
-					// 		maxblur: 0.007
-					// 	}
-					// },
-					// },
-					// {
-					// 	type: "pixel",
-					// 	pixelSize: 1
-					// },
-					
-					// {
-					// 	type: "bloom",
-					// 	value: {
-					// 		strength: 0.3,
-					// 		threshold: 0.35,
-					// 		radius: 0.99
-					// 	}
-					// },
-
-
-					
-				]
+				postproc: []
 
 			}
 		]
@@ -943,9 +624,6 @@ const worlds = [
 
 		main: {
 
-			// spaceColor: "#160D54",
-			// spaceColorDarker: "#0D063B",
-			// spaceColorWithBloom: "#040116",
 			spaceColor: "#000000",
 			spaceColorDarker: "#000000",
 			spaceColorWithBloom: "#000000",
@@ -981,8 +659,7 @@ const worlds = [
 
 				glbPath: "/assets/3d/worlds/epicFly/epicFly.glb",
 				imagePath: {
-					landscape: "/assets/3d/worlds/epicFly/epicFlyBake.jpg",
-					// sky: "/assets/3d/worlds/bones/skyBake.jpg"
+					landscape: "/assets/3d/worlds/epicFly/epicFlyBake.jpg"
 				}
 			},
 
@@ -998,8 +675,6 @@ const worlds = [
 				sequenceBobName: "link",
 
 				type: "blender-points",
-				// type: "third-person",
-				// cameraType: "movingHips",
 
 				animatedMesh: false,
 
@@ -1039,16 +714,7 @@ const worlds = [
 				},
 
 				postproc: [
-					// {
-					// 	type: "afterimage",
-					// 	damp: 0.99
-					// }
-					// {
-					// 	type: "kaleidoscope",
-					// 	sides: 4,
-					// 	angle: 90
-					// }
-
+		
 					{
 						type: "bloom",
 						value: {
@@ -1066,7 +732,6 @@ const worlds = [
 				baseFov: 27,
 				sequenceBobName: "link",
 
-				// type: "blender-points",
 				type: "third-person",
 				cameraTriggerTimeDecay: 2,
 				cameraType: "movingHips",
@@ -1086,51 +751,10 @@ const worlds = [
 				},
 
 				bobImposedMoves: {
-					forward: true,
-					// shift: true,
-					// fly: true
+					forward: true
 				},
 
 				postproc: [
-
-					// {
-					// 	type: "vignette",
-					// 	darkness: 1.5,
-					// 	offset: 1.04
-					// },
-
-					// {
-					// 	type: "kaleidoscope",
-					// 	sides: 1,
-					// 	angle: -25
-					// },
-
-					
-
-					// {
-					// 	type: "bloom",
-					// 	value: {
-					// 		strength: .5,
-					// 		threshold: 0.45,
-					// 		radius: 0.01
-					// 	}
-					// },
-
-					// {
-					// 	type: "rgbShift",
-					// 	amount: 0.12
-					// },
-
-					// {
-					// 	type: "dotscreen",
-					// 	dotSize: 4
-					// },
-
-
-					// {
-					// 	type: "sepia",
-					// 	amount: 1
-					// },
 
 					{
 						type: "bloom",
@@ -1140,41 +764,6 @@ const worlds = [
 							radius: 0.99
 						}
 					},
-
-					// {
-					// 	type: "glitch"
-					// },
-
-					
-					
-					
-
-					// {
-					// 	obscurci
-					// 	type: "bleach",
-					// 	amount: 0.5
-					// }
-
-					// {
-					// 	type: "afterimage",
-					// 	damp: 0.8
-					// }
-					
-					// {
-					// 	type: "pixel",
-					// 	pixelSize: 1
-					// }
-					
-
-
-					
-					
-
-					// {
-					// 	type: "sobel"
-					// },
-				
-
 					
 				]
 
@@ -1184,7 +773,6 @@ const worlds = [
 				baseFov: 35,
 				sequenceBobName: "link",
 
-				// type: "blender-points",
 				type: "third-person",
 				cameraType: "movingHips",
 				cameraTriggerTimeDecay: 10,
@@ -1208,43 +796,13 @@ const worlds = [
 					shift: true
 				},
 
-				// slowmo: 5,
-
 				postproc: [
-					
-					// {
-					// 	type: "grain",
-					// 	amount: 0.75
-					// },
-					
-					// {
-					// 	type: "bloom",
-					// 	value: {
-					// 		strength: 0.9,
-					// 		threshold: 0.35,
-					// 		radius: 0.3
-					// 	}
-					// },
-
-					
-
-					// {
-					// 	type: "blur",
-					// 	focusTarget: "bob",
-					// 	value: {
-					// 		focus: 1,
-					// 		aperture: 0.025,
-					// 		maxblur: 0.005
-					// 	}
-					// },
 
 					{
 						type: "vignette",
 						darkness: 1.5,
 						offset: 1.15
 					},
-
-
 
 				]
 
@@ -1283,9 +841,6 @@ const worlds = [
 
 				postproc: [
 
-				
-
-
 					{
 						type: "bloom",
 						value: {
@@ -1294,35 +849,6 @@ const worlds = [
 							radius: 0.99
 						}
 					},
-
-					// {
-					// 	type: "blur",
-					// 	focusTarget: "bob",
-					// 	value: {
-					// 		focus: 1,
-					// 		aperture: 0.025,
-					// 		maxblur: 0.005
-					// 	}
-					// },
-
-					
-					// {
-					// 	type: "rgbShift",
-					// 	amount: 0.12
-					// },
-					// {
-					// 	type: "grayscale"
-					// },
-					// {
-					// 	type: "film",
-					// 	linesAmount: 650,
-					// 	opacity: 0.8,
-					// 	aberration: 0.2
-					// },
-					// {
-					// 	type: "pixel",
-					// 	pixelSize: 0.5
-					// },
 					
 				],
 
@@ -1357,35 +883,7 @@ const worlds = [
 
 				// slowmo: 5,
 
-				postproc: [
-					
-					// {
-					// 	type: "blur",
-					// 	focusTarget: "link",
-					// 	value: {
-					// 		focus: 1,
-					// 		aperture: 0.025,
-					// 		maxblur: 0.007
-					// 	}
-					// },
-					// },
-					// {
-					// 	type: "pixel",
-					// 	pixelSize: 1
-					// },
-					
-					// {
-					// 	type: "bloom",
-					// 	value: {
-					// 		strength: 0.3,
-					// 		threshold: 0.35,
-					// 		radius: 0.99
-					// 	}
-					// },
-
-
-					
-				]
+				postproc: []
 
 			}
 		]
@@ -1397,9 +895,6 @@ const worlds = [
 
 		main: {
 
-			// spaceColor: "#160D54",
-			// spaceColorDarker: "#0D063B",
-			// spaceColorWithBloom: "#040116",
 			spaceColor: "#000000",
 			spaceColorDarker: "#000000",
 			spaceColorWithBloom: "#000000",
@@ -1435,47 +930,12 @@ const worlds = [
 
 				glbPath: "/assets/3d/worlds/swift/swift.glb",
 				imagePath: {
-					landscape: "/assets/3d/worlds/swift/swiftBake.jpg",
-					// sky: "/assets/3d/worlds/bones/skyBake.jpg"
+					landscape: "/assets/3d/worlds/swift/swiftBake.jpg"
 				}
 			},
 
 
 			entities: ["link", "juan", "queen"],
-
-			// bobsMoveFolder: "./assets/3d/persos/moves/smallGuy/",
-			// bobs: {
-			// 	link: {
-			// 		name: "link",
-			// 		fbxPath: "./assets/3d/persos/bob/bob.fbx",
-			// 		infos: {
-			// 			scale: 0.0008,
-			// 			// scale: 1,z
-			// 			velocity: {
-			// 				// x & z -> displacement
-			// 				x: 0.5,
-			// 				z: 0.5,
-			// 				// y -> rotation
-			// 				y: 0.1,
-			// 			}
-			// 		}
-			// 	},
-			// 	juan: {
-			// 		name: "juan",
-			// 		fbxPath: "./assets/3d/persos/bob2/bob.fbx",
-			// 		infos: {
-			// 			scale: 0.0008,
-			// 			// scale: 1,z
-			// 			velocity: {
-			// 				// x & z -> displacement
-			// 				x: 0.5,
-			// 				z: 0.5,
-			// 				// y -> rotation
-			// 				y: 0.1,
-			// 			}
-			// 		}
-			// 	}
-			// }
 
 		},
 
@@ -1486,8 +946,6 @@ const worlds = [
 				sequenceBobName: "link",
 
 				type: "blender-points",
-				// type: "third-person",
-				// cameraType: "movingHips",
 
 				animatedMesh: false,
 
@@ -1527,16 +985,7 @@ const worlds = [
 				},
 
 				postproc: [
-					// {
-					// 	type: "afterimage",
-					// 	damp: 0.99
-					// }
-					// {
-					// 	type: "kaleidoscope",
-					// 	sides: 4,
-					// 	angle: 90
-					// }
-
+			
 					{
 						type: "bloom",
 						value: {
@@ -1574,51 +1023,10 @@ const worlds = [
 				},
 
 				bobImposedMoves: {
-					forward: true,
-					// shift: true,
-					// fly: true
+					forward: true
 				},
 
 				postproc: [
-
-					// {
-					// 	type: "vignette",
-					// 	darkness: 1.5,
-					// 	offset: 1.04
-					// },
-
-					// {
-					// 	type: "kaleidoscope",
-					// 	sides: 1,
-					// 	angle: -25
-					// },
-
-					
-
-					// {
-					// 	type: "bloom",
-					// 	value: {
-					// 		strength: .5,
-					// 		threshold: 0.45,
-					// 		radius: 0.01
-					// 	}
-					// },
-
-					// {
-					// 	type: "rgbShift",
-					// 	amount: 0.12
-					// },
-
-					// {
-					// 	type: "dotscreen",
-					// 	dotSize: 4
-					// },
-
-
-					// {
-					// 	type: "sepia",
-					// 	amount: 1
-					// },
 
 					{
 						type: "bloom",
@@ -1628,41 +1036,6 @@ const worlds = [
 							radius: 0.99
 						}
 					},
-
-					// {
-					// 	type: "glitch"
-					// },
-
-					
-					
-					
-
-					// {
-					// 	obscurci
-					// 	type: "bleach",
-					// 	amount: 0.5
-					// }
-
-					// {
-					// 	type: "afterimage",
-					// 	damp: 0.8
-					// }
-					
-					// {
-					// 	type: "pixel",
-					// 	pixelSize: 1
-					// }
-					
-
-
-					
-					
-
-					// {
-					// 	type: "sobel"
-					// },
-				
-
 					
 				]
 
@@ -1672,7 +1045,6 @@ const worlds = [
 				baseFov: 35,
 				sequenceBobName: "link",
 
-				// type: "blender-points",
 				type: "third-person",
 				cameraType: "movingHips",
 				cameraTriggerTimeDecay: 10,
@@ -1699,40 +1071,12 @@ const worlds = [
 				// slowmo: 5,
 
 				postproc: [
-					
-					// {
-					// 	type: "grain",
-					// 	amount: 0.75
-					// },
-					
-					// {
-					// 	type: "bloom",
-					// 	value: {
-					// 		strength: 0.9,
-					// 		threshold: 0.35,
-					// 		radius: 0.3
-					// 	}
-					// },
-
-					
-
-					// {
-					// 	type: "blur",
-					// 	focusTarget: "bob",
-					// 	value: {
-					// 		focus: 1,
-					// 		aperture: 0.025,
-					// 		maxblur: 0.005
-					// 	}
-					// },
-
+				
 					{
 						type: "vignette",
 						darkness: 1.5,
 						offset: 1.15
 					},
-
-
 
 				]
 
@@ -1766,13 +1110,9 @@ const worlds = [
 					forward: false,
 					backward: false,
 					shift: false
-					// shift: false
 				},
 
 				postproc: [
-
-				
-
 
 					{
 						type: "bloom",
@@ -1782,35 +1122,6 @@ const worlds = [
 							radius: 0.99
 						}
 					},
-
-					// {
-					// 	type: "blur",
-					// 	focusTarget: "bob",
-					// 	value: {
-					// 		focus: 1,
-					// 		aperture: 0.025,
-					// 		maxblur: 0.005
-					// 	}
-					// },
-
-					
-					// {
-					// 	type: "rgbShift",
-					// 	amount: 0.12
-					// },
-					// {
-					// 	type: "grayscale"
-					// },
-					// {
-					// 	type: "film",
-					// 	linesAmount: 650,
-					// 	opacity: 0.8,
-					// 	aberration: 0.2
-					// },
-					// {
-					// 	type: "pixel",
-					// 	pixelSize: 0.5
-					// },
 					
 				],
 
@@ -1845,20 +1156,7 @@ const worlds = [
 				slowmo: 5,
 
 				postproc: [
-					
-					// {
-					// 	type: "blur",
-					// 	focusTarget: "bob",
-					// 	value: {
-					// 		focus: 1,
-					// 		aperture: 0.025,
-					// 		maxblur: 0.008
-					// 	}
-					// },
-					// {
-					// 	type: "pixel",
-					// 	pixelSize: 1
-					// },
+				
 					
 					{
 						type: "bloom",
@@ -1868,8 +1166,6 @@ const worlds = [
 							radius: 0.99
 						}
 					},
-
-
 					
 				]
 
@@ -1883,9 +1179,6 @@ const worlds = [
 
 		main: {
 
-			// spaceColor: "#160D54",
-			// spaceColorDarker: "#0D063B",
-			// spaceColorWithBloom: "#040116",
 			spaceColor: "#002038",
 			spaceColorDarker: "#001220",
 			spaceColorWithBloom: "#000B14",
@@ -1921,47 +1214,12 @@ const worlds = [
 
 				glbPath: "/assets/3d/worlds/forestWing/forestWing.glb",
 				imagePath: {
-					landscape: "/assets/3d/worlds/forestWing/forestWingBake.jpg",
-					// sky: "/assets/3d/worlds/bones/skyBake.jpg"
+					landscape: "/assets/3d/worlds/forestWing/forestWingBake.jpg"
 				}
 			},
 
 
 			entities: ["link", "juan", "queen"],
-
-			// bobsMoveFolder: "./assets/3d/persos/moves/smallGuy/",
-			// bobs: {
-			// 	link: {
-			// 		name: "link",
-			// 		fbxPath: "./assets/3d/persos/bob/bob.fbx",
-			// 		infos: {
-			// 			scale: 0.0008,
-			// 			// scale: 1,z
-			// 			velocity: {
-			// 				// x & z -> displacement
-			// 				x: 0.5,
-			// 				z: 0.5,
-			// 				// y -> rotation
-			// 				y: 0.1,
-			// 			}
-			// 		}
-			// 	},
-			// 	juan: {
-			// 		name: "juan",
-			// 		fbxPath: "./assets/3d/persos/bob2/bob.fbx",
-			// 		infos: {
-			// 			scale: 0.0008,
-			// 			// scale: 1,z
-			// 			velocity: {
-			// 				// x & z -> displacement
-			// 				x: 0.5,
-			// 				z: 0.5,
-			// 				// y -> rotation
-			// 				y: 0.1,
-			// 			}
-			// 		}
-			// 	}
-			// }
 
 		},
 
@@ -1972,8 +1230,6 @@ const worlds = [
 				sequenceBobName: "link",
 
 				type: "blender-points",
-				// type: "third-person",
-				// cameraType: "movingHips",
 
 				animatedMesh: false,
 
@@ -2012,27 +1268,7 @@ const worlds = [
 					]
 				},
 
-				postproc: [
-					// {
-					// 	type: "afterimage",
-					// 	damp: 0.99
-					// }
-					// {
-					// 	type: "kaleidoscope",
-					// 	sides: 4,
-					// 	angle: 90
-					// }
-
-					// {
-					// 	type: "bloom",
-					// 	value: {
-					// 		strength: .5,
-					// 		threshold: 0.45,
-					// 		radius: 0.01
-					// 	}
-					// },
-
-				]
+				postproc: []
 
 			},
 			{
@@ -2060,9 +1296,7 @@ const worlds = [
 				},
 
 				bobImposedMoves: {
-					forward: true,
-					// shift: true,
-					// fly: true
+					forward: true
 				},
 
 				postproc: [
@@ -2072,39 +1306,6 @@ const worlds = [
 						darkness: 1.5,
 						offset: 1.04
 					},
-
-					// {
-					// 	type: "kaleidoscope",
-					// 	sides: 1,
-					// 	angle: -25
-					// },
-
-					
-
-					// {
-					// 	type: "bloom",
-					// 	value: {
-					// 		strength: .5,
-					// 		threshold: 0.45,
-					// 		radius: 0.01
-					// 	}
-					// },
-
-					// {
-					// 	type: "rgbShift",
-					// 	amount: 0.12
-					// },
-
-					// {
-					// 	type: "dotscreen",
-					// 	dotSize: 4
-					// },
-
-
-					// {
-					// 	type: "sepia",
-					// 	amount: 1
-					// },
 
 					{
 						type: "bloom",
@@ -2119,37 +1320,6 @@ const worlds = [
 						type: "glitch"
 					},
 
-					
-					
-					
-
-					// {
-					// 	obscurci
-					// 	type: "bleach",
-					// 	amount: 0.5
-					// }
-
-					// {
-					// 	type: "afterimage",
-					// 	damp: 0.8
-					// }
-					
-					// {
-					// 	type: "pixel",
-					// 	pixelSize: 1
-					// }
-					
-
-
-					
-					
-
-					// {
-					// 	type: "sobel"
-					// },
-				
-
-					
 				]
 
 			},
@@ -2186,39 +1356,11 @@ const worlds = [
 
 				postproc: [
 					
-					// {
-					// 	type: "grain",
-					// 	amount: 0.75
-					// },
-					
-					// {
-					// 	type: "bloom",
-					// 	value: {
-					// 		strength: 0.9,
-					// 		threshold: 0.35,
-					// 		radius: 0.3
-					// 	}
-					// },
-
-					
-
-					// {
-					// 	type: "blur",
-					// 	focusTarget: "bob",
-					// 	value: {
-					// 		focus: 1,
-					// 		aperture: 0.025,
-					// 		maxblur: 0.005
-					// 	}
-					// },
-
 					{
 						type: "vignette",
 						darkness: 1.5,
 						offset: 1.15
 					},
-
-
 
 				]
 
@@ -2252,13 +1394,9 @@ const worlds = [
 					forward: false,
 					backward: false,
 					shift: false
-					// shift: false
 				},
 
 				postproc: [
-
-				
-
 
 					{
 						type: "bloom",
@@ -2269,35 +1407,6 @@ const worlds = [
 						}
 					},
 
-					// {
-					// 	type: "blur",
-					// 	focusTarget: "bob",
-					// 	value: {
-					// 		focus: 1,
-					// 		aperture: 0.025,
-					// 		maxblur: 0.005
-					// 	}
-					// },
-
-					
-					// {
-					// 	type: "rgbShift",
-					// 	amount: 0.12
-					// },
-					// {
-					// 	type: "grayscale"
-					// },
-					// {
-					// 	type: "film",
-					// 	linesAmount: 650,
-					// 	opacity: 0.8,
-					// 	aberration: 0.2
-					// },
-					// {
-					// 	type: "pixel",
-					// 	pixelSize: 0.5
-					// },
-					
 				],
 
 			},
@@ -2332,20 +1441,6 @@ const worlds = [
 
 				postproc: [
 					
-					// {
-					// 	type: "blur",
-					// 	focusTarget: "bob",
-					// 	value: {
-					// 		focus: 1,
-					// 		aperture: 0.025,
-					// 		maxblur: 0.008
-					// 	}
-					// },
-					// {
-					// 	type: "pixel",
-					// 	pixelSize: 1
-					// },
-					
 					{
 						type: "bloom",
 						value: {
@@ -2354,8 +1449,6 @@ const worlds = [
 							radius: 0.99
 						}
 					},
-
-
 					
 				]
 
@@ -2369,9 +1462,6 @@ const worlds = [
 
 		main: {
 
-			// spaceColor: "#160D54",
-			// spaceColorDarker: "#0D063B",
-			// spaceColorWithBloom: "#040116",
 			spaceColor: "#002038",
 			spaceColorDarker: "#001220",
 			spaceColorWithBloom: "#000B14",
@@ -2387,66 +1477,17 @@ const worlds = [
 				color: 0xff9500,
 				intensity: .15
 			},
-
-			// particles: [
-			// 	{
-			// 		type: "fireflies",
-			// 		count: 200,
-			// 		particleSize: 50,
-			// 		additive: false,
-			// 		blockSize: {
-			// 			x: 8,
-			// 			y: -0.5,
-			// 			z: 14
-			// 		}
-			// 	}
-			// ],
 			
 			meshInfos: {
 
 				glbPath: "/assets/3d/worlds/epicValley/epicValley.glb",
 				imagePath: {
-					landscape: "/assets/3d/worlds/epicValley/epicValleyBake.jpg",
-					// sky: "/assets/3d/worlds/bones/skyBake.jpg"
+					landscape: "/assets/3d/worlds/epicValley/epicValleyBake.jpg"
 				}
 
 			},
 
 			entities: ["link", "juan"],
-
-			// bobsMoveFolder: "./assets/3d/persos/moves/smallGuy/",
-			// bobs: {
-			// 	link: {
-			// 		name: "link",
-			// 		fbxPath: "./assets/3d/persos/bob/bob.fbx",
-			// 		infos: {
-			// 			scale: 0.0008,
-			// 			// scale: 1,z
-			// 			velocity: {
-			// 				// x & z -> displacement
-			// 				x: 0.5,
-			// 				z: 0.5,
-			// 				// y -> rotation
-			// 				y: 0.1,
-			// 			}
-			// 		}
-			// 	},
-			// 	juan: {
-			// 		name: "juan",
-			// 		fbxPath: "./assets/3d/persos/bob2/bob.fbx",
-			// 		infos: {
-			// 			scale: 0.0008,
-			// 			// scale: 1,z
-			// 			velocity: {
-			// 				// x & z -> displacement
-			// 				x: 0.5,
-			// 				z: 0.5,
-			// 				// y -> rotation
-			// 				y: 0.1,
-			// 			}
-			// 		}
-			// 	}
-			// }
 
 		},
 
@@ -2457,8 +1498,6 @@ const worlds = [
 				sequenceBobName: "link",
 
 				type: "blender-points",
-				// type: "third-person",
-				// cameraType: "movingHips",
 
 				animatedMesh: false,
 
@@ -2497,27 +1536,7 @@ const worlds = [
 					]
 				},
 
-				postproc: [
-					// {
-					// 	type: "afterimage",
-					// 	damp: 0.99
-					// }
-					// {
-					// 	type: "kaleidoscope",
-					// 	sides: 4,
-					// 	angle: 90
-					// }
-
-					// {
-					// 	type: "bloom",
-					// 	value: {
-					// 		strength: .5,
-					// 		threshold: 0.45,
-					// 		radius: 0.01
-					// 	}
-					// },
-
-				]
+				postproc: []
 
 			},
 			{
@@ -2525,7 +1544,6 @@ const worlds = [
 				baseFov: 27,
 				sequenceBobName: "juan",
 
-				// type: "blender-points",
 				type: "third-person",
 				cameraTriggerTimeDecay: 6,
 				cameraType: "movingHips",
@@ -2544,52 +1562,9 @@ const worlds = [
 					intensity: .3
 				},
 
-				bobImposedMoves: {
-					// forward: true,
-					// shift: true,
-					// fly: true
-				},
+				bobImposedMoves: {},
 
 				postproc: [
-
-					// {
-					// 	type: "vignette",
-					// 	darkness: 1.5,
-					// 	offset: 1.04
-					// },
-
-					// {
-					// 	type: "kaleidoscope",
-					// 	sides: 1,
-					// 	angle: -25
-					// },
-
-					
-
-					// {
-					// 	type: "bloom",
-					// 	value: {
-					// 		strength: .5,
-					// 		threshold: 0.45,
-					// 		radius: 0.01
-					// 	}
-					// },
-
-					// {
-					// 	type: "rgbShift",
-					// 	amount: 0.12
-					// },
-
-					// {
-					// 	type: "dotscreen",
-					// 	dotSize: 4
-					// },
-
-
-					// {
-					// 	type: "sepia",
-					// 	amount: 1
-					// },
 
 					{
 						type: "bloom",
@@ -2600,41 +1575,6 @@ const worlds = [
 						}
 					},
 
-					// {
-					// 	type: "glitch"
-					// },
-
-					
-					
-					
-
-					// {
-					// 	obscurci
-					// 	type: "bleach",
-					// 	amount: 0.5
-					// }
-
-					// {
-					// 	type: "afterimage",
-					// 	damp: 0.8
-					// }
-					
-					// {
-					// 	type: "pixel",
-					// 	pixelSize: 1
-					// }
-					
-
-
-					
-					
-
-					// {
-					// 	type: "sobel"
-					// },
-				
-
-					
 				]
 
 			},
@@ -2643,7 +1583,6 @@ const worlds = [
 				baseFov: 35,
 				sequenceBobName: "link",
 
-				// type: "blender-points",
 				type: "third-person",
 				cameraType: "movingHips",
 				cameraTriggerTimeDecay: 10,
@@ -2672,40 +1611,12 @@ const worlds = [
 				slowmo: 5,
 
 				postproc: [
-					
-					// {
-					// 	type: "grain",
-					// 	amount: 0.75
-					// },
-					
-					// {
-					// 	type: "bloom",
-					// 	value: {
-					// 		strength: 0.9,
-					// 		threshold: 0.35,
-					// 		radius: 0.3
-					// 	}
-					// },
-
-					
-
-					// {
-					// 	type: "blur",
-					// 	focusTarget: "bob",
-					// 	value: {
-					// 		focus: 1,
-					// 		aperture: 0.025,
-					// 		maxblur: 0.005
-					// 	}
-					// },
 
 					{
 						type: "vignette",
 						darkness: 1.5,
 						offset: 1.15
 					},
-
-
 
 				]
 
@@ -2734,15 +1645,9 @@ const worlds = [
 					intensity: .2
 				},
 
-				bobImposedMoves: {
-					// forward: true,
-					// shift: false
-				},
+				bobImposedMoves: {},
 
 				postproc: [
-
-				
-
 
 					{
 						type: "bloom",
@@ -2752,35 +1657,6 @@ const worlds = [
 							radius: 0.99
 						}
 					},
-
-					// {
-					// 	type: "blur",
-					// 	focusTarget: "bob",
-					// 	value: {
-					// 		focus: 1,
-					// 		aperture: 0.025,
-					// 		maxblur: 0.005
-					// 	}
-					// },
-
-					
-					// {
-					// 	type: "rgbShift",
-					// 	amount: 0.12
-					// },
-					// {
-					// 	type: "grayscale"
-					// },
-					// {
-					// 	type: "film",
-					// 	linesAmount: 650,
-					// 	opacity: 0.8,
-					// 	aberration: 0.2
-					// },
-					// {
-					// 	type: "pixel",
-					// 	pixelSize: 0.5
-					// },
 					
 				],
 
@@ -2814,20 +1690,6 @@ const worlds = [
 
 				postproc: [
 					
-					// {
-					// 	type: "blur",
-					// 	focusTarget: "bob",
-					// 	value: {
-					// 		focus: 1,
-					// 		aperture: 0.025,
-					// 		maxblur: 0.008
-					// 	}
-					// },
-					// {
-					// 	type: "pixel",
-					// 	pixelSize: 1
-					// },
-					
 					{
 						type: "bloom",
 						value: {
@@ -2836,8 +1698,6 @@ const worlds = [
 							radius: 0.999
 						}
 					},
-
-
 					
 				]
 
