@@ -524,11 +524,14 @@ const worlds = [
 					name: "queen",
 					move: {
 						hiphop: true
-					}
+					},
+					scale: 0.002
 				},
 
+				slowmo: 1,
+
 				bobImposedMoves: {
-					forward: true
+					// forward: true
 				},
 
 				postproc: [

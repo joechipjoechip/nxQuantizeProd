@@ -106,6 +106,8 @@ class SequencesManager{
 			return;
 		}
 		
+		const aliceInfos = this.sceneBundlePassed.sequencesElements[newSequenceID].aliceInfos;
+
 		const newSequenceIDFormated = newSequenceID.replace(".", "-");
 
 		const currentSceneElements = this.sceneBundlePassed.sceneElements;
@@ -114,7 +116,15 @@ class SequencesManager{
 
 		const aliceFuturPosition = currentSceneElements.positionsCollection.find(position => position.name.includes("alice") && position.name.includes(newSequenceIDFormated)).position;
 
+		aliceControls._isAlice = true;
+
 		aliceControls._target.visible = true;
+
+		aliceControls._target.scale = new THREE.Vector3(
+			aliceInfos.scale,
+			aliceInfos.scale,
+			aliceInfos.scale
+		);
 
 		aliceControls._target.position.copy(aliceFuturPosition);
 
@@ -497,8 +507,7 @@ class SequencesManager{
 				deltaTime / currentSequenceElements.slowmo,
 				currentMousePos,
 				{
-					bobNeedsToHandleGround: this.handleGround,
-					isAlice: true
+					bobNeedsToHandleGround: this.handleGround
 				}
 			);
 		}
@@ -511,8 +520,7 @@ class SequencesManager{
 				currentMousePos,
 				{
 					cameraNeedsToHandleGround: this.handleGround
-				},
-				
+				}
 			);
 		}
 

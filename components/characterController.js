@@ -40,6 +40,7 @@ class BasicCharacterController {
 		this._mixer = params.mixer;
 		this._animations = params.animations;
 		this._scene = params.scene
+		this._isAlice = this._params.isAlice;
 
 
 		this._decceleration = new THREE.Vector3(-0.0005, -0.0001, -5.0);
@@ -89,6 +90,17 @@ class BasicCharacterController {
 			return;
 		}
 
+		if( this._isAlice ){
+
+			this._input._keys.forward =  false;
+			this._input._keys.backward =  false;
+			this._input._keys.left =  false;
+			this._input._keys.right =  false;
+			this._input._keys.space =  false;
+			this._input._keys.shift =  false;
+
+		}
+
 		this._stateMachine.Update(timeInSeconds, this._input);
 
 		const velocity = this._velocity;
@@ -112,7 +124,7 @@ class BasicCharacterController {
 
 		const acc = this._acceleration.clone();
 
-		if( !optionsObj.isAlice ){
+		if( !this._isAlice ){
 
 			if (this._input._keys.shift && !this._input._keys.fly ) {
 				acc.multiplyScalar(3.0);
