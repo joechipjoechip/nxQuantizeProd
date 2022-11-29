@@ -92,9 +92,9 @@ const worlds = [
 			// spaceColor: "#160D54",
 			// spaceColorDarker: "#0D063B",
 			// spaceColorWithBloom: "#040116",
-			spaceColor: "#002038",
-			spaceColorDarker: "#001220",
-			spaceColorWithBloom: "#000B14",
+			spaceColor: "#140040",
+			spaceColorDarker: "#0A001F",
+			spaceColorWithBloom: "#05000F",
 
 			ambient: {
 				sunColor: "#FFFFFF",
@@ -103,7 +103,7 @@ const worlds = [
 			},
 
 			fog: {
-				enabled: true,
+				enabled: false,
 				color: 0xff9500,
 				intensity: .15
 			},
@@ -136,8 +136,6 @@ const worlds = [
 
 			},
 
-			entities: ["link", "juan"],
-
 		},
 
 		sequences: [
@@ -162,8 +160,27 @@ const worlds = [
 					intensity: .15
 				},
 
+				alice: {
+					name: "queen",
+					move: {
+						jazz: true
+					},
+					scale: 0.5,
+					offset: {
+						x: 0,
+						y: -13,
+						z: 0
+					},
+					rotate: {
+						x: 0,
+						y: 10,
+						z: 0
+					},
+					slowmo: 25
+				},
+
 				tubeInfos: {
-					duration: 15,
+					duration: 5,
 					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
 					isUsingTarget: true,
 					steps: [
@@ -172,26 +189,35 @@ const worlds = [
 						{
 							// this amount is a percent of the global duration
 							amount: 2,
-							fov: 150,
+							fov: 65,
 							stepEase: "linear"
 						},
 						{
 							// this amount is a percent of the global duration
 							amount: 30,
-							fov: 15,
+							fov: 30,
 							stepEase: "linear"
 						},
 						{
 							// this amount is a percent of the global duration
 							amount: 70,
-							fov: 35,
+							fov: 30,
 							stepEase: "linear"
 						},
 						
 					]
 				},
 
-				postproc: []
+				postproc: [
+					{
+						type: "bloom",
+						value: {
+							strength: .7,
+							threshold: 0.045,
+							radius: 0.1
+						}
+					},
+				]
 
 			},
 			{
@@ -214,8 +240,27 @@ const worlds = [
 				
 				fog: {
 					enabled: true,
-					color: "#0D063B",
-					intensity: .5
+					color: "#05000F",
+					intensity: .45
+				},
+
+				alice: {
+					name: "queen",
+					move: {
+						jazz: true
+					},
+					scale: 0.5,
+					offset: {
+						x: 0,
+						y: -13,
+						z: 0
+					},
+					rotate: {
+						x: 0,
+						y: 10,
+						z: 0
+					},
+					slowmo: 25
 				},
 
 				bobImposedMoves: {
@@ -227,18 +272,18 @@ const worlds = [
 					{
 						type: "bloom",
 						value: {
-							strength: 0.9,
-							threshold: 0.35,
-							radius: 0.3
+							strength: .7,
+							threshold: 0.045,
+							radius: 0.1
 						}
-					}
+					},
 					
 				]
 
 			},
 			{
 				id: "1.2",
-				baseFov: 35,
+				baseFov: Math.PI/0.05,
 				sequenceBobName: "link",
 
 				type: "third-person",
@@ -259,6 +304,25 @@ const worlds = [
 					intensity: .15
 				},
 
+				alice: {
+					name: "queen",
+					move: {
+						jazz: true
+					},
+					scale: 0.5,
+					offset: {
+						x: 0,
+						y: -13,
+						z: 0
+					},
+					rotate: {
+						x: 0,
+						y: 10,
+						z: 0
+					},
+					slowmo: 25
+				},
+
 				bobImposedMoves: {
 					forward: true,
 					shift: true,
@@ -268,13 +332,22 @@ const worlds = [
 
 				slowmo: 5,
 
-				postproc: []
+				postproc: [
+					{
+						type: "bloom",
+						value: {
+							strength: .7,
+							threshold: 0.045,
+							radius: 0.1
+						}
+					},
+				]
 
 			},
 			{
 				id: "1.3",
-				baseFov: 35,
-				sequenceBobName: "juan",
+				baseFov: Math.PI/0.09,
+				sequenceBobName: "link",
 
 				
 				type: "third-person",
@@ -295,15 +368,43 @@ const worlds = [
 					intensity: .2
 				},
 
+				alice: {
+					name: "queen",
+					move: {
+						jazz: true
+					},
+					scale: 0.5,
+					offset: {
+						x: 0,
+						y: -13,
+						z: 0
+					},
+					rotate: {
+						x: 0,
+						y: 10,
+						z: 0
+					},
+					slowmo: 35
+				},
+
 				bobImposedMoves: {},
 
-				postproc: [],
+				postproc: [
+					{
+						type: "bloom",
+						value: {
+							strength: .4,
+							threshold: 0.095,
+							radius: 0.2
+						}
+					},
+				],
 
 			},
 			{
 				id: "1.4",
 				baseFov: 95,
-				sequenceBobName: "juan",
+				sequenceBobName: "link",
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 3,
@@ -323,25 +424,43 @@ const worlds = [
 					intensity: .15
 				},
 
+				alice: {
+					name: "queen",
+					move: {
+						jazz: true
+					},
+					scale: 0.5,
+					offset: {
+						x: 0,
+						y: -13,
+						z: 0
+					},
+					rotate: {
+						x: 0,
+						y: 10,
+						z: 0
+					},
+					slowmo: 25
+				},
+
 				bobImposedMoves: {
-					climb: true,
-					left: false,
-					right: false,
-					space: false,
+					// climb: true,
+					fly: true,
+					// left: false,
+					// right: false,
+					// space: false,
 					shift: false
 				},
 
 				postproc: [
-					
 					{
 						type: "bloom",
 						value: {
-							strength: 0.9,
-							threshold: 0.35,
-							radius: 0.999
+							strength: .7,
+							threshold: 0.045,
+							radius: 0.1
 						}
-					}
-
+					},
 				]
 
 			}
@@ -475,9 +594,9 @@ const worlds = [
 				},
 				
 				fog: {
-					enabled: false,
-					color: "#0D063B",
-					intensity: .3
+					enabled: true,
+					color: "#010005",
+					intensity: .55
 				},
 
 				bobImposedMoves: {
@@ -517,7 +636,7 @@ const worlds = [
 				fog: {
 					enabled: true,
 					color: "#010005",
-					intensity: .55
+					intensity: .25
 				},
 
 				alice: {
@@ -543,7 +662,7 @@ const worlds = [
 						value: {
 							focus: 1,
 							aperture: 0.025,
-							maxblur: 0.005
+							maxblur: 0.008
 						}
 					},
 

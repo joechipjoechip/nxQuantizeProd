@@ -131,6 +131,22 @@ class SequencesManager{
 		aliceControls._target.position.copy(aliceFuturInfos.position);
 		aliceControls._target.rotation.copy(aliceFuturInfos.rotation);
 
+		if( aliceInfos.offset ){
+			const { x,y,z } = aliceInfos.offset;
+
+			aliceControls._target.position.x += x;
+			aliceControls._target.position.y += y;
+			aliceControls._target.position.z += z;
+		}
+
+		if( aliceInfos.rotate ){
+			const { x,y,z } = aliceInfos.rotate;
+
+			aliceControls._target.rotation.x += x;
+			aliceControls._target.rotation.y += y;
+			aliceControls._target.rotation.z += z;
+		}
+
 	}
 
 	activeGoodCastShadows( newSequenceID, oldSequenceID ){
@@ -371,9 +387,12 @@ class SequencesManager{
 	}
 
 	cameraFovChangeHandler( newSequenceID ){
+		// const goodCamera = this.sceneBundlePassed.camera;
 
-		const goodCamera = this.sceneBundlePassed.scene.children.find(child => child.name === "third-person-camera");
-		const baseFov = goodCamera.fov;
+		debugger
+		const goodCamera = this.sceneBundlePassed.scene.children.find(child => child.name.includes("third-person-camera"));
+
+		const baseFov = goodCamera.getEffectiveFOV();
 		const destinationFov = this.sceneBundlePassed.worldConfig.sequences.find(seq => seq.id === newSequenceID).baseFov;
 
 		const animatedObject = {
@@ -388,7 +407,10 @@ class SequencesManager{
 				animatedFov: destinationFov,
 
 				onUpdate: () => {
-					goodCamera.fov = animatedObject.animatedFov;
+					goodCamera.setFocalLength(animatedObject.animatedFov);
+					// goodCamera.updateProj = true;
+					
+					console.log("updateFov : ", goodCamera.getEffectiveFOV());
 				},
 
 				onComplete: () => {

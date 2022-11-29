@@ -189,7 +189,8 @@ class SequencesBuilder {
 			target: this._sceneElements.bobs[sequenceInfos.sequenceBobName]._controls,
 			camera: this._camera,
 			scene: this._scene,
-			cameraType: sequenceInfos.cameraType
+			cameraType: sequenceInfos.cameraType,
+			name: sequenceInfos.sequenceBobName
 		});
 
 	}

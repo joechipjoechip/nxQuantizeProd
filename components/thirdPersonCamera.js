@@ -7,6 +7,7 @@ class ThirdPersonCamera {
 	constructor(params) {
 
 		this._params = params;
+		this._name = params.name;
 		this._camera = params.camera;
     	this._specs = core.generatedCamerasSpecs[params.cameraType];
 		this._scene = params.scene;
@@ -28,7 +29,7 @@ class ThirdPersonCamera {
 		);
 
 
-		this._camera.name = "third-person-camera";
+		this._camera.name = `third-person-camera_${this._name}`;
 	}
   
 	_CalculateIdealOffset( timeElapsed ){
