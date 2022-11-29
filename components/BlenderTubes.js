@@ -127,7 +127,7 @@ class BlenderTubes{
 
 			const animatedObject = {
 				time: alreadyPlayedDuration,
-				customFov: index === 0 ? this._camera.fov : this._sequenceInfos.tubeInfos.steps[index - 1].fov
+				customFov: index === 0 ? this._camera.getEffectiveFOV() : this._sequenceInfos.tubeInfos.steps[index - 1].fov
 			};
 
 			const timeToReach = alreadyPlayedDuration + thisStepDuration;
@@ -154,9 +154,9 @@ class BlenderTubes{
 						
 						this._camera.position.copy(pos1);
 
-						this._camera.fov = customFov;
+						this._camera.setFocalLength(customFov);
 
-						this._camera.updateProjectionMatrix();
+						// this._camera.updateProjectionMatrix();
 						
 						if( this._target ){
 							
