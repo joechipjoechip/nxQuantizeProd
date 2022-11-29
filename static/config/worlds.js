@@ -165,10 +165,10 @@ const worlds = [
 					move: {
 						jazz: true
 					},
-					scale: 0.5,
+					scale: 0.35,
 					offset: {
 						x: 0,
-						y: -13,
+						y: -9,
 						z: 0
 					},
 					rotate: {
@@ -249,10 +249,10 @@ const worlds = [
 					move: {
 						jazz: true
 					},
-					scale: 0.5,
+					scale: 0.35,
 					offset: {
 						x: 0,
-						y: -13,
+						y: -9,
 						z: 0
 					},
 					rotate: {
@@ -309,10 +309,10 @@ const worlds = [
 					move: {
 						jazz: true
 					},
-					scale: 0.5,
+					scale: 0.35,
 					offset: {
 						x: 0,
-						y: -13,
+						y: -9,
 						z: 0
 					},
 					rotate: {
@@ -373,10 +373,10 @@ const worlds = [
 					move: {
 						jazz: true
 					},
-					scale: 0.5,
+					scale: 0.35,
 					offset: {
 						x: 0,
-						y: -13,
+						y: -9,
 						z: 0
 					},
 					rotate: {
@@ -429,10 +429,10 @@ const worlds = [
 					move: {
 						jazz: true
 					},
-					scale: 0.5,
+					scale: 0.35,
 					offset: {
 						x: 0,
-						y: -13,
+						y: -9,
 						z: 0
 					},
 					rotate: {
