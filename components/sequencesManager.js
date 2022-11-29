@@ -339,7 +339,7 @@ class SequencesManager{
 
 		this.composer.setSize(this.canvasSizeRef.width, this.canvasSizeRef.height);
 
-		this.composer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+		this.composer.setPixelRatio(1);
 
 	}
 
