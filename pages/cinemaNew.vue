@@ -2,8 +2,8 @@
 	<div>
 
 		<div class="debug-buttons-container">
-			<button @click="changeSceneHandler">change scene</button>
 			<button @click="playPauseAnimationHandler">start/stop animation</button>
+			<button @click="changeSceneHandler">change scene</button>
 			<button @click="changeSequenceHandler">next sequence</button>
 		</div>
 
