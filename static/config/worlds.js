@@ -520,6 +520,13 @@ const worlds = [
 					intensity: .55
 				},
 
+				alice: {
+					name: "queen",
+					move: {
+						hiphop: true
+					}
+				},
+
 				bobImposedMoves: {
 					forward: true
 				},
