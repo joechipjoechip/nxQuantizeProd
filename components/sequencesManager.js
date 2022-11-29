@@ -116,7 +116,7 @@ class SequencesManager{
 
 		const aliceControls = currentSceneElements.bobs[this.currentAliceName]?._controls;
 
-		const aliceFuturPosition = currentSceneElements.positionsCollection.find(position => position.name.includes("alice") && position.name.includes(newSequenceIDFormated)).position;
+		const aliceFuturInfos = currentSceneElements.positionsCollection.find(position => position.name.includes("alice") && position.name.includes(newSequenceIDFormated));
 
 		aliceControls._isAlice = true;
 
@@ -128,7 +128,8 @@ class SequencesManager{
 			aliceInfos.scale
 		);
 
-		aliceControls._target.position.copy(aliceFuturPosition);
+		aliceControls._target.position.copy(aliceFuturInfos.position);
+		aliceControls._target.rotation.copy(aliceFuturInfos.rotation);
 
 	}
 
@@ -569,13 +570,11 @@ class SequencesManager{
 
 		const blurPostproc = currentSequenceElements.postproc.find(postproc => postproc.postprocType === "blur");
 
-		const goodTarget = currentSequenceElements.focusTarget._controls._target.name;
-
-		if( !goodTarget ){
+		if( !currentSequenceElements.focusTarget._controls ){
 			return;
 		}
 
-		const { x, y, z } = currentSequenceElements.thirdPersonCamera[goodTarget]._camera.position;
+		const { x, y, z } = this.sceneBundlePassed.camera.position;
 
 		// compute distance beetween camera and target
 		const distance = new THREE.Vector3(x,y,z).distanceTo({...currentSequenceElements.focusTarget._controls._position});

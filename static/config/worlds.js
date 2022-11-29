@@ -525,7 +525,7 @@ const worlds = [
 					move: {
 						jazz: true
 					},
-					scale: 0.004,
+					scale: 0.008,
 					slowmo: 4
 				},
 
@@ -539,7 +539,7 @@ const worlds = [
 
 					{
 						type: "blur",
-						focusTarget: "link",
+						focusTarget: "queen",
 						value: {
 							focus: 1,
 							aperture: 0.025,
@@ -574,6 +574,15 @@ const worlds = [
 					intensity: .2
 				},
 
+				alice: {
+					name: "queen",
+					move: {
+						jazz: true
+					},
+					scale: 0.008,
+					slowmo: 4
+				},
+
 				bobImposedMoves: {
 					hiphop: true,
 					forward: false,
@@ -586,7 +595,7 @@ const worlds = [
 
 					{
 						type: "blur",
-						focusTarget: "link",
+						focusTarget: "queen",
 						value: {
 							focus: 1,
 							aperture: 0.025,
