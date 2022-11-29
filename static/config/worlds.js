@@ -523,9 +523,10 @@ const worlds = [
 				alice: {
 					name: "queen",
 					move: {
-						hiphop: true
+						jazz: true
 					},
-					scale: 0.002
+					scale: 0.004,
+					slowmo: 4
 				},
 
 				slowmo: 1,

@@ -38,6 +38,8 @@ class SequencesManager{
 
 		this.currentAliceName = currentSequenceElements.aliceInfos?.name;
 
+		this.currentAliceSlowmo = currentSequenceElements.aliceInfos?.slowmo || 1;
+
 		this.handleGround = !(
 			currentSequenceElements.bobImposedMoves?.fly 
 			|| currentSequenceElements.bobImposedMoves?.floating 
@@ -504,7 +506,7 @@ class SequencesManager{
 		// if any alice in the sequence, she needs update for her moves
 		if( currentSceneElements.bobs[this.currentAliceName] ){
 			currentSceneElements.bobs[this.currentAliceName]._controls.Update(
-				deltaTime / currentSequenceElements.slowmo,
+				deltaTime / this.currentAliceSlowmo,
 				currentMousePos,
 				{
 					bobNeedsToHandleGround: this.handleGround
