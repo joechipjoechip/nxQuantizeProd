@@ -112,102 +112,106 @@ class BasicCharacterController {
 
 		const acc = this._acceleration.clone();
 
-		if (this._input._keys.shift && !this._input._keys.fly ) {
-			acc.multiplyScalar(3.0);
-		}
+		if( !optionsObj.isAlice ){
 
-		if(this._input._keys.fly ){
-			acc.multiplyScalar(30.0);
-		}
-
-		if (this._stateMachine._currentState?.Name == 'dance') {
-			acc.multiplyScalar(0.0);
-		}
-
-		if( this._input._keys.hiphop ){
-			velocity.z += acc.z * timeInSeconds / 3.5;
-		}
-
-		if( this._input._keys.climb ){
-			acc.multiplyScalar(0.05);
-			velocity.y += acc.y * timeInSeconds / 3.5;
-		}
-
-		if (this._input._keys.forward || this._input._keys.fly) {
-			velocity.z += acc.z * timeInSeconds;
-		}
-
-		if (this._input._keys.backward) {
-			velocity.z -= acc.z * timeInSeconds;
-		}
-
-		if (this._input._keys.left) {
-			_A.set(0, 1, 0);
-			_Q.setFromAxisAngle(_A, 4.0 * Math.PI * timeInSeconds * this._acceleration.y * 0.4);
-			_R.multiply(_Q);
-		}
-
-		if (this._input._keys.right) {
-			_A.set(0, 1, 0);
-			_Q.setFromAxisAngle(_A, 4.0 * -Math.PI * timeInSeconds * this._acceleration.y * 0.4);
-			_R.multiply(_Q);
-		}
-
-
-		// if( mousePos.x === 0 ){
-		// 	// console.log("mouse centered");
-		// } else {
-
-		// 	if( mousePos.x < 0 ){
-		// 		const rotateLeft = THREE.MathUtils.clamp(
-		// 			4.0 * Math.PI * timeInSeconds * (this._acceleration.y * Math.abs(mousePos.x / core.mouse.orientationClamp.divideRatio)),
-		// 			core.mouse.orientationClamp.start,
-		// 			core.mouse.orientationClamp.end
-		// 		);
-		// 		_A.set(0, 1, 0);
-		// 		_Q.setFromAxisAngle(_A, rotateLeft);
-		// 		_R.multiply(_Q);
+			if (this._input._keys.shift && !this._input._keys.fly ) {
+				acc.multiplyScalar(3.0);
+			}
 	
-		// 		// console.log("turning left : ", rotateLeft);
-		// 	} else if( mousePos.x > 0 ){
-		// 		const rotateRight = THREE.MathUtils.clamp(
-		// 			4.0 * -Math.PI * timeInSeconds * (this._acceleration.y * Math.abs(mousePos.x / core.mouse.orientationClamp.divideRatio)),
-		// 			core.mouse.orientationClamp.end * -1,
-		// 			core.mouse.orientationClamp.start * -1
-		// 		);
-		// 		_A.set(0, 1, 0);
-		// 		_Q.setFromAxisAngle(_A, rotateRight);
-		// 		_R.multiply(_Q);
+			if(this._input._keys.fly ){
+				acc.multiplyScalar(30.0);
+			}
 	
-		// 		// console.log("turning right : ", rotateRight);
-		// 	}
-
-		// }
-
-		controlObject.quaternion.copy(_R);
-
-		const oldPosition = new THREE.Vector3();
-		oldPosition.copy(controlObject.position);
-
-		const forward = new THREE.Vector3(0, 0, 1);
-		forward.applyQuaternion(controlObject.quaternion);
-		forward.normalize();
-
-		const sideways = new THREE.Vector3(1, 0, 0);
-		sideways.applyQuaternion(controlObject.quaternion);
-		sideways.normalize();
-
-		const upway = new THREE.Vector3(0, 1, 0);
-		upway.applyQuaternion(controlObject.quaternion);
-		upway.normalize();
+			if (this._stateMachine._currentState?.Name == 'dance') {
+				acc.multiplyScalar(0.0);
+			}
+	
+			if( this._input._keys.hiphop ){
+				velocity.z += acc.z * timeInSeconds / 3.5;
+			}
+	
+			if( this._input._keys.climb ){
+				acc.multiplyScalar(0.05);
+				velocity.y += acc.y * timeInSeconds / 3.5;
+			}
+	
+			if (this._input._keys.forward || this._input._keys.fly) {
+				velocity.z += acc.z * timeInSeconds;
+			}
+	
+			if (this._input._keys.backward) {
+				velocity.z -= acc.z * timeInSeconds;
+			}
+	
+			if (this._input._keys.left) {
+				_A.set(0, 1, 0);
+				_Q.setFromAxisAngle(_A, 4.0 * Math.PI * timeInSeconds * this._acceleration.y * 0.4);
+				_R.multiply(_Q);
+			}
+	
+			if (this._input._keys.right) {
+				_A.set(0, 1, 0);
+				_Q.setFromAxisAngle(_A, 4.0 * -Math.PI * timeInSeconds * this._acceleration.y * 0.4);
+				_R.multiply(_Q);
+			}
+	
+	
+			// if( mousePos.x === 0 ){
+			// 	// console.log("mouse centered");
+			// } else {
+	
+			// 	if( mousePos.x < 0 ){
+			// 		const rotateLeft = THREE.MathUtils.clamp(
+			// 			4.0 * Math.PI * timeInSeconds * (this._acceleration.y * Math.abs(mousePos.x / core.mouse.orientationClamp.divideRatio)),
+			// 			core.mouse.orientationClamp.start,
+			// 			core.mouse.orientationClamp.end
+			// 		);
+			// 		_A.set(0, 1, 0);
+			// 		_Q.setFromAxisAngle(_A, rotateLeft);
+			// 		_R.multiply(_Q);
 		
-		sideways.multiplyScalar(velocity.x * timeInSeconds);
-		forward.multiplyScalar((velocity.z * timeInSeconds) * (this._moveScaledRatio));
-		upway.multiplyScalar(velocity.y * timeInSeconds * this._moveScaledRatio);
+			// 		// console.log("turning left : ", rotateLeft);
+			// 	} else if( mousePos.x > 0 ){
+			// 		const rotateRight = THREE.MathUtils.clamp(
+			// 			4.0 * -Math.PI * timeInSeconds * (this._acceleration.y * Math.abs(mousePos.x / core.mouse.orientationClamp.divideRatio)),
+			// 			core.mouse.orientationClamp.end * -1,
+			// 			core.mouse.orientationClamp.start * -1
+			// 		);
+			// 		_A.set(0, 1, 0);
+			// 		_Q.setFromAxisAngle(_A, rotateRight);
+			// 		_R.multiply(_Q);
+		
+			// 		// console.log("turning right : ", rotateRight);
+			// 	}
+	
+			// }
+	
+			controlObject.quaternion.copy(_R);
+	
+			const oldPosition = new THREE.Vector3();
+			oldPosition.copy(controlObject.position);
+	
+			const forward = new THREE.Vector3(0, 0, 1);
+			forward.applyQuaternion(controlObject.quaternion);
+			forward.normalize();
+	
+			const sideways = new THREE.Vector3(1, 0, 0);
+			sideways.applyQuaternion(controlObject.quaternion);
+			sideways.normalize();
+	
+			const upway = new THREE.Vector3(0, 1, 0);
+			upway.applyQuaternion(controlObject.quaternion);
+			upway.normalize();
+			
+			sideways.multiplyScalar(velocity.x * timeInSeconds);
+			forward.multiplyScalar((velocity.z * timeInSeconds) * (this._moveScaledRatio));
+			upway.multiplyScalar(velocity.y * timeInSeconds * this._moveScaledRatio);
+	
+			controlObject.position.add(forward);
+			controlObject.position.add(sideways);
+			controlObject.position.add(upway);
 
-		controlObject.position.add(forward);
-		controlObject.position.add(sideways);
-		controlObject.position.add(upway);
+		}
 
 		if( optionsObj.bobNeedsToHandleGround ){
 

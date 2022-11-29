@@ -47,7 +47,8 @@ class SequencesBuilder {
 				bobInitialPosition: new THREE.Vector3(0,0,0),
 				cameraTriggerTimeDecay: sequenceInfos.cameraTriggerTimeDecay,
 				slowmo: sequenceInfos.slowmo ? sequenceInfos.slowmo : 1,
-				sequenceBobName: sequenceInfos.sequenceBobName
+				sequenceBobName: sequenceInfos.sequenceBobName,
+				aliceInfos: sequenceInfos.alice
 			};
 
 			this._BuildPostprocsCollections(sequenceInfos);

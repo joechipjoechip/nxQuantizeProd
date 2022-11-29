@@ -17,6 +17,7 @@ class SequencesManager{
 		this.canvasSizeRef = canvasSizeRef;
 		this.currentSequenceID = null;
 		this.currentBobName = null;
+		this.currentAliceName = null;
 		this.mousePos = mousePos;
 		this.isPlaying = false;
 		this.handleGround = true;
@@ -35,6 +36,8 @@ class SequencesManager{
 
 		this.currentBobName = currentSequenceElements.sequenceBobName;
 
+		this.currentAliceName = currentSequenceElements.aliceInfos?.name;
+
 		this.handleGround = !(
 			currentSequenceElements.bobImposedMoves?.fly 
 			|| currentSequenceElements.bobImposedMoves?.floating 
@@ -48,10 +51,14 @@ class SequencesManager{
 		this.updateFog(newSequenceID);
 
 		this.bobImposedGestureHandler(newSequenceID);
-
+		
 		this.bobAndCameraNewPositionHandler(newSequenceID);
-
+		
 		this.bobVisibilitySwitcher(newSequenceID);
+		
+		this.aliceManager(newSequenceID);
+
+		this.aliceImposedGestureHandler(newSequenceID);
 
 		this.cameraFovChangeHandler(newSequenceID);
 
@@ -90,6 +97,26 @@ class SequencesManager{
 
 			});
 		}
+
+	}
+
+	aliceManager( newSequenceID ){
+
+		if( !this.currentAliceName ){
+			return;
+		}
+		
+		const newSequenceIDFormated = newSequenceID.replace(".", "-");
+
+		const currentSceneElements = this.sceneBundlePassed.sceneElements;
+
+		const aliceControls = currentSceneElements.bobs[this.currentAliceName]?._controls;
+
+		const aliceFuturPosition = currentSceneElements.positionsCollection.find(position => position.name.includes("alice") && position.name.includes(newSequenceIDFormated)).position;
+
+		aliceControls._target.visible = true;
+
+		aliceControls._target.position.copy(aliceFuturPosition);
 
 	}
 
@@ -175,6 +202,35 @@ class SequencesManager{
 
 			this.renderPass = null;
 			this.composer = null;
+
+		}
+
+	}
+
+	aliceImposedGestureHandler( newSequenceID ){
+
+		const sequenceAlice = this.sceneBundlePassed.sequencesElements[newSequenceID]?.aliceInfos;
+
+		if( !sequenceAlice ){ return; }
+
+		const sequenceAliceImposedMoves = sequenceAlice.move;
+
+		const goodAlice = this.sceneBundlePassed.sceneElements.bobs[sequenceAlice.name];
+
+		goodAlice._controls._input._keys = {};
+
+		if( sequenceAliceImposedMoves ){
+
+			goodAlice._controls._input._imposedMoves = sequenceAliceImposedMoves;
+
+			Object.keys(sequenceAliceImposedMoves).forEach(imposedKey => {
+				goodAlice._controls._input._keys[imposedKey] = sequenceAliceImposedMoves[imposedKey];
+			});
+
+
+		} else {
+
+			goodAlice._controls._input._imposedMoves = {};
 
 		}
 
@@ -424,13 +480,25 @@ class SequencesManager{
 		}
 
 		// debugger;
-		// if any bob in the scene, he needs update for his moves
+		// if any bob in the sequence, he needs update for his moves
 		if( currentSceneElements.bobs[this.currentBobName] ){
 			currentSceneElements.bobs[this.currentBobName]._controls.Update(
 				deltaTime / currentSequenceElements.slowmo,
 				currentMousePos,
 				{
 					bobNeedsToHandleGround: this.handleGround
+				}
+			);
+		}
+
+		// if any alice in the sequence, she needs update for her moves
+		if( currentSceneElements.bobs[this.currentAliceName] ){
+			currentSceneElements.bobs[this.currentAliceName]._controls.Update(
+				deltaTime / currentSequenceElements.slowmo,
+				currentMousePos,
+				{
+					bobNeedsToHandleGround: this.handleGround,
+					isAlice: true
 				}
 			);
 		}
