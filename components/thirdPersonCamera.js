@@ -129,7 +129,7 @@ class ThirdPersonCamera {
 					return (intersected.object.name === "landscape" && intersected.object.name !== "shadow") || intersected.object.name.includes("ground")
 				});
 
-		if( hit?.distance && hit.distance > 1){
+		if( hit?.distance && hit.distance > 0.5){
 			this._currentPosition.y = hit.point.y + this._specs.offset.y;
 		} else {
 			this._currentPosition.y = this._specs.offset.y;
