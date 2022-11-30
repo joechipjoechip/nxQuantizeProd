@@ -161,6 +161,7 @@ const worlds = [
 				},
 
 				alice: {
+					handleGround: false,
 					name: "queen",
 					move: {
 						jazz: true
@@ -245,6 +246,7 @@ const worlds = [
 				},
 
 				alice: {
+					handleGround: false,
 					name: "queen",
 					move: {
 						jazz: true
@@ -305,6 +307,7 @@ const worlds = [
 				},
 
 				alice: {
+					handleGround: false,
 					name: "queen",
 					move: {
 						jazz: true
@@ -369,6 +372,7 @@ const worlds = [
 				},
 
 				alice: {
+					handleGround: false,
 					name: "queen",
 					move: {
 						jazz: true
@@ -425,6 +429,7 @@ const worlds = [
 				},
 
 				alice: {
+					handleGround: false,
 					name: "queen",
 					move: {
 						jazz: true
@@ -643,6 +648,7 @@ const worlds = [
 				},
 
 				alice: {
+					handleGround: false,
 					name: "queen",
 					move: {
 						jazz: true
@@ -697,6 +703,7 @@ const worlds = [
 				},
 
 				alice: {
+					handleGround: false,
 					name: "queen",
 					move: {
 						jazz: true

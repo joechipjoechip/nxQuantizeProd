@@ -20,7 +20,7 @@ class SequencesManager{
 		this.currentAliceName = null;
 		this.mousePos = mousePos;
 		this.isPlaying = false;
-		this.handleGround = true;
+		this.bobHandleGround = true;
 
 	}
 
@@ -40,7 +40,9 @@ class SequencesManager{
 
 		this.currentAliceSlowmo = currentSequenceElements.aliceInfos?.slowmo || 1;
 
-		this.handleGround = !(
+		this.currentAliceHandleGround = currentSequenceElements.aliceInfos?.handleGround;
+
+		this.bobHandleGround = !(
 			currentSequenceElements.bobImposedMoves?.fly 
 			|| currentSequenceElements.bobImposedMoves?.floating 
 			|| currentSequenceElements.bobImposedMoves?.climb
@@ -514,14 +516,13 @@ class SequencesManager{
 
 		}
 
-		// debugger;
 		// if any bob in the sequence, he needs update for his moves
 		if( currentSceneElements.bobs[this.currentBobName] ){
 			currentSceneElements.bobs[this.currentBobName]._controls.Update(
 				deltaTime / currentSequenceElements.slowmo,
 				currentMousePos,
 				{
-					bobNeedsToHandleGround: this.handleGround
+					bobNeedsToHandleGround: this.bobHandleGround
 				}
 			);
 		}
@@ -532,7 +533,7 @@ class SequencesManager{
 				deltaTime / this.currentAliceSlowmo,
 				currentMousePos,
 				{
-					bobNeedsToHandleGround: this.handleGround
+					bobNeedsToHandleGround: this.currentAliceHandleGround
 				}
 			);
 		}
@@ -544,7 +545,7 @@ class SequencesManager{
 				elapsedTime, 
 				currentMousePos,
 				{
-					cameraNeedsToHandleGround: this.handleGround
+					cameraNeedsToHandleGround: this.bobHandleGround
 				}
 			);
 		}
