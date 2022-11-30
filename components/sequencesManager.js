@@ -34,19 +34,7 @@ class SequencesManager{
 
 		const triggerTimeDecay = currentSequenceElements.cameraTriggerTimeDecay;
 
-		this.currentBobName = currentSequenceElements.sequenceBobName;
-
-		this.currentAliceName = currentSequenceElements.aliceInfos?.name;
-
-		this.currentAliceSlowmo = currentSequenceElements.aliceInfos?.slowmo || 1;
-
-		this.currentAliceHandleGround = currentSequenceElements.aliceInfos?.handleGround;
-
-		this.bobHandleGround = !(
-			currentSequenceElements.bobImposedMoves?.fly 
-			|| currentSequenceElements.bobImposedMoves?.floating 
-			|| currentSequenceElements.bobImposedMoves?.climb
-		);
+		this.updateCommonsValues(currentSequenceElements)
 
 		this.killOldSequence(oldSequenceID);
 
@@ -82,6 +70,24 @@ class SequencesManager{
 			this.cinema.curtainActive = false;
 		}, 100)
 
+	}
+
+	updateCommonsValues( currentSequenceElements ){
+
+		this.currentBobName = currentSequenceElements.sequenceBobName;
+
+		this.currentAliceName = currentSequenceElements.aliceInfos?.name;
+
+		this.currentAliceSlowmo = currentSequenceElements.aliceInfos?.slowmo || 1;
+
+		this.currentAliceHandleGround = currentSequenceElements.aliceInfos?.handleGround;
+
+		this.bobHandleGround = !(
+			currentSequenceElements.bobImposedMoves?.fly 
+			|| currentSequenceElements.bobImposedMoves?.floating 
+			|| currentSequenceElements.bobImposedMoves?.climb
+		);
+		
 	}
 
 	killOldSequence( oldSequenceID ){
