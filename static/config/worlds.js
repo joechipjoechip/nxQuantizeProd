@@ -313,7 +313,7 @@ const worlds = [
 					handleGround: false,
 					name: "queen",
 					move: {
-						jazz: true
+						floating: true
 					},
 					scale: 0.35,
 					offset: {
@@ -659,10 +659,15 @@ const worlds = [
 					handleGround: false,
 					name: "queen",
 					move: {
-						jazz: true
+						floating: true
+					},
+					offset: {
+						x: 0.2,
+						y: -0.15,
+						z: 0
 					},
 					scale: 0.008,
-					slowmo: 4
+					slowmo: 1
 				},
 
 				slowmo: 1,

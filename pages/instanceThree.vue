@@ -7,23 +7,20 @@
 			</pre>
 			<div ref="stats" class="stats"></div>
 		</div>
+
 		<canvas 
 			class="webgl" 
 			ref="canvas"
-			@mousemove="mouseMoveHandler"
 		/>
-			<!-- @mousemove="mouseMoveHandler" -->
+
 	</div>
 </template>
 
 <script>
-
-	import { core } from '@/static/config/core.js';
+	
 	import { worlds } from '@/static/config/worlds.js';
 	import { SceneBuilder } from '@/components/sceneBuilder.js';
 	import { SequencesManager } from '@/components/sequencesManager.js';
-
-	import { TimelineLite } from 'gsap';
 
 	// THREE
 	import * as THREE from 'three';
@@ -33,6 +30,11 @@
 	export default {
 
 		props: {
+
+			canvasSizeRef: {
+				type: Object,
+				required: true
+			},
 
 			glbs: {
 				type: Array,
@@ -49,8 +51,8 @@
 				required: true
 			},
 
-			downScale: {
-				type: Number,
+			mousePos: {
+				type: Object,
 				required: true
 			}
 
@@ -59,7 +61,6 @@
 		data(){
 
 			return {
-				core,
 				// Config from worlds.js
 				worldConfig: worlds.find( world => world.sequences.find( seq => seq.id === this.sequenceID ) ),
 
@@ -71,18 +72,6 @@
 				lastKnownSequenceID: "1.0",
 
 				// Others
-				canvasSizeRef: { 
-					width: window.innerWidth / this.downScale, 
-					height: window.innerHeight / this.downScale
-					// width: 1280,
-					// height: 700
-				},
-				mousePos: {
-					x: 0,
-					y: 0
-				},
-				mouseRecenterTimeoutID: null,
-
 				debug: {
 					animated: true,
 					stats: true
@@ -133,19 +122,6 @@
 			},
 			"sceneBundle.secondary"(){
 				this.checkIfAllScenesAreReady();
-			},
-
-			mousePos(){
-
-				if( this.mouseRecenterTimeoutID ){
-					clearTimeout(this.mouseRecenterTimeoutID);
-				}
-
-				this.mouseRecenterTimeoutID = setTimeout(
-					this.mouseRecenter,
-					this.core.mouse.moveTimeout * 1000
-				);
-
 			},
 
 			sequenceID(newVal, oldVal){
@@ -268,39 +244,7 @@
 
 			},
 
-			mouseMoveHandler( event ){
-				
-				this.mousePos = {
-					x: (((event.offsetX + this.canvasSizeRef.width / 2) / this.canvasSizeRef.width) - 1) * 2,
-					y: (((event.offsetY + this.canvasSizeRef.height / 2) / this.canvasSizeRef.height) - 1) * -2
-				};
-
-			},
-
-			mouseRecenter(){
-
-				console.log("recentering the mousePos");
-
-				const animatedObject = {
-					x: this.mousePos.x,
-					y: this.mousePos.y
-				};
-
-				const tlRecenter = new TimelineLite();
-
-				tlRecenter.to(animatedObject, this.core.mouse.recenterDuration, {
-					x: 0,
-					y: 0,
-					onUpdate( that ){
-
-						that.mousePos.x = animatedObject.x;
-						that.mousePos.y = animatedObject.y;
-
-					},
-					onUpdateParams: [this]
-				});
-
-			},
+			
 			
 			initRenderer( currentWorldConfig ){
 
@@ -311,7 +255,7 @@
 					antialias: true
 				});
 
-				this.renderer.setSize(this.canvasSizeRef.width / this.downScale, this.canvasSizeRef.height / this.downScale);
+				this.renderer.setSize(this.canvasSizeRef.width, this.canvasSizeRef.height);
 
 				this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
@@ -345,12 +289,12 @@
 
 					// NOW COMPUTE RENDER
 					if( this.sequencesManager.current.composer ){
-						console.log("use composer : ", this.sequencesManager.current.name);
+						// console.log("use composer : ", this.sequencesManager.current.name);
 						
 						this.sequencesManager.current.composer.render();
 						
 					} else if( this.sceneBundle.current ) {
-						console.log("use classic renderer : ", this.sceneBundle.current.name);
+						// console.log("use classic renderer : ", this.sceneBundle.current.name);
 
 						this.renderer.render(this.sceneBundle.current.scene, this.sceneBundle.current.camera);
 

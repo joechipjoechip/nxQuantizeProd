@@ -399,7 +399,6 @@ class SequencesManager{
 		const destinationFov = goodSequence.baseFov;
 
 		if( goodSequence.fovTransition ){
-
 	
 			const animatedObject = {
 				animatedFov: baseFov
@@ -414,9 +413,7 @@ class SequencesManager{
 	
 					onUpdate: () => {
 						goodCamera.setFocalLength(animatedObject.animatedFov);
-						// goodCamera.updateProj = true;
-						
-						console.log("updateFov : ", goodCamera.getEffectiveFOV());
+						// console.log("updateFov : ", goodCamera.getEffectiveFOV());
 					},
 	
 					onComplete: () => {

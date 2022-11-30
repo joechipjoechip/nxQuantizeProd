@@ -13,14 +13,19 @@
 		>
 		</div>
 
+		<joystick
+			:canvasSizeRef="canvasSizeRef"
+		/>
+
 		<instancethree 
 			v-if="allIsLoaded"
 			ref="instancethree"
+			:canvasSizeRef="canvasSizeRef"
 			:sequenceID="sequenceID"
 			:glbs="glbs"
 			:bobs="bobs"
 			:textures="textures"
-			:downScale="downScale"
+			:mousePos="mousePos"
 		/>
 
 	</div>
@@ -28,6 +33,7 @@
 
 <script>
 
+	import Joystick from '@/components/joystick.vue';
 	import instanceThree from "./instanceThree.vue";
 
 	import { worlds } from '@/static/config/worlds.js';
@@ -39,7 +45,8 @@
 	export default {
 
 		components: {
-			"instancethree": instanceThree
+			"instancethree": instanceThree,
+			"joystick": Joystick
 		},
 
 		data(){
@@ -52,6 +59,13 @@
 					x: window.innerWidth / 2,
 					y: window.innerHeight / 2
 				},
+				canvasSizeRef: { 
+					width: window.innerWidth, 
+					height: window.innerHeight
+					// width: 1280,
+					// height: 700
+				},
+
 				curtainActive: false,
 
 				allIsLoaded: false,
@@ -81,12 +95,16 @@
 
 		mounted(){
 
+			this.initCommonValues();
+
 			window.addEventListener("resize", this.onResize);
 			window.addEventListener("blur", this.focusBlurHandler);
 			window.addEventListener("focus", this.focusBlurHandler);
 
 			this.$nuxt.$on("assets-have-been-loaded", this.handleAssetsLoaded);
+			this.$nuxt.$on("mouse-pos-update", this.mousePosUpdate);
 
+			// launch all assets loads
 			new PrimaryLoadManager(this);
 
 		},
@@ -94,10 +112,33 @@
 		beforeDestroy(){
 
 			this.$nuxt.$off("assets-have-been-loaded", this.handleAssetsLoaded);
+			this.$nuxt.$off("mouse-pos-update", this.mousePosUpdate);
 
 		},
 
 		methods: {
+
+			initCommonValues(){
+
+				this.canvasSizeRef = { 
+					width: window.innerWidth / this.downScale, 
+					height: window.innerHeight / this.downScale
+				};
+
+				this.mousePos = {
+					x: (((this.canvasSizeRef.width / 2) / this.canvasSizeRef.width) - 1) * 2,
+					y: (((this.canvasSizeRef.height / 2) / this.canvasSizeRef.height) - 1) * -2
+				};
+
+			},
+
+			mousePosUpdate( event ){
+
+				console.log("reception de mouse update : ", event);
+
+				this.mousePos = event;
+
+			},
 
 			handleAssetsLoaded( assetsPack ){
 
@@ -123,8 +164,8 @@
 
 			onResize(){
 
-				this.$refs.instancethree.canvasSizeRef.width = window.innerWidth / this.downScale;
-				this.$refs.instancethree.canvasSizeRef.height = window.innerHeight / this.downScale;
+				this.canvasSizeRef.width = window.innerWidth / this.downScale;
+				this.canvasSizeRef.height = window.innerHeight / this.downScale;
 
 			},
 
@@ -135,19 +176,6 @@
 				} else {
 					this.playPauseAnimationHandler(false);
 				}
-
-			},
-
-			mouseMoveHandler( event ){
-
-				if( !this.$refs.instancethree ){ return; }
-				
-				this.mousePos = {
-					x: (((event.offsetX + this.$refs.instancethree.canvasSizeRef.width / 2) / this.$refs.instancethree.canvasSizeRef.width) - 1) * 2,
-					y: (((event.offsetY + this.$refs.instancethree.canvasSizeRef.height / 2) / this.$refs.instancethree.canvasSizeRef.height) - 1) * -2
-				};
-
-				// console.log("mousepos : ", this.mousePos.x)
 
 			},
 
