@@ -390,38 +390,48 @@ class SequencesManager{
 	}
 
 	cameraFovChangeHandler( newSequenceID ){
-		// const goodCamera = this.sceneBundlePassed.camera;
+		const goodCamera = this.sceneBundlePassed.camera;
 
-		debugger
-		const goodCamera = this.sceneBundlePassed.scene.children.find(child => child.name.includes("third-person-camera"));
+		const goodSequence = this.sceneBundlePassed.worldConfig.sequences.find(seq => seq.id === newSequenceID);
 
 		const baseFov = goodCamera.getEffectiveFOV();
-		const destinationFov = this.sceneBundlePassed.worldConfig.sequences.find(seq => seq.id === newSequenceID).baseFov;
 
-		const animatedObject = {
-			animatedFov: baseFov
-		};
+		const destinationFov = goodSequence.baseFov;
 
-		this.sceneBundlePassed.sequencesElements[newSequenceID].timelines.adjustFov = new TimelineLite();
-		this.sceneBundlePassed.sequencesElements[newSequenceID].timelines.adjustFov.to(
-			animatedObject,
-			2,
-			{
-				animatedFov: destinationFov,
+		if( goodSequence.fovTransition ){
 
-				onUpdate: () => {
-					goodCamera.setFocalLength(animatedObject.animatedFov);
-					// goodCamera.updateProj = true;
-					
-					console.log("updateFov : ", goodCamera.getEffectiveFOV());
-				},
-
-				onComplete: () => {
-					this.sceneBundlePassed.sequencesElements[newSequenceID].timelines.adjustFov = null;
+	
+			const animatedObject = {
+				animatedFov: baseFov
+			};
+	
+			this.sceneBundlePassed.sequencesElements[newSequenceID].timelines.adjustFov = new TimelineLite();
+			this.sceneBundlePassed.sequencesElements[newSequenceID].timelines.adjustFov.to(
+				animatedObject,
+				2,
+				{
+					animatedFov: destinationFov,
+	
+					onUpdate: () => {
+						goodCamera.setFocalLength(animatedObject.animatedFov);
+						// goodCamera.updateProj = true;
+						
+						console.log("updateFov : ", goodCamera.getEffectiveFOV());
+					},
+	
+					onComplete: () => {
+						this.sceneBundlePassed.sequencesElements[newSequenceID].timelines.adjustFov = null;
+					}
+	
 				}
+			)
 
-			}
-		)
+		} else {
+
+			goodCamera.setFocalLength(destinationFov);
+
+		}
+
 
 	}
 

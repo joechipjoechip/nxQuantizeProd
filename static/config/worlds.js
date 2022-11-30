@@ -142,6 +142,7 @@ const worlds = [
 			{
 				id: "1.0",
 				baseFov: 65,
+				fovTransition: true,
 				sequenceBobName: "link",
 
 				type: "blender-points",
@@ -224,6 +225,7 @@ const worlds = [
 			{
 				id: "1.1",
 				baseFov: 27,
+				fovTransition: true,
 				sequenceBobName: "link",
 
 				// type: "blender-points",
@@ -285,7 +287,8 @@ const worlds = [
 			},
 			{
 				id: "1.2",
-				baseFov: Math.PI/0.05,
+				baseFov: Math.PI/0.1,
+				fovTransition: false,
 				sequenceBobName: "link",
 
 				type: "third-person",
@@ -350,6 +353,7 @@ const worlds = [
 			{
 				id: "1.3",
 				baseFov: Math.PI/0.09,
+				fovTransition: true,
 				sequenceBobName: "link",
 
 				
@@ -408,6 +412,7 @@ const worlds = [
 			{
 				id: "1.4",
 				baseFov: 95,
+				fovTransition: true,
 				sequenceBobName: "link",
 
 				type: "third-person",
@@ -526,6 +531,7 @@ const worlds = [
 			{
 				id: "1.0",
 				baseFov: 65,
+				fovTransition: true,
 				sequenceBobName: "link",
 
 				type: "blender-points",
@@ -584,6 +590,7 @@ const worlds = [
 			{
 				id: "1.1",
 				baseFov: 27,
+				fovTransition: true,
 				sequenceBobName: "link",
 
 				type: "third-person",
@@ -627,6 +634,7 @@ const worlds = [
 			{
 				id: "1.2",
 				baseFov: 35,
+				fovTransition: true,
 				sequenceBobName: "link",
 
 				type: "third-person",
@@ -681,6 +689,7 @@ const worlds = [
 			{
 				id: "1.3",
 				baseFov: 35,
+				fovTransition: true,
 				sequenceBobName: "link",
 
 				
@@ -738,6 +747,7 @@ const worlds = [
 			{
 				id: "1.4",
 				baseFov: 35,
+				fovTransition: true,
 				sequenceBobName: "link",
 
 				type: "third-person",
@@ -821,6 +831,7 @@ const worlds = [
 			{
 				id: "1.0",
 				baseFov: 65,
+				fovTransition: true,
 				sequenceBobName: "link",
 
 				type: "blender-points",
@@ -879,6 +890,7 @@ const worlds = [
 			{
 				id: "1.1",
 				baseFov: 27,
+				fovTransition: true,
 				sequenceBobName: "link",
 
 				type: "third-person",
@@ -920,6 +932,7 @@ const worlds = [
 			{
 				id: "1.2",
 				baseFov: 35,
+				fovTransition: true,
 				sequenceBobName: "link",
 
 				type: "third-person",
@@ -959,6 +972,7 @@ const worlds = [
 			{
 				id: "1.3",
 				baseFov: 35,
+				fovTransition: true,
 				sequenceBobName: "link",
 
 				
@@ -1005,6 +1019,7 @@ const worlds = [
 			{
 				id: "1.4",
 				baseFov: 35,
+				fovTransition: true,
 				sequenceBobName: "link",
 
 				type: "third-person",
@@ -1092,6 +1107,7 @@ const worlds = [
 			{
 				id: "1.0",
 				baseFov: 65,
+				fovTransition: true,
 				sequenceBobName: "link",
 
 				type: "blender-points",
@@ -1150,6 +1166,7 @@ const worlds = [
 			{
 				id: "1.1",
 				baseFov: 27,
+				fovTransition: true,
 				sequenceBobName: "link",
 
 				// type: "blender-points",
@@ -1192,6 +1209,7 @@ const worlds = [
 			{
 				id: "1.2",
 				baseFov: 35,
+				fovTransition: true,
 				sequenceBobName: "link",
 
 				type: "third-person",
@@ -1233,6 +1251,7 @@ const worlds = [
 			{
 				id: "1.3",
 				baseFov: 35,
+				fovTransition: true,
 				sequenceBobName: "link",
 
 				
@@ -1278,6 +1297,7 @@ const worlds = [
 			{
 				id: "1.4",
 				baseFov: 95,
+				fovTransition: true,
 				sequenceBobName: "link",
 
 				type: "third-person",
@@ -1376,6 +1396,7 @@ const worlds = [
 			{
 				id: "1.0",
 				baseFov: 65,
+				fovTransition: true,
 				sequenceBobName: "link",
 
 				type: "blender-points",
@@ -1423,6 +1444,7 @@ const worlds = [
 			{
 				id: "1.1",
 				baseFov: 27,
+				fovTransition: true,
 				sequenceBobName: "link",
 
 				// type: "blender-points",
@@ -1475,6 +1497,7 @@ const worlds = [
 			{
 				id: "1.2",
 				baseFov: 35,
+				fovTransition: true,
 				sequenceBobName: "link",
 
 				// type: "blender-points",
@@ -1517,6 +1540,7 @@ const worlds = [
 			{
 				id: "1.3",
 				baseFov: 35,
+				fovTransition: true,
 				sequenceBobName: "link",
 
 				
@@ -1562,6 +1586,7 @@ const worlds = [
 			{
 				id: "1.4",
 				baseFov: 95,
+				fovTransition: true,
 				sequenceBobName: "link",
 
 				type: "third-person",
@@ -1644,6 +1669,7 @@ const worlds = [
 			{
 				id: "1.0",
 				baseFov: 65,
+				fovTransition: true,
 				sequenceBobName: "link",
 
 				type: "blender-points",
@@ -1691,6 +1717,7 @@ const worlds = [
 			{
 				id: "1.1",
 				baseFov: 27,
+				fovTransition: true,
 				sequenceBobName: "juan",
 
 				type: "third-person",
@@ -1730,6 +1757,7 @@ const worlds = [
 			{
 				id: "1.2",
 				baseFov: 35,
+				fovTransition: true,
 				sequenceBobName: "link",
 
 				type: "third-person",
@@ -1773,6 +1801,7 @@ const worlds = [
 			{
 				id: "1.3",
 				baseFov: 35,
+				fovTransition: true,
 				sequenceBobName: "juan",
 
 				
@@ -1813,6 +1842,7 @@ const worlds = [
 			{
 				id: "1.4",
 				baseFov: 95,
+				fovTransition: true,
 				sequenceBobName: "link",
 
 				type: "third-person",
