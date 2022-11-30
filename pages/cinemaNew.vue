@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="cinema-main_wrapper">
 
 		<div class="debug-buttons-container">
 			<button @click="playPauseAnimationHandler">start/stop animation</button>
@@ -14,6 +14,7 @@
 		</div>
 
 		<joystick
+			ref="joystick"
 			:canvasSizeRef="canvasSizeRef"
 		/>
 
@@ -34,7 +35,7 @@
 <script>
 
 	import Joystick from '@/components/joystick.vue';
-	import instanceThree from "./instanceThree.vue";
+	import InstanceThree from "./instanceThree.vue";
 
 	import { worlds } from '@/static/config/worlds.js';
 	import { entities } from '@/static/config/entities.js';
@@ -45,7 +46,7 @@
 	export default {
 
 		components: {
-			"instancethree": instanceThree,
+			"instancethree": InstanceThree,
 			"joystick": Joystick
 		},
 
@@ -59,6 +60,7 @@
 					x: window.innerWidth / 2,
 					y: window.innerHeight / 2
 				},
+				stickPos: null,
 				canvasSizeRef: { 
 					width: window.innerWidth, 
 					height: window.innerHeight
@@ -90,6 +92,11 @@
 				if( newVal ){
 					console.log("all assets are loaded");
 				}
+			},
+
+			"$refs.joystick.$refs.right.stickPos"( newVal ){
+				console.log("watcherrrrrr du joyystiiickkkk stickk right");
+				this.stickPos = newVal;
 			}
 		},
 
@@ -103,9 +110,12 @@
 
 			this.$nuxt.$on("assets-have-been-loaded", this.handleAssetsLoaded);
 			this.$nuxt.$on("mouse-pos-update", this.mousePosUpdate);
+			this.$nuxt.$on("stick-pos-update", this.stickPosUpdate);
 
 			// launch all assets loads
 			new PrimaryLoadManager(this);
+
+			console.log("mounted de cinema : $refs.joystick.$refs.right.stickPos : ", this.$refs.joystick.$refs.right.stickPos)
 
 		},
 
@@ -113,6 +123,7 @@
 
 			this.$nuxt.$off("assets-have-been-loaded", this.handleAssetsLoaded);
 			this.$nuxt.$off("mouse-pos-update", this.mousePosUpdate);
+			this.$nuxt.$off("stick-pos-update", this.stickPosUpdate);
 
 		},
 
@@ -134,9 +145,13 @@
 
 			mousePosUpdate( event ){
 
-				console.log("reception de mouse update : ", event);
-
 				this.mousePos = event;
+
+			},
+
+			stickPosUpdate( event ){
+
+				this.mousePos = this.$refs.joystick.$refs.right.stickPos;
 
 			},
 
@@ -260,35 +275,39 @@
 
 <style lang="scss" scoped>
 
-body {
-  padding: 0;
-  margin: 0;
-}
+	body {
+		padding: 0;
+		margin: 0;
+	}
 
-button {
-  background-color: beige;
-}
+	button {
+		background-color: beige;
+	}
 
-.curtain {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #000;
-  transition: opacity .3s ease;
-  will-change: opacity;
-  opacity: 0;
-  pointer-events: none;
+	.cinema-main_wrapper {
+		position: relative;
+	}
 
-  &.active {
-    opacity: 1;
-  }
-}
+	.curtain {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: #000;
+		transition: opacity .3s ease;
+		will-change: opacity;
+		opacity: 0;
+		pointer-events: none;
 
-.debug-buttons-container {
-  position: absolute;
-  top: 0;
-  left: 200px;
-}
+		&.active {
+			opacity: 1;
+		}
+	}
+
+	.debug-buttons-container {
+		position: absolute;
+		top: 0;
+		left: 200px;
+	}
 </style>

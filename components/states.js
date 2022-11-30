@@ -11,6 +11,7 @@ class State {
 };
 
 
+
 class DanceState extends State {
 	constructor(parent) {
 		super(parent);
@@ -60,8 +61,6 @@ class DanceState extends State {
 	Update(_) {
 	}
 };
-
-
 
 class FloatingState extends State {
 	constructor(parent) {
@@ -373,7 +372,6 @@ class WalkStateBack extends State {
 	}
 };
 
-
 class RunState extends State {
 	constructor(parent) {
 		super(parent);
@@ -425,6 +423,8 @@ class RunState extends State {
 		this._parent.SetState('idle');
 	}
 };
+
+
 
 
 class IdleState extends State {

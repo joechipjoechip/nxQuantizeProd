@@ -1,17 +1,41 @@
 <template>
-	<div class="joystick_wrapper"
+	<div class="stick-main_wrapper"
 		@mousemove="mouseMoveHandler"
 	>
-		JOYSTICKK
+
+	<div v-if="stickNeeded" class="stick-container">
+
+		<stick
+			ref="left"
+			side="left"
+			role="bob"
+		/>
+	
+		<stick
+			ref="right"
+			side="right"
+			role="view"
+		/>
+
+	</div>
+
+
 	</div>
 </template>
 
 <script>
+
 	import { TimelineLite } from 'gsap';
 
 	import { core } from '@/static/config/core.js';
 
+	import Stick from '@/components/stick.vue';
+
 	export default {
+
+		components: {
+			"stick": Stick
+		},
 
 		data(){
 			return {
@@ -22,6 +46,8 @@
 				},
 
 				mouseRecenterTimeoutID: null,
+
+				stickNeeded: true
 
 			}
 		},
@@ -50,10 +76,22 @@
 
 		},
 
-		methods: {
-			mouseMoveHandler( event ){
+		mounted(){
+			this.$nuxt.$on("stick-pos-update", this.stickPosUpdate);
+		},
+		beforeDestroy(){
+			this.$nuxt.$off("stick-pos-update", this.stickPosUpdate);
+		},
 
-				console.log("mouseHandler dans joystick");
+		methods: {
+
+			stickPosUpdate( event ){
+
+				this.mousePos = event;
+
+			},
+
+			mouseMoveHandler( event ){
 					
 				this.mousePos = {
 					x: (((event.offsetX + this.canvasSizeRef.width / 2) / this.canvasSizeRef.width) - 1) * 2,
@@ -66,11 +104,13 @@
 
 			mouseRecenter(){
 
+				const isStick = this.stickNeeded && this.$refs.right;
+
 				console.log("recentering the mousePos");
 
 				const animatedObject = {
-					x: this.mousePos.x,
-					y: this.mousePos.y
+					x: isStick ? this.$refs.right.stickPos.x : this.mousePos.x,
+					y: isStick ? this.$refs.right.stickPos.y : this.mousePos.y
 				};
 
 				const tlRecenter = new TimelineLite();
@@ -80,8 +120,16 @@
 					y: 0,
 					onUpdate( that ){
 
-						that.mousePos.x = animatedObject.x;
-						that.mousePos.y = animatedObject.y;
+						if( isStick ){
+
+							that.$refs.right.updateStickPos(animatedObject);
+
+						} else {
+
+							that.mousePos.x = animatedObject.x;
+							that.mousePos.y = animatedObject.y;
+
+						}
 
 						that.$nuxt.$emit("mouse-pos-update", that.mousePos);
 
@@ -95,14 +143,19 @@
 </script>
 
 <style lang="scss" scoped>
-	.joystick {
+	.stick {
 
-		&_wrapper {
+		&-main_wrapper {
 			position: absolute;
-			background-color: rgba(255,0,0,0.4);
 			bottom: 0;
-			width: 90%;
-			height: 90%;
+			width: 100%;
+		}
+
+		&-container {
+			display: flex;
+			flex-flow: row nowrap;
+			justify-content: space-between;
+			align-items: flex-end;
 		}
 
 	}

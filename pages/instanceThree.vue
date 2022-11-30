@@ -1,10 +1,10 @@
 <template>
 	<div>
 		<div class="debug-space">
-			<!-- <p v-if="currentCamera">current camera name : {{ currentCamera.name }}</p> -->
-			<pre>
+			<!-- <pre>
 				<p v-if="sequenceID">current sequence : {{ sequenceID }}</p>
-			</pre>
+				<p v-if="mousePos">mousePos : {{ mousePos }}</p>
+			</pre> -->
 			<div ref="stats" class="stats"></div>
 		</div>
 
