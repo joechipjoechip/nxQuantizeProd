@@ -48,7 +48,9 @@
                 mouseUp: true,
                 circleActive: false,
                 stickPos: { x:0, y:0 },
-                transformString: ""
+                transformString: "",
+                inputs: {},
+                inputTrigger: 0.5
             }
         },
 
@@ -105,6 +107,12 @@
 
                 this.updateStickPos(stickPos);
 
+                if( event.target.dataset.role === "bob" ){
+
+                    this.bobInputKeysHandler(stickPos);
+
+                }
+
                 // console.log("mouse MOVE : ", this.stickPos);
             },
 
@@ -128,6 +136,19 @@
             updateParents(){
 
                 this.$nuxt.$emit("stick-pos-update", this.stickPos);
+
+            },
+
+            bobInputKeysHandler( stickPos ){
+
+                const inputs = {
+                    forward: stickPos.y > this.inputTrigger,
+                    backward: stickPos.y < this.inputTrigger * -1,
+                    right: stickPos.x > this.inputTrigger,
+                    left: stickPos.x < this.inputTrigger * -1
+                };
+
+                this.$nuxt.$emit("bob-inputs-update", inputs);
 
             }
 
