@@ -32,9 +32,7 @@ class SequencesManager{
 
 		const currentSequenceElements = this.sceneBundlePassed.sequencesElements[newSequenceID];
 
-		const triggerTimeDecay = currentSequenceElements.cameraTriggerTimeDecay;
-
-		this.updateCommonsValues(currentSequenceElements)
+		this.updateCommonsValues(currentSequenceElements);
 
 		this.killOldSequence(oldSequenceID);
 
@@ -57,14 +55,11 @@ class SequencesManager{
 		this.worldBackgroundColorHandler(newSequenceID);
 
 		this.activeGoodCastShadows(newSequenceID, oldSequenceID);
-		
-		
 
-		if( triggerTimeDecay ){
-			this.sceneBundlePassed.sceneElements.newSequenceTriggerTime = this.clock.getElapsedTime() + triggerTimeDecay;
-		} else {
-			this.sceneBundlePassed.sceneElements.newSequenceTriggerTime = this.clock.getElapsedTime();
-		}
+
+		this.sceneBundlePassed.sceneElements.newSequenceTriggerTime = this.clock.getElapsedTime();
+
+		this.sceneBundlePassed.sceneElements.newSequenceTriggerTime += currentSequenceElements.cameraTriggerTimeDecay || 0;		
 
 		setTimeout(() => {
 			this.cinema.curtainActive = false;
@@ -87,7 +82,7 @@ class SequencesManager{
 			|| currentSequenceElements.bobImposedMoves?.floating 
 			|| currentSequenceElements.bobImposedMoves?.climb
 		);
-		
+
 	}
 
 	killOldSequence( oldSequenceID ){
