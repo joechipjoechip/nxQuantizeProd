@@ -106,7 +106,7 @@
 
 				const isStick = this.stickNeeded && this.$refs.right;
 
-				console.log("recentering the mousePos");
+				console.log("recentering the mousePos (joystick component)");
 
 				const animatedObject = {
 					x: isStick ? this.$refs.right.stickPos.x : this.mousePos.x,
@@ -123,6 +123,7 @@
 						if( isStick ){
 
 							that.$refs.right.updateStickPos(animatedObject);
+							that.$refs.left.updateStickPos(animatedObject);
 
 						} else {
 

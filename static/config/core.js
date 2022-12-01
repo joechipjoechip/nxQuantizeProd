@@ -16,6 +16,15 @@ const core = {
 			divideRatio: 50
 		}
 	},
+	stick: {
+		moveTimeout: 0.4,
+		recenterDuration: 1,
+		orientationClamp: {
+			start: 0.00001,
+			end: 0.1,
+			divideRatio: 50
+		}
+	},
 
 	movesSpecs: {
 		smallGuy: [

@@ -28,6 +28,9 @@
 </template>
 
 <script>
+
+    import { core } from '@/static/config/core.js';
+
     export default {
         props: {
 
@@ -44,13 +47,15 @@
 
         data(){
             return {
+                core,
                 mouseDown: false,
                 mouseUp: true,
                 circleActive: false,
                 stickPos: { x:0, y:0 },
                 transformString: "",
                 inputs: {},
-                inputTrigger: 0.5
+                inputTrigger: 0.5,
+                individualTimeout: null
             }
         },
 
@@ -60,6 +65,15 @@
                 this.updateTransformString(newVal);
 
                 this.updateParents();
+
+                if( this.individualTimeout ){
+					clearTimeout(this.individualTimeout);
+				}
+
+				this.individualTimeout = setTimeout(
+					this.$parent.mouseRecenter,
+					this.core.stick.moveTimeout * 1000
+				);
 
             }
         },
