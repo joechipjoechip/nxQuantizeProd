@@ -6,7 +6,7 @@ import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 
 class SequencesManager{
 
-	constructor(sceneBundle, cinema, renderer, clock, canvasSizeRef, mousePos){
+	constructor(sceneBundle, cinema, renderer, clock, canvasSizeRef, mousePos, vm){
 
 		this.sceneBundlePassed = sceneBundle;
 		this.name = sceneBundle.name;
@@ -21,7 +21,19 @@ class SequencesManager{
 		this.mousePos = mousePos;
 		this.isPlaying = false;
 		this.bobHandleGround = true;
+		this.vm = vm;
+		this.stickedBobInputs = {};
 
+		this.vm.$nuxt.$on("bob-inputs-update", this.updateBobStickedInputs);
+
+	}
+
+	updateBobStickedInputs( event ){
+		console.log("depuis le sequencesManager, bob inputs sticked: ", this);
+		// this.stickedBobInputs = event;
+
+	
+		this.sceneBundlePassed?.sequencesElements?.[this.currentSequenceID].bobs[this.currentBobName]._controls._input._UpdateBobStickedInputs(event);
 	}
 
 	sequenceChangeHandler( newSequenceID, oldSequenceID ){
@@ -249,20 +261,24 @@ class SequencesManager{
 
 		const goodAlice = this.sceneBundlePassed.sceneElements.bobs[sequenceAlice.name];
 
-		goodAlice._controls._input._keys = {};
+		if( goodAlice._controls._input ){
 
-		if( sequenceAliceImposedMoves ){
-
-			goodAlice._controls._input._imposedMoves = sequenceAliceImposedMoves;
-
-			Object.keys(sequenceAliceImposedMoves).forEach(imposedKey => {
-				goodAlice._controls._input._keys[imposedKey] = sequenceAliceImposedMoves[imposedKey];
-			});
-
-
-		} else {
-
-			goodAlice._controls._input._imposedMoves = {};
+			goodAlice._controls._input._keys = {};
+	
+			if( sequenceAliceImposedMoves ){
+	
+				goodAlice._controls._input._imposedMoves = sequenceAliceImposedMoves;
+	
+				Object.keys(sequenceAliceImposedMoves).forEach(imposedKey => {
+					goodAlice._controls._input._keys[imposedKey] = sequenceAliceImposedMoves[imposedKey];
+				});
+	
+	
+			} else {
+	
+				goodAlice._controls._input._imposedMoves = {};
+	
+			}
 
 		}
 
@@ -276,25 +292,29 @@ class SequencesManager{
 
 			const goodBob = this.sceneBundlePassed.sceneElements.bobs[bobKey];
 
-			goodBob._controls._input._keys = {};
+			if( goodBob._controls._input ){
 
-			if( sequenceBobImposedMoves ){
-
-				goodBob._controls._input._imposedMoves = sequenceBobImposedMoves;
-
-				Object.keys(sequenceBobImposedMoves).forEach(imposedKey => {
-					goodBob._controls._input._keys[imposedKey] = sequenceBobImposedMoves[imposedKey];
-				});
-
-
-			} else {
-
-				goodBob._controls._input._imposedMoves = {};
+				goodBob._controls._input._keys = {};
+	
+				if( sequenceBobImposedMoves ){
+	
+					goodBob._controls._input._imposedMoves = sequenceBobImposedMoves;
+	
+					Object.keys(sequenceBobImposedMoves).forEach(imposedKey => {
+						goodBob._controls._input._keys[imposedKey] = sequenceBobImposedMoves[imposedKey];
+					});
+	
+	
+				} else {
+	
+					goodBob._controls._input._imposedMoves = {};
+	
+				}
+	
+	
+				this.bobFlyingShadowsHandler(sequenceBobImposedMoves);
 
 			}
-
-
-			this.bobFlyingShadowsHandler(sequenceBobImposedMoves);
 
 		})
 
@@ -526,11 +546,13 @@ class SequencesManager{
 
 		// if any bob in the sequence, he needs update for his moves
 		if( currentSceneElements.bobs[this.currentBobName] ){
+
 			currentSceneElements.bobs[this.currentBobName]._controls.Update(
 				deltaTime / currentSequenceElements.slowmo,
 				currentMousePos,
 				{
-					bobNeedsToHandleGround: this.bobHandleGround
+					bobNeedsToHandleGround: this.bobHandleGround,
+					// stickedBobInputs: this.stickedBobInputs
 				}
 			);
 		}

@@ -92,11 +92,6 @@
 				if( newVal ){
 					console.log("all assets are loaded");
 				}
-			},
-
-			"$refs.joystick.$refs.right.stickPos"( newVal ){
-				console.log("watcherrrrrr du joyystiiickkkk stickk right");
-				this.stickPos = newVal;
 			}
 		},
 
@@ -111,16 +106,16 @@
 			this.$nuxt.$on("assets-have-been-loaded", this.handleAssetsLoaded);
 			this.$nuxt.$on("mouse-pos-update", this.mousePosUpdate);
 			this.$nuxt.$on("stick-pos-update", this.stickPosUpdate);
-
+			
 			// launch all assets loads
 			new PrimaryLoadManager(this);
-
+			
 			console.log("mounted de cinema : $refs.joystick.$refs.right.stickPos : ", this.$refs.joystick.$refs.right.stickPos)
-
+			
 		},
-
+		
 		beforeDestroy(){
-
+			
 			this.$nuxt.$off("assets-have-been-loaded", this.handleAssetsLoaded);
 			this.$nuxt.$off("mouse-pos-update", this.mousePosUpdate);
 			this.$nuxt.$off("stick-pos-update", this.stickPosUpdate);

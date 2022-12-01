@@ -52,7 +52,7 @@ class BasicCharacterController {
 		this._velocity = new THREE.Vector3(0, 0, 0);
 		this._position = new THREE.Vector3();
 
-		this._input = new BasicCharacterControllerInput();
+		this._input = new BasicCharacterControllerInput(params.vm);
 
 		this._stateMachine = new CharacterFSM(
 			new BasicCharacterControllerProxy(this._animations)
@@ -311,9 +311,16 @@ class BasicCharacterController {
 };
 
 class BasicCharacterControllerInput {
-	constructor() {
+	constructor(vm) {
 		this._imposedMoves = {};  
-		this._Init();  
+		this._Init(); 
+
+		// vm.$nuxt.$on("bob-inputs-update", this._UpdateBobStickedInputs);
+	}
+
+	_UpdateBobStickedInputs( newInputs ){
+		console.log("dans le basicInputPerso : ", newInputs);
+		this._keys = newInputs;
 	}
 
 	_Init() {

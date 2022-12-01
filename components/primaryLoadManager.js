@@ -135,7 +135,8 @@ class PrimaryLoadManager{
 						target,
 						animations: movesObj.animations[target.name],
 						mixer: movesObj.mixers[target.name],
-						bobInfos: this.entities.bobs[target.name].infos
+						bobInfos: this.entities.bobs[target.name].infos,
+						vm: this
 					})
 				};
 

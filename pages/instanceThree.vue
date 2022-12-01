@@ -212,7 +212,8 @@
 					this.renderer,
 					this.clock,
 					this.canvasSizeRef,
-					this.mousePos
+					this.mousePos,
+					this
 				);
 
 				this.sequencesManager.secondary = new SequencesManager(
@@ -221,7 +222,8 @@
 					this.renderer,
 					this.clock,
 					this.canvasSizeRef,
-					this.mousePos
+					this.mousePos,
+					this
 				);
 
 				this.sequencesManager.current = this.sequencesManager.primary;
