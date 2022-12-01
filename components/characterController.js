@@ -314,12 +314,9 @@ class BasicCharacterControllerInput {
 	constructor(vm) {
 		this._imposedMoves = {};  
 		this._Init(); 
-
-		// vm.$nuxt.$on("bob-inputs-update", this._UpdateBobStickedInputs);
 	}
 
 	_UpdateBobStickedInputs( newInputs ){
-		console.log("dans le basicInputPerso : ", newInputs);
 		this._keys = newInputs;
 	}
 

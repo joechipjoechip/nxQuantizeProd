@@ -69,7 +69,7 @@
             touchStartHandler( event ){
                 event.preventDefault();
 
-                console.log("mouse DOWN : ", event);
+                // console.log("mouse DOWN : ", event);
                 this.mouseDown = true;
                 this.mouseUp = false;
 
@@ -78,7 +78,7 @@
             touchEndHandler( event ){
                 event.preventDefault();
                 
-                console.log("mouse UP : ", event);
+                // console.log("mouse UP : ", event);
                 this.mouseUp = true;
                 this.mouseDown = false;
                 

@@ -24,16 +24,15 @@ class SequencesManager{
 		this.vm = vm;
 		this.stickedBobInputs = {};
 
-		this.vm.$nuxt.$on("bob-inputs-update", this.updateBobStickedInputs);
+		this.vm.$nuxt.$on("bob-inputs-update", ( event ) => { this.updateBobStickedInputs(event, this) });
 
 	}
 
-	updateBobStickedInputs( event ){
-		console.log("depuis le sequencesManager, bob inputs sticked: ", this);
-		// this.stickedBobInputs = event;
+	updateBobStickedInputs( event, that ){
+		if( !that.currentBobName ){ return; }
 
-	
-		this.sceneBundlePassed?.sequencesElements?.[this.currentSequenceID].bobs[this.currentBobName]._controls._input._UpdateBobStickedInputs(event);
+		that.sceneBundlePassed.sceneElements.bobs[that.currentBobName]._controls._input._UpdateBobStickedInputs(event);
+
 	}
 
 	sequenceChangeHandler( newSequenceID, oldSequenceID ){
