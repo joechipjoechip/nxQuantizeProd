@@ -138,8 +138,6 @@
 
                     const goodTouch = Array.from(input.touches).find(touch => touch.target.dataset.role === this.role);
 
-                    console.log("ici le touches : ", input.touches);
-
                     return {
                         x: Math.min(1,
                             Math.max(
