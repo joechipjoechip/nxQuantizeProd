@@ -17,7 +17,7 @@ const core = {
 		}
 	},
 	stick: {
-		moveTimeout: 0.5,
+		moveTimeout: 0.2,
 		recenterDuration: 1,
 		orientationClamp: {
 			start: 0.00001,
