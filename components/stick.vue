@@ -134,21 +134,23 @@
 
                 const { width, left, height, top } = event.target.getBoundingClientRect();
 
-                
-
                 if( input.touches?.[0] ){
+
+                    const goodTouch = Array.from(input.touches).find(touch => touch.target.dataset.role === this.role);
+
+                    console.log("ici le touches : ", input.touches);
 
                     return {
                         x: Math.min(1,
                             Math.max(
                                 -1,
-                                (((input.touches[0].clientX - left) / width) - 0.5) * 2
+                                (((goodTouch.clientX - left) / width) - 0.5) * 2
                             )
                         ),
                         y: Math.min(1,
                             Math.max(
                                 -1,
-                                (((input.touches[0].clientY - top) / height) - 0.5) * -2
+                                (((goodTouch.clientY - top) / height) - 0.5) * -2
                             )
                         )
                     }
