@@ -23,6 +23,8 @@ class BlenderTubes{
 			displayTube: this._sequenceInfos.helpers.tubes,
 			timelines: this._sequenceInfos.helpers.timelines
 		};
+
+		this._fakeOrbitPoint = 0;
 	
 		this._Inits();
 
@@ -90,6 +92,19 @@ class BlenderTubes{
 		tubeParentPath.add( this._tube );
 
 		this._scene.add(tubeParentPath);
+
+	}
+
+	_FakeOrbit(mousePos){
+
+		const reformatedMousePos = {
+			x: (mousePos.x + 1) / 2,
+			y: (mousePos.y + 1) / 2
+		};
+
+		const pos1 = this._tube.geometry.parameters.path.getPointAt(reformatedMousePos.x);
+		
+		this._camera.position.copy(pos1);
 
 	}
 

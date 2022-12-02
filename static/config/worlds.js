@@ -145,7 +145,7 @@ const worlds = [
 				fovTransition: true,
 				sequenceBobName: "link",
 
-				type: "blender-points",
+				type: "fake-orbit",
 
 				animatedMesh: false,
 
@@ -398,14 +398,14 @@ const worlds = [
 				bobImposedMoves: {},
 
 				postproc: [
-					{
-						type: "bloom",
-						value: {
-							strength: .4,
-							threshold: 0.095,
-							radius: 0.2
-						}
-					},
+					// {
+					// 	type: "bloom",
+					// 	value: {
+					// 		strength: .4,
+					// 		threshold: 0.095,
+					// 		radius: 0.2
+					// 	}
+					// },
 				],
 
 			},

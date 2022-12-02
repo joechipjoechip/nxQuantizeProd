@@ -604,6 +604,13 @@ class SequencesManager{
 
 		}
 
+		// if any fake-orbit
+		if( currentSequenceElements.fakeOrbit ){
+
+			currentSequenceElements.blenderTubesManager._FakeOrbit(currentMousePos);
+
+		}
+
 
 		// if any particles
 		if( currentSceneElements.particlesCollection.length ){

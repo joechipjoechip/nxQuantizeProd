@@ -48,7 +48,8 @@ class SequencesBuilder {
 				cameraTriggerTimeDecay: sequenceInfos.cameraTriggerTimeDecay,
 				slowmo: sequenceInfos.slowmo ? sequenceInfos.slowmo : 1,
 				sequenceBobName: sequenceInfos.sequenceBobName,
-				aliceInfos: sequenceInfos.alice
+				aliceInfos: sequenceInfos.alice,
+				fakeOrbit: false
 			};
 
 			this._BuildPostprocsCollections(sequenceInfos);
@@ -104,7 +105,9 @@ class SequencesBuilder {
 
 	_DispatchHappenings( sequenceInfos ){
 
-		if( sequenceInfos.type === "blender-points" && this._sceneElements.tubes.length ){
+		if( 
+			( sequenceInfos.type === "blender-points" || sequenceInfos.type === "fake-orbit" )
+			&& this._sceneElements.tubes.length ){
 
 			this._BuildBlenderTubes(sequenceInfos)
 
@@ -139,18 +142,30 @@ class SequencesBuilder {
 			camera: this._camera
 		});
 
-		this._sequencesLib[sequenceInfos.id].timelines.camera = this._sequencesLib[sequenceInfos.id].blenderTubesManager._TweenBuilder();
+		switch( sequenceInfos.type ){
+			case "blender-points":
+				this._sequencesLib[sequenceInfos.id].timelines.camera = this._sequencesLib[sequenceInfos.id].blenderTubesManager._TweenBuilder();
+	
+				this._sequencesLib[sequenceInfos.id].timelines.camera.eventCallback(
+					"onComplete",
+					() => {
+			
+						if( this._sequencesLib[sequenceInfos.id] ){
+							this._sequencesLib[sequenceInfos.id].timelines.camera = null;
+						}
+			
+						// ce sera peut être ici qu'il faudra faire le lien entre cette caméra sur rails
+						// et la caméra 3eme personne ...
+		
+					}
+				);
+				break;
 
-		this._sequencesLib[sequenceInfos.id].timelines.camera.eventCallback("onComplete", () => {
+			case "fake-orbit":
+				this._sequencesLib[sequenceInfos.id].fakeOrbit = true;
+				break;
+		}
 
-			if( this._sequencesLib[sequenceInfos.id] ){
-				this._sequencesLib[sequenceInfos.id].timelines.camera = null;
-			}
-
-			// ce sera peut être ici qu'il faudra faire le lien entre cette caméra sur rails
-			// et la caméra 3eme personne ...
-
-		});
 
 		// the .play() is done in instanceThree.vue
 		

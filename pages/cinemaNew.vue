@@ -14,6 +14,7 @@
 		</div>
 
 		<joystick
+			v-if="isMobile"
 			ref="joystick"
 			:canvasSizeRef="canvasSizeRef"
 			:isMobile="isMobile"
@@ -272,39 +273,39 @@
 
 <style lang="scss" scoped>
 
-	body {
-		padding: 0;
-		margin: 0;
-	}
+body {
+  padding: 0;
+  margin: 0;
+}
 
-	button {
-		background-color: beige;
-	}
+button {
+  background-color: beige;
+}
 
-	.cinema-main_wrapper {
-		position: relative;
-	}
+.cinema-main_wrapper {
+  position: relative;
+}
 
-	.curtain {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		background-color: #000;
-		transition: opacity .3s ease;
-		will-change: opacity;
-		opacity: 0;
-		pointer-events: none;
+.curtain {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  transition: opacity .3s ease;
+  will-change: opacity;
+  opacity: 0;
+  pointer-events: none;
 
-		&.active {
-			opacity: 1;
-		}
-	}
+  &.active {
+    opacity: 1;
+  }
+}
 
-	.debug-buttons-container {
-		position: absolute;
-		top: 0;
-		left: 200px;
-	}
+.debug-buttons-container {
+  position: absolute;
+  top: 0;
+  left: 200px;
+}
 </style>
