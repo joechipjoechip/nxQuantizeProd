@@ -1,7 +1,7 @@
 <template>
 	<div class="stick-main_wrapper"
-		@mousemove="mouseMoveHandler"
 	>
+	<!-- @mousemove="mouseMoveHandler" -->
 
 	<div v-if="stickNeeded" class="stick-container">
 
@@ -25,7 +25,7 @@
 
 <script>
 
-	import { TimelineLite } from 'gsap';
+	// import { TimelineLite } from 'gsap';
 
 	import { core } from '@/static/config/core.js';
 
@@ -35,6 +35,14 @@
 
 		components: {
 			"stick": Stick
+		},
+
+		props: {
+
+			isMobile: {
+				type: Boolean,
+				required: true
+			}
 		},
 
 		data(){
@@ -61,84 +69,84 @@
 
 		watch: {
 
-			mousePos(){
+			// mousePos(){
 
-				if( this.mouseRecenterTimeoutID ){
-					clearTimeout(this.mouseRecenterTimeoutID);
-				}
+			// 	if( this.mouseRecenterTimeoutID ){
+			// 		clearTimeout(this.mouseRecenterTimeoutID);
+			// 	}
 
-				this.mouseRecenterTimeoutID = setTimeout(
-					this.mouseRecenter,
-					this.core.mouse.moveTimeout * 1000
-				);
+			// 	this.mouseRecenterTimeoutID = setTimeout(
+			// 		this.mouseRecenter,
+			// 		this.core.mouse.moveTimeout * 1000
+			// 	);
 
-			},
+			// },
 
 		},
 
 		mounted(){
-			this.$nuxt.$on("stick-pos-update", this.stickPosUpdate);
+			// this.$nuxt.$on("stick-pos-update", this.stickPosUpdate);
 		},
 		beforeDestroy(){
-			this.$nuxt.$off("stick-pos-update", this.stickPosUpdate);
+			// this.$nuxt.$off("stick-pos-update", this.stickPosUpdate);
 		},
 
 		methods: {
 
-			stickPosUpdate( event ){
+			// stickPosUpdate( event ){
 
-				this.mousePos = event;
+			// 	this.mousePos = event;
 
-			},
+			// },
 
-			mouseMoveHandler( event ){
+			// mouseMoveHandler( event ){
 					
-				this.mousePos = {
-					x: (((event.offsetX + this.canvasSizeRef.width / 2) / this.canvasSizeRef.width) - 1) * 2,
-					y: (((event.offsetY + this.canvasSizeRef.height / 2) / this.canvasSizeRef.height) - 1) * -2
-				};
+			// 	this.mousePos = {
+			// 		x: (((event.offsetX + this.canvasSizeRef.width / 2) / this.canvasSizeRef.width) - 1) * 2,
+			// 		y: (((event.offsetY + this.canvasSizeRef.height / 2) / this.canvasSizeRef.height) - 1) * -2
+			// 	};
 
-				this.$nuxt.$emit("mouse-pos-update", this.mousePos);
+			// 	this.$nuxt.$emit("mouse-pos-update", this.mousePos);
 
-			},
+			// },
 
-			mouseRecenter(){
+			// mouseRecenter(){
 
-				const isStick = this.stickNeeded && this.$refs.right;
+			// 	const isStick = this.stickNeeded && this.$refs.right;
 
-				console.log("recentering the mousePos (joystick component)");
+			// 	console.log("recentering the mousePos (joystick component)");
 
-				const animatedObject = {
-					x: isStick ? this.$refs.right.stickPos.x : this.mousePos.x,
-					y: isStick ? this.$refs.right.stickPos.y : this.mousePos.y
-				};
+			// 	const animatedObject = {
+			// 		x: isStick ? this.$refs.right.stickPos.x : this.mousePos.x,
+			// 		y: isStick ? this.$refs.right.stickPos.y : this.mousePos.y
+			// 	};
 
-				const tlRecenter = new TimelineLite();
+			// 	const tlRecenter = new TimelineLite();
 
-				tlRecenter.to(animatedObject, this.core.mouse.recenterDuration, {
-					x: 0,
-					y: 0,
-					onUpdate( that ){
+			// 	tlRecenter.to(animatedObject, this.core.mouse.recenterDuration, {
+			// 		x: 0,
+			// 		y: 0,
+			// 		onUpdate( that ){
 
-						if( isStick ){
+			// 			if( isStick ){
 
-							that.$refs.right.updateStickPos(animatedObject);
-							that.$refs.left.updateStickPos(animatedObject);
+			// 				that.$refs.right.updateStickPos(animatedObject);
+			// 				that.$refs.left.updateStickPos(animatedObject);
 
-						} else {
+			// 			} else {
 
-							that.mousePos.x = animatedObject.x;
-							that.mousePos.y = animatedObject.y;
+			// 				that.mousePos.x = animatedObject.x;
+			// 				that.mousePos.y = animatedObject.y;
 
-						}
+			// 			}
 
-						that.$nuxt.$emit("mouse-pos-update", that.mousePos);
+			// 			that.$nuxt.$emit("mouse-pos-update", that.mousePos);
 
-					},
-					onUpdateParams: [this]
-				});
+			// 		},
+			// 		onUpdateParams: [this]
+			// 	});
 
-			},
+			// },
 		}
 	}
 </script>

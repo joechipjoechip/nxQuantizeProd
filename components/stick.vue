@@ -29,6 +29,8 @@
 
 <script>
 
+    import { TimelineLite } from 'gsap';
+
     import { core } from '@/static/config/core.js';
 
     export default {
@@ -43,6 +45,7 @@
                 type: String,
                 required: true
             }
+
         },
 
         data(){
@@ -52,28 +55,55 @@
                 mouseUp: true,
                 circleActive: false,
                 stickPos: { x:0, y:0 },
+                mousePos: { x:0, y:0 },
+                lastKnownStickPos: { x:0, y:0 },
                 transformString: "",
                 inputs: {},
                 inputTrigger: 0.5,
-                individualTimeout: null
+                timeoutID: {
+                    mouse: null,
+                    stick: null
+                },
             }
         },
 
         watch: {
             stickPos( newVal ){
 
+                let currentRole;
+
+                // update all we need to
+                this.mousePos = newVal;
+
+                this.lastKnownStickPos = newVal;
+
                 this.updateTransformString(newVal);
 
-                this.updateParents();
+                // define which stick is used
+                if( this.role === "bob" ){
+                    // stick left
+                    this.bobInputKeysHandler(newVal);
 
-                if( this.individualTimeout ){
-					clearTimeout(this.individualTimeout);
+                    currentRole = "stick"
+
+                } else {
+                    // sitck right
+                    this.$nuxt.$emit("mouse-pos-update", newVal);
+
+                    currentRole = "mouse"
+                    
+                }
+
+                // cancel previous timers
+                if( this.timeoutID[currentRole] ){
+					clearTimeout(this.timeoutID[currentRole]);
 				}
 
-				this.individualTimeout = setTimeout(
-					this.$parent.mouseRecenter,
-					this.core.stick.moveTimeout * 1000
-				);
+                // create a new timer
+                this.timeoutID[currentRole] = setTimeout(
+                    this.stickRecenter,
+                    this.core[currentRole].moveTimeout * 1000
+                );
 
             }
         },
@@ -96,38 +126,53 @@
                 this.mouseUp = true;
                 this.mouseDown = false;
                 
+                this.updateStickPos(this.lastKnownStickPos);
+                
+            },
+
+            computePos( input ){
+
+                const { width, left, height, top } = event.target.getBoundingClientRect();
+
+                
+
+                if( input.touches?.[0] ){
+
+                    return {
+                        x: Math.min(1,
+                            Math.max(
+                                -1,
+                                (((input.touches[0].clientX - left) / width) - 0.5) * 2
+                            )
+                        ),
+                        y: Math.min(1,
+                            Math.max(
+                                -1,
+                                (((input.touches[0].clientY - top) / height) - 0.5) * -2
+                            )
+                        )
+                    }
+
+
+                } else {
+
+                    return {
+                        x: (((input.offsetX + this.canvasSizeRef.width / 2) / this.canvasSizeRef.width) - 1) * 2,
+                        y: (((input.offsetY + this.canvasSizeRef.height / 2) / this.canvasSizeRef.height) - 1) * -2
+                    };
+
+                }
+
             },
             
             touchMoveHandler( event ){
                 event.preventDefault();
 
-                const { width, left, height, top } = event.target.getBoundingClientRect();
-
                 // get normalized position for the stick
-                const stickPos = {
-                    x: Math.min(1,
-                            Math.max(
-                                -1,
-                                (((event.touches[0].clientX - left) / width) - 0.5) * 2
-                            )
-                    ),
-                    y: Math.min(1,
-                            Math.max(
-                                -1,
-                                (((event.touches[0].clientY - top) / height) - 0.5) * -2
-                            )
-                    )
-                }
+                const computedPos = this.computePos(event);
 
-                this.updateStickPos(stickPos);
+                this.updateStickPos(computedPos);
 
-                if( event.target.dataset.role === "bob" ){
-
-                    this.bobInputKeysHandler(stickPos);
-
-                }
-
-                // console.log("mouse MOVE : ", this.stickPos);
             },
 
             updateStickPos( event ){
@@ -147,12 +192,6 @@
 
             },
 
-            updateParents(){
-
-                this.$nuxt.$emit("stick-pos-update", this.stickPos);
-
-            },
-
             bobInputKeysHandler( stickPos ){
 
                 const inputs = {
@@ -164,7 +203,34 @@
 
                 this.$nuxt.$emit("bob-inputs-update", inputs);
 
-            }
+            },
+
+            stickRecenter(){
+
+                if( this.mouseDown ){ return; }
+
+                console.log("recentering the mousePos (stick component)");
+
+                const animatedObject = {
+                    x: this.stickPos.x,
+                    y: this.stickPos.y
+                };
+
+                const tlRecenter = new TimelineLite();
+
+                tlRecenter.to(animatedObject, this.core.mouse.recenterDuration, {
+                    x: 0,
+                    y: 0,
+                    onUpdate( that ){
+
+                        that.updateStickPos(animatedObject);
+                        that.updateStickPos(animatedObject);
+
+                    },
+                    onUpdateParams: [this]
+                });
+
+            },
 
         }
     }

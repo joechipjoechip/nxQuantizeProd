@@ -16,17 +16,18 @@
 		<joystick
 			ref="joystick"
 			:canvasSizeRef="canvasSizeRef"
+			:isMobile="isMobile"
 		/>
 
 		<instancethree 
-			v-if="allIsLoaded"
+			v-if="(allIsLoaded && viewPos)"
 			ref="instancethree"
 			:canvasSizeRef="canvasSizeRef"
 			:sequenceID="sequenceID"
 			:glbs="glbs"
 			:bobs="bobs"
 			:textures="textures"
-			:mousePos="mousePos"
+			:viewPos="viewPos"
 		/>
 
 	</div>
@@ -52,6 +53,8 @@
 
 		data(){
 			return {
+
+				isMobile: window.matchMedia("(pointer: coarse)").matches,
 				// cette valeur, à terme, sera une props envoyée par 
 				// le component qui écoutera l'audio
 				sequenceID: "1.0",
@@ -60,7 +63,8 @@
 					x: window.innerWidth / 2,
 					y: window.innerHeight / 2
 				},
-				stickPos: null,
+				stickPos: { x:0, y:0 },
+				viewPos: { x:0, y:0 },
 				canvasSizeRef: { 
 					width: window.innerWidth, 
 					height: window.innerHeight
@@ -99,18 +103,17 @@
 
 			this.initCommonValues();
 
+			this.viewPos = this.isMobile ? this.mousePos : this.stickPos;
+
 			window.addEventListener("resize", this.onResize);
 			window.addEventListener("blur", this.focusBlurHandler);
 			window.addEventListener("focus", this.focusBlurHandler);
 
 			this.$nuxt.$on("assets-have-been-loaded", this.handleAssetsLoaded);
 			this.$nuxt.$on("mouse-pos-update", this.mousePosUpdate);
-			this.$nuxt.$on("stick-pos-update", this.stickPosUpdate);
 			
 			// launch all assets loads
 			new PrimaryLoadManager(this);
-			
-			console.log("mounted de cinema : $refs.joystick.$refs.right.stickPos : ", this.$refs.joystick.$refs.right.stickPos)
 			
 		},
 		
@@ -118,7 +121,6 @@
 			
 			this.$nuxt.$off("assets-have-been-loaded", this.handleAssetsLoaded);
 			this.$nuxt.$off("mouse-pos-update", this.mousePosUpdate);
-			this.$nuxt.$off("stick-pos-update", this.stickPosUpdate);
 
 		},
 
@@ -140,7 +142,7 @@
 
 			mousePosUpdate( event ){
 
-				this.mousePos = event;
+				this.viewPos = event;
 
 			},
 

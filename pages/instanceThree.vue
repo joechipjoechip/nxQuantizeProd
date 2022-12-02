@@ -3,7 +3,7 @@
 		<div class="debug-space">
 			<!-- <pre>
 				<p v-if="sequenceID">current sequence : {{ sequenceID }}</p>
-				<p v-if="mousePos">mousePos : {{ mousePos }}</p>
+				<p v-if="viewPos">viewPos : {{ viewPos }}</p>
 			</pre> -->
 			<div ref="stats" class="stats"></div>
 		</div>
@@ -51,7 +51,7 @@
 				required: true
 			},
 
-			mousePos: {
+			viewPos: {
 				type: Object,
 				required: true
 			}
@@ -212,7 +212,7 @@
 					this.renderer,
 					this.clock,
 					this.canvasSizeRef,
-					this.mousePos,
+					this.viewPos,
 					this
 				);
 
@@ -222,7 +222,7 @@
 					this.renderer,
 					this.clock,
 					this.canvasSizeRef,
-					this.mousePos,
+					this.viewPos,
 					this
 				);
 
@@ -284,7 +284,7 @@
 
 				this.deltaTime += this.clock.getDelta();
 
-				this.sequencesManager.current.checkStuffsToAnimateAtRender(this.deltaTime, this.mousePos);
+				this.sequencesManager.current.checkStuffsToAnimateAtRender(this.deltaTime, this.viewPos);
 				
 				// NOW CHECK IF FRAMERATE IS GOOD
 				if( this.deltaTime > this.frameRate ){
