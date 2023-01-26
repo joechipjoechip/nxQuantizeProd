@@ -11,9 +11,7 @@
         @mouseup="touchEndHandler"
     >
 
-        <div 
-            class="stick_inner-circle-surface"
-        >
+        <div  class="stick_inner-circle-surface">
 
             <div 
                 class="stick_inner-circle-deep"
@@ -94,16 +92,20 @@
                     
                 }
 
-                // cancel previous timers
+
+                 // cancel previous timers
                 if( this.timeoutID[currentRole] ){
-					clearTimeout(this.timeoutID[currentRole]);
-				}
+                    clearTimeout(this.timeoutID[currentRole]);
+                }
 
                 // create a new timer
                 this.timeoutID[currentRole] = setTimeout(
                     this.stickRecenter,
                     this.core[currentRole].moveTimeout * 1000
                 );
+                
+
+               
 
             }
         },
@@ -153,14 +155,6 @@
                         )
                     }
 
-
-                } else {
-
-                    return {
-                        x: (((input.offsetX + this.canvasSizeRef.width / 2) / this.canvasSizeRef.width) - 1) * 2,
-                        y: (((input.offsetY + this.canvasSizeRef.height / 2) / this.canvasSizeRef.height) - 1) * -2
-                    };
-
                 }
 
             },
@@ -177,9 +171,7 @@
 
             updateStickPos( event ){
 
-                const { x, y } = event;
-
-                this.stickPos = { x, y };
+                this.stickPos = event;
 
             },
             
@@ -224,7 +216,6 @@
                     y: 0,
                     onUpdate( that ){
 
-                        that.updateStickPos(animatedObject);
                         that.updateStickPos(animatedObject);
 
                     },
