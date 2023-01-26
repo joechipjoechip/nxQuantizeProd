@@ -136,7 +136,7 @@
 			window.addEventListener("focus", this.focusBlurHandler);
 
 			this.$nuxt.$on("assets-have-been-loaded", this.handleAssetsLoaded);
-			this.$nuxt.$on("bob-pos-update", this.mousePosUpdate);
+			this.$nuxt.$on("mouse-pos-update", this.mousePosUpdate);
 			
 			// launch all assets loads
 			new PrimaryLoadManager(this);
@@ -146,7 +146,7 @@
 		beforeDestroy(){
 			
 			this.$nuxt.$off("assets-have-been-loaded", this.handleAssetsLoaded);
-			this.$nuxt.$off("bob-pos-update", this.mousePosUpdate);
+			this.$nuxt.$off("mouse-pos-update", this.mousePosUpdate);
 
 		},
 
