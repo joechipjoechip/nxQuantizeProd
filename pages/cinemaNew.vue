@@ -16,9 +16,12 @@
 		<joystick
 			v-if="isMobile"
 			ref="joystick"
-			:canvasSizeRef="canvasSizeRef"
-			:isMobile="isMobile"
 		/>
+
+		<mouse-handler v-else
+			:canvasSizeRef="canvasSizeRef"
+		/>
+
 
 		<instancethree 
 			v-if="(allIsLoaded && viewPos)"
@@ -36,7 +39,13 @@
 
 <script>
 
+	import { core } from '@/static/config/core.js';
+
+	import { TimelineLite } from "gsap";
+
+
 	import Joystick from '@/components/joystick.vue';
+	import MouseHandler from '@/components/mouseHandler.vue';
 	import InstanceThree from "./instanceThree.vue";
 
 	import { worlds } from '@/static/config/worlds.js';
@@ -49,12 +58,13 @@
 
 		components: {
 			"instancethree": InstanceThree,
-			"joystick": Joystick
+			"joystick": Joystick,
+			"mouse-handler": MouseHandler,
 		},
 
 		data(){
 			return {
-
+				core,
 				isMobile: window.matchMedia("(pointer: coarse)").matches,
 				// cette valeur, à terme, sera une props envoyée par 
 				// le component qui écoutera l'audio
@@ -64,13 +74,12 @@
 					x: window.innerWidth / 2,
 					y: window.innerHeight / 2
 				},
-				stickPos: { x:0, y:0 },
 				viewPos: { x:0, y:0 },
+				timeoutID: {},
+				isRecentering: false,
 				canvasSizeRef: { 
 					width: window.innerWidth, 
 					height: window.innerHeight
-					// width: 1280,
-					// height: 700
 				},
 
 				curtainActive: false,
@@ -97,6 +106,24 @@
 				if( newVal ){
 					console.log("all assets are loaded");
 				}
+			},
+			viewPos( newVal ){
+
+				if( !this.isRecentering ){
+
+					// cancel previous timers
+				   if( this.timeoutID["viewPosition"] ){
+					   clearTimeout(this.timeoutID["viewPosition"]);
+				   }
+   
+				   // create a new timer
+				   this.timeoutID["viewPosition"] = setTimeout(
+					   this.viewRecenter,
+					   this.core.mouse.moveTimeout * 1000
+				   );
+
+				}
+
 			}
 		},
 
@@ -104,14 +131,12 @@
 
 			this.initCommonValues();
 
-			this.viewPos = this.isMobile ? this.mousePos : this.stickPos;
-
 			window.addEventListener("resize", this.onResize);
 			window.addEventListener("blur", this.focusBlurHandler);
 			window.addEventListener("focus", this.focusBlurHandler);
 
 			this.$nuxt.$on("assets-have-been-loaded", this.handleAssetsLoaded);
-			this.$nuxt.$on("mouse-pos-update", this.mousePosUpdate);
+			this.$nuxt.$on("bob-pos-update", this.mousePosUpdate);
 			
 			// launch all assets loads
 			new PrimaryLoadManager(this);
@@ -121,7 +146,7 @@
 		beforeDestroy(){
 			
 			this.$nuxt.$off("assets-have-been-loaded", this.handleAssetsLoaded);
-			this.$nuxt.$off("mouse-pos-update", this.mousePosUpdate);
+			this.$nuxt.$off("bob-pos-update", this.mousePosUpdate);
 
 		},
 
@@ -144,12 +169,6 @@
 			mousePosUpdate( event ){
 
 				this.viewPos = event;
-
-			},
-
-			stickPosUpdate( event ){
-
-				this.mousePos = this.$refs.joystick.$refs.right.stickPos;
 
 			},
 
@@ -226,7 +245,6 @@
 
 				}
 
-
 			},
 
 			changeSceneHandler(){
@@ -264,6 +282,38 @@
 
 				// free memory and ressources
 				// this.$refs.instancethree.scene1.sequencesElements[oldSequenceID] = null;
+
+			},
+
+			viewRecenter(){
+                console.log("recentering the view (from cinemaNew)");
+
+                const animatedObject = {
+                    x: this.viewPos.x,
+                    y: this.viewPos.y
+                };
+
+                const tlRecenter = new TimelineLite();
+
+				this.isRecentering = true;
+
+                tlRecenter.to(animatedObject, this.core.mouse.recenterDuration, {
+                    x: 0,
+                    y: 0,
+                    onUpdate( that ){
+
+                        that.mousePosUpdate(animatedObject);
+
+                    },
+                    onUpdateParams: [this],
+
+					onComplete( that ){
+                        that.isRecentering = false;
+                    },
+                    onCompleteParams: [this]
+                });
+
+
 
 			}
 
