@@ -1,293 +1,286 @@
 <template>
-    <div 
-        :class="`stick_hitbox-${side}`"
-        :data-role="role"
+	<div :class="`stick_hitbox-${side}`">
 
-        @touchstart="touchStartHandler"
-        @mousedown="touchStartHandler"
-        @touchmove="touchMoveHandler"
+		<div class="stick_ui"
+			@touchstart="touchStartHandler"
+			@mousedown="touchStartHandler"
+			@touchmove="touchMoveHandler"
 
-        @touchend="touchEndHandler"
-        @mouseup="touchEndHandler"
-    >
+			@touchend="touchEndHandler"
+			@mouseup="touchEndHandler"
+			:data-role="role"
+		>
 
-        <div  class="stick_inner-circle-surface">
+			<div  class="stick_inner-circle-surface">
 
-            <div 
-                class="stick_inner-circle-deep"
-                :class="{ active: mouseDown }"
-                :style="{'transform': transformString }"
-            >
-            </div>
+				<div 
+					class="stick_inner-circle-deep"
+					:class="{ active: mouseDown }"
+					:style="{'transform': transformString }"
+				>
+				</div>
 
-        </div>
+			</div>
 
-    </div>
+		</div>
+
+
+	</div>
 </template>
 
 <script>
 
-    import { TimelineLite } from 'gsap';
+	import { TimelineLite } from 'gsap';
 
-    import { core } from '@/static/config/core.js';
+	import { core } from '@/static/config/core.js';
 
-    export default {
-        props: {
+	export default {
+		props: {
 
-            side: {
-                type: String,
-                required: true
-            },
+			side: {
+				type: String,
+				required: true
+			},
 
-            role: {
-                type: String,
-                required: true
-            }
+			role: {
+				type: String,
+				required: true
+			}
 
-        },
+		},
 
-        data(){
-            return {
-                core,
-                mouseDown: false,
-                mouseUp: true,
-                circleActive: false,
-                stickPos: { x:0, y:0 },
-                mousePos: { x:0, y:0 },
-                lastKnownStickPos: { x:0, y:0 },
-                transformString: "",
-                inputs: {},
-                inputTrigger: 0.5,
-                timeoutID: {
-                    mouse: null,
-                    stick: null
-                },
-            }
-        },
+		data(){
+			return {
+				core,
+				mouseDown: false,
+				mouseUp: true,
+				circleActive: false,
+				stickPos: { x:0, y:0 },
+				lastKnownStickPos: { x:0, y:0 },
+				timeoutID: null,
+				abstractRole: ""
+			}
+		},
 
-        watch: {
-            stickPos( newVal ){
+		mounted(){
 
-                let currentRole;
+			this.abstractRole = this.role === "bob" ? "stick" : "mouse";
 
-                // update all we need to
-                this.mousePos = newVal;
+			this.emitEventString = this.role === "bob" ? "bob-input-update-by-stick" : "view-update-by-stick";
 
-                this.lastKnownStickPos = newVal;
+		},
 
-                this.updateTransformString(newVal);
+		computed: {
 
-                // define which stick is used
-                if( this.role === "bob" ){
-                    // stick left
-                    this.bobInputKeysHandler(newVal);
+			transformString(){
+				return `translate(
+					${this.stickPos.x * 15}%,
+					${this.stickPos.y * -15}%
+				)`;
+			}
+		},
 
-                    currentRole = "stick"
+		watch: {
 
-                } else {
-                    // sitck right
-                    this.$nuxt.$emit("mouse-pos-update", newVal);
+			mouseDown( newVal ){
 
-                    currentRole = "mouse"
-                    
-                }
+				if( !newVal ){
+
+					// cancel previous timers
+					if( this.timeoutID ){
+						clearTimeout(this.timeoutID);
+						this.timeoutID = null;
+					}
 
 
-                 // cancel previous timers
-                if( this.timeoutID[currentRole] ){
-                    clearTimeout(this.timeoutID[currentRole]);
-                }
+					// create a new timer
+					this.timeoutID = setTimeout(
+						this.stickRecenter,
+						this.core[this.abstractRole].moveTimeout * 1000
+					);
 
-                // create a new timer
-                this.timeoutID[currentRole] = setTimeout(
-                    this.stickRecenter,
-                    this.core[currentRole].moveTimeout * 1000
-                );
-                
+				}
 
-               
+			}
 
-            }
-        },
+		},
 
-        methods: {
+		methods: {
 
-            touchStartHandler( event ){
-                event.preventDefault();
+			touchStartHandler( event ){
+				event.preventDefault();
 
-                // console.log("mouse DOWN : ", event);
-                this.mouseDown = true;
-                this.mouseUp = false;
+				// console.log("mouse DOWN : ", event);
+				this.mouseDown = true;
+				this.mouseUp = false;
 
-            },
+			},
 
-            touchEndHandler( event ){
-                event.preventDefault();
-                
-                // console.log("mouse UP : ", event);
-                this.mouseUp = true;
-                this.mouseDown = false;
-                
-                this.updateStickPos(this.lastKnownStickPos);
-                
-            },
+			touchEndHandler( event ){
+				event.preventDefault();
+				
+				// console.log("mouse UP : ", event);
+				this.mouseUp = true;
+				this.mouseDown = false;
+				
+				this.updateStickPos(this.lastKnownStickPos);
+				
+			},
 
-            computePos( input ){
+			touchMoveHandler( event ){
+				event.preventDefault();
 
-                const { width, left, height, top } = event.target.getBoundingClientRect();
+				// get normalized position for the stick
+				const computedPos = this.computePos(event);
 
-                if( input.touches?.[0] ){
+				this.updateStickPos(computedPos);
 
-                    const goodTouch = Array.from(input.touches).find(touch => touch.target.dataset.role === this.role);
+			},
 
-                    return {
-                        x: Math.min(1,
-                            Math.max(
-                                -1,
-                                (((goodTouch.clientX - left) / width) - 0.5) * 2
-                            )
-                        ),
-                        y: Math.min(1,
-                            Math.max(
-                                -1,
-                                (((goodTouch.clientY - top) / height) - 0.5) * -2
-                            )
-                        )
-                    }
+			computePos( input ){
 
-                }
+				const { width, left, height, top } = event.target.getBoundingClientRect();
 
-            },
-            
-            touchMoveHandler( event ){
-                event.preventDefault();
+				if( input.touches?.[0] ){
 
-                // get normalized position for the stick
-                const computedPos = this.computePos(event);
+					const goodTouch = Array.from(input.touches).find(touch => touch.target.dataset.role === this.role);
+					
+					return {
+						x: Math.min(1,
+							Math.max(
+								-1,
+								(((goodTouch.clientX - left) / width) - 0.5) * 2
+							)
+						),
+						y: Math.min(1,
+							Math.max(
+								-1,
+								(((goodTouch.clientY - top) / height) - 0.5) * -2
+							)
+						)
+					}
 
-                this.updateStickPos(computedPos);
+				}
 
-            },
+			},    
 
-            updateStickPos( event ){
+			updateStickPos( event ){
 
-                this.stickPos = event;
+				this.lastKnownStickPos = event;
 
-            },
-            
-            updateTransformString( position ){
+				this.stickPos = event;
 
-                this.transformString = `translate(
-                    ${position.x * 15}%,
-                    ${position.y * -15}%
-                )`;
+				this.$nuxt.$emit(this.emitEventString, event)
 
-            },
+			},
 
-            bobInputKeysHandler( stickPos ){
+			stickRecenter(){
 
-                const inputs = {
-                    shift: stickPos.y > 0.9,
-                    forward: stickPos.y > this.inputTrigger,
-                    backward: stickPos.y < this.inputTrigger * -1,
-                    right: stickPos.x > this.inputTrigger,
-                    left: stickPos.x < this.inputTrigger * -1
-                };
+				if( this.mouseDown ){ return; }
 
-                this.$nuxt.$emit("bob-inputs-update", inputs);
+				console.log("recentering (stick component)");
 
-            },
+				const animatedObject = {
+					x: this.stickPos.x,
+					y: this.stickPos.y
+				};
 
-            stickRecenter(){
+				const tlRecenter = new TimelineLite();
 
-                if( this.mouseDown ){ return; }
+				tlRecenter.to(animatedObject, this.core[this.abstractRole].recenterDuration, {
+					x: 0,
+					y: 0,
+					onUpdate( that ){
 
-                console.log("recentering the mousePos (stick component)");
+						that.updateStickPos(animatedObject);
 
-                const animatedObject = {
-                    x: this.stickPos.x,
-                    y: this.stickPos.y
-                };
+						console.log("onUpdate : ", animatedObject.x);
 
-                const tlRecenter = new TimelineLite();
+					},
+					onUpdateParams: [this]
+				});
 
-                tlRecenter.to(animatedObject, this.core.mouse.recenterDuration, {
-                    x: 0,
-                    y: 0,
-                    onUpdate( that ){
+			},
 
-                        that.updateStickPos(animatedObject);
-
-                    },
-                    onUpdateParams: [this]
-                });
-
-            },
-
-        }
-    }
+		}
+	}
 </script>
 
 <style lang="scss" scoped>
 
 .stick {
-  &_hitbox {
-    // &-left {
-    //     background-color: rgba(0,0,255,0.2);
-    // }
+&_hitbox {
+	&-left {
 
-    // &-right {
-    //     background-color: rgba(0,255,0,0.2);
-    // }
+		.stick_ui {
+			left: 20px;
+		}
+	}
 
-    &-left,
-    &-right {
-      display: flex;
-      flex-flow: row nowrap;
-      justify-content: center;
-      align-items: center;
-      width: 20vw;
-      height: 20vw;
-      // border: 3px solid rgba(255,255,255,0.08);
-      // margin: 2vw;
-      box-shadow: inset 0 0 4vw rgba(255,255,255,.1S);
-      // box-sizing: border-box;
-      border-radius: 50%;
-    }
-  }
+	&-right {
 
-  &_inner {
-    &-circle {
-      &-surface {
-        display: flex;
-        flex-flow: row nowrap;
-        justify-content: center;
-        align-items: center;
-        width: 75%;
-        height: 75%;
-        // background-color: rgba(255,255,255,0.15);
-        box-shadow: inset 0 0 4vw rgba(255,255,255,.2S);
-        border-radius: 50%;
-        pointer-events: none;
-      }
+		.stick_ui {
+			right: 20px;
+		}
+	}
 
-      &-deep {
-        width: 72%;
-        height: 72%;
-        background-color: rgba(255,255,255,.1);
-        box-shadow: 0 5px 12px rgba(255,255,255,.3);
-        border-radius: 50%;
-        transform: scale(1);
-        transition: all .25s;
+	&-left,
+	&-right {
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: center;
+		align-items: center;
+		width: 50vw;
+		height: 80vh;
+		// box-shadow: inset 0 0 4vw rgba(255,255,255,.1S);
 
-        &.active {
-          background-color: rgba(255,255,255,.3);
-          // box-shadow: 0 0 0 transparent;
-          box-shadow: 0 0 22px rgba(255,255,255,.4);
-          transform: scale(1.2);
-        }
-      }
-    }
-  }
+		// border: solid 1px red;
+	}
+}
+
+&_ui {
+	// border: solid 1px green;
+	max-width: 20vw;
+	max-height: 20vw;
+	width: 100%;
+	height: 100%;
+
+	position: absolute;
+	bottom: 20px;
+}
+
+&_inner {
+	&-circle {
+	&-surface {
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+		height: 100%;
+		// background-color: rgba(255,255,255,0.15);
+		box-shadow: inset 0 0 4vw rgba(255,255,255,.2S);
+		border-radius: 50%;
+		pointer-events: none;
+	}
+
+	&-deep {
+		width: 72%;
+		height: 72%;
+		background-color: rgba(255,255,255,.1);
+		box-shadow: 0 5px 12px rgba(255,255,255,.3);
+		border-radius: 50%;
+		transform: scale(1);
+		transition: all .25s;
+
+		&.active {
+		background-color: rgba(255,255,255,.3);
+		// box-shadow: 0 0 0 transparent;
+		box-shadow: 0 0 22px rgba(255,255,255,.4);
+		transform: scale(1.2);
+		}
+	}
+	}
+}
 }
 </style>

@@ -106,25 +106,8 @@
 				if( newVal ){
 					console.log("all assets are loaded");
 				}
-			},
-			viewPos( newVal ){
-
-				if( !this.isRecentering ){
-
-					// cancel previous timers
-				   if( this.timeoutID["viewPosition"] ){
-					   clearTimeout(this.timeoutID["viewPosition"]);
-				   }
-   
-				   // create a new timer
-				   this.timeoutID["viewPosition"] = setTimeout(
-					   this.viewRecenter,
-					   this.core.mouse.moveTimeout * 1000
-				   );
-
-				}
-
 			}
+
 		},
 
 		mounted(){
@@ -136,7 +119,9 @@
 			window.addEventListener("focus", this.focusBlurHandler);
 
 			this.$nuxt.$on("assets-have-been-loaded", this.handleAssetsLoaded);
-			this.$nuxt.$on("mouse-pos-update", this.mousePosUpdate);
+
+			this.$nuxt.$on("view-update-by-stick", this.viewUpdateByStick);
+			this.$nuxt.$on("bob-input-update-by-stick", this.updateBobInputsByStick);
 			
 			// launch all assets loads
 			new PrimaryLoadManager(this);
@@ -146,7 +131,9 @@
 		beforeDestroy(){
 			
 			this.$nuxt.$off("assets-have-been-loaded", this.handleAssetsLoaded);
-			this.$nuxt.$off("mouse-pos-update", this.mousePosUpdate);
+
+			this.$nuxt.$off("view-update-by-stick", this.viewUpdateByStick);
+			this.$nuxt.$off("bob-input-update-by-stick", this.updateBobInputsByStick);
 
 		},
 
@@ -163,12 +150,6 @@
 					x: (((this.canvasSizeRef.width / 2) / this.canvasSizeRef.width) - 1) * 2,
 					y: (((this.canvasSizeRef.height / 2) / this.canvasSizeRef.height) - 1) * -2
 				};
-
-			},
-
-			mousePosUpdate( event ){
-
-				this.viewPos = event;
 
 			},
 
@@ -285,37 +266,25 @@
 
 			},
 
-			viewRecenter(){
-                console.log("recentering the view (from cinemaNew)");
+			viewUpdateByStick( event ){
 
-                const animatedObject = {
-                    x: this.viewPos.x,
-                    y: this.viewPos.y
-                };
+				this.viewPos = event;
 
-                const tlRecenter = new TimelineLite();
+			},
 
-				this.isRecentering = true;
+			updateBobInputsByStick( position ){
 
-                tlRecenter.to(animatedObject, this.core.mouse.recenterDuration, {
-                    x: 0,
-                    y: 0,
-                    onUpdate( that ){
+				const inputs = {
+					shift: position.y > 0.9,
+					forward: position.y > this.core.stick.inputThreshold,
+					backward: position.y < this.core.stick.inputThreshold * -1,
+					right: position.x > this.core.stick.inputThreshold,
+					left: position.x < this.core.stick.inputThreshold * -1
+				};
 
-                        that.mousePosUpdate(animatedObject);
+				this.$nuxt.$emit("bob-inputs-update", inputs);
 
-                    },
-                    onUpdateParams: [this],
-
-					onComplete( that ){
-                        that.isRecentering = false;
-                    },
-                    onCompleteParams: [this]
-                });
-
-
-
-			}
+			},
 
 		}
 	}

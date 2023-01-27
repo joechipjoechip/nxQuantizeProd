@@ -1,6 +1,6 @@
 {
   "BlenderTubes": {
-    "description": "Auto imported from components/blenderTubes.js"
+    "description": "Auto imported from components/BlenderTubes.js"
   },
   "CharacterController": {
     "description": "Auto imported from components/characterController.js"
@@ -11,8 +11,20 @@
   "GuiManager": {
     "description": "Auto imported from components/guiManager.js"
   },
+  "Joystick": {
+    "description": "Auto imported from components/joystick.vue"
+  },
+  "MouseHandler": {
+    "description": "Auto imported from components/mouseHandler.vue"
+  },
+  "ParticlesBuilder": {
+    "description": "Auto imported from components/particlesBuilder.js"
+  },
   "PostprocsBuilder": {
     "description": "Auto imported from components/postprocsBuilder.js"
+  },
+  "PrimaryLoadManager": {
+    "description": "Auto imported from components/primaryLoadManager.js"
   },
   "SceneBuilder": {
     "description": "Auto imported from components/sceneBuilder.js"
@@ -20,8 +32,17 @@
   "SequencesBuilder": {
     "description": "Auto imported from components/sequencesBuilder.js"
   },
+  "SequencesManager": {
+    "description": "Auto imported from components/sequencesManager.js"
+  },
   "SpecificManualCameraTweenBuilder": {
     "description": "Auto imported from components/specificManualCameraTweenBuilder.js"
+  },
+  "States": {
+    "description": "Auto imported from components/states.js"
+  },
+  "Stick": {
+    "description": "Auto imported from components/stick.vue"
   },
   "ThirdPersonCamera": {
     "description": "Auto imported from components/thirdPersonCamera.js"

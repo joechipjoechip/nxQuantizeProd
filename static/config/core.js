@@ -23,7 +23,8 @@ const core = {
 			start: 0.00001,
 			end: 0.1,
 			divideRatio: 50
-		}
+		},
+		inputThreshold: 0.5
 	},
 
 	movesSpecs: {
