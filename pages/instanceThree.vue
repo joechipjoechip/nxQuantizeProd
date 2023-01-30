@@ -5,7 +5,7 @@
 				<p v-if="sequenceID">current sequence : {{ sequenceID }}</p>
 				<p v-if="viewPos">viewPos : {{ viewPos }}</p>
 			</pre> -->
-			<div ref="stats" class="stats"></div>
+			<div ref="currentFPS" class="stats">{{ currentFPSValue }}</div>
 		</div>
 
 		<canvas 
@@ -24,8 +24,6 @@
 
 	// THREE
 	import * as THREE from 'three';
-
-	import * as Stats from 'stats.js';
 
 	export default {
 
@@ -77,7 +75,10 @@
 					stats: true
 				},
 
-				stats: new Stats(),
+				currentFPS: 0,
+				startTime: performance.now(),
+				currentFPSValue: 0,
+				frames: 0,
 
 				currentBobName: null,
 
@@ -143,14 +144,6 @@
 		},
 
 		mounted(){
-
-			if( this.debug.stats ){
-
-				this.stats.showPanel(0);
-	
-				this.$refs.stats.appendChild(this.stats.dom);
-
-			}
 
 			this.createScene();
 
@@ -278,9 +271,7 @@
 
 				if( !this.debug.animated ) return;
 
-				if( this.debug.stats ){
-					this.stats.begin();
-				}
+				this.computeFPS();
 
 				this.deltaTime += this.clock.getDelta();
 
@@ -306,12 +297,21 @@
 
 				}
 
-				if( this.debug.stats ){
-					this.stats.end();
-				}
-
 				window.requestAnimationFrame(this.mainTick);
 
+			},
+
+			computeFPS(){
+				const t = performance.now();
+				const dt = t - this.startTime;
+
+				if( dt > 100 ){
+					this.currentFPSValue = parseInt(this.frames * 1000 / dt);
+
+					this.frames = 0;
+					this.startTime = t;
+				}
+				this.frames++;
 			}
 
 		}
@@ -340,8 +340,8 @@ p {
 
 .debug-space {
   position: absolute;
-  bottom: 25px;
-  left: 5px;
+  top: 15px;
+  left: 15px;
   padding: 0;
   margin: 0;
   background-color: rgba(0,0,200, .5);
