@@ -6,6 +6,7 @@
 				<p v-if="viewPos">viewPos : {{ viewPos }}</p>
 			</pre> -->
 			<div ref="currentFPS" class="stats">{{ currentFPSValue }}</div>
+			<div ref="downScale" class="stats">{{ $store.state.downScale }}</div>
 		</div>
 
 		<canvas 
@@ -79,6 +80,7 @@
 				startTime: performance.now(),
 				currentFPSValue: 0,
 				frames: 0,
+				isAdjustingDownScale: false,
 
 				currentBobName: null,
 
@@ -279,6 +281,8 @@
 				
 				// NOW CHECK IF FRAMERATE IS GOOD
 				if( this.deltaTime > this.frameRate ){
+	
+					this.handleFpsAndDownScaling();
 
 					// NOW COMPUTE RENDER
 					if( this.sequencesManager.current.composer ){
@@ -312,6 +316,55 @@
 					this.startTime = t;
 				}
 				this.frames++;
+			},
+
+			handleFpsAndDownScaling(){
+
+				if( this.isAdjustingDownScale ){ return; }
+
+
+				if( this.currentFPSValue < 50 || this.$store.state.downScale > 2.5 ){
+					// console.log("adjusting start : fps value : ----> ", this.currentFPSValue);
+
+					this.isAdjustingDownScale = true;
+
+					this.performanceTimeoutID = setTimeout(() => {
+						
+						if( this.currentFPSValue < 50 || this.$store.state.downScale > 2.5 ){
+							// console.log("adjusting verify (in timeout): fps value : ", this.currentFPSValue);
+
+							const diff = (60 - this.currentFPSValue) / 10;
+
+							this.$store.commit('setDownScale', (1 + diff));
+
+							this.isAdjustingDownScale = false;
+
+						} else {
+							// console.log("finally cancelled because fps is now : ", this.currentFPSValue);
+							this.clearDownScaleTimeout();
+
+						}
+
+					}, 2000);
+
+				} else {
+
+					this.clearDownScaleTimeout();
+
+				}
+
+			},
+
+			clearDownScaleTimeout(){
+				
+				if( this.performanceTimeoutID ){
+
+					clearTimeout(this.performanceTimeoutID);
+					this.performanceTimeoutID = null;
+					this.isAdjustingDownScale = false;
+
+				}
+
 			}
 
 		}

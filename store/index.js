@@ -1,5 +1,5 @@
 export const state = () => ({
-	downScale: 2
+	downScale: 1
 })
 
 export const getters = {
@@ -9,7 +9,7 @@ export const getters = {
 }
 
 export const mutations = {
-	setDownscale(state, payload) {
+	setDownScale(state, payload) {
 		state.downScale = payload
 	}
 }

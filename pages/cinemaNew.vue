@@ -102,6 +102,10 @@
 				if( newVal ){
 					console.log("all assets are loaded");
 				}
+			},
+
+			"$store.state.downScale"(newVal){
+				this.initCanvasRefSize();
 			}
 
 		},
@@ -137,14 +141,20 @@
 
 			initCommonValues(){
 
-				this.canvasSizeRef = { 
-					width: window.innerWidth / this.$store.state.downScale, 
-					height: window.innerHeight / this.$store.state.downScale
-				};
-
 				this.mousePos = {
 					x: (((this.canvasSizeRef.width / 2) / this.canvasSizeRef.width) - 1) * 2,
 					y: (((this.canvasSizeRef.height / 2) / this.canvasSizeRef.height) - 1) * -2
+				};
+
+			},
+
+			initCanvasRefSize(){
+
+				console.log("cinema : re init canvasrefsize");
+
+				this.canvasSizeRef = { 
+					width: window.innerWidth / this.$store.state.downScale, 
+					height: window.innerHeight / this.$store.state.downScale
 				};
 
 			},
