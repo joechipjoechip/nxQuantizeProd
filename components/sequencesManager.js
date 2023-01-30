@@ -607,7 +607,7 @@ class SequencesManager{
 		// if any fake-orbit
 		if( currentSequenceElements.fakeOrbit ){
 
-			currentSequenceElements.blenderTubesManager._FakeOrbit(currentMousePos);
+			currentSequenceElements.blenderTubesManager._FakeOrbit(currentMousePos, this.vm.$store.state.downScale);
 
 		}
 

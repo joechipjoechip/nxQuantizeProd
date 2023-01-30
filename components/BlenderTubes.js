@@ -95,11 +95,11 @@ class BlenderTubes{
 
 	}
 
-	_FakeOrbit(mousePos){
+	_FakeOrbit(mousePos, downScale){
 
 		const reformatedMousePos = {
-			x: (mousePos.x + 1) / 2,
-			y: (mousePos.y + 1) / 2
+			x: ((mousePos.x + 1) / 2) / downScale,
+			y: ((mousePos.y + 1) / 2) / downScale
 		};
 
 		const pos1 = this._tube.geometry.parameters.path.getPointAt(reformatedMousePos.x);

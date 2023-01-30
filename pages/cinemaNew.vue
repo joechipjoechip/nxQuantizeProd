@@ -41,9 +41,6 @@
 
 	import { core } from '@/static/config/core.js';
 
-	import { TimelineLite } from "gsap";
-
-
 	import Joystick from '@/components/joystick.vue';
 	import MouseHandler from '@/components/mouseHandler.vue';
 	import InstanceThree from "./instanceThree.vue";
@@ -69,7 +66,6 @@
 				// cette valeur, à terme, sera une props envoyée par 
 				// le component qui écoutera l'audio
 				sequenceID: "1.0",
-				downScale: 1,
 				mousePos: {
 					x: window.innerWidth / 2,
 					y: window.innerHeight / 2
@@ -142,8 +138,8 @@
 			initCommonValues(){
 
 				this.canvasSizeRef = { 
-					width: window.innerWidth / this.downScale, 
-					height: window.innerHeight / this.downScale
+					width: window.innerWidth / this.$store.state.downScale, 
+					height: window.innerHeight / this.$store.state.downScale
 				};
 
 				this.mousePos = {
@@ -177,8 +173,8 @@
 
 			onResize(){
 
-				this.canvasSizeRef.width = window.innerWidth / this.downScale;
-				this.canvasSizeRef.height = window.innerHeight / this.downScale;
+				this.canvasSizeRef.width = window.innerWidth / this.$store.state.downScale;
+				this.canvasSizeRef.height = window.innerHeight / this.$store.state.downScale;
 
 			},
 
