@@ -68,8 +68,8 @@ class PostprocsBuilder {
 			case "sobel":
 				const sobelShader = new ShaderPass(SobelOperatorShader);
 				
-				sobelShader.uniforms["resolution"].value.x = window.innerWidth * window.devicePixelRatio;
-				sobelShader.uniforms["resolution"].value.y = window.innerHeight * window.devicePixelRatio;
+				sobelShader.uniforms["resolution"].value.x = window.innerWidth * Math.min(window.devicePixelRatio, 2);
+				sobelShader.uniforms["resolution"].value.y = window.innerHeight * Math.min(window.devicePixelRatio, 2);
 
 				shadersArrayToReturn.push(grayScaleShader);
 				shadersArrayToReturn.push(sobelShader);
@@ -169,7 +169,7 @@ class PostprocsBuilder {
 			case "pixel":
 				const pixelPass = new ShaderPass( PixelShader );
 				pixelPass.uniforms["resolution"].value = new THREE.Vector2(this._canvas.width, this._canvas.height);
-				// pixelPass.uniforms["resolution"].value.multiplyScalar(window.devicePixelRatio);
+				// pixelPass.uniforms["resolution"].value.multiplyScalar(Math.min(window.devicePixelRatio, 2));
 				// debugger;
 				pixelPass.uniforms["pixelSize"].value = postProcInfos.pixelSize;
 				this._IsAlreadyGamma() ? null : shadersArrayToReturn.push(gammaCorrectionShader);
