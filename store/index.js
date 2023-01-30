@@ -1,5 +1,6 @@
 export const state = () => ({
-	downScale: 1
+	downScale: 1,
+	isMobile: window.matchMedia("(pointer: coarse)").matches
 })
 
 export const getters = {

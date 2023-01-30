@@ -14,7 +14,7 @@
 		</div>
 
 		<joystick
-			v-if="isMobile"
+			v-if="$store.state.isMobile"
 			ref="joystick"
 		/>
 
@@ -62,7 +62,6 @@
 		data(){
 			return {
 				core,
-				isMobile: window.matchMedia("(pointer: coarse)").matches,
 				// cette valeur, à terme, sera une props envoyée par 
 				// le component qui écoutera l'audio
 				sequenceID: "1.0",

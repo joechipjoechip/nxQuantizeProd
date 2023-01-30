@@ -82,6 +82,10 @@
 				frames: 0,
 				isAdjustingDownScale: false,
 
+				arbitraryFpsIdeal: 60,
+				arbitraryFpsLimit: 50,
+				arbitraryDownScaleLimit: 2.5,
+
 				currentBobName: null,
 
 				sceneSkeleton: {
@@ -148,6 +152,9 @@
 		mounted(){
 
 			this.createScene();
+
+			// this.arbitraryFpsLimit = this.$store.state.isMobile ? 25 : 50;
+			// this.arbitraryFpsIdeal = this.$store.state.isMobile ? 30 : 60;
 
 		},
 
@@ -323,17 +330,17 @@
 				if( this.isAdjustingDownScale ){ return; }
 
 
-				if( this.currentFPSValue < 50 || this.$store.state.downScale > 2.5 ){
+				if( this.currentFPSValue < this.arbitraryFpsLimit || this.$store.state.downScale > this.arbitraryDownScaleLimit ){
 					// console.log("adjusting start : fps value : ----> ", this.currentFPSValue);
 
 					this.isAdjustingDownScale = true;
 
 					this.performanceTimeoutID = setTimeout(() => {
 						
-						if( this.currentFPSValue < 50 || this.$store.state.downScale > 2.5 ){
+						if( this.currentFPSValue < this.arbitraryFpsLimit || this.$store.state.downScale > this.arbitraryDownScaleLimit ){
 							// console.log("adjusting verify (in timeout): fps value : ", this.currentFPSValue);
 
-							const diff = (60 - this.currentFPSValue) / 10;
+							const diff = (this.arbitraryFpsIdeal - this.currentFPSValue) / 10;
 
 							this.$store.commit('setDownScale', (1 + diff));
 
