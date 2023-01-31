@@ -4,7 +4,7 @@ export const state = () => ({
 })
 
 export const getters = {
-	getCounter(state) {
+	getDownScale(state) {
 		return state.downScale
 	}
 }
