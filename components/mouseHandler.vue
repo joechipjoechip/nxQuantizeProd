@@ -41,15 +41,24 @@
 					this.core.mouse.moveTimeout * 1000
 				);
 
-				this.currentPosition = {
-					x: (((event.offsetX + this.canvasSizeRef.width / 2) / this.canvasSizeRef.width) - 1) * 2,
-					y: (((event.offsetY + this.canvasSizeRef.height / 2) / this.canvasSizeRef.height) - 1) * -2
-				};
+				this.currentPosition = this.computePosition(event);
 
 				this.emitNewPosition();
 			},
 
+			computePosition( event ){
+
+				return {
+					x: (((event.offsetX + window.innerWidth / 2) / window.innerWidth) - 1) * 2,
+					y: (((event.offsetY + window.innerHeight / 2) / window.innerHeight) - 1) * -2
+				};
+
+
+			},
+
 			emitNewPosition(){
+
+				// console.log("mousemoveHandler : ", this.currentPosition.x);
 
 				this.$nuxt.$emit("view-update-by-stick", this.currentPosition);
 
