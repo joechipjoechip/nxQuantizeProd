@@ -65,7 +65,7 @@
 				worldConfig: worlds.find( world => world.sequences.find( seq => seq.id === this.sequenceID ) ),
 
 				// Animation
-				frameRate: 1/106,
+				frameRate: 1/60,
 				deltaTime: 0,
 
 				sequenceID: "1.0",
@@ -84,8 +84,8 @@
 				isAdjustingDownScale: false,
 
 				arbitraryFpsIdeal: 60,
-				arbitraryFpsLimit: 50,
-				arbitraryDownScaleLimit: 2.5,
+				arbitraryFpsLimit: 45,
+				arbitraryDownScaleLimit: 2.1,
 
 				currentBobName: null,
 
