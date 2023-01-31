@@ -340,9 +340,11 @@
 						if( this.currentFPSValue < this.arbitraryFpsLimit || this.$store.state.downScale > this.arbitraryDownScaleLimit ){
 							// console.log("adjusting verify (in timeout): fps value : ", this.currentFPSValue);
 
-							const diff = (this.arbitraryFpsIdeal - this.currentFPSValue) / 10;
+							const diff = ((this.arbitraryFpsIdeal - this.currentFPSValue) / 10) + 1;
 
-							this.$store.commit('setDownScale', (1 + diff));
+							if( diff > 1 ){
+								this.$store.commit('setDownScale', diff);
+							}
 
 							this.isAdjustingDownScale = false;
 
