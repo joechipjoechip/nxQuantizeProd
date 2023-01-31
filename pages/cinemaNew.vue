@@ -3,7 +3,8 @@
 
 		<div class="debug-buttons-container">
 			<button @click="playPauseAnimationHandler">start/stop animation</button>
-			<button @click="changeSceneHandler">change scene</button>
+			<button @click="switchScene">switch scene</button>
+			<button @click="switchSceneAndDrop">switch scene and drop</button>
 			<button @click="changeSequenceHandler">next sequence</button>
 		</div>
 
@@ -233,9 +234,15 @@
 
 			},
 
-			changeSceneHandler(){
+			switchScene(){
 
-				this.$refs.instancethree.changeSceneHandler();
+				this.$refs.instancethree.switchScene();
+
+			},
+
+			switchSceneAndDrop(){
+
+				this.$refs.instancethree.switchSceneAndDrop();
 
 			},
 

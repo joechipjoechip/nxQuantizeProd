@@ -151,7 +151,7 @@
 
 		mounted(){
 
-			this.createScene();
+			this.createScenes();
 
 			// this.arbitraryFpsLimit = this.$store.state.isMobile ? 25 : 50;
 			// this.arbitraryFpsIdeal = this.$store.state.isMobile ? 30 : 60;
@@ -160,7 +160,7 @@
 
 		methods: {
 
-			async createScene(){
+			async createScenes(){
 
 				this.sceneSkeleton.primary = new SceneBuilder({
 					worldConfig: worlds[0], 
@@ -234,7 +234,7 @@
 
 			},
 
-			changeSceneHandler(){
+			switchScene(){
 
 				if( this.sceneBundle.current.name === this.sceneBundle.primary.name ){
 
@@ -246,6 +246,15 @@
 
 				}
 
+			},
+
+			switchSceneAndDrop(){
+
+				// DROP la scene non courante
+				// const skeletonToDrop = this.
+
+
+				
 			},
 
 			
