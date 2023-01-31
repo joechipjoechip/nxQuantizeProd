@@ -105,7 +105,10 @@ class BlenderTubes{
 		const pos1 = this._tube.geometry.parameters.path.getPointAt(
 			Math.min(reformatedMousePos.x, 1)
 		);
+
+		// console.log("pos1 : ", pos1);
 		
+
 		this._camera.position.copy(pos1);
 
 	}

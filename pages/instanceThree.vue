@@ -61,6 +61,7 @@
 
 			return {
 				// Config from worlds.js
+				worlds,
 				worldConfig: worlds.find( world => world.sequences.find( seq => seq.id === this.sequenceID ) ),
 
 				// Animation
@@ -88,7 +89,7 @@
 
 				currentBobName: null,
 
-				sceneSkeleton: {
+				skeleton: {
 					current: null,
 					primary: null,
 					secondary: null
@@ -104,7 +105,10 @@
 					current: null,
 					primary: null,
 					secondary: null
-				}
+				},
+
+				nextWorldIndex: 2,
+				initialLoadDone: false
 
 			}
 
@@ -112,13 +116,13 @@
 
 		watch: {
 
-			"sceneSkeleton.current"(newVal){
+			"skeleton.current"(newVal){
 
 				this.sceneBundle.current = this.sceneBundle[newVal.type];
 				
 				this.sequencesManager.current = this.sequencesManager[newVal.type];
 				
-				this.sceneSkeleton.current.refreshBobs(this.bobs, this.sceneBundle.current.scene);
+				this.skeleton.current.refreshBobs(this.bobs, this.sceneBundle.current.scene);
 
 				this.sequencesManager.current.sequenceChangeHandler(this.sequenceID);
 
@@ -140,9 +144,9 @@
 			"canvasSizeRef.width"(){
 				this.renderer.setSize(this.canvasSizeRef.width, this.canvasSizeRef.height);
 
-				Object.keys(this.sceneSkeleton).forEach(skeletonKey => {
+				Object.keys(this.skeleton).forEach(skeletonKey => {
 
-					this.sceneSkeleton[skeletonKey].onResize(this.canvasSizeRef);
+					this.skeleton[skeletonKey].onResize(this.canvasSizeRef);
 					
 				});
 			}
@@ -151,7 +155,8 @@
 
 		mounted(){
 
-			this.createScenes();
+			this.createBundle(0, "primary");
+			this.createBundle(1, "secondary");
 
 			// this.arbitraryFpsLimit = this.$store.state.isMobile ? 25 : 50;
 			// this.arbitraryFpsIdeal = this.$store.state.isMobile ? 30 : 60;
@@ -160,47 +165,52 @@
 
 		methods: {
 
-			async createScenes(){
+			async createBundle(worldIndex, slotKey){
 
-				this.sceneSkeleton.primary = new SceneBuilder({
-					worldConfig: worlds[0], 
+				this.skeleton[slotKey] = new SceneBuilder({
+					worldConfig: worlds[worldIndex], 
 					sequenceID: this.sequenceID,
 					canvas: this.$refs.canvas,
 
-					glb: this.glbs[0],
-					texture: this.textures[0],
+					glb: this.glbs[worldIndex],
+					texture: this.textures[worldIndex],
 					bobs: this.bobs,
-					type: "primary"
-				});
-				
-				this.sceneSkeleton.secondary = new SceneBuilder({
-					worldConfig: worlds[1], 
-					sequenceID: this.sequenceID,
-					canvas: this.$refs.canvas,
-
-					glb: this.glbs[1],
-					texture: this.textures[1],
-					bobs: this.bobs,
-					type: "secondary"
+					type: slotKey
 				});
 
-				this.sceneBundle.primary = await this.sceneSkeleton.primary.returnBundle();
+				this.sceneBundle[slotKey] = await this.skeleton[slotKey].returnBundle();
 
-				this.sceneBundle.secondary = await this.sceneSkeleton.secondary.returnBundle();
+				this.createSequencesManager(slotKey);
+
+			},
+
+			createSequencesManager(bundleSlot){
+
+				this.sequencesManager[bundleSlot] = new SequencesManager(
+					this.sceneBundle[bundleSlot],
+					this.$parent,
+					this.renderer,
+					this.clock,
+					this.canvasSizeRef,
+					this.viewPos,
+					this
+				);
 
 			},
 
 			checkIfAllScenesAreReady(){
 				
-				if( this.sceneBundle.primary && this.sceneBundle.secondary ){
+				if( !this.initialLoadDone && this.sceneBundle.primary && this.sceneBundle.secondary ){
 
 					this.initRenderer(this.sceneBundle.primary.worldConfig);
 
 					this.createSequencesManagers();
 
-					this.sceneSkeleton.current = this.sceneSkeleton.primary;
+					this.skeleton.current = this.skeleton.primary;
 
 					this.mainTick();
+
+					this.initialLoadDone = true;
 
 				}
 
@@ -238,26 +248,81 @@
 
 				if( this.sceneBundle.current.name === this.sceneBundle.primary.name ){
 
-					this.sceneSkeleton.current = this.sceneSkeleton.secondary;
+					this.skeleton.current = this.skeleton.secondary;
 
 				} else {
 
-					this.sceneSkeleton.current = this.sceneSkeleton.primary;
+					this.skeleton.current = this.skeleton.primary;
 
 				}
 
 			},
 
-			switchSceneAndDrop(){
+			dropAndLoadAndSwitch(){
+
+				if( this.nextWorldIndex >= this.worlds.length - 1 ){ return; }
 
 				// DROP la scene non courante
-				// const skeletonToDrop = this.
+				const slotToDropKey = Object.keys(this.sceneBundle).find(key => this.sceneBundle[key].name !== this.sceneBundle.current.name);
 
+				this.dropScene(slotToDropKey);
 
+				// utiliser le slot libéré pour y mettre le nouveau sequencesManager (skeleton + bundle)
+				this.createBundle(this.nextWorldIndex, slotToDropKey);
+
+				this.switchScene();
+
+				this.nextWorldIndex++;
 				
 			},
 
-			
+			dropScene( slotToDropKey ){
+
+				let sequencesManagerToDrop = this.sequencesManager[slotToDropKey];
+
+				this.disposeScene(sequencesManagerToDrop.sceneBundlePassed.scene);
+
+				sequencesManagerToDrop = null;
+
+
+			},
+
+			sceneTraverse(obj, fn){
+
+				if (!obj) return
+
+				fn(obj)
+
+				if (obj.children && obj.children.length > 0) {
+					obj.children.forEach(o => {
+						this.sceneTraverse(o, fn)
+					})
+				}
+			},
+
+			disposeScene( scene ){
+
+				this.sceneTraverse(scene, o => {
+
+					if (o.geometry) {
+						o.geometry.dispose();
+					}
+
+					if (o.material) {
+						if (o.material.length) {
+							for (let i = 0; i < o.material.length; ++i) {
+								o.material[i].dispose();
+							}
+						}
+						else {
+							o.material.dispose();
+						}
+					}
+				})          
+
+				scene = null;
+	
+			},
 			
 			initRenderer( currentWorldConfig ){
 
@@ -289,7 +354,6 @@
 
 				if( !this.debug.animated ) return;
 
-				this.computeFPS();
 
 				this.deltaTime += this.clock.getDelta();
 
@@ -297,6 +361,8 @@
 				
 				// NOW CHECK IF FRAMERATE IS GOOD
 				if( this.deltaTime > this.frameRate ){
+
+					this.computeFPS();
 	
 					this.handleFpsAndDownScaling();
 
