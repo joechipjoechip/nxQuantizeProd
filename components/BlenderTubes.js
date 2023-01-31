@@ -102,7 +102,9 @@ class BlenderTubes{
 			y: ((mousePos.y + 1) / 2) / downScale
 		};
 
-		const pos1 = this._tube.geometry.parameters.path.getPointAt(reformatedMousePos.x);
+		const pos1 = this._tube.geometry.parameters.path.getPointAt(
+			Math.min(reformatedMousePos.x, 1)
+		);
 		
 		this._camera.position.copy(pos1);
 
