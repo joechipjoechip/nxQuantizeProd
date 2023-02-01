@@ -236,13 +236,21 @@
 
 			switchScene(){
 
-				this.$refs.instancethree.switchScene();
+				this.curtainActive = true;
+
+				setTimeout(() => {
+					this.$refs.instancethree.switchScene();
+				}, 800);
 
 			},
 
 			dropAndLoadAndSwitch(){
 
-				this.$refs.instancethree.dropAndLoadAndSwitch();
+				this.curtainActive = true;
+
+				setTimeout(() => {
+					this.$refs.instancethree.dropAndLoadAndSwitch();
+				}, 800);
 
 			},
 
@@ -255,26 +263,27 @@
 
 				this.curtainActive = true;
 
-				switch(this.$refs.instancethree.sequenceID){
-					case "1.0":
-						this.$refs.instancethree.sequenceID = "1.1"
-						break
-					case "1.1":
-						this.$refs.instancethree.sequenceID = "1.2"
-						break
-					case "1.2":
-						this.$refs.instancethree.sequenceID = "1.3"
-						break
-					case "1.3":
-						this.$refs.instancethree.sequenceID = "1.4"
-						break
-					default:
-						this.$refs.instancethree.sequenceID = "1.0"
-						break
-				}
+				setTimeout(() => {
 
-				// free memory and ressources
-				// this.$refs.instancethree.scene1.sequencesElements[oldSequenceID] = null;
+					switch(this.$refs.instancethree.sequenceID){
+						case "1.0":
+							this.$refs.instancethree.sequenceID = "1.1"
+							break
+						case "1.1":
+							this.$refs.instancethree.sequenceID = "1.2"
+							break
+						case "1.2":
+							this.$refs.instancethree.sequenceID = "1.3"
+							break
+						case "1.3":
+							this.$refs.instancethree.sequenceID = "1.4"
+							break
+						default:
+							this.$refs.instancethree.sequenceID = "1.0"
+							break
+					}
+
+				}, 800);
 
 			},
 
@@ -305,38 +314,39 @@
 <style lang="scss" scoped>
 
 body {
-  padding: 0;
-  margin: 0;
+	padding: 0;
+	margin: 0;
 }
 
 button {
-  background-color: beige;
+	background-color: beige;
 }
 
 .cinema-main_wrapper {
-  position: relative;
+	position: relative;
 }
 
 .curtain {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #000;
-  transition: opacity .3s ease;
-  will-change: opacity;
-  opacity: 0;
-  pointer-events: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #000;
+	transition: opacity .8s ease;
+	will-change: opacity;
+	opacity: 0;
+	pointer-events: none;
 
-  &.active {
-    opacity: 1;
-  }
+	&.active {
+		opacity: 1;
+	}
 }
 
 .debug-buttons-container {
-  position: absolute;
-  top: 0;
-  left: 200px;
+	position: absolute;
+	top: 0;
+	left: 200px;
 }
+
 </style>

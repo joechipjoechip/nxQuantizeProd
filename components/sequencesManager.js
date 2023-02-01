@@ -71,9 +71,13 @@ class SequencesManager{
 
 		this.sceneBundlePassed.sceneElements.newSequenceTriggerTime += currentSequenceElements.cameraTriggerTimeDecay || 0;		
 
+
 		setTimeout(() => {
+
 			this.cinema.curtainActive = false;
-		}, 100)
+
+		}, 100);
+
 
 	}
 

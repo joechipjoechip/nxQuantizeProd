@@ -84,7 +84,7 @@
 				isAdjustingDownScale: false,
 
 				arbitraryFpsIdeal: 60,
-				arbitraryFpsLimit: 45,
+				arbitraryFpsLimit: 50,
 				arbitraryDownScaleLimit: 2.1,
 
 				currentBobName: null,
@@ -128,10 +128,10 @@
 
 			},
 
-			"sceneBundle.primary"(){
+			"sceneBundle.primary.name"(){
 				this.checkIfAllScenesAreReady();
 			},
-			"sceneBundle.secondary"(){
+			"sceneBundle.secondary.name"(){
 				this.checkIfAllScenesAreReady();
 			},
 
@@ -357,13 +357,13 @@
 
 				this.deltaTime += this.clock.getDelta();
 
+				this.computeFPS();
+
 				this.sequencesManager.current.checkStuffsToAnimateAtRender(this.deltaTime, this.viewPos);
 				
 				// NOW CHECK IF FRAMERATE IS GOOD
 				if( this.deltaTime > this.frameRate ){
 
-					this.computeFPS();
-	
 					this.handleFpsAndDownScaling();
 
 					// NOW COMPUTE RENDER
@@ -415,7 +415,7 @@
 						if( this.currentFPSValue < this.arbitraryFpsLimit || this.$store.state.downScale > this.arbitraryDownScaleLimit ){
 							// console.log("adjusting verify (in timeout): fps value : ", this.currentFPSValue);
 
-							const diff = ((this.arbitraryFpsIdeal - this.currentFPSValue) / 10) + 1;
+							const diff = (((this.arbitraryFpsIdeal - this.currentFPSValue) / 10) + 1) * 1.2;
 
 							if( diff > 1 ){
 								this.$store.commit('setDownScale', diff);
