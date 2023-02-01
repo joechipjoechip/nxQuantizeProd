@@ -107,7 +107,7 @@
 					secondary: null
 				},
 
-				nextWorldIndex: 2,
+				nextWorldIndex: 0,
 				initialLoadDone: false
 
 			}
@@ -117,6 +117,8 @@
 		watch: {
 
 			"skeleton.current"(newVal){
+
+				this.clearDownScaleTimeout();
 
 				this.sceneBundle.current = this.sceneBundle[newVal.type];
 				
@@ -142,6 +144,7 @@
 			},
 
 			"canvasSizeRef.width"(){
+
 				this.renderer.setSize(this.canvasSizeRef.width, this.canvasSizeRef.height);
 
 				Object.keys(this.skeleton).forEach(skeletonKey => {
@@ -181,6 +184,8 @@
 				this.sceneBundle[slotKey] = await this.skeleton[slotKey].returnBundle();
 
 				this.createSequencesManager(slotKey);
+
+				this.nextWorldIndex++;
 
 			},
 
@@ -260,7 +265,7 @@
 
 			dropAndLoadAndSwitch(){
 
-				if( this.nextWorldIndex >= this.worlds.length - 1 ){ return; }
+				if( this.nextWorldIndex > this.worlds.length - 1 ){ return; }
 
 				// DROP la scene non courante
 				const slotToDropKey = Object.keys(this.sceneBundle).find(key => this.sceneBundle[key].name !== this.sceneBundle.current.name);
@@ -271,8 +276,6 @@
 				this.createBundle(this.nextWorldIndex, slotToDropKey);
 
 				this.switchScene();
-
-				this.nextWorldIndex++;
 				
 			},
 
@@ -415,7 +418,7 @@
 						if( this.currentFPSValue < this.arbitraryFpsLimit || this.$store.state.downScale > this.arbitraryDownScaleLimit ){
 							// console.log("adjusting verify (in timeout): fps value : ", this.currentFPSValue);
 
-							const diff = (((this.arbitraryFpsIdeal - this.currentFPSValue) / 10) + 1) * 1.2;
+							const diff = (((this.arbitraryFpsIdeal - this.currentFPSValue) / 10) + 1) * 1.3;
 
 							if( diff > 1 ){
 								this.$store.commit('setDownScale', diff);
