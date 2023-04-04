@@ -451,7 +451,6 @@ class SequencesManager{
 
 		}
 
-
 	}
 
 	initComposer(){

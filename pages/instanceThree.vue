@@ -65,7 +65,7 @@
 				worldConfig: worlds.find( world => world.sequences.find( seq => seq.id === this.sequenceID ) ),
 
 				// Animation
-				frameRate: 1/60,
+				frameRate: 1/30,
 				deltaTime: 0,
 
 				sequenceID: "1.0",
@@ -365,7 +365,7 @@
 				this.sequencesManager.current.checkStuffsToAnimateAtRender(this.deltaTime, this.viewPos);
 				
 				// NOW CHECK IF FRAMERATE IS GOOD
-				if( this.deltaTime > this.frameRate ){
+				if( this.deltaTime >= this.frameRate ){
 
 					this.handleFpsAndDownScaling();
 
@@ -432,7 +432,7 @@
 
 						}
 
-					}, 2000);
+					}, 1000);
 
 				} else {
 
