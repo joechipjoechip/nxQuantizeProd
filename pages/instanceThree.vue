@@ -30,6 +30,11 @@
 
 		props: {
 
+			sequenceID: {
+				type: String,
+				required: true
+			},
+
 			canvasSizeRef: {
 				type: Object,
 				required: true
@@ -68,7 +73,7 @@
 				frameRate: 1/30,
 				deltaTime: 0,
 
-				sequenceID: "1.0",
+				// sequenceID: "1.0",
 				lastKnownSequenceID: "1.0",
 
 				// Others
@@ -152,6 +157,12 @@
 					this.skeleton[skeletonKey].onResize(this.canvasSizeRef);
 					
 				});
+			},
+
+			initialLoadDone( newVal ){
+				if( newVal ){
+					this.$store.state.audio.play()
+				}
 			}
 
 		},
@@ -357,10 +368,11 @@
 
 				if( !this.debug.animated ) return;
 
-
 				this.deltaTime += this.clock.getDelta();
 
 				this.computeFPS();
+
+				console.log("current time : ", this.$store.state.audio.currentTime);
 
 				this.sequencesManager.current.checkStuffsToAnimateAtRender(this.deltaTime, this.viewPos);
 				

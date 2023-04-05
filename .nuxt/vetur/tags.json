@@ -2,6 +2,9 @@
   "BlenderTubes": {
     "description": "Auto imported from components/BlenderTubes.js"
   },
+  "AudioPlayer": {
+    "description": "Auto imported from components/audioPlayer.vue"
+  },
   "CharacterController": {
     "description": "Auto imported from components/characterController.js"
   },

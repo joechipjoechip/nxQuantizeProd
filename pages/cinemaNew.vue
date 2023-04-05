@@ -51,13 +51,15 @@
 
 	import { PrimaryLoadManager } from '@/components/primaryLoadManager.js';
 
+	import sound from "@/static/assets/audio/onyi-base.mp3";
+
 	
 	export default {
 
 		components: {
 			"instancethree": InstanceThree,
 			"joystick": Joystick,
-			"mouse-handler": MouseHandler,
+			"mouse-handler": MouseHandler
 		},
 
 		data(){
@@ -126,6 +128,8 @@
 			// launch all assets loads
 			new PrimaryLoadManager(this);
 			
+			this.initSound();
+
 		},
 		
 		beforeDestroy(){
@@ -138,6 +142,11 @@
 		},
 
 		methods: {
+
+			initSound(){
+				const audio = new Audio(sound);
+				this.$store.commit("setAudio", audio);
+			},
 
 			initCommonValues(){
 
@@ -171,6 +180,7 @@
 					this.bobs.length		 === Object.keys(entities.bobs).length
 					&& this.textures.length  === worlds.length
 					&& this.glbs.length 	 === worlds.length
+					&& this.$store.audio	 !== null
 				){
 
 					this.allIsLoaded = true;
@@ -215,6 +225,8 @@
 
 				} else {
 					this.$refs.instancethree.clock.stop();
+
+					this.$store.state.audio.pause()
 				}
 
 
@@ -265,21 +277,21 @@
 
 				setTimeout(() => {
 
-					switch(this.$refs.instancethree.sequenceID){
+					switch(this.sequenceID){
 						case "1.0":
-							this.$refs.instancethree.sequenceID = "1.1"
+							this.sequenceID = "1.1"
 							break
 						case "1.1":
-							this.$refs.instancethree.sequenceID = "1.2"
+							this.sequenceID = "1.2"
 							break
 						case "1.2":
-							this.$refs.instancethree.sequenceID = "1.3"
+							this.sequenceID = "1.3"
 							break
 						case "1.3":
-							this.$refs.instancethree.sequenceID = "1.4"
+							this.sequenceID = "1.4"
 							break
 						default:
-							this.$refs.instancethree.sequenceID = "1.0"
+							this.sequenceID = "1.0"
 							break
 					}
 

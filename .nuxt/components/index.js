@@ -1,6 +1,7 @@
 import { wrapFunctional } from './utils'
 
 export { default as BlenderTubes } from '../../components/BlenderTubes.js'
+export { default as AudioPlayer } from '../../components/audioPlayer.vue'
 export { default as CharacterController } from '../../components/characterController.js'
 export { default as DynamicLightsBuilder } from '../../components/dynamicLightsBuilder.js'
 export { default as GuiManager } from '../../components/guiManager.js'
@@ -18,6 +19,7 @@ export { default as Stick } from '../../components/stick.vue'
 export { default as ThirdPersonCamera } from '../../components/thirdPersonCamera.js'
 
 export const LazyBlenderTubes = import('../../components/BlenderTubes.js' /* webpackChunkName: "components/blender-tubes" */).then(c => wrapFunctional(c.default || c))
+export const LazyAudioPlayer = import('../../components/audioPlayer.vue' /* webpackChunkName: "components/audio-player" */).then(c => wrapFunctional(c.default || c))
 export const LazyCharacterController = import('../../components/characterController.js' /* webpackChunkName: "components/character-controller" */).then(c => wrapFunctional(c.default || c))
 export const LazyDynamicLightsBuilder = import('../../components/dynamicLightsBuilder.js' /* webpackChunkName: "components/dynamic-lights-builder" */).then(c => wrapFunctional(c.default || c))
 export const LazyGuiManager = import('../../components/guiManager.js' /* webpackChunkName: "components/gui-manager" */).then(c => wrapFunctional(c.default || c))
