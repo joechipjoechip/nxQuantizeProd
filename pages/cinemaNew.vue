@@ -10,7 +10,10 @@
 
 		<div 
 			class="curtain"
-			:class="{ active: curtainActive }"
+			:class="{ 
+				active: curtainActive,
+				'first': this.sequenceID === '1.0'
+			}"
 		>
 		</div>
 
@@ -80,7 +83,7 @@
 					height: window.innerHeight
 				},
 
-				curtainActive: false,
+				curtainActive: true,
 
 				allIsLoaded: false,
 				glbs: [],
@@ -222,11 +225,12 @@
 					this.$refs.instancethree.mainTick();
 
 					this.$refs.instancethree.clock.start();
+					this.$store.state.audio.play();
 
 				} else {
 					this.$refs.instancethree.clock.stop();
 
-					this.$store.state.audio.pause()
+					this.$store.state.audio.pause();
 				}
 
 
@@ -349,6 +353,10 @@ button {
 	will-change: opacity;
 	opacity: 0;
 	pointer-events: none;
+
+	&.first {
+		transition: opacity 5s ease;
+	}
 
 	&.active {
 		opacity: 1;

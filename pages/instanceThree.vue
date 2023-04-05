@@ -88,9 +88,9 @@
 				frames: 0,
 				isAdjustingDownScale: false,
 
-				arbitraryFpsIdeal: 60,
-				arbitraryFpsLimit: 50,
-				arbitraryDownScaleLimit: 2.1,
+				arbitraryFpsIdeal: 30,
+				arbitraryFpsLimit: 20,
+				arbitraryDownScaleLimit: 1.5,
 
 				currentBobName: null,
 
