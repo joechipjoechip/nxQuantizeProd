@@ -35,6 +35,7 @@ class SequencesBuilder {
 
 			// here we init the key 1.0 in _sequenceLib
 			this._sequencesLib[sequenceInfos.id] = {
+				sequenceInfos,
 				helpersConfig: sequenceInfos.helpers,
 				helpers: {},
 				timelines: {},

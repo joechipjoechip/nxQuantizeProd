@@ -372,7 +372,7 @@
 
 				this.computeFPS();
 
-				console.log("current time : ", this.$store.state.audio.currentTime);
+				this.checkCurrentTime();
 
 				this.sequencesManager.current.checkStuffsToAnimateAtRender(this.deltaTime, this.viewPos);
 				
@@ -399,6 +399,21 @@
 				}
 
 				window.requestAnimationFrame(this.mainTick);
+
+			},
+
+			checkCurrentTime(){
+
+				console.log("current time : ", this.$store.state.audio.currentTime);
+
+				if( this.$store.state.audio.currentTime > this.worldConfig.sequences.find(seq => seq.id === this.sequenceID).until ){
+
+					const nextSequenceID = this.sequencesManager.current.sceneBundlePassed.sequencesElements[this.sequenceID].sequenceInfos.nextSequenceID;
+					
+					this.$nuxt.$emit("sequence-switch", nextSequenceID);
+
+
+				}
 
 			},
 

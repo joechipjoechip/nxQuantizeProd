@@ -127,6 +127,8 @@
 
 			this.$nuxt.$on("view-update-by-stick", this.viewUpdateByStick);
 			this.$nuxt.$on("bob-input-update-by-stick", this.updateBobInputsByStick);
+
+			this.$nuxt.$on("sequence-switch", this.sequenceSwitcher);
 			
 			// launch all assets loads
 			new PrimaryLoadManager(this);
@@ -141,6 +143,7 @@
 
 			this.$nuxt.$off("view-update-by-stick", this.viewUpdateByStick);
 			this.$nuxt.$off("bob-input-update-by-stick", this.updateBobInputsByStick);
+			this.$nuxt.$off("sequence-switch", this.sequenceSwitcher);
 
 		},
 
@@ -267,6 +270,13 @@
 				setTimeout(() => {
 					this.$refs.instancethree.dropAndLoadAndSwitch();
 				}, 800);
+
+			},
+
+			sequenceSwitcher( newSequenceID ){
+				console.log("new sequence asked : ", newSequenceID);
+
+				this.sequenceID = newSequenceID;
 
 			},
 

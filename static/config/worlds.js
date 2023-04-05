@@ -144,6 +144,8 @@ const worlds = [
 				baseFov: 65,
 				fovTransition: true,
 				sequenceBobName: "link",
+				until: 10,
+				nextSequenceID: "1.1",
 
 				type: "fake-orbit",
 
