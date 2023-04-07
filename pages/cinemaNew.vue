@@ -128,7 +128,11 @@
 			this.$nuxt.$on("view-update-by-stick", this.viewUpdateByStick);
 			this.$nuxt.$on("bob-input-update-by-stick", this.updateBobInputsByStick);
 
-			this.$nuxt.$on("sequence-switch", this.sequenceSwitcher);
+			this.$nuxt.$on("switch-scene", this.switchScene);
+			this.$nuxt.$on("switch-sequence", this.sequenceSwitcher);
+			this.$nuxt.$on("drop-and-load-and-switch", this.dropAndLoadAndSwitch);
+
+			this.$nuxt.$on("please-update-sequence-id", this.updateSequenceID);
 			
 			// launch all assets loads
 			new PrimaryLoadManager(this);
@@ -143,11 +147,21 @@
 
 			this.$nuxt.$off("view-update-by-stick", this.viewUpdateByStick);
 			this.$nuxt.$off("bob-input-update-by-stick", this.updateBobInputsByStick);
-			this.$nuxt.$off("sequence-switch", this.sequenceSwitcher);
+
+			this.$nuxt.$off("switch-sequence", this.sequenceSwitcher);
+			this.$nuxt.$off("switch-scene", this.switchScene);
+			this.$nuxt.$off("drop-and-load-and-switch", this.dropAndLoadAndSwitch);
+			this.$nuxt.$off("please-update-sequence-id", this.updateSequenceID);
 
 		},
 
 		methods: {
+
+			updateSequenceID( newSequenceID ){
+
+				this.sequenceID = newSequenceID;
+
+			},
 
 			initSound(){
 				const audio = new Audio(sound);
@@ -253,22 +267,28 @@
 
 			},
 
-			switchScene(){
+			switchScene( sceneID ){
+
+				// console.log("le switchScene de cinema est bien triggered", sceneID);
 
 				this.curtainActive = true;
 
 				setTimeout(() => {
-					this.$refs.instancethree.switchScene();
+					this.sequenceID = sceneID;
+					this.$refs.instancethree.switchScene(sceneID);
 				}, 800);
 
 			},
 
 			dropAndLoadAndSwitch(){
+				// console.log("oui le dropandloadandswitch de cinema est bien triggered");
 
 				this.curtainActive = true;
 
+
 				setTimeout(() => {
 					this.$refs.instancethree.dropAndLoadAndSwitch();
+					// this.sequenceID = "2.2";
 				}, 800);
 
 			},
@@ -285,7 +305,7 @@
 				// ce mécanisme qui change la séquence en cours pour linstant
 				// (plus tard ce sera calé sur le currentTime de l'audio)
 
-				console.log("change sequence triggered");
+				// console.log("change sequence triggered");
 
 				this.curtainActive = true;
 

@@ -7,6 +7,9 @@
 			</pre> -->
 			<div ref="currentFPS" class="stats">{{ currentFPSValue }}</div>
 			<div ref="downScale" class="stats">{{ $store.state.downScale }}</div>
+			<div v-if="sequenceID" class="stats">{{ sequenceID }}</div>
+			<div v-if="$store.state.audio" class="stats">{{ $store.state.audio.currentTime }}</div>
+			<div v-if="currentSequence" class="stats">next step : {{ currentSequence.until }}</div>
 		</div>
 
 		<canvas 
@@ -67,7 +70,6 @@
 			return {
 				// Config from worlds.js
 				worlds,
-				worldConfig: worlds.find( world => world.sequences.find( seq => seq.id === this.sequenceID ) ),
 
 				// Animation
 				frameRate: 1/30,
@@ -117,6 +119,15 @@
 
 			}
 
+		},
+
+		computed: {
+			worldConfig(){
+				return this.worlds.find( world => world.sequences.find( seq => seq.id === this.sequenceID ) )
+			},
+			currentSequence(){
+				return this.worldConfig.sequences.find(seq => seq.id === this.sequenceID)
+			}
 		},
 
 		watch: {
@@ -182,7 +193,7 @@
 			async createBundle(worldIndex, slotKey){
 
 				this.skeleton[slotKey] = new SceneBuilder({
-					worldConfig: worlds[worldIndex], 
+					worldConfig: this.worlds[worldIndex], 
 					sequenceID: this.sequenceID,
 					canvas: this.$refs.canvas,
 
@@ -256,11 +267,13 @@
 
 				this.sequencesManager.current = this.sequencesManager.primary;
 
-				this.sequencesManager.current.sequenceChangeHandler(this.sequenceID);
+				this.sequencesManager.current.sequenceChangeHandler(this.sequenceID, "0.0");
 
 			},
 
-			switchScene(){
+			switchScene( newSceneAndSequenceID ){
+
+				console.log("newsceneAndSequenceID : ", newSceneAndSequenceID);
 
 				if( this.sceneBundle.current.name === this.sceneBundle.primary.name ){
 
@@ -274,9 +287,11 @@
 
 			},
 
-			dropAndLoadAndSwitch(){
+			async dropAndLoadAndSwitch(){
 
-				if( this.nextWorldIndex > this.worlds.length - 1 ){ return; }
+				
+
+				if( this.nextWorldIndex > this.worlds.length ){ return; }
 
 				// DROP la scene non courante
 				const slotToDropKey = Object.keys(this.sceneBundle).find(key => this.sceneBundle[key].name !== this.sceneBundle.current.name);
@@ -284,15 +299,22 @@
 				this.dropScene(slotToDropKey);
 
 				// utiliser le slot libéré pour y mettre le nouveau sequencesManager (skeleton + bundle)
-				this.createBundle(this.nextWorldIndex, slotToDropKey);
+				this.createBundle(this.nextWorldIndex, slotToDropKey).then(() => {
 
-				this.switchScene();
+					this.switchScene();
+					this.$nuxt.$emit("please-update-sequence-id", this.computeNextSequenceID(this.sequenceID));
+				});
+
 				
 			},
 
 			dropScene( slotToDropKey ){
 
 				let sequencesManagerToDrop = this.sequencesManager[slotToDropKey];
+
+				if( !sequencesManagerToDrop ){
+					console.log("ratage du dropScene : ", slotToDropKey);
+				}
 
 				this.disposeScene(sequencesManagerToDrop.sceneBundlePassed.scene);
 
@@ -404,17 +426,57 @@
 
 			checkCurrentTime(){
 
-				console.log("current time : ", this.$store.state.audio.currentTime);
+				// console.log("current time : ", this.$store.state.audio.currentTime);
+				// console.log("current until : ", this.currentSequence.until);
 
-				if( this.$store.state.audio.currentTime > this.worldConfig.sequences.find(seq => seq.id === this.sequenceID).until ){
+				if( this.$store.state.audio.currentTime >= this.currentSequence.until && !this.currentSequence.alreadyTriggered ){
 
-					const nextSequenceID = this.sequencesManager.current.sceneBundlePassed.sequencesElements[this.sequenceID].sequenceInfos.nextSequenceID;
-					
-					this.$nuxt.$emit("sequence-switch", nextSequenceID);
+					const nextSequenceID = this.computeNextSequenceID(this.sequenceID);
+					const nextSceneID = this.computeNextSceneID(this.sequenceID);
 
+					const dropNextChapterID = this.computeNextSceneID(nextSequenceID);
+
+					switch( this.currentSequence.nextInstruction ){
+
+						case "switch-scene":
+							// console.log("le switch case donne bien switch-scene");
+							this.$nuxt.$emit("switch-scene", nextSceneID);
+							// this.$nuxt.$emit("switch-sequence", nextSequenceID);
+							break;
+
+						case "switch-sequence":
+							// console.log("nexxt sequence id : ", nextSequenceID);
+
+							this.$nuxt.$emit("switch-sequence", nextSequenceID);
+							break;
+
+						case "drop-and-load-and-switch":
+							console.log("oui le switch/case drop and load and switch est bien triggered");
+							this.$nuxt.$emit("drop-and-load-and-switch", {});
+							break;
+
+					}
+
+					this.currentSequence.alreadyTriggered = true;
 
 				}
 
+			},
+
+			computeNextSequenceID( chapterString ){
+				const parsed = chapterString.split(".")
+
+				parsed[1] = parseInt(parsed[1]) + 1;
+
+				return parsed.join(".");
+			},
+
+			computeNextSceneID( chapterString ){
+				const parsed = chapterString.split(".")
+
+				parsed[0] = parseInt(parsed[0]) + 1;
+
+				return parsed.join(".");
 			},
 
 			computeFPS(){

@@ -135,6 +135,8 @@ class SequencesManager{
 
 		const aliceFuturInfos = currentSceneElements.positionsCollection.find(position => position.name.includes("alice") && position.name.includes(newSequenceIDFormated));
 
+		if( !aliceFuturInfos ){ return; }
+
 		aliceControls._isAlice = true;
 
 		aliceControls._target.visible = true;
