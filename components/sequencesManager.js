@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { core } from '@/static/config/core.js';
 import { TimelineLite } from 'gsap';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
@@ -22,6 +23,7 @@ class SequencesManager{
 		this.bobHandleGround = true;
 		this.vm = vm;
 		this.stickedBobInputs = {};
+		this.isCurrentlyTransitionning = false;
 
 		this.vm.$nuxt.$on("bob-inputs-update", ( event ) => { this.updateBobStickedInputs(event, this) });
 
@@ -35,6 +37,8 @@ class SequencesManager{
 	}
 
 	sequenceChangeHandler( newSequenceID, oldSequenceID ){
+
+		this.isCurrentlyTransitionning = true;
 
 		this.currentSequenceID = newSequenceID;
 
@@ -75,6 +79,8 @@ class SequencesManager{
 		setTimeout(() => {
 
 			this.cinema.curtainActive = false;
+
+			this.isCurrentlyTransitionning = false;
 
 		}, 100);
 
@@ -361,20 +367,12 @@ class SequencesManager{
 				goodBob._controls.Rotation = newCoords.rotation;
 
 				if( thirdPersonInstance ){
-
-					const oldStraightness = thirdPersonInstance._specs.straightness;
-					thirdPersonInstance._specs.straightness = 1;
 					
 					thirdPersonInstance._camera.position.copy(newCoords.position);
 					thirdPersonInstance._camera.rotation.copy(newCoords.rotation);
-
-					
-					setTimeout(() => {
-						thirdPersonInstance._specs.straightness = oldStraightness;
-					}, 50);
 					
 					this.sceneBundlePassed.camera.position.copy(thirdPersonInstance._camera.position);
-
+					
 				} else {
 
 					this.sceneBundlePassed.camera.position.copy(newCoords.position);
@@ -578,7 +576,8 @@ class SequencesManager{
 				elapsedTime, 
 				currentMousePos,
 				{
-					cameraNeedsToHandleGround: this.bobHandleGround
+					cameraNeedsToHandleGround: this.bobHandleGround,
+					isCurrentlyTransitionning: this.isCurrentlyTransitionning
 				}
 			);
 		}

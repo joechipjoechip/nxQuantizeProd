@@ -371,20 +371,20 @@ const worlds = [
 				intensity: .15
 			},
 
-			particles: [
-				{
-					type: "fireflies",
-					count: 200,
-					particleSize: 30,
-					additive: true,
-					timeRatio: 1.0,
-					blockSize: {
-						x: 8,
-						y: 1.5,
-						z: 14
-					}
-				}
-			],
+			// particles: [
+			// 	{
+			// 		type: "fireflies",
+			// 		count: 200,
+			// 		particleSize: 30,
+			// 		additive: true,
+			// 		timeRatio: 1.0,
+			// 		blockSize: {
+			// 			x: 8,
+			// 			y: 1.5,
+			// 			z: 14
+			// 		}
+			// 	}
+			// ],
 			
 			meshInfos: {
 
@@ -402,71 +402,6 @@ const worlds = [
 		},
 
 		sequences: [
-			// {
-			// 	id: "1.0",
-			// 	baseFov: 27,
-			// 	fovTransition: true,
-			// 	sequenceBobName: "link",
-
-			// 	// type: "blender-points",
-			// 	type: "third-person",
-			// 	cameraTriggerTimeDecay: 6,
-			// 	cameraType: "movingHips",
-			// 	until: 28,
-			// 	nextInstruction: "drop-and-load",
-
-			// 	animatedMesh: false,
-
-			// 	helpers: {
-			// 		orbit: true,
-			// 		tubes: false,
-			// 		timelines: false
-			// 	},
-				
-			// 	fog: {
-			// 		enabled: true,
-			// 		color: "#05000F",
-			// 		intensity: .45
-			// 	},
-
-			// 	alice: {
-			// 		handleGround: false,
-			// 		name: "queen",
-			// 		move: {
-			// 			jazz: true
-			// 		},
-			// 		scale: 0.35,
-			// 		offset: {
-			// 			x: 0,
-			// 			y: -9,
-			// 			z: 0
-			// 		},
-			// 		rotate: {
-			// 			x: 0,
-			// 			y: 10,
-			// 			z: 0
-			// 		},
-			// 		slowmo: 25
-			// 	},
-
-			// 	bobImposedMoves: {
-			// 		forward: true
-			// 	},
-
-			// 	postproc: [
-
-			// 		{
-			// 			type: "bloom",
-			// 			value: {
-			// 				strength: .7,
-			// 				threshold: 0.045,
-			// 				radius: 0.1
-			// 			}
-			// 		},
-					
-			// 	]
-
-			// },
 			{
 				id: "2.1",
 				baseFov: 27,
@@ -477,6 +412,7 @@ const worlds = [
 				type: "third-person",
 				cameraTriggerTimeDecay: 6,
 				cameraType: "movingHips",
+				
 				until: 28,
 				nextInstruction: "drop-and-load-and-switch",
 
@@ -520,14 +456,14 @@ const worlds = [
 
 				postproc: [
 
-					{
-						type: "bloom",
-						value: {
-							strength: .7,
-							threshold: 0.045,
-							radius: 0.1
-						}
-					},
+					// {
+					// 	type: "bloom",
+					// 	value: {
+					// 		strength: 0.9,
+					// 		threshold: 0.35,
+					// 		radius: 0.3
+					// 	}
+					// },
 					
 				]
 
@@ -592,142 +528,8 @@ const worlds = [
 
 		sequences: [
 			{
-				id: "2.1",
-				baseFov: 27,
-				fovTransition: true,
-				sequenceBobName: "link",
-
-				// type: "blender-points",x
-				type: "third-person",
-				cameraTriggerTimeDecay: 6,
-				cameraType: "movingHips",
-
-				until: 42,
-				nextInstruction: "switch-sequence",
-
-				animatedMesh: false,
-
-				helpers: {
-					orbit: true,
-					tubes: false,
-					timelines: false
-				},
-				
-				fog: {
-					enabled: true,
-					color: "#05000F",
-					intensity: .45
-				},
-
-				alice: {
-					handleGround: false,
-					name: "queen",
-					move: {
-						jazz: true
-					},
-					scale: 0.35,
-					offset: {
-						x: 0,
-						y: -9,
-						z: 0
-					},
-					rotate: {
-						x: 0,
-						y: 10,
-						z: 0
-					},
-					slowmo: 25
-				},
-
-				bobImposedMoves: {
-					forward: true
-				},
-
-				postproc: [
-
-					{
-						type: "bloom",
-						value: {
-							strength: .7,
-							threshold: 0.045,
-							radius: 0.1
-						}
-					},
-					
-				]
-
-			},
-			{
-				id: "3.2",
-				baseFov: Math.PI/0.1,
-				fovTransition: false,
-				sequenceBobName: "link",
-
-				type: "third-person",
-				cameraType: "movingHips",
-				cameraTriggerTimeDecay: 10,
-
-				until: 56,
-				nextInstruction: "switch-sequence",
-
-				animatedMesh: false,
-
-				helpers: {
-					orbit: true,
-					tubes: false,
-					timelines: false
-				},
-				
-				fog: {
-					enabled: false,
-					color: "#040116",
-					intensity: .15
-				},
-
-				alice: {
-					handleGround: false,
-					name: "queen",
-					move: {
-						floating: true
-					},
-					scale: 0.35,
-					offset: {
-						x: 0,
-						y: -9,
-						z: 0
-					},
-					rotate: {
-						x: 0,
-						y: 10,
-						z: 0
-					},
-					slowmo: 25
-				},
-
-				bobImposedMoves: {
-					forward: true,
-					shift: true,
-					left: false,
-					right: false
-				},
-
-				slowmo: 5,
-
-				postproc: [
-					{
-						type: "bloom",
-						value: {
-							strength: .7,
-							threshold: 0.045,
-							radius: 0.1
-						}
-					},
-				]
-
-			},
-			{
 				id: "2.2",
-				baseFov: Math.PI/0.09,
+				baseFov: 35,
 				fovTransition: true,
 				sequenceBobName: "link",
 
@@ -776,26 +578,26 @@ const worlds = [
 				bobImposedMoves: {},
 
 				postproc: [
-					// {
-					// 	type: "bloom",
-					// 	value: {
-					// 		strength: .4,
-					// 		threshold: 0.095,
-					// 		radius: 0.2
-					// 	}
-					// },
+					{
+						type: "bloom",
+						value: {
+							strength: .4,
+							threshold: 0.095,
+							radius: 0.2
+						}
+					},
 				],
 
 			},
 			{
 				id: "2.3",
-				baseFov: 95,
+				baseFov: 25,
 				fovTransition: true,
 				sequenceBobName: "link",
 
 				type: "third-person",
-				cameraTriggerTimeDecay: 3,
-				cameraType: "hips",
+				cameraTriggerTimeDecay: 10,
+				cameraType: "movingHips",
 
 				animatedMesh: false,
 
@@ -833,20 +635,19 @@ const worlds = [
 
 				bobImposedMoves: {
 					// climb: true,
-					fly: true,
 					// left: false,
 					// right: false,
 					// space: false,
-					shift: false
+					// shift: false
 				},
 
 				postproc: [
 					{
 						type: "bloom",
 						value: {
-							strength: .7,
+							strength: .35,
 							threshold: 0.045,
-							radius: 0.6
+							radius: 0.2
 						}
 					},
 				]

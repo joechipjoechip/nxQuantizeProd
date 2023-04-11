@@ -9,11 +9,11 @@ class ThirdPersonCamera {
 		this._params = params;
 		this._name = params.name;
 		this._camera = params.camera;
+		this._cameraType = params.cameraType;
     	this._specs = core.generatedCamerasSpecs[params.cameraType];
 		this._scene = params.scene;
   
 		this._currentPosition = new THREE.Vector3();
-		// console.log("dans la class third person : this._camera.position : ", this._camera.position);
 		this._currentPosition.copy(this._camera.position);
 		this._currentLookat = new THREE.Vector3();
 		this._raycaster = new THREE.Raycaster();
@@ -97,7 +97,7 @@ class ThirdPersonCamera {
 		// const t = 0.02;
 		// const t = 4.0 * timeElapsed;
 		// best implementation :
-		const t = (1.0 - Math.pow(0.1, timeElapsed)) * this._specs.straightness;
+		const t = (1.0 - Math.pow(0.1, timeElapsed)) * (optionsObj.isCurrentlyTransitionning ? 1 : this._specs.straightness);
 	
 		this._currentPosition.lerp(idealOffset, t);
 		this._currentLookat.lerp(idealLookat, t);

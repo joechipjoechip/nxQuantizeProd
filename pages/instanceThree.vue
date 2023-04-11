@@ -72,7 +72,7 @@
 				worlds,
 
 				// Animation
-				frameRate: 1/30,
+				frameRate: 1/60,
 				deltaTime: 0,
 
 				// sequenceID: "1.0",
@@ -394,12 +394,14 @@
 
 				this.computeFPS();
 
-				this.checkCurrentTime();
 
-				this.sequencesManager.current.checkStuffsToAnimateAtRender(this.deltaTime, this.viewPos);
 				
 				// NOW CHECK IF FRAMERATE IS GOOD
 				if( this.deltaTime >= this.frameRate ){
+
+					this.checkCurrentTime();
+
+					this.sequencesManager.current.checkStuffsToAnimateAtRender(this.deltaTime, this.viewPos);
 
 					this.handleFpsAndDownScaling();
 
