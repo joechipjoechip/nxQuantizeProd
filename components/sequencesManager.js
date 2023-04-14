@@ -333,6 +333,10 @@ class SequencesManager{
 
 	bobFlyingShadowsHandler( sequenceBobImposedMoves ){
 
+		if( !this.currentBobName ){
+			return;
+		}
+
 		const bob = this.sceneBundlePassed.sceneElements.bobs[this.currentBobName]._controls._target;
 
 		// if bob is flying, we dont need shadows

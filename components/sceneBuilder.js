@@ -36,7 +36,7 @@ class SceneBuilder {
 			landscape: null,
 			sky: null,
 			bobs: this.bobs,
-			initialCamera: null,
+			initialCamera: new THREE.Object3D({ position: { x: 0, y: 0, z: 0 }}),
 			tubes: [],
 			blenderLights: [],
 			dynamicLights: [],
@@ -84,8 +84,6 @@ class SceneBuilder {
 	glbParser( glbObj ){
 
 		this.sceneElements.landscape = glbObj.landscape;
-
-		this.sceneElements.initialCamera = glbObj.glbFile.scene.getObjectByName("camera");
 
 		if( !this.sceneElements.landscape ){
 			debugger;
@@ -236,7 +234,7 @@ class SceneBuilder {
 
 	createEmissiveShape( shapeFromBlender ){
 
-		console.log("---------> emissive debug : ", shapeFromBlender);
+		// console.log("---------> emissive debug : ", shapeFromBlender);
 
 		const emissiveMaterial = new THREE.MeshStandardMaterial({
 			emissive: shapeFromBlender.material.color,

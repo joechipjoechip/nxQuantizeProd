@@ -114,6 +114,8 @@ class DynamicLightsBuilder {
 				// and yes, rect areas from blender become here spotlights !
 				blenderLight.type = "SpotLight";
 
+				console.log("$$$$$$$ debug light shadow - - - - -> ", blenderLight)
+
 				createdLight = new THREE.SpotLight(
 					`#${blenderLight.userData.hexColor}` || 0xFFFFFF, // color
 					0, //intensity

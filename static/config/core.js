@@ -149,6 +149,24 @@ const core = {
 				y: 0.08
 			}
 		},
+		
+		"helmet-low": {
+			offset: {
+				x: 0,
+				y: 0.015,
+				z: 0.05
+			},
+			lookAt: {
+				x: 0,
+				y: 0.015,
+				z: -0.6
+			},
+			straightness: 0.04,
+			mouseOrientationPonderation: {
+				x: -0.08,
+				y: 0.08
+			}
+		},
 		fly: {
 			offset: {
 				x: 0.03,

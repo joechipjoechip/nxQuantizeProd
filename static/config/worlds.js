@@ -91,6 +91,293 @@ const worlds = [
 
 			spaceColor: "#002038",
 			spaceColorDarker: "#001220",
+			spaceColorWithBloom: "#000000",
+
+			ambient: {
+				sunColor: "#FFFFFF",
+				intensity: 0.6,
+				groundColor: "#04007A"
+			},
+
+			fog: {
+				enabled: true,
+				color: 0xff9500,
+				intensity: .15
+			},
+			
+			meshInfos: {
+
+				glbPath: "/assets/3d/worlds/lightHouse/lightHouse.glb",
+				imagePath: {
+					landscape: "/assets/3d/worlds/lightHouse/lightHouseBake.jpg"
+				}
+
+			},
+
+			entities: ["link"],
+
+		},
+
+		sequences: [
+			{
+				id: "1.0",
+				baseFov: 10,
+				fovTransition: true,
+				// sequenceBobName: "link",
+				until: 7,
+				nextInstruction: "switch-sequence",
+
+				type: "blender-points",
+
+				animatedMesh: false,
+
+				helpers: {
+					orbit: true,
+					tubes: false,
+					timelines: false
+				},
+				
+				fog: {
+					enabled: true,
+					color: "#000000",
+					intensity: .85
+				},
+
+				tubeInfos: {
+					duration: 8,
+					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
+					isUsingTarget: true,
+					steps: [
+						// n steps are possibles
+						// n has nothing to do with the number of points for the curve
+						{
+							// this amount is a percent of the global duration
+							amount: 50,
+							fov: 10,
+							stepEase: "linear"
+						},
+						{
+							// this amount is a percent of the global duration
+							amount: 50,
+							fov: 75,
+							stepEase: "linear"
+						},
+						
+					]
+				},
+
+				bobImposedMoves: {
+					forward: true,
+					left: false,
+					right: false,
+					dance: false,
+					backward: false
+				},
+
+				postproc: [
+					{
+						type: "afterimage",
+						damp: 0.8
+					}
+				]
+
+			},
+			{
+				id: "1.1",
+				baseFov: 17,
+				fovTransition: true,
+				sequenceBobName: "link",
+
+				type: "third-person",
+				cameraTriggerTimeDecay: 6,
+				cameraType: "helmet-low",
+
+				until: 13,
+				nextInstruction: "switch-scene",
+
+				animatedMesh: false,
+
+				helpers: {
+					orbit: true,
+					tubes: false,
+					timelines: false
+				},
+				
+				fog: {
+					enabled: true,
+					color: "#000000",
+					intensity: .35
+				},
+
+				bobImposedMoves: {
+					forward: true,
+					left: false,
+					right: false,
+					dance: false,
+					backward: false
+				},
+
+				postproc: [
+
+					{
+						type: "bloom",
+						value: {
+							strength: 0.9,
+							threshold: 0.35,
+							radius: 0.3
+						}
+					},
+
+				]
+
+			}
+
+		]
+
+	},
+
+	{
+		name: "world_005",
+
+		main: {
+
+			spaceColor: "#002038",
+			spaceColorDarker: "#001220",
+			spaceColorWithBloom: "#000B14",
+
+			ambient: {
+				sunColor: "#FFFFFF",
+				intensity: 0.6,
+				groundColor: "#04007A"
+			},
+
+			fog: {
+				enabled: true,
+				color: 0xff9500,
+				intensity: .15
+			},
+			
+			meshInfos: {
+
+				glbPath: "/assets/3d/worlds/epicValley/epicValley.glb",
+				imagePath: {
+					landscape: "/assets/3d/worlds/epicValley/epicValleyBake.jpg"
+				}
+
+			},
+
+			entities: ["link", "juan"],
+
+		},
+
+		sequences: [
+			{
+				id: "2.1",
+				baseFov: 65,
+				fovTransition: true,
+				sequenceBobName: "link",
+				until: 21,
+				nextInstruction: "switch-sequence",
+
+				type: "blender-points",
+
+				animatedMesh: false,
+
+				helpers: {
+					orbit: true,
+					tubes: false,
+					timelines: false
+				},
+				
+				fog: {
+					enabled: false,
+					color: "#0D063B",
+					intensity: .15
+				},
+
+				tubeInfos: {
+					duration: 8,
+					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
+					isUsingTarget: true,
+					steps: [
+						// n steps are possibles
+						// n has nothing to do with the number of points for the curve
+						{
+							// this amount is a percent of the global duration
+							amount: 50,
+							fov: 60,
+							stepEase: "linear"
+						},
+						{
+							// this amount is a percent of the global duration
+							amount: 50,
+							fov: 40,
+							stepEase: "linear"
+						},
+						
+					]
+				},
+
+				postproc: []
+
+			},
+			{
+				id: "2.2",
+				baseFov: 27,
+				fovTransition: true,
+				sequenceBobName: "juan",
+
+				type: "third-person",
+				cameraTriggerTimeDecay: 6,
+				cameraType: "movingHips",
+
+				until: 28,
+				nextInstruction: "switch-scene",
+
+				animatedMesh: false,
+
+				helpers: {
+					orbit: true,
+					tubes: false,
+					timelines: false
+				},
+				
+				fog: {
+					enabled: false,
+					color: "#0D063B",
+					intensity: .3
+				},
+
+				bobImposedMoves: {},
+
+				postproc: [
+
+					{
+						type: "bloom",
+						value: {
+							strength: 0.9,
+							threshold: 0.35,
+							radius: 0.3
+						}
+					},
+
+				]
+
+			},
+			
+		]
+
+	},
+]
+
+const refs = [
+	{
+		name: "world_000",
+
+		main: {
+
+			spaceColor: "#002038",
+			spaceColorDarker: "#001220",
 			spaceColorWithBloom: "#000B14",
 
 			ambient: {
