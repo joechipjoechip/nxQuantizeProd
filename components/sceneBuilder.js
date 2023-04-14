@@ -236,9 +236,11 @@ class SceneBuilder {
 
 	createEmissiveShape( shapeFromBlender ){
 
+		console.log("---------> emissive debug : ", shapeFromBlender);
+
 		const emissiveMaterial = new THREE.MeshStandardMaterial({
-			emissive: `#${shapeFromBlender.userData.hexColor || 'FF0000'}`,
-			emissiveIntensity: shapeFromBlender.userData.strength / 10,
+			emissive: shapeFromBlender.material.color,
+			emissiveIntensity: shapeFromBlender.material.emissiveIntensity,
 			side: THREE.DoubleSide
 		});
 

@@ -412,7 +412,7 @@ const worlds = [
 				type: "third-person",
 				cameraTriggerTimeDecay: 6,
 				cameraType: "movingHips",
-				
+
 				until: 28,
 				nextInstruction: "drop-and-load-and-switch",
 
@@ -425,7 +425,7 @@ const worlds = [
 				},
 				
 				fog: {
-					enabled: true,
+					enabled: false,
 					color: "#05000F",
 					intensity: .45
 				},
@@ -456,14 +456,14 @@ const worlds = [
 
 				postproc: [
 
-					// {
-					// 	type: "bloom",
-					// 	value: {
-					// 		strength: 0.9,
-					// 		threshold: 0.35,
-					// 		radius: 0.3
-					// 	}
-					// },
+					{
+						type: "bloom",
+						value: {
+							strength: .4,
+							threshold: 0.095,
+							radius: 0.2
+						}
+					},
 					
 				]
 
@@ -495,31 +495,12 @@ const worlds = [
 				color: 0xff9500,
 				intensity: .15
 			},
-
-			particles: [
-				{
-					type: "fireflies",
-					count: 200,
-					particleSize: 30,
-					additive: true,
-					timeRatio: 1.0,
-					blockSize: {
-						x: 8,
-						y: 1.5,
-						z: 14
-					}
-				}
-			],
 			
 			meshInfos: {
 
 				glbPath: "/assets/3d/worlds/faceCyborg/faceCyborg.glb",
 				imagePath: {
 					landscape: "/assets/3d/worlds/faceCyborg/faceCyborgBake.jpg"
-				},
-				options: {
-					metalness: 0.2,
-					roughness: 0.85
 				}
 
 			},
@@ -608,7 +589,7 @@ const worlds = [
 				},
 				
 				fog: {
-					enabled: true,
+					enabled: false,
 					color: "#FFFFFF",
 					intensity: .35
 				},
@@ -645,9 +626,9 @@ const worlds = [
 					{
 						type: "bloom",
 						value: {
-							strength: .35,
-							threshold: 0.045,
-							radius: 0.2
+							strength: .55,
+							threshold: 0.065,
+							radius: 0.6
 						}
 					},
 				]

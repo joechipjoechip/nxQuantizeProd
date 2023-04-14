@@ -26,6 +26,8 @@
 	import { SceneBuilder } from '@/components/sceneBuilder.js';
 	import { SequencesManager } from '@/components/sequencesManager.js';
 
+	const frameRate = 1/60;
+
 	// THREE
 	import * as THREE from 'three';
 
@@ -72,8 +74,18 @@
 				worlds,
 
 				// Animation
-				frameRate: 1/60,
+				frameRate,
 				deltaTime: 0,
+
+				arbitraryFpsIdeal: 60,
+				arbitraryFpsLimit: 50,
+				arbitraryDownScaleLimit: 1.5,
+
+				currentFPS: 0,
+				startTime: performance.now(),
+				currentFPSValue: 0,
+				frames: 0,
+				isAdjustingDownScale: false,
 
 				// sequenceID: "1.0",
 				lastKnownSequenceID: "1.0",
@@ -83,16 +95,6 @@
 					animated: true,
 					stats: true
 				},
-
-				currentFPS: 0,
-				startTime: performance.now(),
-				currentFPSValue: 0,
-				frames: 0,
-				isAdjustingDownScale: false,
-
-				arbitraryFpsIdeal: 30,
-				arbitraryFpsLimit: 20,
-				arbitraryDownScaleLimit: 1.5,
 
 				currentBobName: null,
 
@@ -394,14 +396,13 @@
 
 				this.computeFPS();
 
+				this.checkCurrentTime();
+
+				this.sequencesManager.current.checkStuffsToAnimateAtRender(this.deltaTime, this.viewPos);
 
 				
 				// NOW CHECK IF FRAMERATE IS GOOD
 				if( this.deltaTime >= this.frameRate ){
-
-					this.checkCurrentTime();
-
-					this.sequencesManager.current.checkStuffsToAnimateAtRender(this.deltaTime, this.viewPos);
 
 					this.handleFpsAndDownScaling();
 
