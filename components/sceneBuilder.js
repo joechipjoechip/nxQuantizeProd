@@ -94,6 +94,11 @@ class SceneBuilder {
 		glbObj.glbFile.scene.traverse(child => {
 
 			// console.log("child -> ", child.name);
+			// if( child.name.includes("camera") ){
+
+			// 	this.sceneElements.initialCamera.position.copy(child.position);
+
+			// }
 				
 			// find camera paths for blenderTubes
 			if( child.name.includes("plan-") ){

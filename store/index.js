@@ -21,6 +21,10 @@ export const mutations = {
 
 	setAudio(state, payload){
 		state.audio = payload
+	},
+
+	setAudioTimecode(state, payload){
+		state.audio.currentTime = payload
 	}
 }
 

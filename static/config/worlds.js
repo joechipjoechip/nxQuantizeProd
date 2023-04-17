@@ -89,8 +89,8 @@ const worlds = [
 
 		main: {
 
-			spaceColor: "#002038",
-			spaceColorDarker: "#001220",
+			spaceColor: "#000000",
+			spaceColorDarker: "#000000",
 			spaceColorWithBloom: "#000000",
 
 			ambient: {
@@ -102,7 +102,7 @@ const worlds = [
 			fog: {
 				enabled: true,
 				color: 0xff9500,
-				intensity: .15
+				intensity: .85
 			},
 			
 			meshInfos: {
@@ -122,9 +122,9 @@ const worlds = [
 			{
 				id: "1.0",
 				baseFov: 10,
-				fovTransition: true,
-				// sequenceBobName: "link",
-				until: 7,
+				fovTransition: false,
+				sequenceBobName: "link",
+				until: 21,
 				nextInstruction: "switch-sequence",
 
 				type: "blender-points",
@@ -132,7 +132,7 @@ const worlds = [
 				animatedMesh: false,
 
 				helpers: {
-					orbit: true,
+					orbit: false,
 					tubes: false,
 					timelines: false
 				},
@@ -140,11 +140,11 @@ const worlds = [
 				fog: {
 					enabled: true,
 					color: "#000000",
-					intensity: .85
+					intensity: .95
 				},
 
 				tubeInfos: {
-					duration: 8,
+					duration: 30,
 					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
 					isUsingTarget: true,
 					steps: [
@@ -153,52 +153,55 @@ const worlds = [
 						{
 							// this amount is a percent of the global duration
 							amount: 50,
-							fov: 10,
+							fov: 15,
 							stepEase: "linear"
 						},
 						{
 							// this amount is a percent of the global duration
 							amount: 50,
-							fov: 75,
+							fov: 17,
 							stepEase: "linear"
 						},
 						
 					]
 				},
 
+				slowmo: 5,
+
 				bobImposedMoves: {
 					forward: true,
 					left: false,
 					right: false,
 					dance: false,
-					backward: false
+					backward: false,
+					shift: false
 				},
 
 				postproc: [
-					{
-						type: "afterimage",
-						damp: 0.8
-					}
+					// {
+					// 	type: "afterimage",
+					// 	damp: 0.5
+					// }
 				]
 
 			},
 			{
 				id: "1.1",
-				baseFov: 17,
+				baseFov: 27,
 				fovTransition: true,
 				sequenceBobName: "link",
 
 				type: "third-person",
-				cameraTriggerTimeDecay: 6,
+				cameraTriggerTimeDecay: 5,
 				cameraType: "helmet-low",
 
-				until: 13,
+				until: 26.5,
 				nextInstruction: "switch-scene",
 
 				animatedMesh: false,
 
 				helpers: {
-					orbit: true,
+					orbit: false,
 					tubes: false,
 					timelines: false
 				},
@@ -206,15 +209,18 @@ const worlds = [
 				fog: {
 					enabled: true,
 					color: "#000000",
-					intensity: .35
+					intensity: .98
 				},
+
+				slowmo: 8,
 
 				bobImposedMoves: {
 					forward: true,
 					left: false,
 					right: false,
 					dance: false,
-					backward: false
+					backward: false,
+					shift: false
 				},
 
 				postproc: [
@@ -273,10 +279,10 @@ const worlds = [
 		sequences: [
 			{
 				id: "2.1",
-				baseFov: 65,
-				fovTransition: true,
+				baseFov: 35,
+				fovTransition: false,
 				sequenceBobName: "link",
-				until: 21,
+				until: 37,
 				nextInstruction: "switch-sequence",
 
 				type: "blender-points",
@@ -296,7 +302,7 @@ const worlds = [
 				},
 
 				tubeInfos: {
-					duration: 8,
+					duration: 10,
 					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
 					isUsingTarget: true,
 					steps: [
@@ -305,7 +311,7 @@ const worlds = [
 						{
 							// this amount is a percent of the global duration
 							amount: 50,
-							fov: 60,
+							fov: 30,
 							stepEase: "linear"
 						},
 						{
@@ -328,10 +334,49 @@ const worlds = [
 				sequenceBobName: "juan",
 
 				type: "third-person",
+				cameraTriggerTimeDecay: 9,
+				cameraType: "movingHips",
+
+				until: 43,
+				nextInstruction: "drop-and-load-and-switch",
+
+				animatedMesh: false,
+
+				helpers: {
+					orbit: true,
+					tubes: false,
+					timelines: false
+				},
+				
+				fog: {
+					enabled: true,
+					color: "#0D063B",
+					intensity: .3
+				},
+
+				bobImposedMoves: {
+					backward: false,
+					forward: false,
+					shift: false,
+					dance: false
+				},
+
+				postproc: [
+
+				]
+
+			},
+			{
+				id: "3.4",
+				baseFov: 27,
+				fovTransition: true,
+				sequenceBobName: "juan",
+
+				type: "third-person",
 				cameraTriggerTimeDecay: 6,
 				cameraType: "movingHips",
 
-				until: 28,
+				until: 65,
 				nextInstruction: "switch-scene",
 
 				animatedMesh: false,
@@ -348,7 +393,12 @@ const worlds = [
 					intensity: .3
 				},
 
-				bobImposedMoves: {},
+				bobImposedMoves: {
+					backward: false,
+					forward: true,
+					shift: true,
+					dance: false
+				},
 
 				postproc: [
 
@@ -358,6 +408,180 @@ const worlds = [
 							strength: 0.9,
 							threshold: 0.35,
 							radius: 0.3
+						}
+					},
+
+				]
+
+			},
+			
+		]
+
+	},
+
+	{
+		name: "world_010",
+
+		main: {
+
+			spaceColor: "#000000",
+			spaceColorDarker: "#000000",
+			spaceColorWithBloom: "#000000",
+
+			ambient: {
+				sunColor: "#000000",
+				intensity: 0.4,
+				groundColor: "#04007A"
+			},
+
+			fog: {
+				enabled: true,
+				color: 0xff9500,
+				intensity: .85
+			},
+			
+			meshInfos: {
+
+				glbPath: "/assets/3d/worlds/caveEntrance/caveEntrance.glb",
+				imagePath: {
+					landscape: "/assets/3d/worlds/caveEntrance/caveEntranceBake.jpg"
+				}
+
+			},
+
+			entities: ["link", "juan", "queen"],
+
+		},
+
+		sequences: [
+			{
+				id: "2.3",
+				baseFov: 35,
+				fovTransition: false,
+				sequenceBobName: "link",
+				until: 51,
+				nextInstruction: "switch-sequence",
+
+				type: "blender-points",
+
+				animatedMesh: false,
+
+				helpers: {
+					orbit: false,
+					tubes: false,
+					timelines: false
+				},
+				
+				fog: {
+					enabled: true,
+					color: "#0D063B",
+					intensity: .65
+				},
+
+				alice: {
+					handleGround: false,
+					name: "queen",
+					move: {
+						floating: true
+					},
+					offset: {
+						x: 0.2,
+						y: -0.15,
+						z: 0
+					},
+					scale: 0.008,
+					slowmo: 1
+				},
+
+				tubeInfos: {
+					duration: 10,
+					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
+					isUsingTarget: true,
+					steps: [
+						// n steps are possibles
+						// n has nothing to do with the number of points for the curve
+						{
+							// this amount is a percent of the global duration
+							amount: 50,
+							fov: 30,
+							stepEase: "linear"
+						},
+						{
+							// this amount is a percent of the global duration
+							amount: 50,
+							fov: 40,
+							stepEase: "linear"
+						},
+						
+					]
+				},
+
+				postproc: [
+					{
+						type: "vignette",
+						darkness: 1.5,
+						offset: 1.04
+					},
+				]
+
+			},
+			{
+				id: "2.4",
+				baseFov: 27,
+				fovTransition: true,
+				sequenceBobName: "juan",
+
+				type: "third-person",
+				cameraTriggerTimeDecay: 6,
+				cameraType: "movingHips",
+
+				until: 57,
+				nextInstruction: "switch-scene",
+
+				animatedMesh: false,
+
+				helpers: {
+					orbit: false,
+					tubes: false,
+					timelines: false
+				},
+				
+				fog: {
+					enabled: true,
+					color: "#0D063B",
+					intensity: .4
+				},
+
+				alice: {
+					handleGround: false,
+					name: "queen",
+					move: {
+						floating: true
+					},
+					offset: {
+						x: 0.2,
+						y: -0.15,
+						z: 0
+					},
+					scale: 0.008,
+					slowmo: 1
+				},
+
+				slowmo: 4,
+
+				bobImposedMoves: {
+					dance: true,
+				},
+
+				postproc: [
+
+					{
+						type: "blur",
+						focusTarget: "queen",
+						value: {
+							focus: 1,
+							aperture: 0.025,
+							maxblur: 0.008
 						}
 					},
 

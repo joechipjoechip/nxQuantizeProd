@@ -167,6 +167,41 @@ const core = {
 				y: 0.08
 			}
 		},
+		"helmet-low-moving": {
+			offset: {
+				x: 0,
+				y: 0.015,
+				z: 0.05
+			},
+			lookAt: {
+				x: 0,
+				y: 0.015,
+				z: -0.2
+			},
+			straightness: 0.04,
+			mouseOrientationPonderation: {
+				x: -0.08,
+				y: 0.08
+			},
+			motion: {
+				// motion will move the camera continuously
+				// with a sin() (so -1 to 1)
+				// and it's related at the offset values
+				x: {
+					// ratios
+					range: -0.005,
+					velocity: 0.4
+				},
+				y: {
+					range: 0,
+					velocity: 0.3
+				},
+				z: {
+					range: 0,
+					velocity: 0.2
+				},
+			},
+		},
 		fly: {
 			offset: {
 				x: 0.03,

@@ -166,6 +166,10 @@
 			initSound(){
 				const audio = new Audio(sound);
 				this.$store.commit("setAudio", audio);
+
+
+				// debug currenttime
+				this.$store.commit("setAudioTimecode", 24);
 			},
 
 			initCommonValues(){
@@ -176,17 +180,6 @@
 				};
 
 			},
-
-			// initCanvasRefSize(){
-
-			// 	console.log("cinema : re init canvasrefsize");
-
-			// 	this.canvasSizeRef = { 
-			// 		width: window.innerWidth / this.$store.state.downScale, 
-			// 		height: window.innerHeight / this.$store.state.downScale
-			// 	};
-
-			// },
 
 			handleAssetsLoaded( assetsPack ){
 
