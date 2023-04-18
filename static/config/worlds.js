@@ -959,8 +959,8 @@ const worlds = [
 				
 				fog: {
 					enabled: true,
-					color: "#FFFFFF",
-					intensity: .43
+					color: "#000000",
+					intensity: .73
 				},
 
 				bobImposedMoves: {
@@ -985,6 +985,10 @@ const worlds = [
 					// 		radius: 0.99
 					// 	}
 					// },
+					{
+						type: "rgbShift",
+						amount: 0.08
+					},
 
 				]
 
