@@ -169,7 +169,7 @@
 
 
 				// debug currenttime
-				this.$store.commit("setAudioTimecode", 24);
+				this.$store.commit("setAudioTimecode", 54);
 			},
 
 			initCommonValues(){
@@ -358,6 +358,7 @@ body {
 }
 
 button {
+	background-color: #b50000;
 	background-color: beige;
 }
 

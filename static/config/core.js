@@ -171,12 +171,12 @@ const core = {
 			offset: {
 				x: 0,
 				y: 0.015,
-				z: 0.05
+				z: 0.01
 			},
 			lookAt: {
 				x: 0,
 				y: 0.015,
-				z: -0.2
+				z: -0.1
 			},
 			straightness: 0.04,
 			mouseOrientationPonderation: {
@@ -189,16 +189,16 @@ const core = {
 				// and it's related at the offset values
 				x: {
 					// ratios
-					range: -0.005,
-					velocity: 0.4
+					range: -0.08,
+					velocity: 0.2
 				},
 				y: {
-					range: 0,
-					velocity: 0.3
+					range: 0.01,
+					velocity: 0.1
 				},
 				z: {
-					range: 0,
-					velocity: 0.2
+					range: 0.15,
+					velocity: 0.25
 				},
 			},
 		},
