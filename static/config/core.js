@@ -38,6 +38,7 @@ const core = {
 			"floating",
 			"jazz",
 			"hiphop",
+			"housedance",
 			"climb"
 		]
 	},
@@ -199,6 +200,41 @@ const core = {
 				z: {
 					range: 0.15,
 					velocity: 0.25
+				},
+			},
+		},
+		"helmet-low-moving-2": {
+			offset: {
+				x: 0.008,
+				y: 0.01,
+				z: 0.025
+			},
+			lookAt: {
+				x: 0,
+				y: 0.018,
+				z: -0.01
+			},
+			straightness: 0.04,
+			mouseOrientationPonderation: {
+				x: -0.01,
+				y: 0.01
+			},
+			motion: {
+				// motion will move the camera continuously
+				// with a sin() (so -1 to 1)
+				// and it's related at the offset values
+				x: {
+					// ratios
+					range: -0.008,
+					velocity: 0.15
+				},
+				y: {
+					range: 0.02,
+					velocity: 0.2
+				},
+				z: {
+					range: 0.08,
+					velocity: 0.05
 				},
 			},
 		},

@@ -12,6 +12,7 @@ import {
 	FloatingState,
 	JazzState,
 	HiphopState,
+	HousedanceState,
 	ClimbState
 } from '@/components/states.js'
 
@@ -332,6 +333,7 @@ class BasicCharacterControllerInput {
 			fly: false || this._imposedMoves.fly,
 			floating: false || this._imposedMoves.floating,
 			jazz: false || this._imposedMoves.jazz,
+			housedance: false || this._imposedMoves.housedance,
 			hiphop: false || this._imposedMoves.hiphop,
 			climb: false || this._imposedMoves.climb,
 		};
@@ -442,6 +444,7 @@ class CharacterFSM extends FiniteStateMachine {
 
 		this._AddState('floating', FloatingState);
 		this._AddState('jazz', JazzState);
+		this._AddState('housedance', HousedanceState);
 		this._AddState('hiphop', HiphopState);
 		this._AddState('climb', ClimbState);
 	}
