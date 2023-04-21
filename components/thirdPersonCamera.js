@@ -54,6 +54,8 @@ class ThirdPersonCamera {
 
 		}
 
+		this.yPositionMotionWhileGroundHandling = idealOffset.y;
+
 		idealOffset.applyQuaternion(this._params.target.Rotation);
 
 		idealOffset.add(this._params.target.Position);
@@ -131,7 +133,7 @@ class ThirdPersonCamera {
 				});
 
 		if( hit?.distance && hit.distance > 0.5){
-			this._currentPosition.y = hit.point.y + this._specs.offset.y;
+			this._currentPosition.y = hit.point.y + this._specs.offset.y + Math.abs(this.yPositionMotionWhileGroundHandling);
 		} else {
 			this._currentPosition.y = this._specs.offset.y;
 		}
