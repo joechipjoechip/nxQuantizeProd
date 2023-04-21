@@ -1103,7 +1103,7 @@ const worlds = [
 		sequences: [
 			{
 				id: "4.10",
-				baseFov: 90,
+				baseFov: 10,
 				fovTransition: false,
 				sequenceBobName: "juan",
 
@@ -1127,24 +1127,24 @@ const worlds = [
 				},
 
 				tubeInfos: {
-					duration: 15,
+					duration: 10,
 					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
-					isUsingTarget: true,
+					isUsingTarget: false,
 					steps: [
 						// n steps are possibles
 						// n has nothing to do with the number of points for the curve
 						{
 							// this amount is a percent of the global duration
-							amount: 20,
-							fov: 90,
+							amount: 100,
+							fov: 10,
 							stepEase: "linear"
 						},
-						{
-							// this amount is a percent of the global duration
-							amount: 80,
-							fov: 25,
-							stepEase: "linear"
-						},
+						// {
+						// 	// this amount is a percent of the global duration
+						// 	amount: 50,
+						// 	fov: 180,
+						// 	stepEase: "linear"
+						// },
 						
 					]
 				},
@@ -1167,8 +1167,8 @@ const worlds = [
 				sequenceBobName: "juan",
 
 				type: "third-person",
-				cameraTriggerTimeDecay: 8,
-				cameraType: "movingHips",
+				cameraTriggerTimeDecay: 7,
+				cameraType: "movingHips-2",
 
 				until: 135,
 				nextInstruction: "switch-sequence",
@@ -1190,6 +1190,8 @@ const worlds = [
 				bobImposedMoves: {
 					left: false,
 					right: false,
+					forward: true,
+					shift: true
 				},
 
 				postproc: []
