@@ -10,6 +10,8 @@
 			<div v-if="sequenceID" class="stats">{{ sequenceID }}</div>
 			<div v-if="$store.state.audio" class="stats">{{ $store.state.audio.currentTime }}</div>
 			<div v-if="currentSequence" class="stats">next step : {{ currentSequence.until }}</div>
+			<div v-if="currentSequence" class="stats">isAdjustingDownScale : {{ isAdjustingDownScale }}</div>
+			<div v-if="currentSequence" class="stats">performanceTimeoutID : {{ performanceTimeoutID }}</div>
 		</div>
 
 		<canvas 
@@ -159,6 +161,9 @@
 
 				this.sequencesManager.current.sequenceChangeHandler(newVal, oldVal);
 
+				if( this.performanceTimeoutID ){
+					this.clearDownScaleTimeout();
+				}
 			},
 
 			"canvasSizeRef.width"(){
