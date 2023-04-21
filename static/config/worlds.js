@@ -899,13 +899,13 @@ const worlds = [
 		sequences: [
 			{
 				id: "4.7",
-				baseFov: 27,
+				baseFov: 37,
 				fovTransition: true,
 				sequenceBobName: "juan",
 
 				// type: "blender-points",
 				type: "third-person",
-				cameraTriggerTimeDecay: 2,
+				cameraTriggerTimeDecay: 0,
 				cameraType: "movingFloating",
 
 				until: 94,
@@ -964,8 +964,8 @@ const worlds = [
 
 				// type: "blender-points",
 				type: "third-person",
-				cameraTriggerTimeDecay: 2,
-				cameraType: "gtaLike",
+				cameraTriggerTimeDecay: 8,
+				cameraType: "movingHips-2",
 
 				until: 101,
 				nextInstruction: "switch-sequence",
@@ -981,14 +981,14 @@ const worlds = [
 				fog: {
 					enabled: true,
 					color: "#000000",
-					intensity: .73
+					intensity: .43
 				},
 
 				alice: {
 					handleGround: false,
 					name: "queen",
 					move: {
-						dancing: true
+						housedance: true
 					},
 					offset: {
 						x: 0,
@@ -996,7 +996,7 @@ const worlds = [
 						z: 0
 					},
 					scale: 0.3,
-					slowmo: 3
+					slowmo: 20
 				},
 
 				bobImposedMoves: {
@@ -1016,7 +1016,7 @@ const worlds = [
 
 				// type: "blender-points",
 				type: "third-person",
-				cameraTriggerTimeDecay: 8,
+				cameraTriggerTimeDecay: 0,
 				cameraType: "helmet-low-moving-2",
 
 				until: 115,
@@ -1045,7 +1045,7 @@ const worlds = [
 					backward: false
 				},
 
-				slowmo: 2.5,
+				slowmo: 2,
 
 				postproc: [
 
@@ -1053,7 +1053,7 @@ const worlds = [
 						type: "bloom",
 						value: {
 							strength: 0.2,
-							threshold: 0.05,
+							threshold: 0.005,
 							radius: 0.2
 						}
 					},
@@ -1103,11 +1103,13 @@ const worlds = [
 		sequences: [
 			{
 				id: "4.10",
-				baseFov: 10,
+				baseFov: 50,
 				fovTransition: false,
 				sequenceBobName: "juan",
 
-				type: "blender-points",
+				type: "third-person",
+				cameraTriggerTimeDecay: 14,
+				cameraType: "movingHips",
 
 				until: 122,
 				nextInstruction: "switch-sequence",
@@ -1126,35 +1128,8 @@ const worlds = [
 					intensity: .43
 				},
 
-				tubeInfos: {
-					duration: 10,
-					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
-					isUsingTarget: false,
-					steps: [
-						// n steps are possibles
-						// n has nothing to do with the number of points for the curve
-						{
-							// this amount is a percent of the global duration
-							amount: 100,
-							fov: 10,
-							stepEase: "linear"
-						},
-						// {
-						// 	// this amount is a percent of the global duration
-						// 	amount: 50,
-						// 	fov: 180,
-						// 	stepEase: "linear"
-						// },
-						
-					]
-				},
-
 				bobImposedMoves: {
-					backward: true,
-					left: false,
-					right: false,
-					forward: false,
-					shift: false,
+					forward: true
 				},
 
 				postproc: []
@@ -1162,7 +1137,7 @@ const worlds = [
 			},
 			{
 				id: "4.11",
-				baseFov: 27,
+				baseFov: 37,
 				fovTransition: true,
 				sequenceBobName: "juan",
 

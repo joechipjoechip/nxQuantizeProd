@@ -137,7 +137,7 @@ const core = {
 			offset: {
 				x: 0,
 				y: 0.015,
-				z: 0.035
+				z: 0.04
 			},
 			lookAt: {
 				x: 0,
@@ -146,8 +146,8 @@ const core = {
 			},
 			straightness: 0.015,
 			mouseOrientationPonderation: {
-				x: 0.015,
-				y: 0.026
+				x: 0.15,
+				y: 0.26
 			},
 			motion: {
 				// motion will move the camera continuously
@@ -155,15 +155,15 @@ const core = {
 				// and it's related at the offset values
 				x: {
 					// ratios
-					range: 0.03,
+					range: 0.035,
 					velocity: 0.4
 				},
 				y: {
-					range: 1.7,
-					velocity: 0.8
+					range: 0.02,
+					velocity: 0.15
 				},
 				z: {
-					range: -0.3,
+					range: -0.4,
 					velocity: 0.4
 				},
 			},
