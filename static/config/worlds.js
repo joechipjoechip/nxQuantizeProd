@@ -899,14 +899,14 @@ const worlds = [
 		sequences: [
 			{
 				id: "4.7",
-				baseFov: 37,
-				fovTransition: true,
+				baseFov: 40,
+				fovTransition: false,
 				sequenceBobName: "juan",
 
 				// type: "blender-points",
 				type: "third-person",
-				cameraTriggerTimeDecay: 0,
-				cameraType: "movingFloating",
+				cameraTriggerTimeDecay: 8,
+				cameraType: "movingHips-lookUp",
 
 				until: 94,
 				nextInstruction: "switch-sequence",
@@ -920,7 +920,7 @@ const worlds = [
 				},
 				
 				fog: {
-					enabled: true,
+					enabled: false,
 					color: "#FFFFFF",
 					intensity: .43
 				},
@@ -979,7 +979,7 @@ const worlds = [
 				},
 				
 				fog: {
-					enabled: true,
+					enabled: false,
 					color: "#000000",
 					intensity: .43
 				},
@@ -996,7 +996,7 @@ const worlds = [
 						z: 0
 					},
 					scale: 0.3,
-					slowmo: 20
+					slowmo: 16
 				},
 
 				bobImposedMoves: {
@@ -1138,15 +1138,15 @@ const worlds = [
 			{
 				id: "4.11",
 				baseFov: 37,
-				fovTransition: true,
+				fovTransition: false,
 				sequenceBobName: "juan",
 
 				type: "third-person",
-				cameraTriggerTimeDecay: 7,
-				cameraType: "movingHips-2",
+				cameraTriggerTimeDecay: 12,
+				cameraType: "movingHips-lookUp",
 
-				until: 135,
-				nextInstruction: "switch-sequence",
+				until: 126,
+				nextInstruction: "drop-and-load-and-switch",
 
 				animatedMesh: false,
 
@@ -1172,6 +1172,133 @@ const worlds = [
 				postproc: []
 
 			}
+		]
+
+	},
+
+	{
+		name: "world_030",
+
+		main: {
+
+			spaceColor: "#002038",
+			spaceColorDarker: "#001220",
+			spaceColorWithBloom: "#000000",
+
+			ambient: {
+				sunColor: "#FFFFFF",
+				intensity: 0.6,
+				groundColor: "#04007A"
+			},
+
+			fog: {
+				enabled: true,
+				color: 0xff9500,
+				intensity: .15
+			},
+			
+			meshInfos: {
+
+				glbPath: "/assets/3d/worlds/faceMountain/faceMountain.glb",
+				imagePath: {
+					landscape: "/assets/3d/worlds/faceMountain/faceMountainBake.jpg"
+				}
+			},
+
+
+			entities: ["link", "juan"],
+
+		},
+
+		sequences: [
+			{
+				id: "4.12",
+				baseFov: 50,
+				fovTransition: false,
+				sequenceBobName: "juan",
+
+				type: "third-person",
+				cameraTriggerTimeDecay: 14,
+				cameraType: "movingHips-lookUp",
+
+				until: 145,
+				nextInstruction: "switch-sequence",
+
+				animatedMesh: false,
+
+				helpers: {
+					orbit: false,
+					tubes: false,
+					timelines: false
+				},
+				
+				fog: {
+					enabled: false,
+					color: "#FFFFFF",
+					intensity: .43
+				},
+
+				bobImposedMoves: {
+					// forward: true
+				},
+
+				postproc: [
+					{
+						type: "bloom",
+						value: {
+							strength: .85,
+							threshold: 0.045,
+							radius: 0.1
+						}
+					},
+				]
+
+			},
+			{
+				id: "4.13",
+				baseFov: 35,
+				fovTransition: false,
+				sequenceBobName: "juan",
+
+				type: "third-person",
+				cameraTriggerTimeDecay: 5,
+				cameraType: "movingHips-lookUp",
+
+				until: 155,
+				nextInstruction: "switch-sequence",
+
+				animatedMesh: false,
+
+				helpers: {
+					orbit: false,
+					tubes: false,
+					timelines: false
+				},
+				
+				fog: {
+					enabled: false,
+					color: "#FFFFFF",
+					intensity: .43
+				},
+
+				bobImposedMoves: {
+					// forward: true
+				},
+
+				postproc: [
+					{
+						type: "bloom",
+						value: {
+							strength: .65,
+							threshold: 0.045,
+							radius: 0.3
+						}
+					},
+				]
+
+			},
+		
+			
 		]
 
 	},
