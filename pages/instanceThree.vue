@@ -88,6 +88,7 @@
 				currentFPSValue: 0,
 				frames: 0,
 				isAdjustingDownScale: false,
+				performanceTimeoutID: null,
 
 				// sequenceID: "1.0",
 				lastKnownSequenceID: "1.0",

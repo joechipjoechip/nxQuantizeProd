@@ -93,8 +93,8 @@ const core = {
 			},
 			straightness: 0.015,
 			mouseOrientationPonderation: {
-				x: 0.4,
-				y: 0.6
+				x: 0.8,
+				y: 0.5
 			}
 		},
 		movingHips: {
@@ -242,8 +242,8 @@ const core = {
 		"helmet-low-moving": {
 			offset: {
 				x: 0,
-				y: 0.015,
-				z: 0.01
+				y: 0.0015,
+				z: 0.02
 			},
 			lookAt: {
 				x: 0,
@@ -269,8 +269,8 @@ const core = {
 					velocity: 0.1
 				},
 				z: {
-					range: 0.15,
-					velocity: 0.25
+					range: 0.25,
+					velocity: 0.1
 				},
 			},
 		},
@@ -278,7 +278,7 @@ const core = {
 			offset: {
 				x: 0.008,
 				y: 0.01,
-				z: 0.025
+				z: 0.035
 			},
 			lookAt: {
 				x: 0,
@@ -309,6 +309,43 @@ const core = {
 				},
 			},
 		},
+
+		"climb-view": {
+			offset: {
+				x: -0.6,
+				y: -0.001,
+				z: -0.75
+			},
+			lookAt: {
+				x: 0,
+				y: 0.02,
+				z: 0
+			},
+			straightness: 0.015,
+			mouseOrientationPonderation: {
+				x: 0.015,
+				y: 0.026
+			},
+			motion: {
+				// motion will move the camera continuously
+				// with a sin() (so -1 to 1)
+				// and it's related at the offset values
+				x: {
+					// ratios
+					range: 0.3,
+					velocity: 0.5
+				},
+				y: {
+					range: 0.2,
+					velocity: 0.4
+				},
+				z: {
+					range: 0.3,
+					velocity: 0.8
+				},
+			},
+		},
+
 		fly: {
 			offset: {
 				x: 0.03,

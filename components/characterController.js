@@ -144,7 +144,7 @@ class BasicCharacterController {
 			}
 	
 			if( this._input._keys.climb ){
-				acc.multiplyScalar(0.05);
+				acc.multiplyScalar(0.1);
 				velocity.y += acc.y * timeInSeconds / 3.5;
 			}
 	

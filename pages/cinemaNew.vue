@@ -169,7 +169,7 @@
 
 
 				// debug currenttime
-				this.$store.commit("setAudioTimecode", 30);
+				this.$store.commit("setAudioTimecode", 20);
 
 			},
 

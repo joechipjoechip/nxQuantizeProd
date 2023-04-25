@@ -500,12 +500,12 @@ const worlds = [
 						floating: true
 					},
 					offset: {
-						x: 0.2,
+						x: 0,
 						y: -0.15,
 						z: 0
 					},
 					scale: 0.008,
-					slowmo: 1
+					slowmo: 5
 				},
 
 				tubeInfos: {
@@ -532,17 +532,17 @@ const worlds = [
 				},
 
 				postproc: [
-					{
-						type: "vignette",
-						darkness: 1.5,
-						offset: 1.04
-					},
+					// {
+					// 	type: "vignette",
+					// 	darkness: 1.5,
+					// 	offset: 1.04
+					// },
 				]
 
 			},
 			{
 				id: "2.4",
-				baseFov: 27,
+				baseFov: 22,
 				fovTransition: true,
 				sequenceBobName: "juan",
 
@@ -574,18 +574,19 @@ const worlds = [
 						floating: true
 					},
 					offset: {
-						x: 0.2,
+						x: 0,
 						y: -0.15,
 						z: 0
 					},
 					scale: 0.008,
-					slowmo: 1
+					slowmo: 5
 				},
 
-				slowmo: 4,
+				slowmo: 3,
 
 				bobImposedMoves: {
 					forward: true,
+					shift: false
 				},
 
 				postproc: [
@@ -607,7 +608,7 @@ const worlds = [
 				id: "4.4",
 				baseFov: 25,
 				fovTransition: false,
-				sequenceBobName: "link",
+				sequenceBobName: "juan",
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 6,
@@ -637,7 +638,7 @@ const worlds = [
 						floating: true
 					},
 					offset: {
-						x: 0.2,
+						x: 0,
 						y: -0.15,
 						z: 0
 					},
@@ -735,7 +736,7 @@ const worlds = [
 				cameraTriggerTimeDecay: 6,
 				cameraType: "helmet-low-moving",
 
-				until: 79,
+				until: 79.5,
 				nextInstruction: "switch-sequence",
 
 				animatedMesh: false,
@@ -756,12 +757,12 @@ const worlds = [
 					forward: false,
 					shift: false,
 					backward: false,
-					hiphop: true,
+					housedance: true,
 					left: false,
 					right: false,
 				},
 
-				slowmo: 2.5,
+				slowmo: 10,
 
 				postproc: [
 			
@@ -780,12 +781,15 @@ const worlds = [
 
 			{
 				id: "4.6",
-				baseFov: 55,
+				baseFov: 35,
 				fovTransition: true,
 				sequenceBobName: "link",
 
-				type: "blender-points",
-				until: 86,
+				type: "third-person",
+				cameraTriggerTimeDecay: 15,
+				cameraType: "climb-view",
+
+				until: 85.5,
 				nextInstruction: "drop-and-load-and-switch",
 
 				animatedMesh: false,
@@ -802,43 +806,21 @@ const worlds = [
 					intensity: .05
 				},
 
-				tubeInfos: {
-					duration: 10,
-					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
-					isUsingTarget: true,
-					steps: [
-						// n steps are possibles
-						// n has nothing to do with the number of points for the curve
-						{
-							// this amount is a percent of the global duration
-							amount: 50,
-							fov: 30,
-							stepEase: "linear"
-						},
-						{
-							// this amount is a percent of the global duration
-							amount: 50,
-							fov: 30,
-							stepEase: "linear"
-						},
-						
-					]
-				},
-
 				bobImposedMoves: {
 					forward: false,
 					shift: false,
 					backward: false,
-					hiphop: true,
+					hiphop: false,
 					left: false,
 					right: false,
+					climb: true
 				},
 
 				postproc: [
-					{
-						type: "rgbShift",
-						amount: 0.12
-					},
+					// {
+					// 	type: "rgbShift",
+					// 	amount: 0.12
+					// },
 				]
 
 			},
@@ -908,7 +890,7 @@ const worlds = [
 				cameraTriggerTimeDecay: 8,
 				cameraType: "movingHips-lookUp",
 
-				until: 94,
+				until: 92,
 				nextInstruction: "switch-sequence",
 
 				animatedMesh: false,
@@ -936,7 +918,7 @@ const worlds = [
 						y: 0,
 						z: 0
 					},
-					scale: 0.003,
+					scale: 0.3,
 					slowmo: 6
 				},
 
@@ -1010,16 +992,16 @@ const worlds = [
 			},
 			{
 				id: "4.9",
-				baseFov: 27,
+				baseFov: 30,
 				fovTransition: true,
 				sequenceBobName: "link",
 
 				// type: "blender-points",
 				type: "third-person",
-				cameraTriggerTimeDecay: 0,
+				cameraTriggerTimeDecay: 4,
 				cameraType: "helmet-low-moving-2",
 
-				until: 115,
+				until: 107.5,
 				nextInstruction: "drop-and-load-and-switch",
 
 				animatedMesh: false,
@@ -1037,7 +1019,7 @@ const worlds = [
 				},
 
 				bobImposedMoves: {
-					housedance: true,
+					hiphop: true,
 					forward: false,
 					left: false,
 					right: false,
@@ -1045,7 +1027,7 @@ const worlds = [
 					backward: false
 				},
 
-				slowmo: 2,
+				slowmo: 1.4,
 
 				postproc: [
 
@@ -1111,8 +1093,8 @@ const worlds = [
 				cameraTriggerTimeDecay: 14,
 				cameraType: "movingHips",
 
-				until: 122,
-				nextInstruction: "switch-sequence",
+				until: 115,
+				nextInstruction: "drop-and-load-and-switch",
 
 				animatedMesh: false,
 
@@ -1135,43 +1117,7 @@ const worlds = [
 				postproc: []
 
 			},
-			{
-				id: "4.11",
-				baseFov: 37,
-				fovTransition: false,
-				sequenceBobName: "juan",
-
-				type: "third-person",
-				cameraTriggerTimeDecay: 12,
-				cameraType: "movingHips-lookUp",
-
-				until: 126,
-				nextInstruction: "drop-and-load-and-switch",
-
-				animatedMesh: false,
-
-				helpers: {
-					orbit: false,
-					tubes: false,
-					timelines: false
-				},
-				
-				fog: {
-					enabled: false,
-					color: "#FFFFFF",
-					intensity: .43
-				},
-
-				bobImposedMoves: {
-					left: false,
-					right: false,
-					forward: true,
-					shift: true
-				},
-
-				postproc: []
-
-			}
+			
 		]
 
 	},
@@ -1187,12 +1133,12 @@ const worlds = [
 
 			ambient: {
 				sunColor: "#FFFFFF",
-				intensity: 0.6,
+				intensity: 0.2,
 				groundColor: "#04007A"
 			},
 
 			fog: {
-				enabled: true,
+				enabled: false,
 				color: 0xff9500,
 				intensity: .15
 			},
@@ -1212,60 +1158,17 @@ const worlds = [
 
 		sequences: [
 			{
-				id: "4.12",
+				id: "4.11",
 				baseFov: 50,
 				fovTransition: false,
 				sequenceBobName: "juan",
 
 				type: "third-person",
-				cameraTriggerTimeDecay: 14,
+				cameraTriggerTimeDecay: 9,
 				cameraType: "movingHips-lookUp",
 
-				until: 145,
-				nextInstruction: "switch-sequence",
-
-				animatedMesh: false,
-
-				helpers: {
-					orbit: false,
-					tubes: false,
-					timelines: false
-				},
-				
-				fog: {
-					enabled: false,
-					color: "#FFFFFF",
-					intensity: .43
-				},
-
-				bobImposedMoves: {
-					// forward: true
-				},
-
-				postproc: [
-					{
-						type: "bloom",
-						value: {
-							strength: .85,
-							threshold: 0.045,
-							radius: 0.1
-						}
-					},
-				]
-
-			},
-			{
-				id: "4.13",
-				baseFov: 35,
-				fovTransition: false,
-				sequenceBobName: "juan",
-
-				type: "third-person",
-				cameraTriggerTimeDecay: 5,
-				cameraType: "movingHips-lookUp",
-
-				until: 155,
-				nextInstruction: "switch-sequence",
+				until: 143.5,
+				nextInstruction: "drop-and-load-and-switch",
 
 				animatedMesh: false,
 
@@ -1290,14 +1193,102 @@ const worlds = [
 						type: "bloom",
 						value: {
 							strength: .65,
-							threshold: 0.045,
-							radius: 0.3
+							threshold: 0.085,
+							radius: 0.5
 						}
 					},
 				]
 
 			},
-		
+			
+		]
+
+	},
+
+	{
+		name: "world_030",
+
+		main: {
+
+			spaceColor: "#002038",
+			spaceColorDarker: "#001220",
+			spaceColorWithBloom: "#000000",
+
+			ambient: {
+				sunColor: "#FFFFFF",
+				intensity: 0.2,
+				groundColor: "#04007A"
+			},
+
+			fog: {
+				enabled: false,
+				color: 0xff9500,
+				intensity: .15
+			},
+			
+			meshInfos: {
+
+				glbPath: "/assets/3d/worlds/five/five.glb",
+				imagePath: {
+					landscape: "/assets/3d/worlds/five/fiveBake.jpg"
+				}
+			},
+
+
+			entities: ["link"],
+
+		},
+
+		sequences: [
+			{
+				id: "4.12",
+				baseFov: 50,
+				fovTransition: false,
+				sequenceBobName: "link",
+
+				type: "third-person",
+				cameraTriggerTimeDecay: 4,
+				cameraType: "movingFly",
+
+				until: 159,
+				nextInstruction: "switch-sequence",
+
+				animatedMesh: false,
+
+				helpers: {
+					orbit: false,
+					tubes: false,
+					timelines: false
+				},
+				
+				fog: {
+					enabled: false,
+					color: "#FFFFFF",
+					intensity: .43
+				},
+
+				bobImposedMoves: {
+					// forward: true
+					fly: true,
+					forward: false,
+					backward: false,
+					left: false,
+					right: false,
+					shift: false
+				},
+
+				postproc: [
+					{
+						type: "bloom",
+						value: {
+							strength: .65,
+							threshold: 0.085,
+							radius: 0.5
+						}
+					},
+				]
+
+			},
 			
 		]
 
