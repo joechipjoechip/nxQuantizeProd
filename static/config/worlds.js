@@ -1164,10 +1164,10 @@ const worlds = [
 				sequenceBobName: "juan",
 
 				type: "third-person",
-				cameraTriggerTimeDecay: 9,
+				cameraTriggerTimeDecay: 16,
 				cameraType: "movingHips-lookUp",
 
-				until: 143.5,
+				until: 141.5,
 				nextInstruction: "drop-and-load-and-switch",
 
 				animatedMesh: false,
@@ -1210,14 +1210,14 @@ const worlds = [
 
 		main: {
 
-			spaceColor: "#002038",
-			spaceColorDarker: "#001220",
-			spaceColorWithBloom: "#000000",
+			spaceColor: "#FFFFFF",
+			spaceColorDarker: "#FFFFFF",
+			spaceColorWithBloom: "#FFFFFF",
 
 			ambient: {
 				sunColor: "#FFFFFF",
-				intensity: 0.2,
-				groundColor: "#04007A"
+				intensity: 0.4,
+				groundColor: "#1f165e"
 			},
 
 			fog: {
@@ -1242,15 +1242,15 @@ const worlds = [
 		sequences: [
 			{
 				id: "4.12",
-				baseFov: 50,
+				baseFov: 13,
 				fovTransition: false,
 				sequenceBobName: "link",
 
 				type: "third-person",
-				cameraTriggerTimeDecay: 4,
+				cameraTriggerTimeDecay: 20,
 				cameraType: "movingFly",
 
-				until: 159,
+				until: 173.5,
 				nextInstruction: "switch-sequence",
 
 				animatedMesh: false,
@@ -1260,11 +1260,17 @@ const worlds = [
 					tubes: false,
 					timelines: false
 				},
+
+				landscapeMove: {
+					x: 0,
+					y: 0.0015,
+					z: -0.0015
+				},
 				
 				fog: {
-					enabled: false,
+					enabled: true,
 					color: "#FFFFFF",
-					intensity: .43
+					intensity: .02
 				},
 
 				bobImposedMoves: {
@@ -1272,8 +1278,61 @@ const worlds = [
 					fly: true,
 					forward: false,
 					backward: false,
-					left: false,
-					right: false,
+					shift: false
+				},
+
+				slowmo: 3,
+
+				postproc: [
+					{
+						type: "bloom",
+						value: {
+							strength: .49,
+							threshold: 0.047,
+							radius: 0.26
+						}
+					},
+				]
+
+			},
+			{
+				id: "4.13",
+				baseFov: 45,
+				fovTransition: false,
+				sequenceBobName: "link",
+
+				type: "third-person",
+				cameraTriggerTimeDecay: 0,
+				cameraType: "movingFly-helmet",
+
+				until: 192.5,
+				nextInstruction: "switch-sequence",
+
+				animatedMesh: false,
+
+				helpers: {
+					orbit: false,
+					tubes: false,
+					timelines: false
+				},
+
+				landscapeMove: {
+					x: 0,
+					y: -0.014,
+					z: 0
+				},
+				
+				fog: {
+					enabled: true,
+					color: "#FFFFFF",
+					intensity: .01
+				},
+
+				bobImposedMoves: {
+					// forward: true
+					fly: true,
+					forward: false,
+					backward: false,
 					shift: false
 				},
 
@@ -1281,9 +1340,9 @@ const worlds = [
 					{
 						type: "bloom",
 						value: {
-							strength: .65,
-							threshold: 0.085,
-							radius: 0.5
+							strength: .49,
+							threshold: 0.047,
+							radius: 0.26
 						}
 					},
 				]

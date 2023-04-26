@@ -24,6 +24,7 @@ class SequencesManager{
 		this.vm = vm;
 		this.stickedBobInputs = {};
 		this.isCurrentlyTransitionning = false;
+		this.axes = ["x", "y", "z"];
 
 		this.vm.$nuxt.$on("bob-inputs-update", ( event ) => { this.updateBobStickedInputs(event, this) });
 
@@ -624,6 +625,20 @@ class SequencesManager{
 
 			currentSceneElements.particlesCollection.forEach(particleInstance => {
 				particleInstance._builtParticle.material.uniforms.uTime.value = elapsedTime / (currentSequenceElements.slowmo || 1);
+			});
+
+		}
+
+
+		// if landscapeMove
+		if( currentSequenceElements.sequenceInfos.landscapeMove ){
+
+			// console.log('wsh le currentSceneElements : ', currentSceneElements);
+
+			this.axes.forEach(axe => {
+
+				currentSceneElements.landscape.position[axe] += currentSequenceElements.sequenceInfos.landscapeMove[axe]
+
 			});
 
 		}

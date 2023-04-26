@@ -402,17 +402,17 @@ const core = {
 			offset: {
 				x: 0,
 				y: 0.03,
-				z: 0.02
+				z: -0.04
 			},
 			lookAt: {
 				x: 0,
 				y: 0,
-				z: 0.05
+				z: 0.001
 			},
 			straightness: 0.04,
 			mouseOrientationPonderation: {
-				x: 0.02,
-				y: 0.02
+				x: 0.025,
+				y: 0.025
 			},
 			motion: {
 				// motion will move the camera continuously
@@ -420,19 +420,57 @@ const core = {
 				// and it's related at the offset values
 				x: {
 					// ratios
-					range: 0.06,
-					velocity: 0.4
+					range: 0.04,
+					velocity: 0.25
 				},
 				y: {
 					range: 0.015,
-					velocity: 0.1
+					velocity: 0.5
 				},
 				z: {
-					range: -0.04,
-					velocity: 0.1
+					range: 0.01,
+					velocity: 0.4
 				},
 			},
 		},
+
+		"movingFly-helmet": {
+			offset: {
+				x: 0,
+				y: 0.015,
+				z: 0.085
+			},
+			lookAt: {
+				x: 0,
+				y: 0,
+				z: -0.01
+			},
+			straightness: 0.04,
+			mouseOrientationPonderation: {
+				x: 0.002,
+				y: 0.002
+			},
+			motion: {
+				// motion will move the camera continuously
+				// with a sin() (so -1 to 1)
+				// and it's related at the offset values
+				x: {
+					// ratios
+					range: 0.01,
+					velocity: 0.2
+				},
+				y: {
+					range: -0.015,
+					velocity: 0.3
+				},
+				z: {
+					range: 0,
+					velocity: 0.1
+				},
+			},
+			
+		},
+
 		movingFloating: {
 			offset: {
 				x: 0,
