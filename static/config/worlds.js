@@ -121,10 +121,10 @@ const worlds = [
 		sequences: [
 			{
 				id: "1.0",
-				baseFov: 10,
+				baseFov: 15,
 				fovTransition: false,
 				sequenceBobName: "link",
-				until: 21,
+				until: 14,
 				nextInstruction: "switch-sequence",
 
 				type: "blender-points",
@@ -140,11 +140,11 @@ const worlds = [
 				fog: {
 					enabled: true,
 					color: "#000000",
-					intensity: .95
+					intensity: .25
 				},
 
 				tubeInfos: {
-					duration: 30,
+					duration: 18,
 					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
 					isUsingTarget: true,
 					steps: [
@@ -152,21 +152,15 @@ const worlds = [
 						// n has nothing to do with the number of points for the curve
 						{
 							// this amount is a percent of the global duration
-							amount: 50,
-							fov: 15,
-							stepEase: "linear"
-						},
-						{
-							// this amount is a percent of the global duration
-							amount: 50,
-							fov: 17,
+							amount: 100,
+							fov: 90,
 							stepEase: "linear"
 						},
 						
 					]
 				},
 
-				slowmo: 5,
+				slowmo: 20,
 
 				bobImposedMoves: {
 					forward: true,
@@ -193,7 +187,7 @@ const worlds = [
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 5,
-				cameraType: "helmet-low",
+				cameraType: "helmet-low-leave-house",
 
 				until: 26.5,
 				nextInstruction: "switch-scene",
@@ -209,10 +203,10 @@ const worlds = [
 				fog: {
 					enabled: true,
 					color: "#000000",
-					intensity: .98
+					intensity: .68
 				},
 
-				slowmo: 8,
+				slowmo: 6,
 
 				bobImposedMoves: {
 					forward: true,
@@ -383,7 +377,7 @@ const worlds = [
 			},
 			{
 				id: "3.4",
-				baseFov: 27,
+				baseFov: 23,
 				fovTransition: true,
 				sequenceBobName: "juan",
 
@@ -940,8 +934,8 @@ const worlds = [
 			},
 			{
 				id: "4.8",
-				baseFov: 37,
-				fovTransition: true,
+				baseFov: 35,
+				fovTransition: false,
 				sequenceBobName: "link",
 
 				// type: "blender-points",
@@ -1027,7 +1021,7 @@ const worlds = [
 					backward: false
 				},
 
-				slowmo: 1.4,
+				slowmo: 1.1,
 
 				postproc: [
 
@@ -1185,7 +1179,9 @@ const worlds = [
 				},
 
 				bobImposedMoves: {
-					// forward: true
+					forward: true,
+					shift: true,
+					backward: false
 				},
 
 				postproc: [
@@ -1193,8 +1189,8 @@ const worlds = [
 						type: "bloom",
 						value: {
 							strength: .65,
-							threshold: 0.085,
-							radius: 0.5
+							threshold: 0.1,
+							radius: 0.4
 						}
 					},
 				]
@@ -1302,10 +1298,10 @@ const worlds = [
 				sequenceBobName: "link",
 
 				type: "third-person",
-				cameraTriggerTimeDecay: 0,
+				cameraTriggerTimeDecay: 35,
 				cameraType: "movingFly-helmet",
 
-				until: 192.5,
+				until: 292.5,
 				nextInstruction: "switch-sequence",
 
 				animatedMesh: false,
@@ -1318,7 +1314,7 @@ const worlds = [
 
 				landscapeMove: {
 					x: 0,
-					y: -0.014,
+					y: -0.01,
 					z: 0
 				},
 				
@@ -1333,7 +1329,7 @@ const worlds = [
 					fly: true,
 					forward: false,
 					backward: false,
-					shift: false
+
 				},
 
 				postproc: [

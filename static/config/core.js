@@ -222,21 +222,35 @@ const core = {
 			}
 		},
 		
-		"helmet-low": {
+		"helmet-low-leave-house": {
 			offset: {
-				x: 0,
-				y: 0.015,
-				z: 0.05
+				x: -0.05,
+				y: 0.001,
+				z: 0.09
 			},
 			lookAt: {
 				x: 0,
-				y: 0.015,
-				z: -0.6
+				y: 0.017,
+				z: 0
 			},
 			straightness: 0.04,
 			mouseOrientationPonderation: {
-				x: -0.08,
-				y: 0.08
+				x: -0.05,
+				y: 0.05
+			},
+			motion: {
+				x: {
+					range: 0.1,
+					velocity: 0.17
+				},
+				y: {
+					range: 0,
+					velocity: 0
+				},
+				z: {
+					range: 0,
+					velocity: 0
+				},
 			}
 		},
 		"helmet-low-moving": {
@@ -438,17 +452,17 @@ const core = {
 			offset: {
 				x: 0,
 				y: 0.015,
-				z: 0.085
+				z: 0.065
 			},
 			lookAt: {
 				x: 0,
 				y: 0,
-				z: -0.01
+				z: 0
 			},
 			straightness: 0.04,
 			mouseOrientationPonderation: {
-				x: 0.002,
-				y: 0.002
+				x: 0.015,
+				y: 0.015
 			},
 			motion: {
 				// motion will move the camera continuously
@@ -456,15 +470,15 @@ const core = {
 				// and it's related at the offset values
 				x: {
 					// ratios
-					range: 0.01,
-					velocity: 0.2
+					range: 0.07,
+					velocity: 0.35
 				},
 				y: {
-					range: -0.015,
+					range: -0.09,
 					velocity: 0.3
 				},
 				z: {
-					range: 0,
+					range: 0.25,
 					velocity: 0.1
 				},
 			},
