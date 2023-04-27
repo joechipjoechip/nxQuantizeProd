@@ -165,11 +165,12 @@
 
 			initSound(){
 				const audio = new Audio(sound);
+				audio.playsInline = true;
 				this.$store.commit("setAudio", audio);
 
 
 				// debug currenttime
-				this.$store.commit("setAudioTimecode", 140);
+				// this.$store.commit("setAudioTimecode", 130);
 
 			},
 
