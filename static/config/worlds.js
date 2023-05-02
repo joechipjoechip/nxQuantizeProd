@@ -94,9 +94,9 @@ const worlds = [
 			spaceColorWithBloom: "#000000",
 
 			ambient: {
-				sunColor: "#FFFFFF",
-				intensity: 0.6,
-				groundColor: "#04007A"
+				sunColor: "#000000",
+				intensity: 0.4,
+				groundColor: "#FFFFFF"
 			},
 
 			fog: {
@@ -104,13 +104,35 @@ const worlds = [
 				color: 0xff9500,
 				intensity: .85
 			},
+
+			// particles: [
+			// 	{
+			// 		type: "fireflies",
+			// 		count: 550,
+			// 		particleSize: 30,
+			// 		additive: true,
+			// 		timeRatio: 8.0,
+			// 		blockSize: {
+			// 			x: 2,
+			// 			y: 5,
+			// 			z: 3
+			// 		}
+			// 	}
+			// ],
 			
 			meshInfos: {
 
 				glbPath: "/assets/3d/worlds/lightHouse/lightHouse.glb",
 				imagePath: {
 					landscape: "/assets/3d/worlds/lightHouse/lightHouseBake.jpg"
-				}
+				},
+				// options: {
+				// 	metalness: 0.2,
+				// 	// roughness: 1,
+				// 	reflectivity: 0.7,
+				// 	shininess: 20,
+				// 	specular: 0xFF0000,
+				// }
 
 			},
 
@@ -121,7 +143,7 @@ const worlds = [
 		sequences: [
 			{
 				id: "1.0",
-				baseFov: 15,
+				baseFov: 5,
 				fovTransition: false,
 				sequenceBobName: "link",
 				until: 14,
@@ -143,6 +165,10 @@ const worlds = [
 					intensity: .25
 				},
 
+				movingTexture: {
+					texturePath: "/assets/3d/worlds/lighthouse/movingTexture.png"
+				},
+
 				tubeInfos: {
 					duration: 18,
 					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
@@ -153,14 +179,14 @@ const worlds = [
 						{
 							// this amount is a percent of the global duration
 							amount: 100,
-							fov: 90,
+							fov: 100,
 							stepEase: "linear"
 						},
 						
 					]
 				},
 
-				slowmo: 20,
+				slowmo: 9,
 
 				bobImposedMoves: {
 					forward: true,
@@ -173,9 +199,13 @@ const worlds = [
 
 				postproc: [
 					// {
-					// 	type: "afterimage",
-					// 	damp: 0.5
-					// }
+					// 	type: "bloom",
+					// 	value: {
+					// 		strength: 0.7,
+					// 		threshold: 0.35,
+					// 		radius: 0.4
+					// 	}
+					// },
 				]
 
 			},
@@ -222,9 +252,9 @@ const worlds = [
 					{
 						type: "bloom",
 						value: {
-							strength: 0.9,
-							threshold: 0.35,
-							radius: 0.3
+							strength: 0.025,
+							threshold: 0.035,
+							radius: 0.25
 						}
 					},
 

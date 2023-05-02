@@ -178,11 +178,14 @@ class SceneBuilder {
 
 		if( textureTransmitted.options.metalness ){
 
-			bakedMaterial = new THREE.MeshStandardMaterial({
-				map: texture,
+			bakedMaterial = new THREE.MeshPhongMaterial({
+				// map: texture,
 	
 				roughness: textureTransmitted.options.roughness || 0, 
-				metalness: textureTransmitted.options.metalness || 0
+				metalness: textureTransmitted.options.metalness || 0,
+				reflectivity: textureTransmitted.options.reflectivity || 0, 
+				specular: textureTransmitted.options.specular || 0,
+				shininess: textureTransmitted.options.shininess || 0,
 			});
 
 
