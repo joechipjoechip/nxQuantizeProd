@@ -96,8 +96,7 @@ class ThirdPersonCamera {
 	
 		// t = facteur de latence du positionnement de la camera : 
 		// où 1 = straight
-		// const t = 0.02;
-		// const t = 4.0 * timeElapsed;
+
 		// best implementation :
 		const t = (1.0 - Math.pow(0.1, timeElapsed)) * (optionsObj.isCurrentlyTransitionning ? 1 : this._specs.straightness);
 	

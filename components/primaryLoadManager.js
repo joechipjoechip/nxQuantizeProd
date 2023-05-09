@@ -49,9 +49,6 @@ class PrimaryLoadManager{
 		const position = new THREE.Vector3(0,0,0);
 		const rotation = new THREE.Vector3(0,0,0);
 		const promises = [];
-		const bobsCreated = [];
-
-		// const { position, rotation } = this.sceneElements.positionsCollection.find(blenderObject => blenderObject.name === "bob-position_1-0")
 
 
 		Object.keys(this.entities.bobs).forEach(bobKey => {
@@ -69,15 +66,10 @@ class PrimaryLoadManager{
 		Promise.all([...promises])
 			.then(
 				targets => {
-
-					// console.log("promise.all -> result all : ", targets);
-
 					this._LoadMovesAndCreateBob(targets);
 				},
 				reason => {
-
 					console.log("Promise.all fails : reason : ", reason)
-
 				}
 			);
 

@@ -94,31 +94,31 @@ const worlds = [
 			spaceColorWithBloom: "#000000",
 
 			ambient: {
-				sunColor: "#000000",
-				intensity: 0.4,
-				groundColor: "#FFFFFF"
+				sunColor: "#FF9645",
+				intensity: 0.6,
+				groundColor: "#FF5D1B"
 			},
 
 			fog: {
 				enabled: true,
 				color: 0xff9500,
-				intensity: .85
+				intensity: .65
 			},
 
-			// particles: [
-			// 	{
-			// 		type: "fireflies",
-			// 		count: 550,
-			// 		particleSize: 30,
-			// 		additive: true,
-			// 		timeRatio: 8.0,
-			// 		blockSize: {
-			// 			x: 2,
-			// 			y: 5,
-			// 			z: 3
-			// 		}
-			// 	}
-			// ],
+			particles: [
+				{
+					type: "fireflies",
+					count: 250,
+					particleSize: 20,
+					additive: true,
+					timeRatio: 36.0,
+					blockSize: {
+						x: 3,
+						y: 2,
+						z: 2
+					}
+				}
+			],
 			
 			meshInfos: {
 
@@ -165,10 +165,6 @@ const worlds = [
 					intensity: .25
 				},
 
-				movingTexture: {
-					texturePath: "/assets/3d/worlds/lighthouse/movingTexture.png"
-				},
-
 				tubeInfos: {
 					duration: 18,
 					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
@@ -201,7 +197,7 @@ const worlds = [
 					// {
 					// 	type: "bloom",
 					// 	value: {
-					// 		strength: 0.7,
+					// 		strength: 0.5,
 					// 		threshold: 0.35,
 					// 		radius: 0.4
 					// 	}
@@ -240,11 +236,11 @@ const worlds = [
 
 				bobImposedMoves: {
 					forward: true,
-					left: false,
-					right: false,
+					// left: false,
+					// right: false,
 					dance: false,
-					backward: false,
-					shift: false
+					// backward: false,
+					// shift: false
 				},
 
 				postproc: [
@@ -252,9 +248,9 @@ const worlds = [
 					{
 						type: "bloom",
 						value: {
-							strength: 0.025,
-							threshold: 0.035,
-							radius: 0.25
+							strength: 0.5,
+							threshold: 0.35,
+							radius: 0.4
 						}
 					},
 
@@ -373,10 +369,10 @@ const worlds = [
 				sequenceBobName: "juan",
 
 				type: "third-person",
-				cameraTriggerTimeDecay: 9,
+				cameraTriggerTimeDecay: 12,
 				cameraType: "movingHips",
 
-				until: 43,
+				until: 44,
 				nextInstruction: "drop-and-load-and-switch",
 
 				animatedMesh: false,
@@ -606,11 +602,11 @@ const worlds = [
 					slowmo: 5
 				},
 
-				slowmo: 3,
+				slowmo: 2.5,
 
 				bobImposedMoves: {
 					forward: true,
-					shift: false
+					// shift: false
 				},
 
 				postproc: [
@@ -621,7 +617,7 @@ const worlds = [
 						value: {
 							focus: 1,
 							aperture: 0.025,
-							maxblur: 0.008
+							maxblur: 0.01
 						}
 					},
 
@@ -931,20 +927,20 @@ const worlds = [
 					intensity: .43
 				},
 
-				alice: {
-					handleGround: false,
-					name: "queen",
-					move: {
-						dancing: true
-					},
-					offset: {
-						x: 0,
-						y: 0,
-						z: 0
-					},
-					scale: 0.3,
-					slowmo: 6
-				},
+				// alice: {
+				// 	handleGround: false,
+				// 	name: "queen",
+				// 	move: {
+				// 		dancing: true
+				// 	},
+				// 	offset: {
+				// 		x: 0,
+				// 		y: 0,
+				// 		z: 0
+				// 	},
+				// 	scale: 0.3,
+				// 	slowmo: 6
+				// },
 
 				bobImposedMoves: {
 					shift: true,
@@ -956,7 +952,7 @@ const worlds = [
 					{
 						type: "vignette",
 						darkness: 1.5,
-						offset: 1.04
+						offset: 1.4
 					}
 
 				]
@@ -970,7 +966,7 @@ const worlds = [
 
 				// type: "blender-points",
 				type: "third-person",
-				cameraTriggerTimeDecay: 8,
+				cameraTriggerTimeDecay: 13,
 				cameraType: "movingHips-2",
 
 				until: 101,
@@ -1011,7 +1007,13 @@ const worlds = [
 					hiphop: false
 				},
 
-				postproc: []
+				postproc: [
+					{
+						type: "vignette",
+						darkness: 1.5,
+						offset: 1.2
+					}
+				]
 
 			},
 			{
