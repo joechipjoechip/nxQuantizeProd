@@ -505,7 +505,15 @@
 
 				if( this.isAdjustingDownScale ){ return; }
 
+				if( this.currentFPSValue > this.arbitraryFpsLimit && this.$store.state.downScale !== 1 ){
 
+					this.$store.commit('setDownScale', 1);
+					this.clearDownScaleTimeout();
+
+					return;
+
+				}
+				
 				if( this.currentFPSValue < this.arbitraryFpsLimit || this.$store.state.downScale > this.arbitraryDownScaleLimit ){
 					// console.log("adjusting start : fps value : ----> ", this.currentFPSValue);
 

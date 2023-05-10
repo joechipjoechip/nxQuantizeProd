@@ -588,7 +588,7 @@ class SequencesManager{
 		}
 
 		// if any blur effect, focus needs updates : 
-		if( currentSequenceElements.focusTarget ){
+		if( currentSequenceElements.focusTarget?._controls ){
 			this.focusTargetAndBlurTheRestHandler(currentSequenceElements);
 		}
 
@@ -627,7 +627,7 @@ class SequencesManager{
 		if( currentSceneElements.particlesCollection.length ){
 
 			currentSceneElements.particlesCollection.forEach(particleInstance => {
-				particleInstance._builtParticle.material.uniforms.uTime.value = elapsedTime / (currentSequenceElements.slowmo || 1);
+				particleInstance._builtParticle.material.uniforms.uTime.value = elapsedTime;
 			});
 
 		}
@@ -635,8 +635,6 @@ class SequencesManager{
 
 		// if landscapeMove
 		if( currentSequenceElements.sequenceInfos.landscapeMove ){
-
-			// console.log('wsh le currentSceneElements : ', currentSceneElements);
 
 			this.axes.forEach(axe => {
 
@@ -646,17 +644,9 @@ class SequencesManager{
 
 		}
 
-		// etc..
-
 	}
 
 	focusTargetAndBlurTheRestHandler( currentSequenceElements ){
-
-		const blurPostproc = currentSequenceElements.postproc.find(postproc => postproc.postprocType === "blur");
-
-		if( !currentSequenceElements.focusTarget._controls ){
-			return;
-		}
 
 		const { x, y, z } = this.sceneBundlePassed.camera.position;
 
@@ -664,9 +654,7 @@ class SequencesManager{
 		const distance = new THREE.Vector3(x,y,z).distanceTo({...currentSequenceElements.focusTarget._controls._position});
 
 		// update focus value in blur effect
-		blurPostproc.effectsPass[0].uniforms.focus.value = distance
-
-		// console.log("blurPostproc stuffs distance --> ", distance, currentSequenceElements.focusTarget)
+		currentSequenceElements.postproc.find(postproc => postproc.postprocType === "blur").effectsPass[0].uniforms.focus.value = distance
 
 	}
 

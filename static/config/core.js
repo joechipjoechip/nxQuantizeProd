@@ -132,6 +132,41 @@ const core = {
 				},
 			},
 		},
+		"movingHips-oula": {
+			offset: {
+				x: 0,
+				y: 0.011,
+				z: -0.035
+			},
+			lookAt: {
+				x: 0,
+				y: 0.015,
+				z: 0.05
+			},
+			straightness: 0.015,
+			mouseOrientationPonderation: {
+				x: 0.015,
+				y: 0.026
+			},
+			motion: {
+				// motion will move the camera continuously
+				// with a sin() (so -1 to 1)
+				// and it's related at the offset values
+				x: {
+					// ratios
+					range: 0.03,
+					velocity: 0.4
+				},
+				y: {
+					range: 0,
+					velocity: 1
+				},
+				z: {
+					range: -0.05,
+					velocity: 0.2
+				},
+			},
+		},
 		"movingHips-lookUp": {
 			offset: {
 				x: 0,
@@ -256,18 +291,18 @@ const core = {
 		"helmet-low-moving": {
 			offset: {
 				x: 0,
-				y: 0.0015,
-				z: 0.02
+				y: 0.0011,
+				z: 0.04
 			},
 			lookAt: {
 				x: 0,
-				y: 0.015,
-				z: -0.1
+				y: 0.035,
+				z: -0.15
 			},
 			straightness: 0.04,
 			mouseOrientationPonderation: {
-				x: -0.08,
-				y: 0.08
+				x: -0.04,
+				y: 0.04
 			},
 			motion: {
 				// motion will move the camera continuously
@@ -337,8 +372,8 @@ const core = {
 			},
 			straightness: 0.015,
 			mouseOrientationPonderation: {
-				x: 0.015,
-				y: 0.026
+				x: 0.05,
+				y: 0.085
 			},
 			motion: {
 				// motion will move the camera continuously
