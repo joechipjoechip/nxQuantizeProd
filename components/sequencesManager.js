@@ -610,6 +610,9 @@ class SequencesManager{
 				currentSequenceElements.blenderTubesManager._tubeTravelTargetPosition
 			);
 
+			currentSequenceElements.camera.rotation.y += (currentMousePos.x / 10)
+			currentSequenceElements.camera.rotation.x += (currentMousePos.y / 10)
+
 		}
 
 		// if any fake-orbit
