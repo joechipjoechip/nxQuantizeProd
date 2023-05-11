@@ -538,7 +538,7 @@ const worlds = [
 						{
 							// this amount is a percent of the global duration
 							amount: 100,
-							fov: 75,
+							fov: 35,
 							stepEase: "linear"
 						}
 						
@@ -632,7 +632,7 @@ const worlds = [
 				cameraTriggerTimeDecay: 6,
 				cameraType: "movingHips-oula",
 
-				until: 71,
+				until: 69,
 				nextInstruction: "drop-and-load-and-switch",
 
 				animatedMesh: false,
@@ -703,9 +703,9 @@ const worlds = [
 			spaceColorWithBloom: "#000000",
 
 			ambient: {
-				sunColor: "#FF4E00",
-				intensity: 0.5,
-				groundColor: "#000000"
+				sunColor: "#FF7400",
+				intensity: 0.55,
+				groundColor: "#6200FF"
 			},
 
 			fog: {
@@ -717,14 +717,14 @@ const worlds = [
 			particles: [
 				{
 					type: "fireflies",
-					count: 550,
+					count: 650,
 					particleSize: 25,
 					additive: true,
 					timeRatio: 400.0,
 					blockSize: {
-						x: 3,
+						x: 2,
 						y: 3,
-						z: 5
+						z: 2
 					}
 				}
 			],
@@ -738,23 +738,23 @@ const worlds = [
 			},
 
 
-			entities: ["link"],
+			entities: ["link", "juan"],
 
 		},
 
 		sequences: [
-			
+
 			{
 				id: "4.5",
 				baseFov: 35,
-				fovTransition: false,
+				fovTransition: true,
 				sequenceBobName: "link",
 
 				type: "third-person",
-				cameraTriggerTimeDecay: 5,
-				cameraType: "helmet-low-moving",
+				cameraTriggerTimeDecay: 15,
+				cameraType: "climb-view",
 
-				until: 80.5,
+				until: 76.5,
 				nextInstruction: "switch-sequence",
 
 				animatedMesh: false,
@@ -766,33 +766,37 @@ const worlds = [
 				},
 				
 				fog: {
-					enabled: true,
-					color: "#0D063B",
-					intensity: .15
+					enabled: false,
+					color: "#000000",
+					intensity: .75
 				},
 
 				bobImposedMoves: {
 					forward: false,
 					shift: false,
 					backward: false,
-					housedance: true,
+					hiphop: false,
 					left: false,
 					right: false,
+					climb: true
 				},
 
-				slowmo: 2,
+				slowmo: 1.3,
 
 				postproc: [
-			
+					// {
+					// 	type: "rgbShift",
+					// 	amount: 0.006
+					// },
 					{
-						type: "bloom",
+						type: "blur",
+						focusTarget: "link",
 						value: {
-							strength: .7,
-							threshold: 0.45,
-							radius: 0.05
+							focus: 1,
+							aperture: 0.4,
+							maxblur: 0.045
 						}
 					},
-
 				]
 
 			},
@@ -800,12 +804,12 @@ const worlds = [
 			{
 				id: "4.6",
 				baseFov: 35,
-				fovTransition: true,
-				sequenceBobName: "link",
+				fovTransition: false,
+				sequenceBobName: "juan",
 
 				type: "third-person",
-				cameraTriggerTimeDecay: 15,
-				cameraType: "climb-view",
+				cameraTriggerTimeDecay: 5,
+				cameraType: "helmet-low-moving",
 
 				until: 85.5,
 				nextInstruction: "drop-and-load-and-switch",
@@ -819,26 +823,57 @@ const worlds = [
 				},
 				
 				fog: {
-					enabled: true,
-					color: "#000000",
-					intensity: .05
+					enabled: false,
+					color: "#0D063B",
+					intensity: .15
+				},
+
+				alice: {
+					handleGround: false,
+					name: "link",
+					move: {
+						climb: true
+					},
+					offset: {
+						x: 0,
+						y: 0,
+						z: 0
+					},
+					scale: 0.0015,
+					slowmo: 1.3
 				},
 
 				bobImposedMoves: {
 					forward: false,
 					shift: false,
 					backward: false,
-					hiphop: false,
+					housedance: true,
 					left: false,
 					right: false,
-					climb: true
 				},
 
+				slowmo: 3.5,
+
 				postproc: [
-					// {
-					// 	type: "rgbShift",
-					// 	amount: 0.12
-					// },
+			
+					{
+						type: "bloom",
+						value: {
+							strength: .5,
+							threshold: 0.45,
+							radius: 0.05
+						}
+					},
+					{
+						type: "blur",
+						focusTarget: "link",
+						value: {
+							focus: 1,
+							aperture: 0.025,
+							maxblur: 0.015
+						}
+					},
+
 				]
 
 			},
@@ -852,9 +887,9 @@ const worlds = [
 
 		main: {
 
-			spaceColor: "#002038",
-			spaceColorDarker: "#001220",
-			spaceColorWithBloom: "#000B14",
+			spaceColor: "#FFFFFF",
+			spaceColorDarker: "#FFFFFF",
+			spaceColorWithBloom: "#FFFFFF",
 
 			ambient: {
 				sunColor: "#FFFFFF",
@@ -871,7 +906,7 @@ const worlds = [
 			particles: [
 				{
 					type: "fireflies",
-					count: 100,
+					count: 200,
 					particleSize: 20,
 					additive: true,
 					timeRatio: 3.0,
@@ -925,21 +960,6 @@ const worlds = [
 					intensity: .43
 				},
 
-				// alice: {
-				// 	handleGround: false,
-				// 	name: "queen",
-				// 	move: {
-				// 		dancing: true
-				// 	},
-				// 	offset: {
-				// 		x: 0,
-				// 		y: 0,
-				// 		z: 0
-				// 	},
-				// 	scale: 0.3,
-				// 	slowmo: 6
-				// },
-
 				bobImposedMoves: {
 					shift: true,
 					forward: true
@@ -949,8 +969,8 @@ const worlds = [
 
 					{
 						type: "vignette",
-						darkness: 1.5,
-						offset: 1.4
+						darkness: -1.5,
+						offset: 1.1
 					}
 
 				]
@@ -959,13 +979,13 @@ const worlds = [
 			{
 				id: "4.8",
 				baseFov: 35,
-				fovTransition: false,
-				sequenceBobName: "link",
+				fovTransition: true,
+				sequenceBobName: "juan",
 
 				// type: "blender-points",
 				type: "third-person",
-				cameraTriggerTimeDecay: 13,
-				cameraType: "movingHips-2",
+				cameraTriggerTimeDecay: 4,
+				cameraType: "movingHips-lookUp",
 
 				until: 101,
 				nextInstruction: "switch-sequence",
@@ -992,15 +1012,16 @@ const worlds = [
 					},
 					offset: {
 						x: 0,
-						y: 0,
+						y: -0.55,
 						z: 0
 					},
-					scale: 0.3,
-					slowmo: 16
+					scale: 0.25,
+					slowmo: 8
 				},
 
 				bobImposedMoves: {
-					forward: true,
+					shift: false,
+					// forward: true,
 					backward: false,
 					hiphop: false
 				},
@@ -1008,9 +1029,18 @@ const worlds = [
 				postproc: [
 					{
 						type: "vignette",
-						darkness: 1.5,
-						offset: 1.2
-					}
+						darkness: -0.8,
+						offset: 0.8
+					},
+					{
+						type: "blur",
+						focusTarget: "queen",
+						value: {
+							focus: 1,
+							aperture: 0.025,
+							maxblur: 0.025
+						}
+					},
 				]
 
 			},
@@ -1044,14 +1074,14 @@ const worlds = [
 
 				bobImposedMoves: {
 					hiphop: true,
-					forward: false,
-					left: false,
-					right: false,
-					shift: false,
-					backward: false
+					// forward: false,
+					// left: false,
+					// right: false,
+					// shift: false,
+					// backward: false
 				},
 
-				slowmo: 1.1,
+				slowmo: 1.15,
 
 				postproc: [
 
@@ -1061,6 +1091,15 @@ const worlds = [
 							strength: 0.2,
 							threshold: 0.005,
 							radius: 0.2
+						}
+					},
+					{
+						type: "blur",
+						focusTarget: "link",
+						value: {
+							focus: 1,
+							aperture: 0.025,
+							maxblur: 0.025
 						}
 					},
 
@@ -1117,7 +1156,7 @@ const worlds = [
 				cameraTriggerTimeDecay: 14,
 				cameraType: "movingHips-oula",
 
-				until: 125,
+				until: 114.5,
 				nextInstruction: "drop-and-load-and-switch",
 
 				animatedMesh: false,
@@ -1156,9 +1195,9 @@ const worlds = [
 			spaceColorWithBloom: "#000000",
 
 			ambient: {
-				sunColor: "#FFFFFF",
-				intensity: 0.2,
-				groundColor: "#04007A"
+				sunColor: "#2700FF",
+				intensity: 0.5,
+				groundColor: "#FF3700"
 			},
 
 			fog: {
@@ -1183,9 +1222,103 @@ const worlds = [
 		sequences: [
 			{
 				id: "4.11",
-				baseFov: 50,
+				baseFov: 10,
 				fovTransition: false,
-				sequenceBobName: "juan",
+				sequenceBobName: "link",
+
+				type: "blender-points",
+
+				until: 121.5,
+				nextInstruction: "switch-sequence",
+
+				animatedMesh: false,
+
+				helpers: {
+					orbit: false,
+					tubes: false,
+					timelines: false
+				},
+				
+				fog: {
+					enabled: false,
+					color: "#FFFFFF",
+					intensity: .43
+				},
+
+				tubeInfos: {
+					duration: 8,
+					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
+					isUsingTarget: true,
+					steps: [
+						// n steps are possibles
+						// n has nothing to do with the number of points for the curve
+						{
+							// this amount is a percent of the global duration
+							amount: 100,
+							fov: 35,
+							stepEase: "linear"
+						},
+						
+					]
+				},
+
+				alice: {
+					handleGround: false,
+					name: "juan",
+					move: {
+						climb: true,
+						forward: false,
+						backward: false,
+						left: false,
+						right: false,
+						hiphop: false,
+						housedance: false
+					},
+					offset: {
+						x: 0,
+						y: 0,
+						z: 0
+					},
+					scale: 0.001,
+					slowmo: 1.5
+				},
+
+				// bobImposedMoves: {
+				// 	forward: false,
+				// 	backward: false,
+				// 	left: false,
+				// 	right: false,
+				// 	climb: false,
+				// 	housedance: false,
+				// 	hiphop: false
+				// },
+
+				postproc: [
+					{
+						type: "bloom",
+						value: {
+							strength: .65,
+							threshold: 0.05,
+							radius: 0.4
+						}
+					},
+					{
+						type: "blur",
+						focusTarget: "juan",
+						value: {
+							focus: 1,
+							aperture: 0.015,
+							maxblur: 0.028
+						}
+					},
+				]
+
+			},
+			{
+				id: "4.12",
+				baseFov: 50,
+				fovTransition: true,
+				sequenceBobName: "link",
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 16,
@@ -1208,10 +1341,29 @@ const worlds = [
 					intensity: .43
 				},
 
+				alice: {
+					handleGround: false,
+					name: "juan",
+					move: {
+						climb: true
+					},
+					offset: {
+						x: 0,
+						y: 0,
+						z: 0
+					},
+					scale: 0.0011,
+					slowmo: 1.3
+				},
+
 				bobImposedMoves: {
+					housedance: false,
+					climb: false,
+					hiphop: false,
+					fly: false,
+					floating: false,
 					forward: true,
-					shift: true,
-					backward: false
+					shift: true
 				},
 
 				postproc: [
@@ -1219,8 +1371,17 @@ const worlds = [
 						type: "bloom",
 						value: {
 							strength: .65,
-							threshold: 0.1,
+							threshold: 0.05,
 							radius: 0.4
+						}
+					},
+					{
+						type: "blur",
+						focusTarget: "juan",
+						value: {
+							focus: 1,
+							aperture: 0.015,
+							maxblur: 0.028
 						}
 					},
 				]
@@ -1267,7 +1428,7 @@ const worlds = [
 
 		sequences: [
 			{
-				id: "4.12",
+				id: "4.13",
 				baseFov: 13,
 				fovTransition: false,
 				sequenceBobName: "link",
@@ -1276,7 +1437,7 @@ const worlds = [
 				cameraTriggerTimeDecay: 20,
 				cameraType: "movingFly",
 
-				until: 173.5,
+				until: 154.5,
 				nextInstruction: "switch-sequence",
 
 				animatedMesh: false,
@@ -1322,7 +1483,7 @@ const worlds = [
 
 			},
 			{
-				id: "4.13",
+				id: "4.14",
 				baseFov: 45,
 				fovTransition: false,
 				sequenceBobName: "link",

@@ -325,9 +325,9 @@ const core = {
 		},
 		"helmet-low-moving-2": {
 			offset: {
-				x: 0.008,
-				y: 0.01,
-				z: 0.035
+				x: 0.08,
+				y: 0.015,
+				z: 0.13
 			},
 			lookAt: {
 				x: 0,
@@ -345,7 +345,7 @@ const core = {
 				// and it's related at the offset values
 				x: {
 					// ratios
-					range: -0.008,
+					range: -0.08,
 					velocity: 0.15
 				},
 				y: {
@@ -361,16 +361,16 @@ const core = {
 
 		"climb-view": {
 			offset: {
-				x: -0.6,
-				y: -0.001,
-				z: -0.75
+				x: -0.35,
+				y: 0.01,
+				z: -1
 			},
 			lookAt: {
 				x: 0,
-				y: 0.02,
+				y: -0.02,
 				z: 0
 			},
-			straightness: 0.015,
+			straightness: 0.025,
 			mouseOrientationPonderation: {
 				x: 0.05,
 				y: 0.085
@@ -381,16 +381,16 @@ const core = {
 				// and it's related at the offset values
 				x: {
 					// ratios
-					range: 0.3,
-					velocity: 0.5
+					range: 0.25,
+					velocity: 0.15
 				},
 				y: {
-					range: 0.2,
-					velocity: 0.4
+					range: 0.1,
+					velocity: 0.1
 				},
 				z: {
-					range: 0.3,
-					velocity: 0.8
+					range: 0.95,
+					velocity: 0.18
 				},
 			},
 		},
@@ -399,11 +399,11 @@ const core = {
 			offset: {
 				x: 0.03,
 				y: 0.035,
-				z: -0.035
+				z: -0.045
 			},
 			lookAt: {
 				x: 0,
-				y: 0,
+				y: -0.05,
 				z: 0.05
 			},
 			straightness: 0.03,

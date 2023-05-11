@@ -593,7 +593,7 @@ class SequencesManager{
 		}
 
 		// if any shadow is casted
-		if( currentSequenceElements.activeShadows?.length ){
+		if( currentSequenceElements.activeShadows?.length && this.currentBobName ){
 
 			currentSceneElements.bobs[this.currentBobName]._controls.UpdateDynamicLightShadowCamera(
 				currentSequenceElements.activeShadows,
