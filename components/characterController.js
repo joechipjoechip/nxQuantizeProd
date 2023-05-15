@@ -13,7 +13,8 @@ import {
 	JazzState,
 	HiphopState,
 	HousedanceState,
-	ClimbState
+	ClimbState,
+	EnjoyState
 } from '@/components/states.js'
 
 class BasicCharacterControllerProxy {
@@ -91,16 +92,16 @@ class BasicCharacterController {
 			return;
 		}
 
-		if( this._isAlice ){
+		// if( this._isAlice ){
+		// 	// TODO : checker si le bug de link qui bouge plus après avoir été considérer alice ne viendrait pas de là ..
+		// 	this._input._keys.forward =  false;
+		// 	this._input._keys.backward =  false;
+		// 	this._input._keys.left =  false;
+		// 	this._input._keys.right =  false;
+		// 	this._input._keys.space =  false;
+		// 	this._input._keys.shift =  false;
 
-			this._input._keys.forward =  false;
-			this._input._keys.backward =  false;
-			this._input._keys.left =  false;
-			this._input._keys.right =  false;
-			this._input._keys.space =  false;
-			this._input._keys.shift =  false;
-
-		}
+		// }
 
 		this._stateMachine.Update(timeInSeconds, this._input);
 
@@ -125,7 +126,8 @@ class BasicCharacterController {
 
 		const acc = this._acceleration.clone();
 
-		if( !this._isAlice ){
+		// if( !this._isAlice ){
+		if( true ){
 
 			if (this._input._keys.shift && !this._input._keys.fly ) {
 				acc.multiplyScalar(3.0);
@@ -337,6 +339,7 @@ class BasicCharacterControllerInput {
 			housedance: false || this._imposedMoves.housedance,
 			hiphop: false || this._imposedMoves.hiphop,
 			climb: false || this._imposedMoves.climb,
+			enjoy: false || this._imposedMoves.enjoy,
 		};
 
 		document.addEventListener('keydown', ( event ) => this._onKeyDown( event ), false);
@@ -448,6 +451,7 @@ class CharacterFSM extends FiniteStateMachine {
 		this._AddState('housedance', HousedanceState);
 		this._AddState('hiphop', HiphopState);
 		this._AddState('climb', ClimbState);
+		this._AddState('enjoy', EnjoyState);
 	}
 };
 

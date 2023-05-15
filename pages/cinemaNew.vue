@@ -68,8 +68,6 @@
 		data(){
 			return {
 				core,
-				// cette valeur, à terme, sera une props envoyée par 
-				// le component qui écoutera l'audio
 				sequenceID: "1.0",
 				mousePos: {
 					x: window.innerWidth / 2,
@@ -168,9 +166,8 @@
 				audio.playsInline = true;
 				this.$store.commit("setAudio", audio);
 
-
 				// debug currenttime
-				// this.$store.commit("setAudioTimecode", 90);
+				this.$store.commit("setAudioTimecode", 100);
 
 			},
 

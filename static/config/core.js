@@ -39,7 +39,8 @@ const core = {
 			"jazz",
 			"hiphop",
 			"housedance",
-			"climb"
+			"climb",
+			"enjoy"
 		]
 	},
 
@@ -451,7 +452,7 @@ const core = {
 			offset: {
 				x: 0,
 				y: 0.03,
-				z: -0.04
+				z: -0.06
 			},
 			lookAt: {
 				x: 0,
@@ -477,7 +478,7 @@ const core = {
 					velocity: 0.5
 				},
 				z: {
-					range: 0.01,
+					range: 0.015,
 					velocity: 0.4
 				},
 			},
