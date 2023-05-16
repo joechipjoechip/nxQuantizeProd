@@ -1,5 +1,6 @@
 uniform float uPixelRatio;
 uniform float uSize;
+uniform float uDownScale;
 uniform float uTime;
 uniform float uTimeratio;
 
@@ -14,6 +15,6 @@ void main(){
 
 	gl_Position = projectionPosition;
 
-	gl_PointSize = uSize * aScale * uPixelRatio;
+	gl_PointSize = (uSize * aScale * uPixelRatio) / uDownScale;
 	gl_PointSize *= (1.0 / - viewPosition.z);
 }

@@ -275,7 +275,7 @@ const worlds = [
 				{
 					type: "fireflies",
 					count: 150,
-					particleSize: 15,
+					particleSize: 25,
 					additive: true,
 					timeRatio: 8.0,
 					blockSize: {
@@ -974,14 +974,14 @@ const worlds = [
 		sequences: [
 			{
 				id: "4.7",
-				baseFov: 18,
+				baseFov: 30,
 				fovTransition: false,
 				sequenceBobName: "link",
 
 				// type: "blender-points",
 				type: "third-person",
 				cameraTriggerTimeDecay: 8,
-				cameraType: "gtaLike",
+				cameraType: "movingHips",
 
 				until: 94,
 				nextInstruction: "switch-sequence",
@@ -1175,6 +1175,21 @@ const worlds = [
 				}
 			},
 
+			particles: [
+				{
+					type: "fireflies",
+					count: 250,
+					particleSize: 10,
+					additive: true,
+					timeRatio: 36.0,
+					blockSize: {
+						x: 7,
+						y: 3,
+						z: 2
+					}
+				}
+			],
+
 
 			entities: ["juan", "link"],
 
@@ -1183,16 +1198,15 @@ const worlds = [
 		sequences: [
 			{
 				id: "4.10",
-				baseFov: 20,
+				baseFov: 35,
 				fovTransition: true,
 				sequenceBobName: "juan",
 
 				type: "third-person",
-				cameraTriggerTimeDecay: 1,
-				cameraType: "gtaLike",
+				cameraTriggerTimeDecay: 8,
+				cameraType: "gtaLike-oula",
 
-				// until: 114.5,
-				until: 134.5,
+				until: 122.8,
 				nextInstruction: "drop-and-load-and-switch",
 
 				animatedMesh: false,
@@ -1210,7 +1224,8 @@ const worlds = [
 				},
 
 				bobImposedMoves: {
-					// forward: true
+					forward: true,
+					shift: true,
 					housedance: false,
 					hiphop: false,
 					climb: false,
@@ -1254,7 +1269,6 @@ const worlds = [
 				}
 			},
 
-
 			entities: ["link", "juan"],
 
 		},
@@ -1268,7 +1282,7 @@ const worlds = [
 
 				type: "blender-points",
 
-				until: 122.5,
+				until: 132.5,
 				nextInstruction: "switch-sequence",
 
 				animatedMesh: false,
@@ -1321,16 +1335,6 @@ const worlds = [
 					slowmo: 1.5
 				},
 
-				// bobImposedMoves: {
-				// 	forward: false,
-				// 	backward: false,
-				// 	left: false,
-				// 	right: false,
-				// 	climb: false,
-				// 	housedance: false,
-				// 	hiphop: false
-				// },
-
 				postproc: [
 					{
 						type: "bloom",
@@ -1340,15 +1344,15 @@ const worlds = [
 							radius: 0.4
 						}
 					},
-					{
-						type: "blur",
-						focusTarget: "juan",
-						value: {
-							focus: 1,
-							aperture: 0.015,
-							maxblur: 0.028
-						}
-					},
+					// {
+					// 	type: "blur",
+					// 	focusTarget: "juan",
+					// 	value: {
+					// 		focus: 1,
+					// 		aperture: 0.015,
+					// 		maxblur: 0.028
+					// 	}
+					// },
 				]
 
 			},
@@ -1497,12 +1501,12 @@ const worlds = [
 				bobImposedMoves: {
 					// forward: true
 					fly: true,
-					forward: false,
+					// forward: false,
 					backward: false,
 					shift: false
 				},
 
-				slowmo: 3,
+				slowmo: 1,
 
 				postproc: [
 					{
@@ -1554,6 +1558,8 @@ const worlds = [
 					fly: true,
 					forward: false,
 					backward: false,
+					left: false,
+					right: false,
 
 				},
 

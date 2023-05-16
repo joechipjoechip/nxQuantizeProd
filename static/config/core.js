@@ -81,6 +81,41 @@ const core = {
 				},
 			}
 		},
+		"gtaLike-oula": {
+			offset: {
+				x: 0,
+				y: 0.01,
+				z: -0.08
+			},
+			lookAt: {
+				x: 0,
+				y: 0.07,
+				z: 1
+			},
+			straightness: 0.024,
+			mouseOrientationPonderation: {
+				x: 0.25,
+				y: 0.72
+			},
+			motion: {
+				// motion will move the camera continuously
+				// with a sin() (so -1 to 1)
+				// and it's related at the offset values
+				x: {
+					// ratios
+					range: 0.01,
+					velocity: 0.6
+				},
+				y: {
+					range: 0.018,
+					velocity: 0.4
+				},
+				z: {
+					range: 0.045,
+					velocity: 0.3
+				},
+			}
+		},
 		hips: {
 			offset: {
 				x: -0.012,

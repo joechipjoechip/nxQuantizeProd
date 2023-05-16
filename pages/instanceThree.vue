@@ -501,13 +501,22 @@
 				this.frames++;
 			},
 
+			setDownScale(newRatio){
+
+				console.log("setDownScale has been triggered : ", this.sceneBundle.current);
+
+				this.$store.commit('setDownScale', newRatio);
+
+			},
+
 			handleFpsAndDownScaling(){
 
 				if( this.isAdjustingDownScale ){ return; }
 
 				if( this.currentFPSValue > this.arbitraryFpsLimit && this.$store.state.downScale !== 1 ){
 
-					this.$store.commit('setDownScale', 1);
+					this.setDownScale(1);
+
 					this.clearDownScaleTimeout();
 
 					return;
@@ -527,7 +536,7 @@
 							const diff = (((this.arbitraryFpsIdeal - this.currentFPSValue) / 10) + 1) * 1.3;
 
 							if( diff > 1 ){
-								this.$store.commit('setDownScale', diff);
+								this.setDownScale(diff);
 							}
 
 							this.isAdjustingDownScale = false;

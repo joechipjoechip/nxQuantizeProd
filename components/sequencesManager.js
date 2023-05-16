@@ -644,6 +644,22 @@ class SequencesManager{
 
 		}
 
+		// if particles -> update the downScaleRatio
+		if( currentSceneElements.particlesCollection?.length ){
+
+			currentSceneElements.particlesCollection.forEach(collection => {
+
+				collection._builtParticle.material.uniformsNeedUpdate = false;
+
+
+				collection._builtParticle.material.uniforms.uDownScale.value = this.vm.$store.state.downScale;
+				
+				collection._builtParticle.material.uniformsNeedUpdate = true;
+
+			});
+
+		}
+
 	}
 
 	focusTargetAndBlurTheRestHandler( currentSequenceElements ){

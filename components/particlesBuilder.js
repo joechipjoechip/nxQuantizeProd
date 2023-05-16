@@ -54,9 +54,14 @@ class ParticlesBuilder{
 				},
 				uSize: {
 					value: particleSize
+				},
+				uDownScale: {
+					value: window.$nuxt.$store.state.downScale
 				}
 			}
 		});
+
+		console.log("particles building : downscale : ", window.$nuxt.$store.state.downScale);
 
 		if( additive ){
 			material.blending = THREE.AdditiveBlending;

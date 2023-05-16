@@ -10,7 +10,7 @@ class SceneBuilder {
 	constructor( params ) {
 
 		// Get data from instanciation
-		const { canvas, worldConfig, sequenceID, glb, texture, bobs, type } = params;
+		const { canvas, worldConfig, sequenceID, glb, texture, bobs, type, downScale } = params;
 
 		this.name = worldConfig.name;
 		this.canvas = canvas;
@@ -19,6 +19,7 @@ class SceneBuilder {
 		this.glb = glb;
 		this.texture = texture;
 		this.type = type;
+		this.downScale = downScale;
 
 		this.bobs = {};
 		bobs.forEach(bob => {
@@ -224,6 +225,8 @@ class SceneBuilder {
 		// particles
 		this.sceneElements.particlesWorld.forEach(particle => {
 
+			particle.downScaleRatio = this.downScale;
+			
 			this.sceneElements.particlesCollection.push(
 				new ParticlesBuilder(particle)
 			);
