@@ -647,16 +647,31 @@ class SequencesManager{
 		// if particles -> update the downScaleRatio
 		if( currentSceneElements.particlesCollection?.length ){
 
-			currentSceneElements.particlesCollection.forEach(collection => {
+			if( this.vm.$store.state.downScale !== this.vm.$store.state.lastDownScale ){
 
-				collection._builtParticle.material.uniformsNeedUpdate = false;
+				this.vm.$store.commit('setLastDownScale', this.vm.$store.state.downScale);
 
-
-				collection._builtParticle.material.uniforms.uDownScale.value = this.vm.$store.state.downScale;
+				currentSceneElements.particlesCollection.forEach(collection => {
+	
+					collection._builtParticle.material.uniforms.uDownScale.value = this.vm.$store.state.downScale;
+					
+					collection._builtParticle.material.uniformsNeedUpdate = true;
+	
+				});
 				
-				collection._builtParticle.material.uniformsNeedUpdate = true;
+			} else {
 
-			});
+				currentSceneElements.particlesCollection.forEach(collection => {
+	
+					if( collection._builtParticle.material.uniformsNeedUpdate ){
+
+						collection._builtParticle.material.uniformsNeedUpdate = false;
+
+					}
+	
+				});
+
+			}
 
 		}
 
