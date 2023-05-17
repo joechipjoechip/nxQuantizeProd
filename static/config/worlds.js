@@ -843,8 +843,8 @@ const worlds = [
 
 			{
 				id: "4.6",
-				baseFov: 35,
-				fovTransition: false,
+				baseFov: 32,
+				fovTransition: true,
 				sequenceBobName: "juan",
 
 				type: "third-person",
@@ -892,7 +892,7 @@ const worlds = [
 					right: false
 				},
 
-				slowmo: 3.5,
+				slowmo: 1.6,
 
 				postproc: [
 			
@@ -934,7 +934,7 @@ const worlds = [
 			ambient: {
 				sunColor: "#FFFFFF",
 				intensity: 0.6,
-				groundColor: "#04007A"
+				groundColor: "#8ff5f5"
 			},
 
 			fog: {
@@ -974,14 +974,14 @@ const worlds = [
 		sequences: [
 			{
 				id: "4.7",
-				baseFov: 30,
-				fovTransition: false,
+				baseFov: 35,
+				fovTransition: true,
 				sequenceBobName: "link",
 
 				// type: "blender-points",
 				type: "third-person",
-				cameraTriggerTimeDecay: 8,
-				cameraType: "movingHips",
+				cameraTriggerTimeDecay: 18,
+				cameraType: "movingHips-3",
 
 				until: 94,
 				nextInstruction: "switch-sequence",
@@ -995,9 +995,9 @@ const worlds = [
 				},
 				
 				fog: {
-					enabled: false,
-					color: "#FFFFFF",
-					intensity: .43
+					enabled: true,
+					color: "#8ff5f5",
+					intensity: .65
 				},
 
 				bobImposedMoves: {
@@ -1010,8 +1010,8 @@ const worlds = [
 
 					{
 						type: "vignette",
-						darkness: -1.5,
-						offset: 1.1
+						darkness: -0.9,
+						offset: 0.8
 					}
 
 				]
@@ -1040,9 +1040,9 @@ const worlds = [
 				},
 				
 				fog: {
-					enabled: false,
-					color: "#000000",
-					intensity: .43
+					enabled: true,
+					color: "#8ff5f5",
+					intensity: .12
 				},
 
 				alice: {
@@ -1066,11 +1066,6 @@ const worlds = [
 
 				postproc: [
 					{
-						type: "vignette",
-						darkness: -0.8,
-						offset: 0.8
-					},
-					{
 						type: "blur",
 						focusTarget: "queen",
 						value: {
@@ -1079,6 +1074,12 @@ const worlds = [
 							maxblur: 0.025
 						}
 					},
+					{
+						type: "vignette",
+						darkness: -0.8,
+						offset: 0.8
+					},
+					
 				]
 
 			},
@@ -1116,7 +1117,7 @@ const worlds = [
 					right: false
 				},
 
-				slowmo: 1.15,
+				slowmo: 1,
 
 				postproc: [
 
@@ -1364,7 +1365,7 @@ const worlds = [
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 5,
-				cameraType: "movingHips-lookUp",
+				cameraType: "movingHips-lookUp-face",
 
 				until: 141.5,
 				nextInstruction: "drop-and-load-and-switch",

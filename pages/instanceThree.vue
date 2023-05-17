@@ -8,7 +8,7 @@
 			<div ref="currentFPS" class="stats">{{ currentFPSValue }}</div>
 			<div ref="downScale" class="stats">{{ $store.state.downScale }}</div>
 			<div v-if="sequenceID" class="stats">{{ sequenceID }}</div>
-			<div v-if="$store.state.audio" class="stats">{{ $store.state.audio.currentTime }}</div>
+			<div v-if="$store.state.audioCurrent" class="stats">{{ $store.state.audioCurrent.currentTime }}</div>
 			<div v-if="currentSequence" class="stats">next step : {{ currentSequence.until }}</div>
 			<div v-if="currentSequence" class="stats">isAdjustingDownScale : {{ isAdjustingDownScale }}</div>
 			<div v-if="currentSequence" class="stats">performanceTimeoutID : {{ performanceTimeoutID }}</div>
@@ -27,6 +27,8 @@
 	import { worlds } from '@/static/config/worlds.js';
 	import { SceneBuilder } from '@/components/sceneBuilder.js';
 	import { SequencesManager } from '@/components/sequencesManager.js';
+
+	import { loopify } from '@/components/loopify.js';
 
 	const frameRate = 1/60;
 
@@ -180,7 +182,11 @@
 
 			initialLoadDone( newVal ){
 				if( newVal ){
-					this.$store.state.audio.play()
+
+					this.$store.state.audioBase.addEventListener("ended", this.handleAudioEnded);
+
+					this.$store.state.audioCurrent.play();
+
 				}
 			}
 
@@ -190,6 +196,7 @@
 
 			this.createBundle(0, "primary");
 			this.createBundle(1, "secondary");
+			console.log(" à à à à à àà  loopify : ", loopify);
 
 			// this.arbitraryFpsLimit = this.$store.state.isMobile ? 25 : 50;
 			// this.arbitraryFpsIdeal = this.$store.state.isMobile ? 30 : 60;
@@ -435,10 +442,10 @@
 
 			checkCurrentTime(){
 
-				// console.log("current time : ", this.$store.state.audio.currentTime);
+				// console.log("current time : ", this.$store.state.audioCurrent.currentTime);
 				// console.log("current until : ", this.currentSequence.until);
 
-				if( this.$store.state.audio.currentTime >= this.currentSequence.until && !this.currentSequence.alreadyTriggered ){
+				if( this.$store.state.audioCurrent.currentTime >= this.currentSequence.until && !this.currentSequence.alreadyTriggered ){
 
 					const nextSequenceID = this.computeNextSequenceID(this.sequenceID);
 					const nextSceneID = this.computeNextSceneID(this.sequenceID);
@@ -503,7 +510,7 @@
 
 			setDownScale(newRatio){
 
-				console.log("setDownScale has been triggered : ", this.sceneBundle.current);
+				// console.log("setDownScale has been triggered : ", this.sceneBundle.current);
 
 				this.$store.commit('setDownScale', newRatio);
 
@@ -566,6 +573,40 @@
 					this.isAdjustingDownScale = false;
 
 				}
+
+			},
+
+			handleAudioEnded(){
+
+				console.dir(this.$store.state.audioLoop);
+				const fileReader = new FileReader();
+
+				const loopFile = fileReader.readAsArrayBuffer(new Blob([this.$store.state.audioLoop], { type: 'audio/wav' }));
+
+				const loopBlob = new Blob([loopFile], { type: 'audio/wav' })
+
+				console.log("hey : ", typeof loopBlob);
+
+
+				console.log("! ! ! ! ! ! ! ! ! ok launch loop now ! ! ! ! ! ! ! ! ! ");
+				this.$store.state.audioBase.removeEventListener("ended", this.handleAudioEnded);
+				// ?
+
+				loopify(
+					loopFile, 
+					function(err, loop) {
+					// If something went wrong, `err` is supplied
+					if (err) {
+						console.log("loopify error -------> ", err);
+					}
+
+					// Play it whenever you want
+					loop.play();
+				});
+
+				// this.$store.commit("setAudioCurrent", this.$store.state.audioLoop);
+
+				// this.$store.state.audioCurrent.play();
 
 			}
 

@@ -54,7 +54,8 @@
 
 	import { PrimaryLoadManager } from '@/components/primaryLoadManager.js';
 
-	import sound from "@/static/assets/audio/onyi-base.mp3";
+	// import soundBase from "@/static/assets/audio/onyi-base.mp3";
+	// import loop from "@/static/assets/audio/onyi-base.mp3";
 
 	
 	export default {
@@ -162,12 +163,16 @@
 			},
 
 			initSound(){
-				const audio = new Audio(sound);
-				audio.playsInline = true;
-				this.$store.commit("setAudio", audio);
 
-				// debug currenttime
-				// this.$store.commit("setAudioTimecode", 100);
+				this.$store.commit("setAudioCurrent", this.$store.state.audioBase);
+
+
+				setTimeout(() => {
+					this.$store.commit("setAudioTimecode", 135);
+
+					// console.log("- - - - - - - - - - - - - -wssshhhh getAudioCurrent : ", this.$store.state.audioCurrent.duration);
+
+				}, 800);
 
 			},
 
@@ -234,12 +239,12 @@
 					this.$refs.instancethree.mainTick();
 
 					this.$refs.instancethree.clock.start();
-					this.$store.state.audio.play();
+					this.$store.state.audioCurrent.play();
 
 				} else {
 					this.$refs.instancethree.clock.stop();
 
-					this.$store.state.audio.pause();
+					this.$store.state.audioCurrent.pause();
 				}
 
 
