@@ -578,35 +578,37 @@
 
 			handleAudioEnded(){
 
-				console.dir(this.$store.state.audioLoop);
-				const fileReader = new FileReader();
+				// console.dir(this.$store.state.audioLoop);
+				// const fileReader = new FileReader();
 
-				const loopFile = fileReader.readAsArrayBuffer(new Blob([this.$store.state.audioLoop], { type: 'audio/wav' }));
+				// const loopFile = fileReader.readAsArrayBuffer(new Blob([this.$store.state.audioLoop], { type: 'audio/wav' }));
 
-				const loopBlob = new Blob([loopFile], { type: 'audio/wav' })
+				// const loopBlob = new Blob([loopFile], { type: 'audio/wav' })
 
-				console.log("hey : ", typeof loopBlob);
+				// console.log("hey : ", typeof loopBlob);
 
 
-				console.log("! ! ! ! ! ! ! ! ! ok launch loop now ! ! ! ! ! ! ! ! ! ");
-				this.$store.state.audioBase.removeEventListener("ended", this.handleAudioEnded);
+				console.log("! ! ! ! ! ! ! ! ! ok launch loop now ! ! ! ! ! ! ! ! !");
+
+				
 				// ?
 
 				loopify(
-					loopFile, 
+					"http://localhost:8000/_nuxt/static/assets/audio/onyi-loop-real.wav", 
 					function(err, loop) {
-					// If something went wrong, `err` is supplied
-					if (err) {
-						console.log("loopify error -------> ", err);
+						// If something went wrong, `err` is supplied
+						if (err) {
+							console.log("loopify error -------> ", err);
+						}
+
+						// Play it whenever you want
+						loop.play();
 					}
-
-					// Play it whenever you want
-					loop.play();
-				});
-
-				// this.$store.commit("setAudioCurrent", this.$store.state.audioLoop);
-
-				// this.$store.state.audioCurrent.play();
+				);
+				
+				setTimeout(() => {
+					this.$store.state.audioBase.removeEventListener("ended", this.handleAudioEnded);
+				}, 800);
 
 			}
 

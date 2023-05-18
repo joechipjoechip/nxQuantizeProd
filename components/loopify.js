@@ -1,30 +1,30 @@
-function loopify(sound,cb) {
+function loopify(uri,cb) {
 
 	var context = new (window.AudioContext || window.webkitAudioContext)(),
 		request = new XMLHttpRequest();
 
-	// request.responseType = "arraybuffer";
-	// request.open("GET", uri, true);
+	request.responseType = "arraybuffer";
+	request.open("GET", uri, true);
 
-	// // XHR failed
-	// request.onerror = function() {
-	// 	cb(new Error("Couldn't load audio from " + uri));
-	// };
+	// XHR failed
+	request.onerror = function() {
+		cb(new Error("Couldn't load audio from " + uri));
+	};
 
-	// // XHR complete
-	// request.onload = function() {
-	// 	context.decodeAudioData(request.response, success, function(err){
-	// 		// Audio was bad
-	// 		cb(new Error("Couldn't decode audio from " + uri));
-	// 	});
-	// };
+	// XHR complete
+	request.onload = function() {
+		context.decodeAudioData(request.response, success, function(err){
+			// Audio was bad
+			cb(new Error("1 Couldn't decode audio from " + uri));
+		});
+	};
 
-	context.decodeAudioData(sound, success, function(err){
-		// Audio was bad
-		cb(new Error("Couldn't decode audio from " + uri));
-	});
+	// context.decodeAudioData(uri, success, function(err){
+	// 	// Audio was bad
+	// 	cb(new Error("2 Couldn't decode audio from " + uri));
+	// });
 
-	// request.send();
+	request.send();
 
 	function success(buffer) {
 

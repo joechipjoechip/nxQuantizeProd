@@ -10,7 +10,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js"
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 
 import soundBase from "@/static/assets/audio/onyi-firstPart.mp3";
-import soundLoop from "@/static/assets/audio/onyi-loop-real.wav";
+// import soundLoop from "@/static/assets/audio/onyi-loop-real.wav";
 
 class PrimaryLoadManager{
 
@@ -52,7 +52,7 @@ class PrimaryLoadManager{
 	_InitSounds(){
 
 		this.vm.$store.commit("setAudioBase", new Audio(soundBase));
-		this.vm.$store.commit("setAudioLoop", new Audio(soundLoop));
+		// this.vm.$store.commit("setAudioLoop", new Audio(soundLoop));
 
 	}
 
