@@ -38,8 +38,6 @@ export const mutations = {
 	},
 
 	setAudioLoop(state, payload){
-		payload.playsInline = true;
-		payload.loop = true;
 		state.audioLoop = payload
 	},
 
