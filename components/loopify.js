@@ -1,7 +1,10 @@
-function loopify(uri,cb) {
+function loopify(vm, uri, cb) {
 
 	var context = new (window.AudioContext || window.webkitAudioContext)(),
 		request = new XMLHttpRequest();
+
+	var intervalID = null;
+	var firstTimeStamp = 0;
 
 	request.responseType = "arraybuffer";
 	request.open("GET", uri, true);
@@ -46,6 +49,8 @@ function loopify(uri,cb) {
 			// Play it
 			source.start(0);
 
+			handlePlay();
+
 		}
 
 		function stop() {
@@ -62,6 +67,30 @@ function loopify(uri,cb) {
 			play: play,
 			stop: stop
 		});
+
+	}
+
+	function handlePlay(){
+
+		console.log("handle play : ", context.state);
+
+		// because sometimes, currentTime starts at 17 (dunno why..)
+		firstTimeStamp = context.currentTime;
+		
+		intervalID = setInterval(doAtInterval, 10);
+		
+	}
+	
+	function doAtInterval(){
+
+		const realTimeStamp = context.currentTime - firstTimeStamp;
+		
+		// console.log("realTimeStamp : ", realTimeStamp);
+
+		if( realTimeStamp >= 6 ){
+			vm.$nuxt.$emit("please-stop-loop", {})
+			clearInterval(intervalID);
+		}
 
 	}
 

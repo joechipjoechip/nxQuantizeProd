@@ -193,6 +193,8 @@
 
 		mounted(){
 
+			this.$nuxt.$on("please-stop-loop", this.stopLoop);
+
 			this.createBundle(0, "primary");
 			this.createBundle(1, "secondary");
 
@@ -585,6 +587,7 @@
 			},
 			
 			startLoop(){
+
 				console.log("startLoop triggered");
 
 				this.$store.state.audioLoop.play();
@@ -593,6 +596,19 @@
 					this.$store.state.audioBase.pause();
 					this.$store.state.audioBase.removeEventListener("ended", this.handleAudioEnded);
 				}, 350);
+
+			},
+
+			stopLoop(){
+
+				console.log("ok stop loop");
+				this.$store.state.audioLoop.stop();
+				// this.startEndingAudio();
+				
+			},
+
+			startEndingAudio(){
+				//
 			}
 
 		}

@@ -55,10 +55,9 @@ class PrimaryLoadManager{
 
 		this.vm.$store.commit("setAudioBase", new Audio(soundBase));
 
-		console.log("loopify : ", loopify);
-
 		loopify(
-			"assets/audio/onyi-loop-real.wav", 
+			this.vm,
+			"assets/audio/onyi-loop-light.wav", 
 			(err, loop) => {
 				// If something went wrong, `err` is supplied
 				if (err) {
