@@ -9,6 +9,8 @@ import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js"
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 
+import { loopify } from '@/components/loopify.js';
+
 import soundBase from "@/static/assets/audio/onyi-firstPart.mp3";
 // import soundLoop from "@/static/assets/audio/onyi-loop-real.wav";
 
@@ -52,7 +54,22 @@ class PrimaryLoadManager{
 	_InitSounds(){
 
 		this.vm.$store.commit("setAudioBase", new Audio(soundBase));
-		// this.vm.$store.commit("setAudioLoop", new Audio(soundLoop));
+
+		console.log("loopify : ", loopify);
+
+		loopify(
+			"assets/audio/onyi-loop-real.wav", 
+			(err, loop) => {
+				// If something went wrong, `err` is supplied
+				if (err) {
+					console.log("loopify error -------> ", err);
+				}
+
+				// Play it whenever you want
+				// loop.play();
+				this.vm.$store.commit("setAudioLoop", loop);
+			}
+		);
 
 	}
 

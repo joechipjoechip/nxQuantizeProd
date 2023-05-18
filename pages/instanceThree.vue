@@ -28,8 +28,6 @@
 	import { SceneBuilder } from '@/components/sceneBuilder.js';
 	import { SequencesManager } from '@/components/sequencesManager.js';
 
-	import { loopify } from '@/components/loopify.js';
-
 	const frameRate = 1/60;
 
 	// THREE
@@ -94,6 +92,7 @@
 
 				// sequenceID: "1.0",
 				lastKnownSequenceID: "1.0",
+				loopIsAsked: false,
 
 				// Others
 				debug: {
@@ -196,7 +195,6 @@
 
 			this.createBundle(0, "primary");
 			this.createBundle(1, "secondary");
-			console.log(" à à à à à àà  loopify : ", loopify);
 
 			// this.arbitraryFpsLimit = this.$store.state.isMobile ? 25 : 50;
 			// this.arbitraryFpsIdeal = this.$store.state.isMobile ? 30 : 60;
@@ -442,15 +440,17 @@
 
 			checkCurrentTime(){
 
-				// console.log("current time : ", this.$store.state.audioCurrent.currentTime);
-				// console.log("current until : ", this.currentSequence.until);
 
-				if( this.$store.state.audioCurrent.currentTime >= this.currentSequence.until && !this.currentSequence.alreadyTriggered ){
+				if( !this.loopIsAsked && this.$store.state.audioBase.currentTime >= 151.5 ){
+					// console.log("if -> end time is almost reached");
+					this.loopIsAsked = true;
+					this.startLoop();
+				}
+				
+				if( !this.$store.state.audioBase.paused && (this.$store.state.audioCurrent.currentTime >= this.currentSequence.until && !this.currentSequence.alreadyTriggered) ){
 
 					const nextSequenceID = this.computeNextSequenceID(this.sequenceID);
 					const nextSceneID = this.computeNextSceneID(this.sequenceID);
-
-					const dropNextChapterID = this.computeNextSceneID(nextSequenceID);
 
 					switch( this.currentSequence.nextInstruction ){
 
@@ -467,7 +467,7 @@
 							break;
 
 						case "drop-and-load-and-switch":
-							console.log("oui le switch/case drop and load and switch est bien triggered");
+							console.log("- - - switch/case :: drop and load and switch - - -");
 							this.$nuxt.$emit("drop-and-load-and-switch", {});
 							break;
 
@@ -511,7 +511,6 @@
 			setDownScale(newRatio){
 
 				// console.log("setDownScale has been triggered : ", this.sceneBundle.current);
-
 				this.$store.commit('setDownScale', newRatio);
 
 			},
@@ -578,38 +577,22 @@
 
 			handleAudioEnded(){
 
-				// console.dir(this.$store.state.audioLoop);
-				// const fileReader = new FileReader();
-
-				// const loopFile = fileReader.readAsArrayBuffer(new Blob([this.$store.state.audioLoop], { type: 'audio/wav' }));
-
-				// const loopBlob = new Blob([loopFile], { type: 'audio/wav' })
-
-				// console.log("hey : ", typeof loopBlob);
-
-
-				console.log("! ! ! ! ! ! ! ! ! ok launch loop now ! ! ! ! ! ! ! ! !");
-
+				if( !this.loopIsAsked ){
+					console.log("! ! ! ! ! ! ! ! ! fallback 'ended' started loop ! ! ! ! ! ! ! ! !");
+					this.startLoop();
+				}
 				
-				// ?
+			},
+			
+			startLoop(){
+				console.log("startLoop triggered");
 
-				loopify(
-					"http://localhost:8000/_nuxt/static/assets/audio/onyi-loop-real.wav", 
-					function(err, loop) {
-						// If something went wrong, `err` is supplied
-						if (err) {
-							console.log("loopify error -------> ", err);
-						}
-
-						// Play it whenever you want
-						loop.play();
-					}
-				);
+				this.$store.state.audioLoop.play();
 				
-				setTimeout(() => {
+				setTimeout(()=>{
+					this.$store.state.audioBase.pause();
 					this.$store.state.audioBase.removeEventListener("ended", this.handleAudioEnded);
-				}, 800);
-
+				}, 350);
 			}
 
 		}
