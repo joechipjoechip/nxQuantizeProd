@@ -194,13 +194,17 @@
 		mounted(){
 
 			this.$nuxt.$on("please-stop-loop", this.stopLoop);
-
+			
 			this.createBundle(0, "primary");
 			this.createBundle(1, "secondary");
-
+			
 			// this.arbitraryFpsLimit = this.$store.state.isMobile ? 25 : 50;
 			// this.arbitraryFpsIdeal = this.$store.state.isMobile ? 30 : 60;
-
+			
+		},
+		
+		beforeDestroy(){
+			this.$nuxt.$off("please-stop-loop", this.stopLoop);
 		},
 
 		methods: {
@@ -604,7 +608,7 @@
 				console.log("ok stop loop");
 				this.$store.state.audioLoop.stop();
 				// this.startEndingAudio();
-				
+
 			},
 
 			startEndingAudio(){

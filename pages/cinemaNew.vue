@@ -101,6 +101,12 @@
 			bobs(){
 				this.checkIfAllIsLoaded();
 			},
+			"$store.state.audioBase"(){
+				this.checkIfAllIsLoaded();
+			},
+			"$store.state.audioLoop"(){
+				this.checkIfAllIsLoaded();
+			},
 
 			allIsLoaded( newVal ){
 				if( newVal ){
@@ -197,7 +203,8 @@
 					this.bobs.length		 === Object.keys(entities.bobs).length
 					&& this.textures.length  === worlds.length
 					&& this.glbs.length 	 === worlds.length
-					&& this.$store.audio	 !== null
+					&& this.$store.state.audioBase	 !== null
+					&& this.$store.state.audioLoop	 !== null
 				){
 
 					this.allIsLoaded = true;
