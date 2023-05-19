@@ -8,7 +8,7 @@
 			<div ref="currentFPS" class="stats">{{ currentFPSValue }}</div>
 			<div ref="downScale" class="stats">{{ $store.state.downScale }}</div>
 			<div v-if="sequenceID" class="stats">{{ sequenceID }}</div>
-			<div v-if="$store.state.audioCurrent" class="stats">{{ $store.state.audioCurrent.currentTime }}</div>
+			<!-- <div v-if="$store.state.audioCurrent" class="stats">{{ $store.state.audioCurrent.currentTime }}</div> -->
 			<div v-if="currentSequence" class="stats">next step : {{ currentSequence.until }}</div>
 			<div v-if="currentSequence" class="stats">isAdjustingDownScale : {{ isAdjustingDownScale }}</div>
 			<div v-if="currentSequence" class="stats">performanceTimeoutID : {{ performanceTimeoutID }}</div>
@@ -146,9 +146,11 @@
 				
 				this.sequencesManager.current = this.sequencesManager[newVal.type];
 				
-				this.skeleton.current.refreshBobs(this.bobs, this.sceneBundle.current.scene);
+				newVal.refreshBobs(this.bobs, this.sceneBundle.current.scene);
 
 				this.sequencesManager.current.sequenceChangeHandler(this.sequenceID);
+
+				newVal.onResize(this.canvasSizeRef);
 
 			},
 
@@ -172,11 +174,7 @@
 
 				this.renderer.setSize(this.canvasSizeRef.width, this.canvasSizeRef.height);
 
-				Object.keys(this.skeleton).forEach(skeletonKey => {
-
-					this.skeleton[skeletonKey].onResize(this.canvasSizeRef);
-					
-				});
+				this.skeleton.current.onResize(this.canvasSizeRef);
 			},
 
 			initialLoadDone( newVal ){
@@ -413,15 +411,16 @@
 
 				this.computeFPS();
 
-				this.checkCurrentTime();
+				this.handleFpsAndDownScaling();
 
-				this.sequencesManager.current.checkStuffsToAnimateAtRender(this.deltaTime, this.viewPos);
+				this.checkCurrentTime();
 
 				
 				// NOW CHECK IF FRAMERATE IS GOOD
 				if( this.deltaTime >= this.frameRate ){
+	
+					this.sequencesManager.current.checkStuffsToAnimateAtRender(this.deltaTime, this.viewPos);
 
-					this.handleFpsAndDownScaling();
 
 					// NOW COMPUTE RENDER
 					if( this.sequencesManager.current.composer ){
@@ -505,7 +504,7 @@
 				const t = performance.now();
 				const dt = t - this.startTime;
 
-				if( dt > 100 ){
+				if( dt > this.frameRate ){
 					this.currentFPSValue = parseInt(this.frames * 1000 / dt);
 
 					this.frames = 0;
@@ -545,7 +544,7 @@
 						if( this.currentFPSValue < this.arbitraryFpsLimit || this.$store.state.downScale > this.arbitraryDownScaleLimit ){
 							// console.log("adjusting verify (in timeout): fps value : ", this.currentFPSValue);
 
-							const diff = (((this.arbitraryFpsIdeal - this.currentFPSValue) / 10) + 1) * 1.3;
+							const diff = (((this.arbitraryFpsIdeal - this.currentFPSValue) / 10) + 1) * 1.2;
 
 							if( diff > 1 ){
 								this.setDownScale(diff);

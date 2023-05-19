@@ -115,6 +115,8 @@
 			},
 
 			"$store.state.downScale"(newVal){
+				console.log("downscale watcher triggered : ", newVal);
+				
 				this.onResize();
 			}
 
@@ -174,7 +176,7 @@
 
 
 				setTimeout(() => {
-					this.$store.commit("setAudioTimecode", 135);
+					// this.$store.commit("setAudioTimecode", 135);
 
 					// console.log("- - - - - - - - - - - - - -wssshhhh getAudioCurrent : ", this.$store.state.audioCurrent.duration);
 
@@ -384,7 +386,7 @@ button {
 	width: 100%;
 	height: 100%;
 	background-color: #000;
-	transition: opacity .8s ease;
+	transition: opacity .7s ease;
 	will-change: opacity;
 	opacity: 0;
 	pointer-events: none;
