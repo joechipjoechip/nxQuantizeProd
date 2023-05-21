@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 
-import { veinsFragment } from "../static/assets/js/shaders/veins/fragment";
-import { veinsVertex } from "../static/assets/js/shaders/veins/vertex";
+import { galaxyFragment } from "../static/assets/js/shaders/galaxy/fragment";
+import { galaxyVertex } from "../static/assets/js/shaders/galaxy/vertex";
 
 class CustomShaderBuilder {
 
@@ -21,11 +21,17 @@ class CustomShaderBuilder {
         uniforms.iResolution.value.x = 0.5;
         uniforms.iResolution.value.y = 0.5;
 
-		return new THREE.ShaderMaterial({
-			uniforms: uniforms,
-			vertexShader: veinsVertex,
-			fragmentShader: veinsFragment
-		  });
+
+        switch( shaderName ){
+            case "galaxy":
+                return new THREE.ShaderMaterial({
+                    uniforms: uniforms,
+                    vertexShader: galaxyVertex,
+                    fragmentShader: galaxyFragment
+                  });
+                break;
+        }
+
 
     }
 

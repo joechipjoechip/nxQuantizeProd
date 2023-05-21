@@ -638,7 +638,7 @@ class SequencesManager{
 
 			currentSceneElements.meshesForCustomShaderBuilt.forEach(mesh => {
 
-				mesh.material.uniforms.iGlobalTime.value = elapsedTime / 2;
+				mesh.material.uniforms.iGlobalTime.value = elapsedTime * currentSequenceElements.sequenceInfos.customShaderOptions.timeRatio || 0.5;
 
 			});
 

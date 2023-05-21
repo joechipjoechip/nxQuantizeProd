@@ -85,19 +85,19 @@
 const worlds = [
 
 	{
-		
+
 		name: "world_000",
 
 		main: {
 
-			spaceColor: "#1E1E1E",
-			spaceColorDarker: "#080808",
-			spaceColorWithBloom: "#080808",
+			spaceColor: "#051442",
+			spaceColorDarker: "#051442",
+			spaceColorWithBloom: "#051442",
 
 			ambient: {
 				sunColor: "#7AFF00",
 				intensity: 0.6,
-				groundColor: "#0025FF"
+				groundColor: "#051442"
 			},
 
 			fog: {
@@ -158,6 +158,10 @@ const worlds = [
 					orbit: false,
 					tubes: false,
 					timelines: false
+				},
+
+				customShaderOptions: {
+					timeRatio: 0.15
 				},
 				
 				fog: {
@@ -223,6 +227,10 @@ const worlds = [
 					orbit: false,
 					tubes: false,
 					timelines: false
+				},
+
+				customShaderOptions: {
+					timeRatio: 0.65
 				},
 				
 				fog: {

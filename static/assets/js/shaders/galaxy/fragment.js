@@ -1,21 +1,26 @@
-const veinsFragment = `
+const galaxyFragment = `
 uniform float iGlobalTime;
-    uniform vec2 iResolution;
-    uniform vec4      iMouse;
-    uniform sampler2D iChannel0;
-    varying vec2 fragCoord;
-    varying vec2 vUv;
+uniform vec2 iResolution;
+uniform vec4      iMouse;
+uniform sampler2D iChannel0;
+varying vec2 fragCoord;
+varying vec2 vUv;
+
 vec2 cmul( vec2 a, vec2 b )  { return vec2( a.x*b.x - a.y*b.y, a.x*b.y + a.y*b.x ); }
+
 vec2 csqr( vec2 a )  { return vec2( a.x*a.x - a.y*a.y, 2.*a.x*a.y  ); }
+
 vec3 dmul( vec3 a, vec3 b )  {
     float r = length(a);
     b.xy=cmul(normalize(a.xy), b.xy);
     b.yz=cmul(normalize(a.yz), b.yz);
     return r*b;
 }
+
 vec3 pow4( vec3 z){
     z=dmul(z,z);return dmul(z,z);
 }
+
 vec3 pow3( vec3 z){
     float r2 = dot(z,z);
     vec2 a = z.xy;a=csqr(a)/dot( a,a);
@@ -26,10 +31,13 @@ vec3 pow3( vec3 z){
     z.xz = cmul(c,z.xz);
     return r2*z;
 }
+
 mat2 rot(float a) {
     return mat2(cos(a),sin(a),-sin(a),cos(a));  
 }
+
 float zoom=4.;
+
 float field(in vec3 p) {
     float res = 0.;
     vec3 c = p;
@@ -40,6 +48,7 @@ float field(in vec3 p) {
     }
     return max(0., res/3.);
 }
+
 vec3 raycast( in vec3 ro, vec3 rd )
 {
     float t = 6.0;
@@ -54,6 +63,7 @@ vec3 raycast( in vec3 ro, vec3 rd )
     }
     return col;
 }
+
 void main()
 {
     float time = iGlobalTime;
@@ -78,4 +88,6 @@ void main()
 }
 `;
 
-export { veinsFragment };
+
+
+export { galaxyFragment };
