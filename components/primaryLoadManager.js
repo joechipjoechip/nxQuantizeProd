@@ -2,6 +2,8 @@ import { worlds } from '@/static/config/worlds.js';
 import { entities } from '@/static/config/entities.js';
 import { core } from '@/static/config/core.js';
 
+import { CustomShaderBuilder } from './customShaderBuilder';
+
 import { CharacterController } from '@/components/characterController.js';
 
 import * as THREE from 'three';
@@ -131,6 +133,27 @@ class PrimaryLoadManager{
 				
 				target.position.copy(mainObj.position);
 				target.rotation.copy(mainObj.rotation);
+
+				// if( mainObj.infos.shader ){
+
+				// 	debugger;
+
+				// 	const shaderInfos = mainObj.infos.shader;
+
+				// 	const targetMesh = target.children.find(child => child.name !== "Armature");
+
+				// 	const customShader = new CustomShaderBuilder(shaderInfos.shaderName, shaderInfos.shaderScale);
+
+				// 	customShader.skinning = true;
+
+					
+
+				// 	targetMesh.material = customShader;
+
+				// 	// debugger;
+
+				// }
+
 				
 				res(target);
 

@@ -137,7 +137,7 @@ const worlds = [
 
 			},
 
-			entities: ["link"],
+			entities: ["link", "linkShader"],
 
 		},
 
@@ -146,7 +146,7 @@ const worlds = [
 				id: "1.0",
 				baseFov: 5,
 				fovTransition: false,
-				sequenceBobName: "link",
+				sequenceBobName: "linkShader",
 				until: 14,
 				nextInstruction: "switch-sequence",
 
@@ -212,7 +212,7 @@ const worlds = [
 				id: "1.1",
 				baseFov: 27,
 				fovTransition: false,
-				sequenceBobName: "link",
+				sequenceBobName: "linkShader",
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 5,

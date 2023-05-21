@@ -5,7 +5,7 @@ import { galaxyVertex } from "../static/assets/js/shaders/galaxy/vertex";
 
 class CustomShaderBuilder {
 
-    constructor( shaderName ){
+    constructor( shaderName, shaderScale = 0.5 ){
 
         const uniforms = {
 			iGlobalTime: {
@@ -18,8 +18,8 @@ class CustomShaderBuilder {
 			},
 		};
 
-        uniforms.iResolution.value.x = 0.5;
-        uniforms.iResolution.value.y = 0.5;
+        uniforms.iResolution.value.x = shaderScale;
+        uniforms.iResolution.value.y = shaderScale;
 
 
         switch( shaderName ){
