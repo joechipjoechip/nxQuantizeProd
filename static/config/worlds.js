@@ -85,6 +85,7 @@
 const worlds = [
 
 	{
+		
 		name: "world_000",
 
 		main: {
@@ -100,7 +101,7 @@ const worlds = [
 			},
 
 			fog: {
-				enabled: true,
+				enabled: false,
 				color: "#0025FF",
 				intensity: .75
 			},
@@ -160,7 +161,7 @@ const worlds = [
 				},
 				
 				fog: {
-					enabled: true,
+					enabled: false,
 					color: "#000000",
 					intensity: .25
 				},

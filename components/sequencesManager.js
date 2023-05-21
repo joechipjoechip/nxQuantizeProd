@@ -632,6 +632,18 @@ class SequencesManager{
 
 		}
 
+		// if meshes with custom shader 
+		if( currentSceneElements.meshesForCustomShaderBuilt ){
+			// console.log("oui, cette scene comporte des meshes avec customshader");
+
+			currentSceneElements.meshesForCustomShaderBuilt.forEach(mesh => {
+
+				mesh.material.uniforms.iGlobalTime.value = elapsedTime / 2;
+
+			});
+
+		}
+
 
 		// if landscapeMove
 		if( currentSequenceElements.sequenceInfos.landscapeMove ){

@@ -4,6 +4,7 @@ import * as THREE from 'three';
 import { SequencesBuilder } from '@/components/sequencesBuilder.js';
 import { DynamicLightsBuilder } from '@/components/dynamicLightsBuilder.js';
 import { ParticlesBuilder } from '@/components/particlesBuilder.js';
+import { CustomShaderBuilder } from '@/components/customShaderBuilder.js';
 
 class SceneBuilder {
 
@@ -45,6 +46,8 @@ class SceneBuilder {
 			emissiveShapesBuilt: [],
 			standardMeshesFromBlender: [],
 			standardMeshesBuilt: [],
+			meshesForCustomShader: [],
+			meshesForCustomShaderBuilt: [],
 			positionsCollection: [],
 			particlesWorld: this.worldConfig.main.particles || [],
 			particlesCollection: [],
@@ -126,6 +129,13 @@ class SceneBuilder {
 			if( child.name.includes("standard-mesh") ){
 
 				this.sceneElements.standardMeshesFromBlender.push(child);
+
+			}
+
+			// find meshes for custom shaders
+			if( child.name.includes("mesh-custom-shader") ){
+
+				this.sceneElements.meshesForCustomShader.push(child);
 
 			}
 
@@ -222,6 +232,11 @@ class SceneBuilder {
 			this.createStandardMesh(mesh);
 		});
 
+		// standard meshes
+		this.sceneElements.meshesForCustomShader.forEach(mesh => {
+			this.createMeshWithCustomShader(mesh);
+		});
+
 		// particles
 		this.sceneElements.particlesWorld.forEach(particle => {
 
@@ -274,6 +289,19 @@ class SceneBuilder {
 		// mesh.material = phongMaterial;
 
 		this.sceneElements.standardMeshesBuilt.push(mesh)
+
+	}
+
+	createMeshWithCustomShader( mesh ){
+
+		const shaderName = mesh.name.replace("mesh-custom-shader_", "");
+
+		mesh.material = new CustomShaderBuilder(shaderName);
+
+		this.sceneElements.meshesForCustomShaderBuilt.push(mesh);
+
+		// parse le nom du mesh, trouve le shader adapté, charge le, attache le
+		// fou le mesh dans meshesForCustomShaderBuilt
 
 	}
 
@@ -334,7 +362,13 @@ class SceneBuilder {
 		this.sceneElements.standardMeshesBuilt
 			.forEach(mesh => {
 				this.scene.add(mesh);
-			})
+			});
+
+		// meshes for custom shaders
+		this.sceneElements.meshesForCustomShaderBuilt
+			.forEach(mesh => {
+				this.scene.add(mesh);
+			});
 
 		// bobs 
 		// Object.keys(this.bobs).forEach(bobKey => {

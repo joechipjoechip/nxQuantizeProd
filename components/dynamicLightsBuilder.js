@@ -70,6 +70,7 @@ class DynamicLightsBuilder {
 					this._blenderLights.push(newBlenderLight);
 
 				});
+				
 			}
 
 		});
@@ -152,7 +153,6 @@ class DynamicLightsBuilder {
 					// createdLight.updateMatrix(true);
 				}
 
-				
 			}
 
 			if( createdLight ){
@@ -162,8 +162,6 @@ class DynamicLightsBuilder {
 				this._BuildHelper(createdLight, index);
 				
 			}
-
-
 
 		});
 
@@ -191,13 +189,6 @@ class DynamicLightsBuilder {
 				light.add(lightHelper);
 			}
 
-
-
-
-
-
-
-
 			// AND FINALLY
 			if( lightHelper ){
 
@@ -207,9 +198,7 @@ class DynamicLightsBuilder {
 
 			}
 			
-
 		}
-
 
 		if( this._core.debug.lightsHelpers.shadow ){
 
@@ -229,6 +218,7 @@ class DynamicLightsBuilder {
 		}
 
 	}
+
 }
 
 export { DynamicLightsBuilder };
