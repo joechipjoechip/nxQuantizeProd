@@ -1,7 +1,10 @@
 import * as THREE from 'three';
 
-import { galaxyFragment } from "../static/assets/js/shaders/galaxy/fragment";
 import { galaxyVertex } from "../static/assets/js/shaders/galaxy/vertex";
+import { galaxyFragment } from "../static/assets/js/shaders/galaxy/fragment";
+
+import { plasticVertex } from '../static/assets/js/shaders/plastic/vertex';
+import { plasticFragment } from "../static/assets/js/shaders/plastic/fragment";
 
 class CustomShaderBuilder {
 
@@ -23,13 +26,23 @@ class CustomShaderBuilder {
 
 
         switch( shaderName ){
+
             case "galaxy":
+
                 return new THREE.ShaderMaterial({
                     uniforms: uniforms,
-                    vertexShader: galaxyVertex,
-                    fragmentShader: galaxyFragment
+                    vertexShader: plasticVertex,
+                    fragmentShader: plasticFragment
                   });
+
+                // return new THREE.ShaderMaterial({
+                //     uniforms: uniforms,
+                //     vertexShader: galaxyVertex,
+                //     fragmentShader: galaxyFragment
+                //   });
+
                 break;
+
         }
 
 

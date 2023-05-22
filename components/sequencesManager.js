@@ -638,6 +638,8 @@ class SequencesManager{
 
 			currentSceneElements.meshesForCustomShaderBuilt.forEach(mesh => {
 
+				console.log("update de iGlobalTime");
+
 				mesh.material.uniforms.iGlobalTime.value = elapsedTime * currentSequenceElements.sequenceInfos.customShaderOptions.timeRatio || 0.5;
 
 			});

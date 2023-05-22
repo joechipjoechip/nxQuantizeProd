@@ -161,7 +161,7 @@ const worlds = [
 				},
 
 				customShaderOptions: {
-					timeRatio: 0.15
+					timeRatio: 2.15
 				},
 				
 				fog: {
