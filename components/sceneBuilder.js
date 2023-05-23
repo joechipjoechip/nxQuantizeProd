@@ -294,14 +294,14 @@ class SceneBuilder {
 
 	createMeshWithCustomShader( mesh ){
 
-		const shaderName = mesh.name.replace("mesh-custom-shader_", "");
+		// TODO
+		// temporary : disable for dev
 
-		mesh.material = new CustomShaderBuilder(shaderName);
+		// const shaderName = mesh.name.replace("mesh-custom-shader_", "");
 
-		this.sceneElements.meshesForCustomShaderBuilt.push(mesh);
+		// mesh.material = new CustomShaderBuilder(shaderName);
 
-		// parse le nom du mesh, trouve le shader adapté, charge le, attache le
-		// fou le mesh dans meshesForCustomShaderBuilt
+		// this.sceneElements.meshesForCustomShaderBuilt.push(mesh);
 
 	}
 

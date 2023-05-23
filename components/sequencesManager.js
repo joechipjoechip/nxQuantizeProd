@@ -646,6 +646,52 @@ class SequencesManager{
 
 		}
 
+		if( currentSceneElements.bobs[this.currentBobName]?._controls._params.bobInfos.shader ){
+
+			const currentBob = currentSceneElements.bobs[this.currentBobName]._controls._target.children.find(child => child.name !== "Armature");
+
+			const currentBobMaterial = currentBob.material;
+
+			
+			// currentBob.userData.iGlobalTime.value = elapsedTime * 10;
+			// // currentBobMaterial.userData.uniformsNeedUpdate.value = true;
+			
+			// currentBob.needsUpdate = true;
+			
+			// console.log(" checkStuff : currentBob : ", currentBob);
+			// console.log("userData updated", currentBobMaterial);
+
+			// currentBobMaterial.onBeforeCompile = shader => {
+			// 	console.log("onBeforeCompile from checkStuffs", shader);
+			// 	shader.uniforms.iGlobalTime = { value: currentBobMaterial.userData.iGlobalTime.value };
+			// };
+
+			// if( !currentBobMaterial.hasOwnProperty("uniforms") ){
+			// 	currentBobMaterial.uniforms = {
+			// 		iGlobalTime: { value: elapsedTime },
+			// 		iResolution: { value: new THREE.Vector2(1,1) }
+			// 	}
+			// } else {
+			// 	currentBobMaterial.uniforms.iGlobalTime.value = elapsedTime * 10;
+			// }
+
+			// currentBobMaterial.uniformsNeedsUpdate = true;"
+
+			// currentBobMaterial.onBeforeRender = shader => {
+			// 	console.log("--> onbeforeRender dans le tick : shader : ", shader);
+			// 	// shader.uniforms.iGlobalTime = { value: elapsedTime };
+			// 	shader.uniforms.iGlobalTime.value = elapsedTime * 10;
+			// 	shader.uniforms.uniformsNeedUpdate = true;
+
+				
+			// }
+
+			// console.log("checkStuff : current bob name", this.currentBobName);
+			// // console.log("checkStuff : current scene elements", currentSceneElements);
+			// console.log("checkStuff : current bob material ", currentBobMaterial);
+
+		}
+
 
 		// if landscapeMove
 		if( currentSequenceElements.sequenceInfos.landscapeMove ){

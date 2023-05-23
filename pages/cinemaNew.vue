@@ -176,7 +176,7 @@
 
 
 				setTimeout(() => {
-					// this.$store.commit("setAudioTimecode", 13);
+					this.$store.commit("setAudioTimecode", 13);
 
 					// console.log("- - - - - - - - - - - - - -wssshhhh getAudioCurrent : ", this.$store.state.audioCurrent.duration);
 

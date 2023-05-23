@@ -8,9 +8,9 @@ import { plasticFragment } from "../static/assets/js/shaders/plastic/fragment";
 
 class CustomShaderBuilder {
 
-    constructor( shaderName, shaderScale = 0.5 ){
+    constructor( shaderName, shaderScale = 0.1 ){
 
-        const uniforms = {
+        this.uniforms = {
 			iGlobalTime: {
 				type: "f",
 				value: 1.0
@@ -21,29 +21,42 @@ class CustomShaderBuilder {
 			},
 		};
 
-        uniforms.iResolution.value.x = shaderScale;
-        uniforms.iResolution.value.y = shaderScale;
+        this.uniforms.iResolution.value.x = shaderScale;
+        this.uniforms.iResolution.value.y = shaderScale;
+
+        return this.temporaryFunction();
+
+        // switch( shaderName ){
+
+        //     case "galaxy":
 
 
-        switch( shaderName ){
+        //         return new THREE.ShaderMaterial({
+        //             uniforms: this.uniforms,
+        //             vertexShader: galaxyVertex,
+        //             fragmentShader: galaxyFragment
+        //           });
 
-            case "galaxy":
+        //         break;
 
-                return new THREE.ShaderMaterial({
-                    uniforms: uniforms,
-                    vertexShader: plasticVertex,
-                    fragmentShader: plasticFragment
-                  });
+        // }
 
-                // return new THREE.ShaderMaterial({
-                //     uniforms: uniforms,
-                //     vertexShader: galaxyVertex,
-                //     fragmentShader: galaxyFragment
-                //   });
 
-                break;
+    }
 
-        }
+    temporaryFunction(){
+
+        // const textureLoader = new THREE.TextureLoader();
+        // const someTexture = textureLoader.load(`assets/3d/textures/gradient.jpg`);
+
+        // this.uniforms.iChannel0 = {};
+        // this.uniforms.iChannel0.value = someTexture;
+
+        return new THREE.ShaderMaterial({
+            uniforms: this.uniforms,
+            vertexShader: plasticVertex,
+            fragmentShader: plasticFragment
+          });
 
 
     }
