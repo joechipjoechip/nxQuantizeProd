@@ -30,8 +30,8 @@ const entities = {
 					y: 0.1,
 				},
 				shader: {
-					shaderName: "galaxy",
-					shaderScale: 0.5
+					shaderName: "customPhong",
+					shaderScale: 0.1
 				}
 			}
 		},
