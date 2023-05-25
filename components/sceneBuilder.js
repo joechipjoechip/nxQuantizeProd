@@ -27,6 +27,8 @@ class SceneBuilder {
 			this.bobs[bob.name] = bob.instance;
 		});
 
+		console.log("scene builder - - - - - > ", worldConfig);
+
 		// _ Three elements
 		this.aspectRatio = window.innerWidth / window.innerHeight;
 		this.camera = new THREE.PerspectiveCamera(50, this.aspectRatio, 0.001, 15);
@@ -48,11 +50,13 @@ class SceneBuilder {
 			standardMeshesBuilt: [],
 			meshesForCustomShader: [],
 			meshesForCustomShaderBuilt: [],
+			meshCustomShaderOptions: this.worldConfig.main.meshCustomShaderOptions,
 			positionsCollection: [],
 			particlesWorld: this.worldConfig.main.particles || [],
 			particlesCollection: [],
 			happenings: {}
 		};
+
 
 		this.orbit = null;
 		this.sceneIsReady = false;
@@ -294,14 +298,13 @@ class SceneBuilder {
 
 	createMeshWithCustomShader( mesh ){
 
-		// TODO
-		// temporary : disable for dev
+		mesh.material = new CustomShaderBuilder({
+			shaderName: this.sceneElements.meshCustomShaderOptions.shaderName,
+			shaderScale: this.sceneElements.meshCustomShaderOptions.shaderScale,
+			shaderAxe: this.sceneElements.meshCustomShaderOptions.shaderAxe
+		});
 
-		// const shaderName = mesh.name.replace("mesh-custom-shader_", "");
-
-		// mesh.material = new CustomShaderBuilder(shaderName);
-
-		// this.sceneElements.meshesForCustomShaderBuilt.push(mesh);
+		this.sceneElements.meshesForCustomShaderBuilt.push(mesh);
 
 	}
 

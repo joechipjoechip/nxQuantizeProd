@@ -30,8 +30,14 @@ const entities = {
 					y: 0.1,
 				},
 				shader: {
-					shaderName: "customPhong",
-					shaderScale: 0.1
+					shaderName: "bobShader",
+					shaderScale: 0.2,
+					shaderAxe: "zy",
+					specificShaderName: "galaxy",
+					shaderTimeRatio: 6,
+					isCameraPositionInfluenced: false,
+					sin: false,
+					sinAmplitude: 60
 				}
 			}
 		},

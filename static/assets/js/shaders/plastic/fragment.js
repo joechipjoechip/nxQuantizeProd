@@ -1,8 +1,6 @@
 const plasticFragment = `
 uniform float iGlobalTime;
 uniform vec2 iResolution;
-uniform vec4      iMouse;
-uniform sampler2D iChannel0;
 varying vec2 fragCoord;
 varying vec2 vUv;
 void main()
@@ -25,7 +23,5 @@ void main()
     gl_FragColor.rgb = c;
 }
 `;
-
-
 
 export { plasticFragment };

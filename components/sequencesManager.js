@@ -638,23 +638,22 @@ class SequencesManager{
 
 			currentSceneElements.meshesForCustomShaderBuilt.forEach(mesh => {
 
-				console.log("update de iGlobalTime");
-
-				mesh.material.uniforms.iGlobalTime.value = elapsedTime * currentSequenceElements.sequenceInfos.customShaderOptions.timeRatio || 0.5;
-
+				console.log("update d'un custom shader classic");
+	
+				mesh.material.uniforms.iGlobalTime.value = elapsedTime * currentSceneElements.meshCustomShaderOptions.shaderTimeRatio || 0.5;
+				
 			});
-
+			
 		}
-
+		
+		// if bob with custom shader 
 		if( currentSceneElements.bobs[this.currentBobName]?._controls._params.bobInfos.shader ){
 
-			const currentBob = currentSceneElements.bobs[this.currentBobName]._controls._target.children.find(child => child.name !== "Armature");
+			console.log("update d'un custom shader sur un personnage");
 
-			
-			// currentBob.material.uniforms.iGlobalTime.value = Math.sin(elapsedTime);
-			currentBob.material.uniforms.iGlobalTime.value = elapsedTime;
+			const shaderInfos = currentSceneElements.bobs[this.currentBobName]?._controls._params.bobInfos.shader;
 
-			// console.log("iGlobalTime uniform : ", currentBob.material.uniforms.iGlobalTime.value);
+			currentSceneElements.bobs[this.currentBobName]._controls._target.children.find(child => child.name !== "Armature").material.uniforms.iGlobalTime.value = shaderInfos.shaderTimeRatio * (shaderInfos.sin ? (Math.sin(elapsedTime) * shaderInfos.sinAmplitude) : elapsedTime);
 
 		}
 

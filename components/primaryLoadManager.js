@@ -145,11 +145,10 @@ class PrimaryLoadManager{
 
 					const targetMesh = target.children.find(child => child.name !== "Armature");
 
-					targetMesh.material = new CustomShaderBuilder(shaderInfos.shaderName, shaderInfos.shaderScale);
+					targetMesh.material = new CustomShaderBuilder(shaderInfos);
 
 				}
 
-				
 				res(target);
 
 			});

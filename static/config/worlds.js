@@ -137,6 +137,13 @@ const worlds = [
 
 			},
 
+			meshCustomShaderOptions: {
+				shaderTimeRatio: 0.65,
+				shaderName: "galaxy",
+				shaderScale: 1,
+				shaderAxe: "yz"
+			},
+
 			entities: ["link", "linkShader"],
 
 		},
@@ -227,10 +234,6 @@ const worlds = [
 					orbit: false,
 					tubes: false,
 					timelines: false
-				},
-
-				customShaderOptions: {
-					timeRatio: 0.65
 				},
 				
 				fog: {
