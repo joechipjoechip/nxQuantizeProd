@@ -125,8 +125,6 @@ class PrimaryLoadManager{
 
 				fbx.scale.setScalar(mainObj.infos.scale);
 
-				console.log("AT LOAD : fbx : ", fbx);
-
 				fbx.traverse(c => {
 					if( c.type !== "Bone" ){
 						c.castShadow = true;

@@ -35,7 +35,20 @@ class CustomShaderBuilder {
 
                 break;
 
+            case "plastic":
+
+                console.log("- - - -on passe bien dans le switch plastic : shaderAxe : ", shaderAxe);
+
+                return new THREE.ShaderMaterial({
+                    uniforms,
+                    vertexShader: plasticVertex.replace("fragCoord = position.xy;", `fragCoord = position.${shaderAxe};`),
+                    fragmentShader: plasticFragment
+                  });
+
+                break;
+
             case "bobShader":
+            case "aliceShader":
 
                 return new THREE.ShaderMaterial({
                     uniforms,

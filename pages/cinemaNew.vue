@@ -176,9 +176,15 @@
 
 
 				setTimeout(() => {
-					this.$store.commit("setAudioTimecode", 13);
 
-					// console.log("- - - - - - - - - - - - - -wssshhhh getAudioCurrent : ", this.$store.state.audioCurrent.duration);
+					const goTo = 40;
+
+					if( goTo > 0 ){
+						this.$store.commit("setAudioTimecode", goTo);
+					}
+
+
+					// console.log("time debugger to go to ", goTo);
 
 				}, 800);
 

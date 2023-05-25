@@ -298,13 +298,17 @@ class SceneBuilder {
 
 	createMeshWithCustomShader( mesh ){
 
-		mesh.material = new CustomShaderBuilder({
-			shaderName: this.sceneElements.meshCustomShaderOptions.shaderName,
-			shaderScale: this.sceneElements.meshCustomShaderOptions.shaderScale,
-			shaderAxe: this.sceneElements.meshCustomShaderOptions.shaderAxe
-		});
+		if(this.sceneElements.meshCustomShaderOptions.enabled ){
 
-		this.sceneElements.meshesForCustomShaderBuilt.push(mesh);
+			mesh.material = new CustomShaderBuilder({
+				shaderName: this.sceneElements.meshCustomShaderOptions.shaderName,
+				shaderScale: this.sceneElements.meshCustomShaderOptions.shaderScale,
+				shaderAxe: this.sceneElements.meshCustomShaderOptions.shaderAxe
+			});
+	
+			this.sceneElements.meshesForCustomShaderBuilt.push(mesh);
+
+		}
 
 	}
 

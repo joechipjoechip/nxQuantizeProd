@@ -8,7 +8,7 @@
 			<div ref="currentFPS" class="stats">{{ currentFPSValue }}</div>
 			<div ref="downScale" class="stats">{{ $store.state.downScale }}</div>
 			<div v-if="sequenceID" class="stats">{{ sequenceID }}</div>
-			<!-- <div v-if="$store.state.audioCurrent" class="stats">{{ $store.state.audioCurrent.currentTime }}</div> -->
+			<div v-if="$store.state.audioCurrent" class="stats">{{ $store.state.audioCurrent.currentTime }}</div>
 			<div v-if="currentSequence" class="stats">next step : {{ currentSequence.until }}</div>
 			<div v-if="currentSequence" class="stats">isAdjustingDownScale : {{ isAdjustingDownScale }}</div>
 			<div v-if="currentSequence" class="stats">performanceTimeoutID : {{ performanceTimeoutID }}</div>

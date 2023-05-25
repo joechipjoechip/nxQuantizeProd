@@ -18,7 +18,7 @@ const entities = {
 		},
 		linkShader: {
 			name: "linkShader",
-			fbxPath: "./assets/3d/persos/linkShader.fbx",
+			fbxPath: "./assets/3d/persos/link.fbx",
 			infos: {
 				scale: 0.0008,
 				// scale: 1,z
@@ -68,6 +68,31 @@ const entities = {
 					z: 0.5,
 					// y -> rotation
 					y: 0.1,
+				}
+			}
+		},
+		queenShader: {
+			name: "queenShader",
+			fbxPath: "./assets/3d/persos/queen.fbx",
+			infos: {
+				scale: 0.0008,
+				// scale: 1,z
+				velocity: {
+					// x & z -> displacement
+					x: 0.5,
+					z: 0.5,
+					// y -> rotation
+					y: 0.1,
+				},
+				shader: {
+					shaderName: "aliceShader",
+					shaderScale: 0.1,
+					shaderAxe: "zy",
+					specificShaderName: "galaxy",
+					shaderTimeRatio: 1,
+					isCameraPositionInfluenced: false,
+					sin: false,
+					sinAmplitude: 60
 				}
 			}
 		}

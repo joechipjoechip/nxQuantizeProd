@@ -92,7 +92,7 @@ const worlds = [
 
 			spaceColor: "#051442",
 			spaceColorDarker: "#051442",
-			spaceColorWithBloom: "#051442",
+			spaceColorWithBloom: "#000105",
 
 			ambient: {
 				sunColor: "#7AFF00",
@@ -138,13 +138,12 @@ const worlds = [
 			},
 
 			meshCustomShaderOptions: {
+				enabled: false,
 				shaderTimeRatio: 0.65,
-				shaderName: "galaxy",
+				shaderName: "plastic",
 				shaderScale: 1,
-				shaderAxe: "yz"
+				shaderAxe: "xy"
 			},
-
-			entities: ["link", "linkShader"],
 
 		},
 
@@ -153,7 +152,7 @@ const worlds = [
 				id: "1.0",
 				baseFov: 5,
 				fovTransition: false,
-				sequenceBobName: "linkShader",
+				sequenceBobName: "link",
 				until: 14,
 				nextInstruction: "switch-sequence",
 
@@ -194,7 +193,7 @@ const worlds = [
 					]
 				},
 
-				slowmo: 9,
+				slowmo: 5,
 
 				bobImposedMoves: {
 					forward: true,
@@ -204,14 +203,14 @@ const worlds = [
 				},
 
 				postproc: [
-					// {
-					// 	type: "bloom",
-					// 	value: {
-					// 		strength: 0.5,
-					// 		threshold: 0.35,
-					// 		radius: 0.4
-					// 	}
-					// },
+					{
+						type: "bloom",
+						value: {
+							strength: 0.7,
+							threshold: 0.00035,
+							radius: 0.7
+						}
+					},
 				]
 
 			},
@@ -219,7 +218,7 @@ const worlds = [
 				id: "1.1",
 				baseFov: 27,
 				fovTransition: false,
-				sequenceBobName: "linkShader",
+				sequenceBobName: "link",
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 5,
@@ -251,14 +250,14 @@ const worlds = [
 
 				postproc: [
 
-					// {
-					// 	type: "bloom",
-					// 	value: {
-					// 		strength: 0.5,
-					// 		threshold: 0.35,
-					// 		radius: 0.4
-					// 	}
-					// },
+					{
+						type: "bloom",
+						value: {
+							strength: 0.7,
+							threshold: 0.00035,
+							radius: 0.7
+						}
+					},
 
 				]
 
@@ -275,10 +274,10 @@ const worlds = [
 
 			spaceColor: "#002038",
 			spaceColorDarker: "#001220",
-			spaceColorWithBloom: "#000B14",
+			spaceColorWithBloom: "#000005",
 
 			ambient: {
-				sunColor: "#FFFFFF",
+				sunColor: "#000005",
 				intensity: 0.6,
 				groundColor: "#04007A"
 			},
@@ -312,8 +311,6 @@ const worlds = [
 				}
 
 			},
-
-			entities: ["link", "juan", "queen"],
 
 		},
 
@@ -361,7 +358,8 @@ const worlds = [
 
 				alice: {
 					handleGround: false,
-					name: "queen",
+					name: "queenShader",
+					customShader: true,
 					move: {
 						floating: true
 					},
@@ -370,11 +368,19 @@ const worlds = [
 						y: 0,
 						z: 0
 					},
-					scale: 0.016,
+					scale: 0.03,
 					slowmo: 9
 				},
 
 				postproc: [
+					{
+						type: "bloom",
+						value: {
+							strength: 0.7,
+							threshold: 0.00035,
+							radius: 0.7
+						}
+					},
 				]
 
 			},
@@ -386,9 +392,9 @@ const worlds = [
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 12,
-				cameraType: "movingHips",
+				cameraType: "movingHips-lookUp",
 
-				until: 44,
+				until: 43,
 				nextInstruction: "drop-and-load-and-switch",
 
 				animatedMesh: false,
@@ -414,16 +420,17 @@ const worlds = [
 
 				alice: {
 					handleGround: false,
-					name: "queen",
+					name: "queenShader",
+					customShader: true,
 					move: {
 						floating: true
 					},
 					offset: {
 						x: 0,
-						y: 0,
+						y: -0.01,
 						z: 0
 					},
-					scale: 0.016,
+					scale: 0.03,
 					slowmo: 9
 				},
 
@@ -431,9 +438,9 @@ const worlds = [
 					{
 						type: "bloom",
 						value: {
-							strength: 0.9,
-							threshold: 0.35,
-							radius: 0.3
+							strength: 0.7,
+							threshold: 0.00035,
+							radius: 0.7
 						}
 					},
 				]
@@ -493,9 +500,9 @@ const worlds = [
 					{
 						type: "bloom",
 						value: {
-							strength: 0.9,
-							threshold: 0.35,
-							radius: 0.3
+							strength: 0.7,
+							threshold: 0.00035,
+							radius: 0.7
 						}
 					},
 
@@ -512,12 +519,12 @@ const worlds = [
 
 		main: {
 
-			spaceColor: "#000000",
-			spaceColorDarker: "#000000",
-			spaceColorWithBloom: "#000000",
+			spaceColor: "#040101",
+			spaceColorDarker: "#040101",
+			spaceColorWithBloom: "#040101",
 
 			ambient: {
-				sunColor: "#000000",
+				sunColor: "#040101",
 				intensity: 0.4,
 				groundColor: "#3B3B3B"
 			},
@@ -537,17 +544,23 @@ const worlds = [
 
 			},
 
-			entities: ["link", "juan", "queen"],
+			meshCustomShaderOptions: {
+				enabled: true,
+				shaderTimeRatio: 0.5,
+				shaderName: "plastic",
+				shaderScale: 8,
+				shaderAxe: "zy"
+			},
 
 		},
 
 		sequences: [
 			{
 				id: "2.3",
-				baseFov: 15,
+				baseFov: 95,
 				fovTransition: false,
 				sequenceBobName: "link",
-				until: 51.5,
+				until: 50.5,
 				nextInstruction: "switch-sequence",
 
 				type: "blender-points",
@@ -566,6 +579,13 @@ const worlds = [
 					intensity: .55
 				},
 
+				bobImposedMoves: {
+					forward: true,
+					// shift: false
+				},
+
+				slowmo: 2.3,
+
 				alice: {
 					handleGround: false,
 					name: "queen",
@@ -582,7 +602,7 @@ const worlds = [
 				},
 
 				tubeInfos: {
-					duration: 10,
+					duration: 8,
 					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
 					isUsingTarget: true,
 					steps: [
@@ -591,7 +611,7 @@ const worlds = [
 						{
 							// this amount is a percent of the global duration
 							amount: 100,
-							fov: 35,
+							fov: 15,
 							stepEase: "linear"
 						}
 						
@@ -599,27 +619,36 @@ const worlds = [
 				},
 
 				postproc: [
+
 					{
-						type: "blur",
-						focusTarget: "queen",
+						type: "bloom",
 						value: {
-							focus: 1,
-							aperture: 0.055,
-							maxblur: 0.04
+							strength: 0.7,
+							threshold: 0.00035,
+							radius: 0.7
 						}
 					},
+					// {
+					// 	type: "blur",
+					// 	focusTarget: "queen",
+					// 	value: {
+					// 		focus: 1,
+					// 		aperture: 0.055,
+					// 		maxblur: 0.004
+					// 	}
+					// },
 				]
 
 			},
 			{
 				id: "2.4",
-				baseFov: 40,
-				fovTransition: true,
+				baseFov: 85,
+				fovTransition: false,
 				sequenceBobName: "juan",
 
 				type: "third-person",
-				cameraTriggerTimeDecay: 14,
-				cameraType: "movingHips",
+				cameraTriggerTimeDecay: 8,
+				cameraType: "movingHips-4",
 
 				until: 56.7,
 				nextInstruction: "switch-scene",
@@ -653,7 +682,7 @@ const worlds = [
 					slowmo: 5
 				},
 
-				slowmo: 2.5,
+				slowmo: 2,
 
 				bobImposedMoves: {
 					forward: true,
@@ -663,12 +692,21 @@ const worlds = [
 				postproc: [
 
 					{
+						type: "bloom",
+						value: {
+							strength: 0.5,
+							threshold: 0.00035,
+							radius: 0.3
+						}
+					},
+
+					{
 						type: "blur",
 						focusTarget: "queen",
 						value: {
 							focus: 1,
-							aperture: 0.025,
-							maxblur: 0.01
+							aperture: 0.0025,
+							maxblur: 0.04
 						}
 					},
 
@@ -677,7 +715,7 @@ const worlds = [
 			},
 			{
 				id: "4.4",
-				baseFov: 25,
+				baseFov: 55,
 				fovTransition: false,
 				sequenceBobName: "juan",
 
@@ -727,6 +765,15 @@ const worlds = [
 				},
 
 				postproc: [
+
+					{
+						type: "bloom",
+						value: {
+							strength: 0.7,
+							threshold: 0.00035,
+							radius: 0.7
+						}
+					},
 
 					{
 						type: "blur",
@@ -1129,7 +1176,7 @@ const worlds = [
 					right: false
 				},
 
-				slowmo: 1,
+				slowmo: 0.85,
 
 				postproc: [
 

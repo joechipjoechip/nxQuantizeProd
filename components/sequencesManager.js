@@ -657,6 +657,16 @@ class SequencesManager{
 
 		}
 
+		if( currentSequenceElements.aliceInfos?.customShader ){
+
+			console.log("ok alice shader update");
+
+			const shaderInfos = currentSceneElements.bobs[currentSequenceElements.aliceInfos.name]?._controls._params.bobInfos.shader;
+
+			currentSceneElements.bobs[currentSequenceElements.aliceInfos.name]._controls._target.children.find(child => child.name !== "Armature").material.uniforms.iGlobalTime.value = shaderInfos.shaderTimeRatio * (shaderInfos.sin ? (Math.sin(elapsedTime) * shaderInfos.sinAmplitude) : elapsedTime);
+
+		}
+
 
 		// if landscapeMove
 		if( currentSequenceElements.sequenceInfos.landscapeMove ){

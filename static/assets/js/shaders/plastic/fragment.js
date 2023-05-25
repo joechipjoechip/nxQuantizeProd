@@ -11,7 +11,7 @@ void main()
 
     for( int i=0; i<99; i++ ){
         p = o+sin(iGlobalTime*.1);
-        for (int j = 0; j < 3; j++) 
+        for (int j = 0; j < 5; j++) 
             p = abs(p.zyx-.4) -.7,k += exp(-6. * abs(dot(p,o)));
         k/=3.;
         o += d *.05*k;

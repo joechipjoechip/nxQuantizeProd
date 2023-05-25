@@ -345,6 +345,41 @@ const core = {
 				},
 			},
 		},
+		"movingHips-4": {
+			offset: {
+				x: 0,
+				y: 0.015,
+				z: 0.04
+			},
+			lookAt: {
+				x: 0,
+				y: 0.017,
+				z: 0.1
+			},
+			straightness: 0.015,
+			mouseOrientationPonderation: {
+				x: 0.04,
+				y: 0.08
+			},
+			motion: {
+				// motion will move the camera continuously
+				// with a sin() (so -1 to 1)
+				// and it's related at the offset values
+				x: {
+					// ratios
+					range: 0.015,
+					velocity: 0.5
+				},
+				y: {
+					range: 0.02,
+					velocity: 0.25
+				},
+				z: {
+					range: -0.4,
+					velocity: 0.25
+				},
+			},
+		},
 		
 		helmet: {
 			offset: {
