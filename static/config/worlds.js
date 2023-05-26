@@ -153,7 +153,7 @@ const worlds = [
 				baseFov: 5,
 				fovTransition: false,
 				sequenceBobName: "link",
-				until: 14,
+				until: 7,
 				nextInstruction: "switch-sequence",
 
 				type: "blender-points",
@@ -224,8 +224,8 @@ const worlds = [
 				cameraTriggerTimeDecay: 5,
 				cameraType: "helmet-low-leave-house",
 
-				until: 26.5,
-				nextInstruction: "switch-scene",
+				until: 10.8,
+				nextInstruction: "switch-sequence",
 
 				animatedMesh: false,
 
@@ -236,7 +236,7 @@ const worlds = [
 				},
 				
 				fog: {
-					enabled: true,
+					enabled: false,
 					color: "#000000",
 					intensity: .68
 				},
@@ -261,7 +261,103 @@ const worlds = [
 
 				]
 
-			}
+			},
+			{
+				id: "1.2",
+				baseFov: 25,
+				fovTransition: true,
+				sequenceBobName: "link",
+
+				type: "third-person",
+				cameraTriggerTimeDecay: 29,
+				cameraType: "helmet-low-leave-house",
+
+				until: 12.65,
+				nextInstruction: "switch-sequence",
+
+				animatedMesh: false,
+
+				helpers: {
+					orbit: false,
+					tubes: false,
+					timelines: false
+				},
+				
+				fog: {
+					enabled: false,
+					color: "#000000",
+					intensity: .68
+				},
+
+				slowmo: 6,
+
+				bobImposedMoves: {
+					forward: true,
+					dance: false
+				},
+
+				postproc: [
+
+					{
+						type: "bloom",
+						value: {
+							strength: 0.7,
+							threshold: 0.00035,
+							radius: 0.7
+						}
+					},
+
+				]
+
+			},
+			{
+				id: "1.3",
+				baseFov: 45,
+				fovTransition: false,
+				sequenceBobName: "queen",
+
+				type: "third-person",
+				cameraTriggerTimeDecay: 29,
+				cameraType: "helmet-low-leave-house",
+
+				until: 14,
+				nextInstruction: "switch-scene",
+
+				animatedMesh: false,
+
+				helpers: {
+					orbit: false,
+					tubes: false,
+					timelines: false
+				},
+				
+				fog: {
+					enabled: false,
+					color: "#000000",
+					intensity: .68
+				},
+
+				slowmo: 2,
+
+				bobImposedMoves: {
+					forward: true,
+					dance: false
+				},
+
+				postproc: [
+
+					{
+						type: "bloom",
+						value: {
+							strength: 0.7,
+							threshold: 0.00035,
+							radius: 0.7
+						}
+					},
+
+				]
+
+			},
 
 		]
 
@@ -316,11 +412,11 @@ const worlds = [
 
 		sequences: [
 			{
-				id: "2.1",
-				baseFov: 55,
+				id: "2.3",
+				baseFov: 15,
 				fovTransition: false,
-				sequenceBobName: "link",
-				until: 37,
+				sequenceBobName: "juan",
+				until: 21.5,
 				nextInstruction: "switch-sequence",
 
 				type: "blender-points",
@@ -339,8 +435,15 @@ const worlds = [
 					intensity: .15
 				},
 
+				bobImposedMoves: {
+					backward: false,
+					forward: false,
+					shift: false,
+					dance: false
+				},
+
 				tubeInfos: {
-					duration: 10,
+					duration: 8,
 					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
 					isUsingTarget: true,
 					steps: [
@@ -359,7 +462,6 @@ const worlds = [
 				alice: {
 					handleGround: false,
 					name: "queenShader",
-					customShader: true,
 					move: {
 						floating: true
 					},
@@ -368,8 +470,15 @@ const worlds = [
 						y: 0,
 						z: 0
 					},
-					scale: 0.03,
-					slowmo: 9
+					scale: 0.035,
+					slowmo: 9,
+					customShaderOptions: {
+						shaderTimeRatio: 0.5,
+						shaderTimeDecay: 4,
+						isCameraPositionInfluenced: false,
+						sin: false,
+						sinAmplitude: 60
+					}
 				},
 
 				postproc: [
@@ -385,7 +494,7 @@ const worlds = [
 
 			},
 			{
-				id: "2.2",
+				id: "2.4",
 				baseFov: 27,
 				fovTransition: true,
 				sequenceBobName: "juan",
@@ -394,7 +503,7 @@ const worlds = [
 				cameraTriggerTimeDecay: 12,
 				cameraType: "movingHips-lookUp",
 
-				until: 43,
+				until: 28.5,
 				nextInstruction: "drop-and-load-and-switch",
 
 				animatedMesh: false,
@@ -421,7 +530,6 @@ const worlds = [
 				alice: {
 					handleGround: false,
 					name: "queenShader",
-					customShader: true,
 					move: {
 						floating: true
 					},
@@ -430,8 +538,15 @@ const worlds = [
 						y: -0.01,
 						z: 0
 					},
-					scale: 0.03,
-					slowmo: 9
+					scale: 0.035,
+					slowmo: 9,
+					customShaderOptions: {
+						shaderTimeRatio: 0.5,
+						shaderTimeDecay: 5,
+						isCameraPositionInfluenced: false,
+						sin: false,
+						sinAmplitude: 60
+					}
 				},
 
 				postproc: [
@@ -446,15 +561,17 @@ const worlds = [
 				]
 
 			},
+
+			// drop du run ! 
 			{
-				id: "3.4",
-				baseFov: 23,
-				fovTransition: true,
+				id: "3.7",
+				baseFov: 28,
+				fovTransition: false,
 				sequenceBobName: "juan",
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 6,
-				cameraType: "movingHips",
+				cameraType: "movingHips-lookUp",
 
 				until: 65,
 				nextInstruction: "switch-scene",
@@ -482,17 +599,24 @@ const worlds = [
 
 				alice: {
 					handleGround: false,
-					name: "queen",
+					name: "queenShader",
 					move: {
 						floating: true
 					},
 					offset: {
 						x: 0,
-						y: 0,
+						y: 0.15,
 						z: 0
 					},
-					scale: 0.016,
-					slowmo: 9
+					scale: 0.03,
+					slowmo: 2,
+					customShaderOptions: {
+						shaderTimeRatio: 0.3,
+						shaderTimeDecay: 7,
+						isCameraPositionInfluenced: false,
+						sin: false,
+						sinAmplitude: 90
+					}
 				},
 
 				postproc: [
@@ -556,11 +680,11 @@ const worlds = [
 
 		sequences: [
 			{
-				id: "2.3",
-				baseFov: 95,
+				id: "2.5",
+				baseFov: 180,
 				fovTransition: false,
 				sequenceBobName: "link",
-				until: 50.5,
+				until: 43,
 				nextInstruction: "switch-sequence",
 
 				type: "blender-points",
@@ -588,7 +712,7 @@ const worlds = [
 
 				alice: {
 					handleGround: false,
-					name: "queen",
+					name: "queenShader",
 					move: {
 						floating: true
 					},
@@ -598,11 +722,18 @@ const worlds = [
 						z: 0
 					},
 					scale: 0.008,
-					slowmo: 5
+					slowmo: 5,
+					customShaderOptions: {
+						shaderTimeRatio: 0.01,
+						shaderTimeDecay: 8,
+						isCameraPositionInfluenced: false,
+						sin: true,
+						sinAmplitude: 60
+					}
 				},
 
 				tubeInfos: {
-					duration: 8,
+					duration: 15,
 					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
 					isUsingTarget: true,
 					steps: [
@@ -611,7 +742,7 @@ const worlds = [
 						{
 							// this amount is a percent of the global duration
 							amount: 100,
-							fov: 15,
+							fov: 10,
 							stepEase: "linear"
 						}
 						
@@ -641,7 +772,7 @@ const worlds = [
 
 			},
 			{
-				id: "2.4",
+				id: "2.6",
 				baseFov: 85,
 				fovTransition: false,
 				sequenceBobName: "juan",
@@ -650,8 +781,9 @@ const worlds = [
 				cameraTriggerTimeDecay: 8,
 				cameraType: "movingHips-4",
 
-				until: 56.7,
-				nextInstruction: "switch-scene",
+				until: 50.5,
+	
+				nextInstruction: "switch-sequence",
 
 				animatedMesh: false,
 
@@ -669,7 +801,7 @@ const worlds = [
 
 				alice: {
 					handleGround: false,
-					name: "queen",
+					name: "queenShader",
 					move: {
 						floating: true
 					},
@@ -679,14 +811,21 @@ const worlds = [
 						z: 0
 					},
 					scale: 0.008,
-					slowmo: 5
+					slowmo: 5,
+					customShaderOptions: {
+						shaderTimeRatio: 0.5,
+						shaderTimeDecay: 8,
+						isCameraPositionInfluenced: false,
+						sin: false,
+						sinAmplitude: 60
+					}
 				},
 
 				slowmo: 2,
 
 				bobImposedMoves: {
 					forward: true,
-					// shift: false
+					shift: false
 				},
 
 				postproc: [
@@ -702,7 +841,67 @@ const worlds = [
 
 					{
 						type: "blur",
-						focusTarget: "queen",
+						focusTarget: "queenShader",
+						value: {
+							focus: 1,
+							aperture: 0.0025,
+							maxblur: 0.06
+						}
+					},
+
+				]
+
+			},
+			{
+				id: "2.7",
+				baseFov: 15,
+				fovTransition: true,
+				sequenceBobName: "juan",
+
+				type: "third-person",
+				cameraTriggerTimeDecay: 8,
+				cameraType: "helmet",
+
+				// drop du run ! timer
+				until: 56.7,
+
+				nextInstruction: "switch-scene",
+
+				animatedMesh: false,
+
+				helpers: {
+					orbit: false,
+					tubes: false,
+					timelines: false
+				},
+				
+				fog: {
+					enabled: false,
+					color: "#0D063B",
+					intensity: .4
+				},
+
+				slowmo: 1.7,
+
+				bobImposedMoves: {
+					forward: true,
+					shift: false
+				},
+
+				postproc: [
+
+					{
+						type: "bloom",
+						value: {
+							strength: 0.5,
+							threshold: 0.00035,
+							radius: 0.3
+						}
+					},
+
+					{
+						type: "blur",
+						// focusTarget: "queenShader",
 						value: {
 							focus: 1,
 							aperture: 0.0025,
@@ -714,8 +913,8 @@ const worlds = [
 
 			},
 			{
-				id: "4.4",
-				baseFov: 55,
+				id: "4.7",
+				baseFov: 32,
 				fovTransition: false,
 				sequenceBobName: "juan",
 
@@ -742,7 +941,7 @@ const worlds = [
 
 				alice: {
 					handleGround: false,
-					name: "queen",
+					name: "queenShader",
 					move: {
 						floating: true
 					},
@@ -752,7 +951,14 @@ const worlds = [
 						z: 0
 					},
 					scale: 0.008,
-					slowmo: 3
+					slowmo: 5,
+					customShaderOptions: {
+						shaderTimeRatio: 1.5,
+						shaderTimeDecay: 2,
+						isCameraPositionInfluenced: false,
+						sin: false,
+						sinAmplitude: 60
+					}
 				},
 
 				// slowmo: 3,
@@ -777,11 +983,11 @@ const worlds = [
 
 					{
 						type: "blur",
-						focusTarget: "queen",
+						focusTarget: "queenShader",
 						value: {
 							focus: 1,
 							aperture: 0.025,
-							maxblur: 0.01
+							maxblur: 0.02
 						}
 					},
 

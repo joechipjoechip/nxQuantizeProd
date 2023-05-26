@@ -88,11 +88,7 @@ const entities = {
 					shaderName: "aliceShader",
 					shaderScale: 0.1,
 					shaderAxe: "zy",
-					specificShaderName: "galaxy",
-					shaderTimeRatio: 1,
-					isCameraPositionInfluenced: false,
-					sin: false,
-					sinAmplitude: 60
+					specificShaderName: "galaxy"
 				}
 			}
 		}

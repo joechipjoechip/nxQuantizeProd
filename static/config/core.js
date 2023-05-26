@@ -384,7 +384,7 @@ const core = {
 		helmet: {
 			offset: {
 				x: 0,
-				y: 0.03,
+				y: 0.01,
 				z: 0.05
 			},
 			lookAt: {

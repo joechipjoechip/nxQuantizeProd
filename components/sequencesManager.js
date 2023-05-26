@@ -638,7 +638,7 @@ class SequencesManager{
 
 			currentSceneElements.meshesForCustomShaderBuilt.forEach(mesh => {
 
-				console.log("update d'un custom shader classic");
+				// console.log("update d'un custom shader classic");
 	
 				mesh.material.uniforms.iGlobalTime.value = elapsedTime * currentSceneElements.meshCustomShaderOptions.shaderTimeRatio || 0.5;
 				
@@ -649,7 +649,7 @@ class SequencesManager{
 		// if bob with custom shader 
 		if( currentSceneElements.bobs[this.currentBobName]?._controls._params.bobInfos.shader ){
 
-			console.log("update d'un custom shader sur un personnage");
+			// console.log("update d'un custom shader sur un personnage");
 
 			const shaderInfos = currentSceneElements.bobs[this.currentBobName]?._controls._params.bobInfos.shader;
 
@@ -657,13 +657,11 @@ class SequencesManager{
 
 		}
 
-		if( currentSequenceElements.aliceInfos?.customShader ){
+		if( currentSequenceElements.aliceInfos?.customShaderOptions ){
 
-			console.log("ok alice shader update");
+			const shaderInfos = currentSequenceElements.aliceInfos.customShaderOptions;
 
-			const shaderInfos = currentSceneElements.bobs[currentSequenceElements.aliceInfos.name]?._controls._params.bobInfos.shader;
-
-			currentSceneElements.bobs[currentSequenceElements.aliceInfos.name]._controls._target.children.find(child => child.name !== "Armature").material.uniforms.iGlobalTime.value = shaderInfos.shaderTimeRatio * (shaderInfos.sin ? (Math.sin(elapsedTime) * shaderInfos.sinAmplitude) : elapsedTime);
+			currentSceneElements.bobs[currentSequenceElements.aliceInfos.name]._controls._target.children.find(child => child.name !== "Armature").material.uniforms.iGlobalTime.value = shaderInfos.shaderTimeRatio * (shaderInfos.sin ? (Math.sin(elapsedTime) * shaderInfos.sinAmplitude) : elapsedTime) + shaderInfos.shaderTimeDecay;
 
 		}
 
