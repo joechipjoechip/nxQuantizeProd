@@ -6,6 +6,12 @@ import { galaxyFragment } from "../static/assets/js/shaders/galaxy/fragment";
 import { plasticVertex } from '../static/assets/js/shaders/plastic/vertex';
 import { plasticFragment } from "../static/assets/js/shaders/plastic/fragment";
 
+import { psycheVertex } from "../static/assets/js/shaders/psyche/vertex";
+import { psycheFragment } from "../static/assets/js/shaders/psyche/fragment";
+
+import { kaleiVertex } from "../static/assets/js/shaders/kalei/vertex";
+import { KaleiFragment, kaleiFragment } from "../static/assets/js/shaders/kalei/fragment";
+
 class CustomShaderBuilder {
 
     constructor( shaderInfos ){
@@ -37,12 +43,30 @@ class CustomShaderBuilder {
 
             case "plastic":
 
-                console.log("- - - -on passe bien dans le switch plastic : shaderAxe : ", shaderAxe);
-
                 return new THREE.ShaderMaterial({
                     uniforms,
                     vertexShader: plasticVertex.replace("fragCoord = position.xy;", `fragCoord = position.${shaderAxe};`),
                     fragmentShader: plasticFragment
+                  });
+
+                break;
+
+            case "psyche":
+
+                return new THREE.ShaderMaterial({
+                    uniforms,
+                    vertexShader: psycheVertex.replace("fragCoord = position.xy;", `fragCoord = position.${shaderAxe};`),
+                    fragmentShader: psycheFragment
+                  });
+
+                break;
+
+            case "kalei":
+
+                return new THREE.ShaderMaterial({
+                    uniforms,
+                    vertexShader: kaleiVertex.replace("fragCoord = position.xy;", `fragCoord = position.${shaderAxe};`),
+                    fragmentShader: kaleiFragment
                   });
 
                 break;
@@ -93,6 +117,18 @@ class CustomShaderBuilder {
             case "plastic":
 
                 return plasticFragment;
+
+                break;
+
+            case "psyche":
+
+                return psycheFragment;
+
+                break;
+
+            case "kalei":
+
+                return kaleiFragment;
 
                 break;
 

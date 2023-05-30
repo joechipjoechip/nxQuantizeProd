@@ -138,10 +138,10 @@ const worlds = [
 			},
 
 			meshCustomShaderOptions: {
-				enabled: false,
-				shaderTimeRatio: 0.65,
+				enabled: true,
+				shaderTimeRatio: 0.3,
 				shaderName: "plastic",
-				shaderScale: 1,
+				shaderScale: 3,
 				shaderAxe: "xy"
 			},
 
@@ -153,7 +153,7 @@ const worlds = [
 				baseFov: 5,
 				fovTransition: false,
 				sequenceBobName: "link",
-				until: 7,
+				until: 7.3,
 				nextInstruction: "switch-sequence",
 
 				type: "blender-points",
@@ -264,16 +264,64 @@ const worlds = [
 			},
 			{
 				id: "1.2",
-				baseFov: 25,
+				baseFov: 20,
+				fovTransition: false,
+				sequenceBobName: "link",
+
+				type: "third-person",
+				cameraTriggerTimeDecay: 6,
+				cameraType: "movingHips-lookUp",
+
+				until: 12.65,
+				nextInstruction: "switch-sequence",
+
+				animatedMesh: false,
+
+				helpers: {
+					orbit: false,
+					tubes: false,
+					timelines: false
+				},
+				
+				fog: {
+					enabled: false,
+					color: "#000000",
+					intensity: .68
+				},
+
+				slowmo: 4,
+
+				bobImposedMoves: {
+					forward: true,
+					dance: false
+				},
+
+				postproc: [
+
+					// {
+					// 	type: "bloom",
+					// 	value: {
+					// 		strength: 0.7,
+					// 		threshold: 0.00035,
+					// 		radius: 0.7
+					// 	}
+					// },
+
+				]
+
+			},
+			{
+				id: "1.3",
+				baseFov: 42,
 				fovTransition: true,
 				sequenceBobName: "link",
 
 				type: "third-person",
-				cameraTriggerTimeDecay: 29,
-				cameraType: "helmet-low-leave-house",
+				cameraTriggerTimeDecay: 8,
+				cameraType: "movingHips-lookUp",
 
-				until: 12.65,
-				nextInstruction: "switch-sequence",
+				until: 14.2,
+				nextInstruction: "switch-scene",
 
 				animatedMesh: false,
 
@@ -293,67 +341,19 @@ const worlds = [
 
 				bobImposedMoves: {
 					forward: true,
-					dance: false
+					shift: false
 				},
 
 				postproc: [
 
-					{
-						type: "bloom",
-						value: {
-							strength: 0.7,
-							threshold: 0.00035,
-							radius: 0.7
-						}
-					},
-
-				]
-
-			},
-			{
-				id: "1.3",
-				baseFov: 45,
-				fovTransition: false,
-				sequenceBobName: "queen",
-
-				type: "third-person",
-				cameraTriggerTimeDecay: 29,
-				cameraType: "helmet-low-leave-house",
-
-				until: 14,
-				nextInstruction: "switch-scene",
-
-				animatedMesh: false,
-
-				helpers: {
-					orbit: false,
-					tubes: false,
-					timelines: false
-				},
-				
-				fog: {
-					enabled: false,
-					color: "#000000",
-					intensity: .68
-				},
-
-				slowmo: 2,
-
-				bobImposedMoves: {
-					forward: true,
-					dance: false
-				},
-
-				postproc: [
-
-					{
-						type: "bloom",
-						value: {
-							strength: 0.7,
-							threshold: 0.00035,
-							radius: 0.7
-						}
-					},
+					// {
+					// 	type: "bloom",
+					// 	value: {
+					// 		strength: 0.7,
+					// 		threshold: 0.00035,
+					// 		radius: 0.7
+					// 	}
+					// },
 
 				]
 
@@ -459,27 +459,27 @@ const worlds = [
 					]
 				},
 
-				alice: {
-					handleGround: false,
-					name: "queenShader",
-					move: {
-						floating: true
-					},
-					offset: {
-						x: 0,
-						y: 0,
-						z: 0
-					},
-					scale: 0.035,
-					slowmo: 9,
-					customShaderOptions: {
-						shaderTimeRatio: 0.5,
-						shaderTimeDecay: 4,
-						isCameraPositionInfluenced: false,
-						sin: false,
-						sinAmplitude: 60
-					}
-				},
+				// alice: {
+				// 	handleGround: false,
+				// 	name: "queenShader",
+				// 	move: {
+				// 		floating: true
+				// 	},
+				// 	offset: {
+				// 		x: 0,
+				// 		y: 0,
+				// 		z: 0
+				// 	},
+				// 	scale: 0.035,
+				// 	slowmo: 9,
+				// 	customShaderOptions: {
+				// 		shaderTimeRatio: 0.5,
+				// 		shaderTimeDecay: 4,
+				// 		isCameraPositionInfluenced: false,
+				// 		sin: false,
+				// 		sinAmplitude: 60
+				// 	}
+				// },
 
 				postproc: [
 					{
@@ -527,27 +527,27 @@ const worlds = [
 					dance: false
 				},
 
-				alice: {
-					handleGround: false,
-					name: "queenShader",
-					move: {
-						floating: true
-					},
-					offset: {
-						x: 0,
-						y: -0.01,
-						z: 0
-					},
-					scale: 0.035,
-					slowmo: 9,
-					customShaderOptions: {
-						shaderTimeRatio: 0.5,
-						shaderTimeDecay: 5,
-						isCameraPositionInfluenced: false,
-						sin: false,
-						sinAmplitude: 60
-					}
-				},
+				// alice: {
+				// 	handleGround: false,
+				// 	name: "queenShader",
+				// 	move: {
+				// 		floating: true
+				// 	},
+				// 	offset: {
+				// 		x: 0,
+				// 		y: -0.01,
+				// 		z: 0
+				// 	},
+				// 	scale: 0.035,
+				// 	slowmo: 9,
+				// 	customShaderOptions: {
+				// 		shaderTimeRatio: 0.5,
+				// 		shaderTimeDecay: 5,
+				// 		isCameraPositionInfluenced: false,
+				// 		sin: false,
+				// 		sinAmplitude: 60
+				// 	}
+				// },
 
 				postproc: [
 					{
@@ -566,12 +566,12 @@ const worlds = [
 			{
 				id: "3.7",
 				baseFov: 28,
-				fovTransition: false,
+				fovTransition: true,
 				sequenceBobName: "juan",
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 6,
-				cameraType: "movingHips-lookUp",
+				cameraType: "movingHips-lookUp-xDecayed",
 
 				until: 65,
 				nextInstruction: "switch-scene",
@@ -605,17 +605,17 @@ const worlds = [
 					},
 					offset: {
 						x: 0,
-						y: 0.15,
+						y: -0.25,
 						z: 0
 					},
 					scale: 0.03,
 					slowmo: 2,
 					customShaderOptions: {
-						shaderTimeRatio: 0.3,
-						shaderTimeDecay: 7,
+						shaderTimeRatio: 0.02,
+						shaderTimeDecay: 12,
 						isCameraPositionInfluenced: false,
-						sin: false,
-						sinAmplitude: 90
+						sin: true,
+						sinAmplitude: 20
 					}
 				},
 
@@ -624,7 +624,256 @@ const worlds = [
 					{
 						type: "bloom",
 						value: {
-							strength: 0.7,
+							strength: 0.8,
+							threshold: 0.00035,
+							radius: 0.7
+						}
+					},
+
+				]
+
+			},
+			{
+				id: "5.9",
+				baseFov: 42,
+				fovTransition: false,
+				sequenceBobName: "juan",
+
+				type: "third-person",
+				cameraTriggerTimeDecay: 6,
+				cameraType: "movingHips-lookUp",
+
+				until: 97.6,
+				nextInstruction: "switch-sequence",
+
+				animatedMesh: false,
+
+				helpers: {
+					orbit: true,
+					tubes: false,
+					timelines: false
+				},
+				
+				fog: {
+					enabled: false,
+					color: "#0D063B",
+					intensity: .3
+				},
+
+				bobImposedMoves: {
+					backward: false,
+					forward: false,
+					shift: false,
+					dance: false,
+					enjoy: true
+				},
+
+				slowmo: 2,
+
+				alice: {
+					handleGround: false,
+					name: "queenShader",
+					move: {
+						floating: true
+					},
+					offset: {
+						x: 0,
+						y: -0.25,
+						z: 0
+					},
+					scale: 0.03,
+					slowmo: 2,
+					customShaderOptions: {
+						shaderTimeRatio: 0.01,
+						shaderTimeDecay: 12,
+						isCameraPositionInfluenced: false,
+						sin: true,
+						sinAmplitude: 20
+					}
+				},
+
+				postproc: [
+
+					{
+						type: "bloom",
+						value: {
+							strength: 0.8,
+							threshold: 0.00035,
+							radius: 0.7
+						}
+					},
+
+				]
+
+			},
+			{
+				id: "5.10",
+				baseFov: 20,
+				fovTransition: false,
+				sequenceBobName: "juan",
+
+				type: "blender-points",
+
+				until: 101,
+				nextInstruction: "switch-sequence",
+
+				animatedMesh: false,
+
+				helpers: {
+					orbit: true,
+					tubes: false,
+					timelines: false
+				},
+				
+				fog: {
+					enabled: false,
+					color: "#0D063B",
+					intensity: .3
+				},
+
+				bobImposedMoves: {
+					backward: false,
+					forward: false,
+					shift: false,
+					dance: false,
+					enjoy: true
+				},
+
+				slowmo: 2,
+
+				alice: {
+					handleGround: false,
+					name: "queenShader",
+					move: {
+						floating: true
+					},
+					offset: {
+						x: 0,
+						y: -0.25,
+						z: 0
+					},
+					scale: 0.03,
+					slowmo: 2,
+					customShaderOptions: {
+						shaderTimeRatio: 0.01,
+						shaderTimeDecay: 12,
+						isCameraPositionInfluenced: false,
+						sin: true,
+						sinAmplitude: 20
+					}
+				},
+
+				tubeInfos: {
+					duration: 80,
+					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
+					isUsingTarget: true,
+					steps: [
+						// n steps are possibles
+						// n has nothing to do with the number of points for the curve
+						{
+							// this amount is a percent of the global duration
+							amount: 100,
+							fov: 25,
+							stepEase: "linear"
+						},
+						
+					]
+				},
+
+				postproc: [
+
+					{
+						type: "bloom",
+						value: {
+							strength: 0.8,
+							threshold: 0.00035,
+							radius: 0.7
+						}
+					},
+
+				]
+
+			},
+			{
+				id: "5.11",
+				baseFov: 10,
+				fovTransition: false,
+				sequenceBobName: "juan",
+
+				type: "blender-points",
+
+				until: 108.5,
+				nextInstruction: "switch-sequence",
+
+				animatedMesh: false,
+
+				helpers: {
+					orbit: true,
+					tubes: false,
+					timelines: false
+				},
+				
+				fog: {
+					enabled: false,
+					color: "#0D063B",
+					intensity: .3
+				},
+
+				bobImposedMoves: {
+					backward: false,
+					forward: false,
+					shift: false,
+					dance: false,
+					enjoy: true
+				},
+
+				slowmo: 2,
+
+				alice: {
+					handleGround: false,
+					name: "queenShader",
+					move: {
+						floating: true
+					},
+					offset: {
+						x: 0,
+						y: -0.25,
+						z: 0
+					},
+					scale: 0.03,
+					slowmo: 2,
+					customShaderOptions: {
+						shaderTimeRatio: 0.01,
+						shaderTimeDecay: 12,
+						isCameraPositionInfluenced: false,
+						sin: true,
+						sinAmplitude: 20
+					}
+				},
+
+				tubeInfos: {
+					duration: 8,
+					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
+					isUsingTarget: true,
+					steps: [
+						// n steps are possibles
+						// n has nothing to do with the number of points for the curve
+						{
+							// this amount is a percent of the global duration
+							amount: 100,
+							fov: 25,
+							stepEase: "linear"
+						},
+						
+					]
+				},
+
+				postproc: [
+
+					{
+						type: "bloom",
+						value: {
+							strength: 0.8,
 							threshold: 0.00035,
 							radius: 0.7
 						}
@@ -670,9 +919,9 @@ const worlds = [
 
 			meshCustomShaderOptions: {
 				enabled: true,
-				shaderTimeRatio: 0.5,
+				shaderTimeRatio: 1,
 				shaderName: "plastic",
-				shaderScale: 8,
+				shaderScale: 2,
 				shaderAxe: "zy"
 			},
 
@@ -684,7 +933,7 @@ const worlds = [
 				baseFov: 180,
 				fovTransition: false,
 				sequenceBobName: "link",
-				until: 43,
+				until: 36,
 				nextInstruction: "switch-sequence",
 
 				type: "blender-points",
@@ -733,7 +982,7 @@ const worlds = [
 				},
 
 				tubeInfos: {
-					duration: 15,
+					duration: 8,
 					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
 					isUsingTarget: true,
 					steps: [
@@ -781,7 +1030,7 @@ const worlds = [
 				cameraTriggerTimeDecay: 8,
 				cameraType: "movingHips-4",
 
-				until: 50.5,
+				until: 43,
 	
 				nextInstruction: "switch-sequence",
 
@@ -813,11 +1062,11 @@ const worlds = [
 					scale: 0.008,
 					slowmo: 5,
 					customShaderOptions: {
-						shaderTimeRatio: 0.5,
+						shaderTimeRatio: 0.02,
 						shaderTimeDecay: 8,
 						isCameraPositionInfluenced: false,
-						sin: false,
-						sinAmplitude: 60
+						sin: true,
+						sinAmplitude: 160
 					}
 				},
 
@@ -859,8 +1108,8 @@ const worlds = [
 				sequenceBobName: "juan",
 
 				type: "third-person",
-				cameraTriggerTimeDecay: 8,
-				cameraType: "helmet",
+				cameraTriggerTimeDecay: 9,
+				cameraType: "helmet-low-leave-house",
 
 				// drop du run ! timer
 				until: 56.7,
@@ -920,10 +1169,10 @@ const worlds = [
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 6,
-				cameraType: "movingHips-oula",
+				cameraType: "movingHips-lookUp-xDecayed",
 
 				until: 72,
-				nextInstruction: "drop-and-load-and-switch",
+				nextInstruction: "switch-sequence",
 
 				animatedMesh: false,
 
@@ -953,11 +1202,11 @@ const worlds = [
 					scale: 0.008,
 					slowmo: 5,
 					customShaderOptions: {
-						shaderTimeRatio: 1.5,
-						shaderTimeDecay: 2,
+						shaderTimeRatio: 0.02,
+						shaderTimeDecay: 8,
 						isCameraPositionInfluenced: false,
-						sin: false,
-						sinAmplitude: 60
+						sin: true,
+						sinAmplitude: 160
 					}
 				},
 
@@ -988,6 +1237,170 @@ const worlds = [
 							focus: 1,
 							aperture: 0.025,
 							maxblur: 0.02
+						}
+					},
+
+				]
+
+			},
+			{
+				id: "4.8",
+				baseFov: 32,
+				fovTransition: true,
+				sequenceBobName: "link",
+
+				type: "third-person",
+				cameraTriggerTimeDecay: 6,
+				cameraType: "plateformer-left",
+
+				until: 79,
+				nextInstruction: "switch-sequence",
+
+				animatedMesh: false,
+
+				helpers: {
+					orbit: false,
+					tubes: false,
+					timelines: false
+				},
+				
+				fog: {
+					enabled: false,
+					color: "#0D063B",
+					intensity: .4
+				},
+
+				alice: {
+					handleGround: false,
+					name: "queenShader",
+					move: {
+						floating: true
+					},
+					offset: {
+						x: 0,
+						y: -0.15,
+						z: 0
+					},
+					scale: 0.008,
+					slowmo: 5,
+					customShaderOptions: {
+						shaderTimeRatio: 0.02,
+						shaderTimeDecay: 8,
+						isCameraPositionInfluenced: false,
+						sin: true,
+						sinAmplitude: 160
+					}
+				},
+
+				slowmo: 1.8,
+
+				bobImposedMoves: {
+					forward: true,
+					shift: true,
+					backward: false,
+					dance: false
+				},
+
+				postproc: [
+
+					{
+						type: "bloom",
+						value: {
+							strength: 0.7,
+							threshold: 0.00035,
+							radius: 0.7
+						}
+					},
+
+					{
+						type: "blur",
+						focusTarget: "link",
+						value: {
+							focus: 1,
+							aperture: 0.025,
+							maxblur: 0.08
+						}
+					},
+
+				]
+
+			},
+			{
+				id: "4.9",
+				baseFov: 32,
+				fovTransition: false,
+				sequenceBobName: "link",
+
+				type: "third-person",
+				cameraTriggerTimeDecay: 10,
+				cameraType: "movingHips",
+
+				until: 86,
+				nextInstruction: "switch-scene",
+
+				animatedMesh: false,
+
+				helpers: {
+					orbit: false,
+					tubes: false,
+					timelines: false
+				},
+				
+				fog: {
+					enabled: false,
+					color: "#0D063B",
+					intensity: .4
+				},
+
+				alice: {
+					handleGround: false,
+					name: "queenShader",
+					move: {
+						floating: true
+					},
+					offset: {
+						x: 0,
+						y: -0.15,
+						z: 0
+					},
+					scale: 0.008,
+					slowmo: 3,
+					customShaderOptions: {
+						shaderTimeRatio: 0.02,
+						shaderTimeDecay: 8,
+						isCameraPositionInfluenced: false,
+						sin: true,
+						sinAmplitude: 160
+					}
+				},
+
+				// slowmo: 2,
+
+				bobImposedMoves: {
+					forward: true,
+					shift: false,
+					backward: false,
+					dance: false
+				},
+
+				postproc: [
+
+					{
+						type: "bloom",
+						value: {
+							strength: 0.7,
+							threshold: 0.00035,
+							radius: 0.7
+						}
+					},
+
+					{
+						type: "blur",
+						focusTarget: "queenShader",
+						value: {
+							focus: 1,
+							aperture: 0.025,
+							maxblur: 0.09
 						}
 					},
 

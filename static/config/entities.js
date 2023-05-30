@@ -33,8 +33,8 @@ const entities = {
 					shaderName: "bobShader",
 					shaderScale: 0.2,
 					shaderAxe: "zy",
-					specificShaderName: "galaxy",
-					shaderTimeRatio: 6,
+					specificShaderName: "kalei",
+					shaderTimeRatio: 0.25,
 					isCameraPositionInfluenced: false,
 					sin: false,
 					sinAmplitude: 60

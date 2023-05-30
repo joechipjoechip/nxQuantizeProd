@@ -238,6 +238,76 @@ const core = {
 				},
 			},
 		},
+		"movingHips-lookUp-xDecayed": {
+			offset: {
+				x: 0.025,
+				y: 0.007,
+				z: -0.01
+			},
+			lookAt: {
+				x: 0,
+				y: 0.15,
+				z: 0.5
+			},
+			straightness: 0.01,
+			mouseOrientationPonderation: {
+				x: 0.4,
+				y: 0.5
+			},
+			motion: {
+				// motion will move the camera continuously
+				// with a sin() (so -1 to 1)
+				// and it's related at the offset values
+				x: {
+					// ratios
+					range: -0.06,
+					velocity: 0.75
+				},
+				y: {
+					range: 0.001,
+					velocity: 0.8
+				},
+				z: {
+					range: -0.08,
+					velocity: 0.5
+				},
+			},
+		},
+		"movingHips-lookUp-xDecayed-cave": {
+			offset: {
+				x: 0.025,
+				y: 0.2,
+				z: -0.007
+			},
+			lookAt: {
+				x: 0,
+				y: 0.25,
+				z: 0.5
+			},
+			straightness: 0.015,
+			mouseOrientationPonderation: {
+				x: 0.4,
+				y: 0.5
+			},
+			motion: {
+				// motion will move the camera continuously
+				// with a sin() (so -1 to 1)
+				// and it's related at the offset values
+				x: {
+					// ratios
+					range: -0.1,
+					velocity: 0.75
+				},
+				y: {
+					range: 0,
+					velocity: 0.8
+				},
+				z: {
+					range: -0.08,
+					velocity: 0.5
+				},
+			},
+		},
 		"movingHips-lookUp-face": {
 			offset: {
 				x: 0,
@@ -381,6 +451,37 @@ const core = {
 			},
 		},
 		
+		"plateformer-left": {
+			offset: {
+				x: 0.15,
+				y: 0.01,
+				z: -0.01
+			},
+			lookAt: {
+				x: 0,
+				y: 0.015,
+				z: 0.1
+			},
+			straightness: 0.005,
+			mouseOrientationPonderation: {
+				x: 0,
+				y: 0.015
+			},
+			motion: {
+				x: {
+					range: -0.1,
+					velocity: 0.6
+				},
+				y: {
+					range: 0,
+					velocity: 0
+				},
+				z: {
+					range: -0.1,
+					velocity: 8
+				},
+			}
+		},
 		helmet: {
 			offset: {
 				x: 0,
