@@ -1292,7 +1292,7 @@ const worlds = [
 					}
 				},
 
-				slowmo: 3.8,
+				slowmo: 6,
 
 				bobImposedMoves: {
 					forward: true,
@@ -1374,7 +1374,7 @@ const worlds = [
 					}
 				},
 
-				// slowmo: 2,
+				slowmo: 2,
 
 				bobImposedMoves: {
 					forward: true,
