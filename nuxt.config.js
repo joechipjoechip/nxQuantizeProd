@@ -31,6 +31,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    { src: '~/plugins/worker-injector.js', ssr: false } 
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -78,7 +79,13 @@ export default {
         options: {
           name: '[path][name].[ext]'
         }
-      })
+      });
+
+      config.module.rules.push({
+        test: /\.worker\.js$/,
+        loader: 'worker-loader',
+        exclude: /(node_modules)/
+       });
 
     }
   }
