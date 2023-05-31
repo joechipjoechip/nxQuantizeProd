@@ -24,3 +24,6 @@ self.addEventListener('message', (event) => {
 // workerResponseHandler(event) {
 //     console.log('[WORKER COMPUTED RESPONSE]', event.data)
 // }
+
+// la logique est injectée en tant que plugin, voir aussi nuxt.config.js
+// source : https://dev.to/paramo/nuxt-web-workers-logout-after-idle-4lbm
