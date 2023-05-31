@@ -289,7 +289,7 @@ const worlds = [
 					intensity: .68
 				},
 
-				slowmo: 4,
+				slowmo: 6,
 
 				bobImposedMoves: {
 					forward: true,
@@ -312,12 +312,12 @@ const worlds = [
 			},
 			{
 				id: "1.3",
-				baseFov: 42,
-				fovTransition: true,
+				baseFov: 25,
+				fovTransition: false,
 				sequenceBobName: "link",
 
 				type: "third-person",
-				cameraTriggerTimeDecay: 8,
+				cameraTriggerTimeDecay: 15,
 				cameraType: "movingHips-lookUp",
 
 				until: 14.2,
@@ -337,7 +337,7 @@ const worlds = [
 					intensity: .68
 				},
 
-				slowmo: 6,
+				slowmo: 20,
 
 				bobImposedMoves: {
 					forward: true,
