@@ -248,7 +248,7 @@
 
 					this.initRenderer(this.sceneBundle.primary.worldConfig);
 
-					this.createSequencesManagers();
+					this.initFirstSequencesManagers();
 
 					this.skeleton.current = this.skeleton.primary;
 
@@ -260,27 +260,10 @@
 
 			},
 
-			createSequencesManagers(){
+			initFirstSequencesManagers(){
 
-				this.sequencesManager.primary = new SequencesManager(
-					this.sceneBundle.primary,
-					this.$parent,
-					this.renderer,
-					this.clock,
-					this.canvasSizeRef,
-					this.viewPos,
-					this
-				);
-
-				this.sequencesManager.secondary = new SequencesManager(
-					this.sceneBundle.secondary,
-					this.$parent,
-					this.renderer,
-					this.clock,
-					this.canvasSizeRef,
-					this.viewPos,
-					this
-				);
+				this.createSequencesManager("primary");
+				this.createSequencesManager("secondary");
 
 				this.sequencesManager.current = this.sequencesManager.primary;
 
