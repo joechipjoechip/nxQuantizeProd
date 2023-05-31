@@ -365,7 +365,7 @@
 				// Renderer
 				this.renderer = new THREE.WebGLRenderer({
 					canvas: this.$refs.canvas,
-					// ne peut pas être déclaré en dehors de l'instanciation
+					// antialias : ne peut pas être déclaré en dehors de l'instanciation
 					antialias: true
 				});
 

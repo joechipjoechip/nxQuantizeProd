@@ -586,11 +586,6 @@ class SequencesManager{
 			);
 		}
 
-		// if any blur effect, focus needs updates : 
-		if( currentSequenceElements.focusTarget?._controls ){
-			this.focusTargetAndBlurTheRestHandler(currentSequenceElements);
-		}
-
 		// if any shadow is casted
 		if( currentSequenceElements.activeShadows?.length && this.currentBobName ){
 
@@ -599,6 +594,11 @@ class SequencesManager{
 				this.currentSequenceID
 			);
 
+		}
+
+		// if any blur effect, focus needs updates : 
+		if( currentSequenceElements.focusTarget?._controls ){
+			this.focusTargetAndBlurTheRestHandler(currentSequenceElements);
 		}
 
 
@@ -618,16 +618,6 @@ class SequencesManager{
 		if( currentSequenceElements.fakeOrbit ){
 
 			currentSequenceElements.blenderTubesManager._FakeOrbit(currentMousePos, this.vm.$store.state.downScale);
-
-		}
-
-
-		// if any particles
-		if( currentSceneElements.particlesCollection.length ){
-
-			currentSceneElements.particlesCollection.forEach(particleInstance => {
-				particleInstance._builtParticle.material.uniforms.uTime.value = elapsedTime;
-			});
 
 		}
 
@@ -686,25 +676,11 @@ class SequencesManager{
 				currentSceneElements.particlesCollection.forEach(collection => {
 	
 					collection._builtParticle.material.uniforms.uDownScale.value = this.vm.$store.state.downScale;
-					
-					collection._builtParticle.material.uniformsNeedUpdate = true;
 	
 				});
 				
-			} else {
-
-				currentSceneElements.particlesCollection.forEach(collection => {
-	
-					if( collection._builtParticle.material.uniformsNeedUpdate ){
-
-						collection._builtParticle.material.uniformsNeedUpdate = false;
-
-					}
-	
-				});
-
-			}
-
+			} 
+			
 		}
 
 	}
