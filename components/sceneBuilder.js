@@ -264,7 +264,7 @@ class SceneBuilder {
 
 	createEmissiveShape( shapeFromBlender ){
 
-		console.log("---------> emissive debug : ", shapeFromBlender);
+		// console.log("---------> emissive debug : ", shapeFromBlender);
 
 		const emissiveMaterial = new THREE.MeshStandardMaterial({
 			emissive: shapeFromBlender.userData.emissiveColor ? new THREE.Color(shapeFromBlender.userData.emissiveColor) : new THREE.Color("#FFFFFF"),

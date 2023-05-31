@@ -18,8 +18,8 @@ class DynamicLightsBuilder {
 		this._BuildSun();
 		this._BuildLights();
 
-		console.log("! ! ! all blenderLights : ", this._blenderLights);
-		console.log("! ! ! all createdLights : ", this._createdLights);
+		// console.log("! ! ! all blenderLights : ", this._blenderLights);
+		// console.log("! ! ! all createdLights : ", this._createdLights);
 
 		return this._createdLights;
 
@@ -94,7 +94,7 @@ class DynamicLightsBuilder {
 			
 			let createdLight;
 
-			console.log("light blender name : ", blenderLight.name);
+			// console.log("light blender name : ", blenderLight.name);
 
 			if( isPointLight ){
 
