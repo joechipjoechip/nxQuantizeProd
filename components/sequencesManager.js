@@ -1,5 +1,4 @@
 import * as THREE from 'three';
-import { core } from '@/static/config/core.js';
 import { TimelineLite } from 'gsap';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
