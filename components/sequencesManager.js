@@ -554,7 +554,6 @@ class SequencesManager{
 
 			currentSceneElements.bobs[this.currentBobName]._controls.Update(
 				deltaTime / currentSequenceElements.slowmo,
-				currentMousePos,
 				{
 					bobNeedsToHandleGround: this.bobHandleGround,
 					// stickedBobInputs: this.stickedBobInputs
@@ -566,7 +565,6 @@ class SequencesManager{
 		if( currentSceneElements.bobs[this.currentAliceName] ){
 			currentSceneElements.bobs[this.currentAliceName]._controls.Update(
 				deltaTime / this.currentAliceSlowmo,
-				currentMousePos,
 				{
 					bobNeedsToHandleGround: this.currentAliceHandleGround
 				}

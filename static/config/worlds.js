@@ -668,7 +668,7 @@ const worlds = [
 					enjoy: true
 				},
 
-				slowmo: 2,
+				slowmo: 1.3,
 
 				alice: {
 					handleGround: false,
@@ -1292,7 +1292,7 @@ const worlds = [
 					}
 				},
 
-				slowmo: 1.8,
+				slowmo: 3.8,
 
 				bobImposedMoves: {
 					forward: true,

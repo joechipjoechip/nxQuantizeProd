@@ -87,21 +87,7 @@ class BasicCharacterController {
 		return this._target.quaternion;
 	}
 
-	Update(timeInSeconds, mousePos, optionsObj) {
-		if (!this._target) {
-			return;
-		}
-
-		// if( this._isAlice ){
-		// 	// TODO : checker si le bug de link qui bouge plus après avoir été considérer alice ne viendrait pas de là ..
-		// 	this._input._keys.forward =  false;
-		// 	this._input._keys.backward =  false;
-		// 	this._input._keys.left =  false;
-		// 	this._input._keys.right =  false;
-		// 	this._input._keys.space =  false;
-		// 	this._input._keys.shift =  false;
-
-		// }
+	Update(timeInSeconds, optionsObj) {
 
 		this._stateMachine.Update(timeInSeconds, this._input);
 
@@ -126,108 +112,73 @@ class BasicCharacterController {
 
 		const acc = this._acceleration.clone();
 
-		// if( !this._isAlice ){
-		if( true ){
-
-			if (this._input._keys.shift && !this._input._keys.fly ) {
-				acc.multiplyScalar(3.0);
-			}
-	
-			if(this._input._keys.fly ){
-				acc.multiplyScalar(0.1);
-				velocity.y -= acc.y * timeInSeconds / 3.5;
-			}
-	
-			if (this._stateMachine._currentState?.Name == 'dance') {
-				acc.multiplyScalar(0.0);
-			}
-	
-			if( this._input._keys.hiphop ){
-				velocity.z += acc.z * timeInSeconds / 3.5;
-			}
-	
-			if( this._input._keys.climb ){
-				acc.multiplyScalar(0.15);
-				velocity.y += acc.y * timeInSeconds / 3.5;
-			}
-	
-			if (this._input._keys.forward || this._input._keys.fly) {
-				velocity.z += acc.z * timeInSeconds;
-			}
-	
-			if (this._input._keys.backward) {
-				velocity.z -= acc.z * timeInSeconds;
-			}
-	
-			if (this._input._keys.left) {
-				_A.set(0, 1, 0);
-				_Q.setFromAxisAngle(_A, 4.0 * Math.PI * timeInSeconds * this._acceleration.y * 0.4);
-				_R.multiply(_Q);
-			}
-	
-			if (this._input._keys.right) {
-				_A.set(0, 1, 0);
-				_Q.setFromAxisAngle(_A, 4.0 * -Math.PI * timeInSeconds * this._acceleration.y * 0.4);
-				_R.multiply(_Q);
-			}
-	
-	
-			// if( mousePos.x === 0 ){
-			// 	// console.log("mouse centered");
-			// } else {
-	
-			// 	if( mousePos.x < 0 ){
-			// 		const rotateLeft = THREE.MathUtils.clamp(
-			// 			4.0 * Math.PI * timeInSeconds * (this._acceleration.y * Math.abs(mousePos.x / core.mouse.orientationClamp.divideRatio)),
-			// 			core.mouse.orientationClamp.start,
-			// 			core.mouse.orientationClamp.end
-			// 		);
-			// 		_A.set(0, 1, 0);
-			// 		_Q.setFromAxisAngle(_A, rotateLeft);
-			// 		_R.multiply(_Q);
-		
-			// 		// console.log("turning left : ", rotateLeft);
-			// 	} else if( mousePos.x > 0 ){
-			// 		const rotateRight = THREE.MathUtils.clamp(
-			// 			4.0 * -Math.PI * timeInSeconds * (this._acceleration.y * Math.abs(mousePos.x / core.mouse.orientationClamp.divideRatio)),
-			// 			core.mouse.orientationClamp.end * -1,
-			// 			core.mouse.orientationClamp.start * -1
-			// 		);
-			// 		_A.set(0, 1, 0);
-			// 		_Q.setFromAxisAngle(_A, rotateRight);
-			// 		_R.multiply(_Q);
-		
-			// 		// console.log("turning right : ", rotateRight);
-			// 	}
-	
-			// }
-	
-			controlObject.quaternion.copy(_R);
-	
-			const oldPosition = new THREE.Vector3();
-			oldPosition.copy(controlObject.position);
-	
-			const forward = new THREE.Vector3(0, 0, 1);
-			forward.applyQuaternion(controlObject.quaternion);
-			forward.normalize();
-	
-			const sideways = new THREE.Vector3(1, 0, 0);
-			sideways.applyQuaternion(controlObject.quaternion);
-			sideways.normalize();
-	
-			const upway = new THREE.Vector3(0, 1, 0);
-			upway.applyQuaternion(controlObject.quaternion);
-			upway.normalize();
-			
-			sideways.multiplyScalar(velocity.x * timeInSeconds);
-			forward.multiplyScalar((velocity.z * timeInSeconds) * (this._moveScaledRatio));
-			upway.multiplyScalar(velocity.y * timeInSeconds * this._moveScaledRatio);
-	
-			controlObject.position.add(forward);
-			controlObject.position.add(sideways);
-			controlObject.position.add(upway);
-
+		if (this._input._keys.shift && !this._input._keys.fly ) {
+			acc.multiplyScalar(3.0);
 		}
+
+		if(this._input._keys.fly ){
+			acc.multiplyScalar(0.1);
+			velocity.y -= acc.y * timeInSeconds / 3.5;
+		}
+
+		if (this._stateMachine._currentState?.Name == 'dance') {
+			acc.multiplyScalar(0.0);
+		}
+
+		if( this._input._keys.hiphop ){
+			velocity.z += acc.z * timeInSeconds / 3.5;
+		}
+
+		if( this._input._keys.climb ){
+			acc.multiplyScalar(0.15);
+			velocity.y += acc.y * timeInSeconds / 3.5;
+		}
+
+		if (this._input._keys.forward || this._input._keys.fly) {
+			velocity.z += acc.z * timeInSeconds;
+		}
+
+		if (this._input._keys.backward) {
+			velocity.z -= acc.z * timeInSeconds;
+		}
+
+		if (this._input._keys.left) {
+			_A.set(0, 1, 0);
+			_Q.setFromAxisAngle(_A, 4.0 * Math.PI * timeInSeconds * this._acceleration.y * 0.4);
+			_R.multiply(_Q);
+		}
+
+		if (this._input._keys.right) {
+			_A.set(0, 1, 0);
+			_Q.setFromAxisAngle(_A, 4.0 * -Math.PI * timeInSeconds * this._acceleration.y * 0.4);
+			_R.multiply(_Q);
+		}
+
+		controlObject.quaternion.copy(_R);
+
+		const oldPosition = new THREE.Vector3();
+		oldPosition.copy(controlObject.position);
+
+		const forward = new THREE.Vector3(0, 0, 1);
+		forward.applyQuaternion(controlObject.quaternion);
+		forward.normalize();
+
+		const sideways = new THREE.Vector3(1, 0, 0);
+		sideways.applyQuaternion(controlObject.quaternion);
+		sideways.normalize();
+
+		const upway = new THREE.Vector3(0, 1, 0);
+		upway.applyQuaternion(controlObject.quaternion);
+		upway.normalize();
+		
+		sideways.multiplyScalar(velocity.x * timeInSeconds);
+		forward.multiplyScalar((velocity.z * timeInSeconds) * (this._moveScaledRatio));
+		upway.multiplyScalar(velocity.y * timeInSeconds * this._moveScaledRatio);
+
+		controlObject.position.add(forward);
+		controlObject.position.add(sideways);
+		controlObject.position.add(upway);
+
 
 		if( optionsObj.bobNeedsToHandleGround ){
 
@@ -253,60 +204,26 @@ class BasicCharacterController {
 
 	HandleGravity( controlObject ){
 
-		// const currentY = controlObject.position.y;
-
 		return this._raycaster
 				.intersectObjects( this._scene.children )
 				.find(intersected => {
 					return intersected.object.name === "landscape" || intersected.object.name.includes("ground")
 				})?.point.y || controlObject.position.y;
 		
-
-		// finalement pas besoin de faire tout ça, j'ai juste replacé le raycaster juste au dessus de la tete de bob
-		// mais sait-on jamais, je laisse ça là
-
-		
-		// if( newY ){
-
-		// 	const diff = Math.abs(currentY - newY);
-	
-		// 	if( diff > 0.01 ){
-		// 		// écart trop grand : on garde le courant
-		// 		return currentY;
-		// 	} else {
-		// 		return newY;
-		// 	}
-
-		// } else {
-
-		// 	return currentY;
-
-		// }
-
-
 	}
 
 	UpdateDynamicLightShadowCamera( lightsToUpdateShadowCamera, currentSequenceID ){
 
-		// console.log("- - - au update de la shadow on recois : ", lightsToUpdateShadowCamera)
-
-		const lightToUpdate = lightsToUpdateShadowCamera.find(light => light.name.includes("for-bob-shadow") && light.name.includes(currentSequenceID));
+		lightsToUpdateShadowCamera.find(light => light.name.includes("for-bob-shadow") && light.name.includes(currentSequenceID))?.target.position.copy(this._position);
 		
-		if( lightToUpdate ){
-			
-			lightToUpdate.target.position.copy(this._position);
-			// lightToUpdate.needsUpdate = true;
+		if( core.debug.lightsHelpers.light || core.debug.lightsHelpers.shadow ){
 
-			if( core.debug.lightsHelpers.light || core.debug.lightsHelpers.shadow ){
-
-				this._params.scene?.children
-					.filter(child =>  child.name.toLowerCase().includes("light") && child.name.toLowerCase().includes("helper"))
-						?.forEach(helper => {
-						// console.log("helpers : ", helper.name)
-						helper.update();
-					});	
-
-			}
+			this._params.scene?.children
+				.filter(child =>  child.name.toLowerCase().includes("light") && child.name.toLowerCase().includes("helper"))
+					?.forEach(helper => {
+					// console.log("helpers : ", helper.name)
+					helper.update();
+				});	
 
 		}
 
