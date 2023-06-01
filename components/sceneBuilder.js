@@ -334,7 +334,7 @@ class SceneBuilder {
 
 	sequencesBuild(){
 
-		// console.log("at sequence build --> camera = ", this.camera);
+		// console.log("at sequence build --> camera = ", this.camera); 
 
 		this.sequencesElements = new SequencesBuilder(
 			{

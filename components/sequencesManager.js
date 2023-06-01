@@ -25,6 +25,8 @@ class SequencesManager{
 		this.isCurrentlyTransitionning = false;
 		this.axes = ["x", "y", "z"];
 
+		this.currentSequenceElements = null;
+
 		this.vm.$nuxt.$on("bob-inputs-update", ( event ) => { this.updateBobStickedInputs(event, this) });
 
 	}
@@ -44,9 +46,9 @@ class SequencesManager{
 
 		console.log("____ _ _ _ change trigger : ", oldSequenceID, newSequenceID);
 
-		const currentSequenceElements = this.sceneBundlePassed.sequencesElements[newSequenceID];
+		this.currentSequenceElements = this.sceneBundlePassed.sequencesElements[newSequenceID];
 
-		this.updateCommonsValues(currentSequenceElements);
+		this.updateCommonsValues();
 
 		this.killOldSequence(oldSequenceID);
 
@@ -73,7 +75,7 @@ class SequencesManager{
 
 		this.sceneBundlePassed.sceneElements.newSequenceTriggerTime = this.clock.getElapsedTime();
 
-		this.sceneBundlePassed.sceneElements.newSequenceTriggerTime += currentSequenceElements.cameraTriggerTimeDecay || 0;		
+		this.sceneBundlePassed.sceneElements.newSequenceTriggerTime += this.currentSequenceElements.cameraTriggerTimeDecay || 0;		
 
 
 		setTimeout(() => {
@@ -87,20 +89,20 @@ class SequencesManager{
 
 	}
 
-	updateCommonsValues( currentSequenceElements ){
+	updateCommonsValues(){
 
-		this.currentBobName = currentSequenceElements.sequenceBobName;
+		this.currentBobName = this.currentSequenceElements.sequenceBobName;
 
-		this.currentAliceName = currentSequenceElements.aliceInfos?.name;
+		this.currentAliceName = this.currentSequenceElements.aliceInfos?.name;
 
-		this.currentAliceSlowmo = currentSequenceElements.aliceInfos?.slowmo || 1;
+		this.currentAliceSlowmo = this.currentSequenceElements.aliceInfos?.slowmo || 1;
 
-		this.currentAliceHandleGround = currentSequenceElements.aliceInfos?.handleGround;
+		this.currentAliceHandleGround = this.currentSequenceElements.aliceInfos?.handleGround;
 
 		this.bobHandleGround = !(
-			currentSequenceElements.bobImposedMoves?.fly 
-			|| currentSequenceElements.bobImposedMoves?.floating 
-			|| currentSequenceElements.bobImposedMoves?.climb
+			this.currentSequenceElements.bobImposedMoves?.fly 
+			|| this.currentSequenceElements.bobImposedMoves?.floating 
+			|| this.currentSequenceElements.bobImposedMoves?.climb
 		);
 
 	}
@@ -523,26 +525,21 @@ class SequencesManager{
 
 		const elapsedTime = this.clock.getElapsedTime();
 
-		const currentSceneElements = this.sceneBundlePassed.sceneElements;
-		const currentSequenceElements = this.sceneBundlePassed.sequencesElements[this.currentSequenceID];
-
-
-
-		if( !currentSequenceElements ){
+		if( !this.currentSequenceElements ){
 			debugger;
 		}
 
 		// if an orbit helper is set
-		currentSequenceElements.helpers?.orbit?.update();
+		this.currentSequenceElements.helpers?.orbit?.update();
 
 
 		// if any timeline is supposed to .play()
-		if( currentSequenceElements.timelines ){
+		if( this.currentSequenceElements.timelines ){
 
-			Object.keys(currentSequenceElements.timelines).forEach(key => {
+			Object.keys(this.currentSequenceElements.timelines).forEach(key => {
 
-				if( currentSequenceElements.timelines[key]?.progress() === 0 ){
-					currentSequenceElements.timelines[key].play();
+				if( this.currentSequenceElements.timelines[key]?.progress() === 0 ){
+					this.currentSequenceElements.timelines[key].play();
 				}
 
 			});
@@ -550,10 +547,10 @@ class SequencesManager{
 		}
 
 		// if any bob in the sequence, he needs update for his moves
-		if( currentSceneElements.bobs[this.currentBobName] ){
+		if( this.sceneBundlePassed.sceneElements.bobs[this.currentBobName] ){
 
-			currentSceneElements.bobs[this.currentBobName]._controls.Update(
-				deltaTime / currentSequenceElements.slowmo,
+			this.sceneBundlePassed.sceneElements.bobs[this.currentBobName]._controls.Update(
+				deltaTime / this.currentSequenceElements.slowmo,
 				{
 					bobNeedsToHandleGround: this.bobHandleGround,
 					// stickedBobInputs: this.stickedBobInputs
@@ -562,8 +559,8 @@ class SequencesManager{
 		}
 
 		// if any alice in the sequence, she needs update for her moves
-		if( currentSceneElements.bobs[this.currentAliceName] ){
-			currentSceneElements.bobs[this.currentAliceName]._controls.Update(
+		if( this.sceneBundlePassed.sceneElements.bobs[this.currentAliceName] ){
+			this.sceneBundlePassed.sceneElements.bobs[this.currentAliceName]._controls.Update(
 				deltaTime / this.currentAliceSlowmo,
 				{
 					bobNeedsToHandleGround: this.currentAliceHandleGround
@@ -572,8 +569,8 @@ class SequencesManager{
 		}
 
 		// if third-person camera in the scene, it needs updates too
-		if( currentSequenceElements.thirdPersonCamera[this.currentBobName] ){
-			currentSequenceElements.thirdPersonCamera[this.currentBobName].Update(
+		if( this.currentSequenceElements.thirdPersonCamera[this.currentBobName] ){
+			this.currentSequenceElements.thirdPersonCamera[this.currentBobName].Update(
 				this.sceneBundlePassed.sceneElements.newSequenceTriggerTime,
 				elapsedTime, 
 				currentMousePos,
@@ -585,93 +582,93 @@ class SequencesManager{
 		}
 
 		// if any shadow is casted
-		if( currentSequenceElements.activeShadows?.length && this.currentBobName ){
+		if( this.currentSequenceElements.activeShadows?.length && this.currentBobName ){
 
-			currentSceneElements.bobs[this.currentBobName]._controls.UpdateDynamicLightShadowCamera(
-				currentSequenceElements.activeShadows,
+			this.sceneBundlePassed.sceneElements.bobs[this.currentBobName]._controls.UpdateDynamicLightShadowCamera(
+				this.currentSequenceElements.activeShadows,
 				this.currentSequenceID
 			);
 
 		}
 
 		// if any blur effect, focus needs updates : 
-		if( currentSequenceElements.focusTarget?._controls ){
-			this.focusTargetAndBlurTheRestHandler(currentSequenceElements);
+		if( this.currentSequenceElements.focusTarget?._controls ){
+			this.focusTargetAndBlurTheRestHandler(this.currentSequenceElements);
 		}
 
 
 		// if any BlenderTube is supposed to be played with its lookAt()
-		if( currentSequenceElements.blenderTubesManager?._tubeTravelTargetPosition ){
+		if( this.currentSequenceElements.blenderTubesManager?._tubeTravelTargetPosition ){
 
 			this.sceneBundlePassed.camera.lookAt(
-				currentSequenceElements.blenderTubesManager._tubeTravelTargetPosition
+				this.currentSequenceElements.blenderTubesManager._tubeTravelTargetPosition
 			);
 
-			currentSequenceElements.camera.rotation.y += (currentMousePos.x / 10)
-			currentSequenceElements.camera.rotation.x += (currentMousePos.y / 10)
+			this.currentSequenceElements.camera.rotation.y += (currentMousePos.x / 10)
+			this.currentSequenceElements.camera.rotation.x += (currentMousePos.y / 10)
 
 		}
 
 		// if any fake-orbit
-		if( currentSequenceElements.fakeOrbit ){
+		if( this.currentSequenceElements.fakeOrbit ){
 
-			currentSequenceElements.blenderTubesManager._FakeOrbit(currentMousePos, this.vm.$store.state.downScale);
+			this.currentSequenceElements.blenderTubesManager._FakeOrbit(currentMousePos, this.vm.$store.state.downScale);
 
 		}
 
 		// if meshes with custom shader 
-		if( currentSceneElements.meshesForCustomShaderBuilt ){
+		if( this.sceneBundlePassed.sceneElements.meshesForCustomShaderBuilt ){
 			// console.log("oui, cette scene comporte des meshes avec customshader");
 
-			currentSceneElements.meshesForCustomShaderBuilt.forEach(mesh => {
+			this.sceneBundlePassed.sceneElements.meshesForCustomShaderBuilt.forEach(mesh => {
 
 				// console.log("update d'un custom shader classic");
 	
-				mesh.material.uniforms.iGlobalTime.value = elapsedTime * currentSceneElements.meshCustomShaderOptions.shaderTimeRatio || 0.5;
+				mesh.material.uniforms.iGlobalTime.value = elapsedTime * this.sceneBundlePassed.sceneElements.meshCustomShaderOptions.shaderTimeRatio || 0.5;
 				
 			});
 			
 		}
 		
 		// if bob with custom shader 
-		if( currentSceneElements.bobs[this.currentBobName]?._controls._params.bobInfos.shader ){
+		if( this.sceneBundlePassed.sceneElements.bobs[this.currentBobName]?._controls._params.bobInfos.shader ){
 
 			// console.log("update d'un custom shader sur un personnage");
 
-			const shaderInfos = currentSceneElements.bobs[this.currentBobName]?._controls._params.bobInfos.shader;
+			const shaderInfos = this.sceneBundlePassed.sceneElements.bobs[this.currentBobName]?._controls._params.bobInfos.shader;
 
-			currentSceneElements.bobs[this.currentBobName]._controls._target.children.find(child => child.name !== "Armature").material.uniforms.iGlobalTime.value = shaderInfos.shaderTimeRatio * (shaderInfos.sin ? (Math.sin(elapsedTime) * shaderInfos.sinAmplitude) : elapsedTime);
+			this.sceneBundlePassed.sceneElements.bobs[this.currentBobName]._controls._target.children.find(child => child.name !== "Armature").material.uniforms.iGlobalTime.value = shaderInfos.shaderTimeRatio * (shaderInfos.sin ? (Math.sin(elapsedTime) * shaderInfos.sinAmplitude) : elapsedTime);
 
 		}
 
-		if( currentSequenceElements.aliceInfos?.customShaderOptions ){
+		if( this.currentSequenceElements.aliceInfos?.customShaderOptions ){
 
-			const shaderInfos = currentSequenceElements.aliceInfos.customShaderOptions;
+			const shaderInfos = this.currentSequenceElements.aliceInfos.customShaderOptions;
 
-			currentSceneElements.bobs[currentSequenceElements.aliceInfos.name]._controls._target.children.find(child => child.name !== "Armature").material.uniforms.iGlobalTime.value = shaderInfos.shaderTimeRatio * (shaderInfos.sin ? (Math.sin(elapsedTime) * shaderInfos.sinAmplitude) : elapsedTime) + shaderInfos.shaderTimeDecay;
+			this.sceneBundlePassed.sceneElements.bobs[this.currentSequenceElements.aliceInfos.name]._controls._target.children.find(child => child.name !== "Armature").material.uniforms.iGlobalTime.value = shaderInfos.shaderTimeRatio * (shaderInfos.sin ? (Math.sin(elapsedTime) * shaderInfos.sinAmplitude) : elapsedTime) + shaderInfos.shaderTimeDecay;
 
 		}
 
 
 		// if landscapeMove
-		if( currentSequenceElements.sequenceInfos.landscapeMove ){
+		if( this.currentSequenceElements.sequenceInfos.landscapeMove ){
 
 			this.axes.forEach(axe => {
 
-				currentSceneElements.landscape.position[axe] += currentSequenceElements.sequenceInfos.landscapeMove[axe]
+				this.sceneBundlePassed.sceneElements.landscape.position[axe] += this.currentSequenceElements.sequenceInfos.landscapeMove[axe]
 
 			});
 
 		}
 
 		// if particles -> update the downScaleRatio
-		if( currentSceneElements.particlesCollection?.length ){
+		if( this.sceneBundlePassed.sceneElements.particlesCollection?.length ){
 
 			if( this.vm.$store.state.downScale !== this.vm.$store.state.lastDownScale ){
 
 				this.vm.$store.commit('setLastDownScale', this.vm.$store.state.downScale);
 
-				currentSceneElements.particlesCollection.forEach(collection => {
+				this.sceneBundlePassed.sceneElements.particlesCollection.forEach(collection => {
 	
 					collection._builtParticle.material.uniforms.uDownScale.value = this.vm.$store.state.downScale;
 	
