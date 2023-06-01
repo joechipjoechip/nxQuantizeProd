@@ -475,9 +475,7 @@ class SequencesManager{
 
 		const keysToCheck = ["shadersPass", "effectsPass"];
 
-		const currentSequence = this.sceneBundlePassed.sequencesElements[this.currentSequenceID];
-
-		const sequencePostprocs = currentSequence?.postproc;
+		const sequencePostprocs = this.currentSequenceElements?.postproc;
 
 
 		if( sequencePostprocs ){
@@ -593,7 +591,7 @@ class SequencesManager{
 
 		// if any blur effect, focus needs updates : 
 		if( this.currentSequenceElements.focusTarget?._controls ){
-			this.focusTargetAndBlurTheRestHandler(this.currentSequenceElements);
+			this.focusTargetAndBlurTheRestHandler();
 		}
 
 
@@ -680,15 +678,15 @@ class SequencesManager{
 
 	}
 
-	focusTargetAndBlurTheRestHandler( currentSequenceElements ){
+	focusTargetAndBlurTheRestHandler(){
 
 		const { x, y, z } = this.sceneBundlePassed.camera.position;
 
 		// compute distance beetween camera and target
-		const distance = new THREE.Vector3(x,y,z).distanceTo({...currentSequenceElements.focusTarget._controls._position});
+		const distance = new THREE.Vector3(x,y,z).distanceTo({...this.currentSequenceElements.focusTarget._controls._position});
 
 		// update focus value in blur effect
-		currentSequenceElements.postproc.find(postproc => postproc.postprocType === "blur").effectsPass[0].uniforms.focus.value = distance
+		this.currentSequenceElements.postproc.find(postproc => postproc.postprocType === "blur").effectsPass[0].uniforms.focus.value = distance
 
 	}
 

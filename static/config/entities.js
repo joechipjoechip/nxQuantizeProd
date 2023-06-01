@@ -20,7 +20,7 @@ const entities = {
 			name: "linkShader",
 			fbxPath: "./assets/3d/persos/link.fbx",
 			infos: {
-				scale: 0.0008,
+				scale: 0.0015,
 				// scale: 1,z
 				velocity: {
 					// x & z -> displacement

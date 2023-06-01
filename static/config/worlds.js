@@ -803,7 +803,7 @@ const worlds = [
 				type: "blender-points",
 
 				until: 108.5,
-				nextInstruction: "switch-sequence",
+				nextInstruction: "drop-and-load-and-switch",
 
 				animatedMesh: false,
 
@@ -878,6 +878,74 @@ const worlds = [
 							radius: 0.7
 						}
 					},
+
+				]
+
+			},
+			{
+				id: "6.12",
+				baseFov: 25,
+				fovTransition: false,
+				sequenceBobName: "linkShader",
+
+				type: "third-person",
+				cameraTriggerTimeDecay: 15,
+				cameraType: "helmet-dance-down",
+
+				until: 129.9,
+				nextInstruction: "switch-scene",
+
+				animatedMesh: false,
+
+				helpers: {
+					orbit: false,
+					tubes: false,
+					timelines: false
+				},
+				
+				fog: {
+					enabled: false,
+					color: "#ff7b00",
+					intensity: .35
+				},
+
+				// slowmo: 1.3,
+
+				bobImposedMoves: {
+					forward: false,
+					shift: false,
+					backward: false,
+					hiphop: true,
+					left: false,
+					right: false,
+				},
+
+				postproc: [
+
+					// {
+					// 	type: "kaleidoscope",
+					// 	sides: 1,
+					// 	angle: -25
+					// },
+
+					// {
+					// 	type: "bloom",
+					// 	value: {
+					// 		strength: 0.7,
+					// 		threshold: 0.00035,
+					// 		radius: 0.7
+					// 	}
+					// },
+
+					// {
+					// 	type: "blur",
+					// 	focusTarget: "linkShader",
+					// 	value: {
+					// 		focus: 1,
+					// 		aperture: 0.025,
+					// 		maxblur: 0.05
+					// 	}
+					// },
 
 				]
 
@@ -1245,7 +1313,7 @@ const worlds = [
 			},
 			{
 				id: "4.8",
-				baseFov: 32,
+				baseFov: 40,
 				fovTransition: true,
 				sequenceBobName: "link",
 
@@ -1292,7 +1360,7 @@ const worlds = [
 					}
 				},
 
-				slowmo: 6,
+				// slowmo: 6,
 
 				bobImposedMoves: {
 					forward: true,
@@ -1412,6 +1480,209 @@ const worlds = [
 
 	},
 
+	{
+		name: "world_016",
+
+		main: {
+
+			spaceColor: "#051442",
+			spaceColorDarker: "#051442",
+			spaceColorWithBloom: "#000105",
+
+			ambient: {
+				sunColor: "#FF7400",
+				intensity: 0.55,
+				groundColor: "#6200FF"
+			},
+
+			fog: {
+				enabled: true,
+				color: 0x000000,
+				intensity: .85
+			},
+
+			particles: [
+				{
+					type: "fireflies",
+					count: 550,
+					particleSize: 25,
+					additive: true,
+					timeRatio: 400.0,
+					blockSize: {
+						x: 5,
+						y: 5,
+						z: 5
+					}
+				}
+			],
+			
+			meshInfos: {
+
+				glbPath: "/assets/3d/worlds/greenMountain/greenMountain.glb",
+				imagePath: {
+					landscape: "/assets/3d/worlds/greenMountain/greenMountainBake.jpg"
+				}
+			},
+
+
+			entities: ["link", "juan"],
+
+		},
+
+		sequences: [
+
+			{
+				id: "5.12",
+				baseFov: 32,
+				fovTransition: true,
+				sequenceBobName: "link",
+
+				type: "third-person",
+				cameraTriggerTimeDecay: 5,
+				cameraType: "movingHips-lookUp",
+
+				until: 124,
+				nextInstruction: "switch-scene",
+
+				animatedMesh: false,
+
+				helpers: {
+					orbit: false,
+					tubes: false,
+					timelines: false
+				},
+				
+				fog: {
+					enabled: true,
+					color: "#000105",
+					intensity: .2
+				},
+
+				alice: {
+					handleGround: false,
+					name: "queenShader",
+					move: {
+						floating: true
+					},
+					offset: {
+						x: 0,
+						y: 0,
+						z: 0
+					},
+					scale: 0.02,
+					slowmo: 1.3,
+					customShaderOptions: {
+						shaderTimeRatio: 0.1,
+						shaderTimeDecay: 12,
+						isCameraPositionInfluenced: false,
+						sin: true,
+						sinAmplitude: 120
+					}
+				},
+
+				bobImposedMoves: {
+				},
+
+				// slowmo: 1.6,
+
+				postproc: [
+			
+					{
+						type: "bloom",
+						value: {
+							strength: .7,
+							threshold: 0.00045,
+							radius: 0.07
+						}
+					},
+					{
+						type: "blur",
+						focusTarget: "link",
+						value: {
+							focus: 1,
+							aperture: 0.025,
+							maxblur: 0.04
+						}
+					},
+
+				]
+
+			},
+			{
+				id: "7.12",
+				baseFov: 22,
+				fovTransition: true,
+				sequenceBobName: "linkShader",
+
+				type: "third-person",
+				cameraTriggerTimeDecay: 5,
+				cameraType: "movingHips-lookUp",
+
+				until: 154,
+				nextInstruction: "drop-and-load-and-switch",
+
+				animatedMesh: false,
+
+				helpers: {
+					orbit: false,
+					tubes: false,
+					timelines: false
+				},
+				
+				fog: {
+					enabled: false,
+					color: "#000105",
+					intensity: .2
+				},
+
+				alice: {
+					handleGround: true,
+					name: "link",
+					move: {
+						// floating: true
+					},
+					offset: {
+						x: 0,
+						y: 0,
+						z: 0
+					},
+					scale: 0.007,
+					slowmo: 1.8,
+				},
+
+				bobImposedMoves: {
+				},
+
+				// slowmo: 1.6,
+
+				postproc: [
+			
+					{
+						type: "bloom",
+						value: {
+							strength: .7,
+							threshold: 0.00045,
+							radius: 0.07
+						}
+					},
+					{
+						type: "blur",
+						focusTarget: "link",
+						value: {
+							focus: 1,
+							aperture: 0.025,
+							maxblur: 0.03
+						}
+					},
+
+				]
+
+			},
+		
+			
+		]
+
+	},
 	{
 		name: "world_015",
 
@@ -1954,14 +2225,14 @@ const worlds = [
 
 		sequences: [
 			{
-				id: "4.11",
+				id: "6.14",
 				baseFov: 10,
 				fovTransition: false,
 				sequenceBobName: "link",
 
 				type: "blender-points",
 
-				until: 132.5,
+				until: 141.5,
 				nextInstruction: "switch-sequence",
 
 				animatedMesh: false,
@@ -2036,16 +2307,16 @@ const worlds = [
 
 			},
 			{
-				id: "4.12",
+				id: "6.15",
 				baseFov: 40,
 				fovTransition: true,
-				sequenceBobName: "link",
+				sequenceBobName: "linkShader",
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 5,
 				cameraType: "movingHips-lookUp-face",
 
-				until: 141.5,
+				until: 151.5,
 				nextInstruction: "drop-and-load-and-switch",
 
 				animatedMesh: false,

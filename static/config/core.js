@@ -455,7 +455,7 @@ const core = {
 			offset: {
 				x: 0.15,
 				y: 0.01,
-				z: -0.01
+				z: -0.005
 			},
 			lookAt: {
 				x: 0,
@@ -528,6 +528,37 @@ const core = {
 				z: {
 					range: 0,
 					velocity: 0
+				},
+			}
+		},
+		"helmet-dance-down": {
+			offset: {
+				x: -0.05,
+				y: 0.05,
+				z: 0.2
+			},
+			lookAt: {
+				x: 0,
+				y: 0.04,
+				z: 0
+			},
+			straightness: 0.04,
+			mouseOrientationPonderation: {
+				x: 0.01,
+				y: 0.01
+			},
+			motion: {
+				x: {
+					range: 0.2,
+					velocity: 0.23
+				},
+				y: {
+					range: 0.008,
+					velocity: 0.07
+				},
+				z: {
+					range: -0.1,
+					velocity: 0.12
 				},
 			}
 		},

@@ -392,12 +392,12 @@
 
 				this.deltaTime += this.clock.getDelta();
 
+				
 				this.computeFPS();
 
 				this.handleFpsAndDownScaling();
 
 				this.checkCurrentTime();
-
 				
 				// NOW CHECK IF FRAMERATE IS GOOD
 				if( this.deltaTime >= this.frameRate ){
@@ -411,7 +411,7 @@
 						
 						this.sequencesManager.current.composer.render();
 						
-					} else if( this.sceneBundle.current ) {
+					} else {
 						// console.log("use classic renderer : ", this.sceneBundle.current.name);
 
 						this.renderer.render(this.sceneBundle.current.scene, this.sceneBundle.current.camera);
