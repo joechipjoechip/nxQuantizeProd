@@ -105,6 +105,10 @@ class SequencesManager{
 			|| this.currentSequenceElements.bobImposedMoves?.climb
 		);
 
+		if( this.currentSequenceElements.bobRestoreSize ){
+
+		}
+
 	}
 
 	killOldSequence( oldSequenceID ){
@@ -395,23 +399,37 @@ class SequencesManager{
 
 	}
 
-	bobVisibilitySwitcher( newSequenceID ){
-
-		const sequenceBobName = this.sceneBundlePassed.sequencesElements[newSequenceID].sequenceBobName;
+	bobVisibilitySwitcher(){
 
 		Object.keys(this.sceneBundlePassed.sceneElements.bobs).forEach(bobKey => {
 
 			const goodBob = this.sceneBundlePassed.sceneElements.bobs[bobKey];
 
-			if( goodBob._controls._target.name === sequenceBobName ){
+			if( goodBob._controls._target.name === this.currentBobName ){
 
 				goodBob._controls._target.visible = true;
+
+				if( this.currentSequenceElements.sequenceInfos.bobRestoreSize ){
+
+					console.log('V : SIZE RESTORED');
+					
+					goodBob._controls._target.scale = new THREE.Vector3(
+							this.currentSequenceElements.sequenceInfos.bobRestoreSize,
+							this.currentSequenceElements.sequenceInfos.bobRestoreSize,
+							this.currentSequenceElements.sequenceInfos.bobRestoreSize
+						);
+						
+				} else {
+					console.log('X : SIZE NOT RESTORED : ', this.currentSequenceElements);
+				}
 				
 			} else {
 
 				goodBob._controls._target.visible = false;
 
 			}
+
+			
 
 		});
 
@@ -602,8 +620,8 @@ class SequencesManager{
 				this.currentSequenceElements.blenderTubesManager._tubeTravelTargetPosition
 			);
 
-			this.currentSequenceElements.camera.rotation.y += (currentMousePos.x / 10)
-			this.currentSequenceElements.camera.rotation.x += (currentMousePos.y / 10)
+			this.currentSequenceElements.camera.rotation.y += (currentMousePos.x / 10) * (this.currentSequenceElements.sequenceInfos.cameraInvert?.x ? -1 : 1);
+			this.currentSequenceElements.camera.rotation.x += (currentMousePos.y / 10) * (this.currentSequenceElements.sequenceInfos.cameraInvert?.y ? -1 : 1);
 
 		}
 

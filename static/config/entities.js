@@ -41,6 +41,31 @@ const entities = {
 				}
 			}
 		},
+		linkShaderPlastic: {
+			name: "linkShaderPlastic",
+			fbxPath: "./assets/3d/persos/link.fbx",
+			infos: {
+				scale: 0.0015,
+				// scale: 1,z
+				velocity: {
+					// x & z -> displacement
+					x: 0.5,
+					z: 0.5,
+					// y -> rotation
+					y: 0.1,
+				},
+				shader: {
+					shaderName: "bobShader",
+					shaderScale: 1,
+					shaderAxe: "xz",
+					specificShaderName: "plastic",
+					shaderTimeRatio: 0.25,
+					isCameraPositionInfluenced: false,
+					sin: true,
+					sinAmplitude: 260
+				}
+			}
+		},
 		juan: {
 			name: "juan",
 			fbxPath: "./assets/3d/persos/juan.fbx",

@@ -562,6 +562,37 @@ const core = {
 				},
 			}
 		},
+		"helmet-dance-down-2": {
+			offset: {
+				x: -0.05,
+				y: 0.05,
+				z: 0.14
+			},
+			lookAt: {
+				x: 0,
+				y: 0.04,
+				z: 0
+			},
+			straightness: 0.04,
+			mouseOrientationPonderation: {
+				x: 0.01,
+				y: 0.01
+			},
+			motion: {
+				x: {
+					range: 0.08,
+					velocity: 0.33
+				},
+				y: {
+					range: 0.008,
+					velocity: 0.17
+				},
+				z: {
+					range: -0.07,
+					velocity: 0.22
+				},
+			}
+		},
 		"helmet-low-moving": {
 			offset: {
 				x: 0,
