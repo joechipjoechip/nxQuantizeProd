@@ -3,7 +3,7 @@ const entities = {
 	bobs: {
 		link: {
 			name: "link",
-			fbxPath: "./assets/3d/persos/link.fbx",
+			fbxPath: "./assets/3d/persos/sungirl/sungirl-rigged.fbx",
 			infos: {
 				scale: 0.0008,
 				// scale: 1,z
