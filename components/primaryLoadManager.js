@@ -121,7 +121,7 @@ class PrimaryLoadManager{
 
 			loader.setPath(filePath);
 
-			loader.load(fileName, (fbx, test) => {
+			loader.load(fileName, (fbx) => {
 
 				fbx.scale.setScalar(mainObj.infos.scale);
 
@@ -129,6 +129,36 @@ class PrimaryLoadManager{
 					if( c.type !== "Bone" ){
 						c.castShadow = true;
 					}
+
+					if( mainObj.options?.emissiveEnabled ){
+
+						if( c.type === "SkinnedMesh" ){
+							console.log("fileName : ", fileName,  c);
+	
+							if( c.material.length ){
+	
+								c.material.forEach((child, index) => {
+	
+									console.log("material : ", child.name)
+	
+									if( child.name.includes("emissive") ){
+										c.material[index] = this._ReplaceMaterialWithEmissive(
+											child,
+											mainObj.options.emissive,
+											child.name.replace("emissive-", "")
+										);
+									}
+	
+								})
+	
+							} else {
+								console.log("material solo : ", c.material.name)
+							}
+	
+						}
+
+					}
+
 				});
 
 				target = fbx;
@@ -151,6 +181,16 @@ class PrimaryLoadManager{
 
 			});
 			
+		});
+
+	}
+
+	_ReplaceMaterialWithEmissive(baseMaterial, emissiveOptions, emissiveKey){
+		// console.log("bbaseMaterial for replace : ", baseMaterial, `0x${emissiveOptions.color}`);
+
+		return new THREE.MeshStandardMaterial({
+			emissive: new THREE.Color(emissiveOptions[emissiveKey].color),
+			emissiveIntensity: emissiveOptions[emissiveKey].intensity
 		});
 
 	}

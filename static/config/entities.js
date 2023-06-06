@@ -3,7 +3,8 @@ const entities = {
 	bobs: {
 		link: {
 			name: "link",
-			fbxPath: "./assets/3d/persos/sungirl/sungirl-rigged.fbx",
+			// fbxPath: "./assets/3d/persos/link.fbx",
+			fbxPath: "./assets/3d/persos/sasuke/sasukewoke.fbx",
 			infos: {
 				scale: 0.0008,
 				// scale: 1,z
@@ -13,6 +14,19 @@ const entities = {
 					z: 0.5,
 					// y -> rotation
 					y: 0.1,
+				}
+			},
+			options: {
+				emissiveEnabled: false,
+				emissive: {
+					one: {
+						color: "#FF9000",
+						intensity: 0.5
+					},
+					two: {
+						color: "#6812FF",
+						intensity: 0.4
+					}
 				}
 			}
 		},
@@ -68,7 +82,8 @@ const entities = {
 		},
 		juan: {
 			name: "juan",
-			fbxPath: "./assets/3d/persos/juan.fbx",
+			// fbxPath: "./assets/3d/persos/juan.fbx",
+			fbxPath: "./assets/3d/persos/sasuke/sasukewoke.fbx",
 			infos: {
 				scale: 0.0008,
 				// scale: 1,z
@@ -78,6 +93,23 @@ const entities = {
 					z: 0.5,
 					// y -> rotation
 					y: 0.1,
+				}
+			},
+			options: {
+				emissiveEnabled: true,
+				emissive: {
+					one: {
+						color: "#FF9000",
+						intensity: 0.5
+					},
+					two: {
+						color: "#6812FF",
+						intensity: 0.4
+					},
+					three: {
+						color: "#FFFFFF",
+						intensity: 10
+					}
 				}
 			}
 		},

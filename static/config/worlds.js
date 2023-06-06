@@ -1171,13 +1171,13 @@ const worlds = [
 			},
 			{
 				id: "2.7",
-				baseFov: 15,
+				baseFov: 30,
 				fovTransition: true,
 				sequenceBobName: "juan",
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 0,
-				cameraType: "helmet-dance-down-2",
+				cameraType: "movingHips-lookUp",
 
 				// drop du run ! timer
 				until: 56.7,
@@ -1198,12 +1198,34 @@ const worlds = [
 					intensity: .4
 				},
 
-				slowmo: 1.7,
+				slowmo: 1,
 
 				bobImposedMoves: {
-					// forward: true,
+					forward: true,
 					shift: false,
-					enjoy: true
+					// enjoy: true
+				},
+
+				alice: {
+					handleGround: false,
+					name: "queenShader",
+					move: {
+						floating: true
+					},
+					offset: {
+						x: 0,
+						y: -0.15,
+						z: 0
+					},
+					scale: 0.008,
+					slowmo: 5,
+					customShaderOptions: {
+						shaderTimeRatio: 0.02,
+						shaderTimeDecay: 8,
+						isCameraPositionInfluenced: false,
+						sin: true,
+						sinAmplitude: 160
+					}
 				},
 
 				postproc: [
@@ -1219,11 +1241,11 @@ const worlds = [
 
 					{
 						type: "blur",
-						// focusTarget: "queenShader",
+						focusTarget: "queenShader",
 						value: {
 							focus: 1,
-							aperture: 0.0025,
-							maxblur: 0.04
+							aperture: 0.025,
+							maxblur: 0.014
 						}
 					},
 
@@ -2372,7 +2394,7 @@ const worlds = [
 				},
 
 				bobImposedMoves: {
-					// forward: true
+					forward: true
 				},
 
 				// slowmo: 1,
