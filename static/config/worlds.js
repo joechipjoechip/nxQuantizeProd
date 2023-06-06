@@ -611,7 +611,7 @@ const worlds = [
 					scale: 0.03,
 					slowmo: 2,
 					customShaderOptions: {
-						shaderTimeRatio: 0.02,
+						shaderTimeRatio: 0.08,
 						shaderTimeDecay: 12,
 						isCameraPositionInfluenced: false,
 						sin: true,
@@ -684,7 +684,7 @@ const worlds = [
 					scale: 0.03,
 					slowmo: 2,
 					customShaderOptions: {
-						shaderTimeRatio: 0.01,
+						shaderTimeRatio: 0.1,
 						shaderTimeDecay: 12,
 						isCameraPositionInfluenced: false,
 						sin: true,
@@ -1427,8 +1427,8 @@ const worlds = [
 						focusTarget: "link",
 						value: {
 							focus: 1,
-							aperture: 0.025,
-							maxblur: 0.08
+							aperture: 0.015,
+							maxblur: 0.07
 						}
 					},
 

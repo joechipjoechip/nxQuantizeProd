@@ -32,7 +32,8 @@ const entities = {
 		},
 		linkShader: {
 			name: "linkShader",
-			fbxPath: "./assets/3d/persos/link.fbx",
+			// fbxPath: "./assets/3d/persos/link.fbx",
+			fbxPath: "./assets/3d/persos/sasuke/sasukewoke.fbx",
 			infos: {
 				scale: 0.0015,
 				// scale: 1,z
@@ -57,7 +58,8 @@ const entities = {
 		},
 		linkShaderPlastic: {
 			name: "linkShaderPlastic",
-			fbxPath: "./assets/3d/persos/link.fbx",
+			// fbxPath: "./assets/3d/persos/link.fbx",
+			fbxPath: "./assets/3d/persos/sasuke/sasukewoke.fbx",
 			infos: {
 				scale: 0.0015,
 				// scale: 1,z
@@ -115,7 +117,8 @@ const entities = {
 		},
 		queen: {
 			name: "queen",
-			fbxPath: "./assets/3d/persos/queen.fbx",
+			// fbxPath: "./assets/3d/persos/queen.fbx",
+			fbxPath: "./assets/3d/persos/realqueen/realqueen.fbx",
 			infos: {
 				scale: 0.0008,
 				// scale: 1,z
@@ -130,7 +133,8 @@ const entities = {
 		},
 		queenShader: {
 			name: "queenShader",
-			fbxPath: "./assets/3d/persos/queen.fbx",
+			// fbxPath: "./assets/3d/persos/queen.fbx",
+			fbxPath: "./assets/3d/persos/realqueen/realqueen.fbx",
 			infos: {
 				scale: 0.0008,
 				// scale: 1,z
