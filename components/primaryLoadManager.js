@@ -136,6 +136,8 @@ class PrimaryLoadManager{
 							console.log("fileName : ", fileName,  c);
 	
 							if( c.material.length ){
+
+								console.log("emissive enabled spotted : ", mainObj.options);
 	
 								c.material.forEach((child, index) => {
 	

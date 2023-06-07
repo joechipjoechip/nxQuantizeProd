@@ -415,7 +415,7 @@ const worlds = [
 				id: "2.3",
 				baseFov: 15,
 				fovTransition: false,
-				sequenceBobName: "juan",
+				sequenceBobName: "hinata",
 				until: 21.5,
 				nextInstruction: "switch-sequence",
 
@@ -497,7 +497,7 @@ const worlds = [
 				id: "2.4",
 				baseFov: 27,
 				fovTransition: true,
-				sequenceBobName: "juan",
+				sequenceBobName: "hinata",
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 12,
@@ -567,7 +567,7 @@ const worlds = [
 				id: "3.7",
 				baseFov: 28,
 				fovTransition: true,
-				sequenceBobName: "juan",
+				sequenceBobName: "hinata",
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 6,
@@ -637,7 +637,7 @@ const worlds = [
 				id: "5.9",
 				baseFov: 42,
 				fovTransition: false,
-				sequenceBobName: "juan",
+				sequenceBobName: "hinata",
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 6,
@@ -710,7 +710,7 @@ const worlds = [
 				id: "5.10",
 				baseFov: 20,
 				fovTransition: false,
-				sequenceBobName: "juan",
+				sequenceBobName: "hinata",
 
 				type: "blender-points",
 
@@ -798,7 +798,7 @@ const worlds = [
 				id: "5.11",
 				baseFov: 40,
 				fovTransition: false,
-				sequenceBobName: "juan",
+				sequenceBobName: "hinata",
 
 				type: "blender-points",
 
@@ -1000,7 +1000,7 @@ const worlds = [
 				id: "2.5",
 				baseFov: 180,
 				fovTransition: false,
-				sequenceBobName: "link",
+				sequenceBobName: "hinata",
 				until: 36,
 				nextInstruction: "switch-sequence",
 
@@ -1092,7 +1092,7 @@ const worlds = [
 				id: "2.6",
 				baseFov: 85,
 				fovTransition: false,
-				sequenceBobName: "juan",
+				sequenceBobName: "hinata",
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 8,
@@ -1150,9 +1150,9 @@ const worlds = [
 					{
 						type: "bloom",
 						value: {
-							strength: 0.5,
+							strength: 0.8,
 							threshold: 0.00035,
-							radius: 0.3
+							radius: 0.7
 						}
 					},
 
@@ -1173,7 +1173,7 @@ const worlds = [
 				id: "2.7",
 				baseFov: 30,
 				fovTransition: true,
-				sequenceBobName: "juan",
+				sequenceBobName: "hinata",
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 0,
@@ -1233,9 +1233,9 @@ const worlds = [
 					{
 						type: "bloom",
 						value: {
-							strength: 0.5,
+							strength: 0.8,
 							threshold: 0.00035,
-							radius: 0.3
+							radius: 0.7
 						}
 					},
 
@@ -1256,7 +1256,7 @@ const worlds = [
 				id: "4.7",
 				baseFov: 32,
 				fovTransition: false,
-				sequenceBobName: "juan",
+				sequenceBobName: "hinata",
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 6,
@@ -1315,21 +1315,21 @@ const worlds = [
 					{
 						type: "bloom",
 						value: {
-							strength: 0.7,
+							strength: 0.8,
 							threshold: 0.00035,
 							radius: 0.7
 						}
 					},
 
-					{
-						type: "blur",
-						focusTarget: "queenShader",
-						value: {
-							focus: 1,
-							aperture: 0.025,
-							maxblur: 0.02
-						}
-					},
+					// {
+					// 	type: "blur",
+					// 	focusTarget: "queenShader",
+					// 	value: {
+					// 		focus: 1,
+					// 		aperture: 0.025,
+					// 		maxblur: 0.02
+					// 	}
+					// },
 
 				]
 
@@ -1416,21 +1416,21 @@ const worlds = [
 					{
 						type: "bloom",
 						value: {
-							strength: 0.7,
+							strength: 0.8,
 							threshold: 0.00035,
 							radius: 0.7
 						}
 					},
 
-					{
-						type: "blur",
-						focusTarget: "link",
-						value: {
-							focus: 1,
-							aperture: 0.015,
-							maxblur: 0.07
-						}
-					},
+					// {
+					// 	type: "blur",
+					// 	focusTarget: "link",
+					// 	value: {
+					// 		focus: 1,
+					// 		aperture: 0.015,
+					// 		maxblur: 0.07
+					// 	}
+					// },
 
 				]
 
@@ -1498,21 +1498,21 @@ const worlds = [
 					{
 						type: "bloom",
 						value: {
-							strength: 0.7,
+							strength: 0.8,
 							threshold: 0.00035,
 							radius: 0.7
 						}
 					},
 
-					{
-						type: "blur",
-						focusTarget: "queenShader",
-						value: {
-							focus: 1,
-							aperture: 0.025,
-							maxblur: 0.09
-						}
-					},
+					// {
+					// 	type: "blur",
+					// 	focusTarget: "queenShader",
+					// 	value: {
+					// 		focus: 1,
+					// 		aperture: 0.025,
+					// 		maxblur: 0.09
+					// 	}
+					// },
 
 				]
 
@@ -1567,7 +1567,7 @@ const worlds = [
 			},
 
 
-			entities: ["link", "juan"],
+			entities: ["link", "hinata"],
 
 		},
 
@@ -1771,7 +1771,7 @@ const worlds = [
 	// 		},
 
 
-	// 		entities: ["link", "juan"],
+	// 		entities: ["link", "hinata"],
 
 	// 	},
 
@@ -1837,7 +1837,7 @@ const worlds = [
 	// 			id: "4.6",
 	// 			baseFov: 32,
 	// 			fovTransition: true,
-	// 			sequenceBobName: "juan",
+	// 			sequenceBobName: "hinata",
 
 	// 			type: "third-person",
 	// 			cameraTriggerTimeDecay: 5,
@@ -1959,7 +1959,7 @@ const worlds = [
 	// 		},
 
 
-	// 		entities: ["link", "juan", "queen"],
+	// 		entities: ["link", "hinata", "queen"],
 
 	// 	},
 
@@ -2013,7 +2013,7 @@ const worlds = [
 	// 			id: "4.8",
 	// 			baseFov: 35,
 	// 			fovTransition: true,
-	// 			sequenceBobName: "juan",
+	// 			sequenceBobName: "hinata",
 
 	// 			// type: "blender-points",
 	// 			type: "third-person",
@@ -2184,7 +2184,7 @@ const worlds = [
 	// 		],
 
 
-	// 		entities: ["juan", "link"],
+	// 		entities: ["hinata", "link"],
 
 	// 	},
 
@@ -2193,7 +2193,7 @@ const worlds = [
 	// 			id: "4.10",
 	// 			baseFov: 35,
 	// 			fovTransition: true,
-	// 			sequenceBobName: "juan",
+	// 			sequenceBobName: "hinata",
 
 	// 			type: "third-person",
 	// 			cameraTriggerTimeDecay: 8,
@@ -2313,7 +2313,7 @@ const worlds = [
 
 				alice: {
 					handleGround: false,
-					name: "juan",
+					name: "hinata",
 					move: {
 						climb: true,
 						forward: false,
@@ -2341,7 +2341,7 @@ const worlds = [
 					},
 					// {
 					// 	type: "blur",
-					// 	focusTarget: "juan",
+					// 	focusTarget: "hinata",
 					// 	value: {
 					// 		focus: 1,
 					// 		aperture: 0.015,
@@ -2383,6 +2383,7 @@ const worlds = [
 					name: "link",
 					move: {
 						// climb: true
+						forward: true
 					},
 					offset: {
 						x: 0,

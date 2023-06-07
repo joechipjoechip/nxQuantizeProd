@@ -6,12 +6,12 @@ const entities = {
 			// fbxPath: "./assets/3d/persos/link.fbx",
 			fbxPath: "./assets/3d/persos/sasuke/sasukewoke.fbx",
 			infos: {
-				scale: 0.0008,
+				scale: 0.0012,
 				// scale: 1,z
 				velocity: {
 					// x & z -> displacement
-					x: 0.5,
-					z: 0.5,
+					x: 0.35,
+					z: 0.35,
 					// y -> rotation
 					y: 0.1,
 				}
@@ -35,12 +35,12 @@ const entities = {
 			// fbxPath: "./assets/3d/persos/link.fbx",
 			fbxPath: "./assets/3d/persos/sasuke/sasukewoke.fbx",
 			infos: {
-				scale: 0.0015,
+				scale: 0.0012,
 				// scale: 1,z
 				velocity: {
 					// x & z -> displacement
-					x: 0.5,
-					z: 0.5,
+					x: 0.35,
+					z: 0.35,
 					// y -> rotation
 					y: 0.1,
 				},
@@ -61,12 +61,12 @@ const entities = {
 			// fbxPath: "./assets/3d/persos/link.fbx",
 			fbxPath: "./assets/3d/persos/sasuke/sasukewoke.fbx",
 			infos: {
-				scale: 0.0015,
+				scale: 0.0012,
 				// scale: 1,z
 				velocity: {
 					// x & z -> displacement
-					x: 0.5,
-					z: 0.5,
+					x: 0.35,
+					z: 0.35,
 					// y -> rotation
 					y: 0.1,
 				},
@@ -82,10 +82,10 @@ const entities = {
 				}
 			}
 		},
-		juan: {
-			name: "juan",
+		hinata: {
+			name: "hinata",
 			// fbxPath: "./assets/3d/persos/juan.fbx",
-			fbxPath: "./assets/3d/persos/sasuke/sasukewoke.fbx",
+			fbxPath: "./assets/3d/persos/hinata/hinata.fbx",
 			infos: {
 				scale: 0.0008,
 				// scale: 1,z
@@ -101,16 +101,16 @@ const entities = {
 				emissiveEnabled: true,
 				emissive: {
 					one: {
-						color: "#FF9000",
-						intensity: 0.5
+						color: "#71E79B",
+						intensity: 0.3
 					},
 					two: {
-						color: "#6812FF",
-						intensity: 0.4
+						color: "#5CE7E4",
+						intensity: 0.2
 					},
 					three: {
 						color: "#FFFFFF",
-						intensity: 10
+						intensity: 0.7
 					}
 				}
 			}
