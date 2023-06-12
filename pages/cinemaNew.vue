@@ -54,9 +54,6 @@
 
 	import { PrimaryLoadManager } from '@/components/primaryLoadManager.js';
 
-	// import soundBase from "@/static/assets/audio/onyi-base.mp3";
-	// import loop from "@/static/assets/audio/onyi-base.mp3";
-
 	
 	export default {
 
@@ -177,7 +174,7 @@
 
 				setTimeout(() => {
 
-					const goTo = 44;
+					const goTo = 85;
 
 					if( goTo > 0 ){
 						this.$store.commit("setAudioTimecode", goTo);

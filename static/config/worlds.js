@@ -120,7 +120,7 @@ const worlds = [
 					}
 				}
 			],
-			
+
 			meshInfos: {
 
 				glbPath: "/assets/3d/worlds/lightHouse/lightHouse.glb",
@@ -152,7 +152,7 @@ const worlds = [
 				id: "1.0",
 				baseFov: 5,
 				fovTransition: false,
-				sequenceBobName: "link",
+				sequenceBobName: "hinata",
 				until: 7.3,
 				nextInstruction: "switch-sequence",
 
@@ -169,7 +169,7 @@ const worlds = [
 				customShaderOptions: {
 					timeRatio: 2.15
 				},
-				
+
 				fog: {
 					enabled: false,
 					color: "#000000",
@@ -189,7 +189,7 @@ const worlds = [
 							fov: 100,
 							stepEase: "linear"
 						},
-						
+
 					]
 				},
 
@@ -218,7 +218,7 @@ const worlds = [
 				id: "1.1",
 				baseFov: 27,
 				fovTransition: false,
-				sequenceBobName: "link",
+				sequenceBobName: "hinata",
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 5,
@@ -234,7 +234,7 @@ const worlds = [
 					tubes: false,
 					timelines: false
 				},
-				
+
 				fog: {
 					enabled: false,
 					color: "#000000",
@@ -266,7 +266,7 @@ const worlds = [
 				id: "1.2",
 				baseFov: 20,
 				fovTransition: false,
-				sequenceBobName: "link",
+				sequenceBobName: "hinata",
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 6,
@@ -282,7 +282,7 @@ const worlds = [
 					tubes: false,
 					timelines: false
 				},
-				
+
 				fog: {
 					enabled: false,
 					color: "#000000",
@@ -298,14 +298,14 @@ const worlds = [
 
 				postproc: [
 
-					// {
-					// 	type: "bloom",
-					// 	value: {
-					// 		strength: 0.7,
-					// 		threshold: 0.00035,
-					// 		radius: 0.7
-					// 	}
-					// },
+					{
+						type: "bloom",
+						value: {
+							strength: 0.7,
+							threshold: 0.00035,
+							radius: 0.7
+						}
+					},
 
 				]
 
@@ -314,7 +314,7 @@ const worlds = [
 				id: "1.3",
 				baseFov: 25,
 				fovTransition: false,
-				sequenceBobName: "link",
+				sequenceBobName: "hinata",
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 15,
@@ -330,7 +330,7 @@ const worlds = [
 					tubes: false,
 					timelines: false
 				},
-				
+
 				fog: {
 					enabled: false,
 					color: "#000000",
@@ -346,14 +346,14 @@ const worlds = [
 
 				postproc: [
 
-					// {
-					// 	type: "bloom",
-					// 	value: {
-					// 		strength: 0.7,
-					// 		threshold: 0.00035,
-					// 		radius: 0.7
-					// 	}
-					// },
+					{
+						type: "bloom",
+						value: {
+							strength: 0.7,
+							threshold: 0.00035,
+							radius: 0.7
+						}
+					},
 
 				]
 
@@ -398,7 +398,7 @@ const worlds = [
 				color: 0xff9500,
 				intensity: .15
 			},
-			
+
 			meshInfos: {
 
 				glbPath: "/assets/3d/worlds/epicValley/epicValley.glb",
@@ -415,7 +415,7 @@ const worlds = [
 				id: "2.3",
 				baseFov: 15,
 				fovTransition: false,
-				sequenceBobName: "hinata",
+				sequenceBobName: "link",
 				until: 21.5,
 				nextInstruction: "switch-sequence",
 
@@ -428,7 +428,7 @@ const worlds = [
 					tubes: false,
 					timelines: false
 				},
-				
+
 				fog: {
 					enabled: false,
 					color: "#0D063B",
@@ -455,7 +455,7 @@ const worlds = [
 							fov: 30,
 							stepEase: "linear"
 						},
-						
+
 					]
 				},
 
@@ -497,7 +497,7 @@ const worlds = [
 				id: "2.4",
 				baseFov: 27,
 				fovTransition: true,
-				sequenceBobName: "hinata",
+				sequenceBobName: "link",
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 12,
@@ -513,7 +513,7 @@ const worlds = [
 					tubes: false,
 					timelines: false
 				},
-				
+
 				fog: {
 					enabled: true,
 					color: "#0D063B",
@@ -567,7 +567,7 @@ const worlds = [
 				id: "3.7",
 				baseFov: 28,
 				fovTransition: true,
-				sequenceBobName: "hinata",
+				sequenceBobName: "link",
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 6,
@@ -583,7 +583,7 @@ const worlds = [
 					tubes: false,
 					timelines: false
 				},
-				
+
 				fog: {
 					enabled: false,
 					color: "#0D063B",
@@ -635,9 +635,9 @@ const worlds = [
 			},
 			{
 				id: "5.9",
-				baseFov: 42,
+				baseFov: 35,
 				fovTransition: false,
-				sequenceBobName: "hinata",
+				sequenceBobName: "link",
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 6,
@@ -653,7 +653,7 @@ const worlds = [
 					tubes: false,
 					timelines: false
 				},
-				
+
 				fog: {
 					enabled: false,
 					color: "#0D063B",
@@ -710,7 +710,7 @@ const worlds = [
 				id: "5.10",
 				baseFov: 20,
 				fovTransition: false,
-				sequenceBobName: "hinata",
+				sequenceBobName: "link",
 
 				type: "blender-points",
 
@@ -724,7 +724,7 @@ const worlds = [
 					tubes: false,
 					timelines: false
 				},
-				
+
 				fog: {
 					enabled: false,
 					color: "#0D063B",
@@ -776,7 +776,7 @@ const worlds = [
 							fov: 25,
 							stepEase: "linear"
 						},
-						
+
 					]
 				},
 
@@ -798,7 +798,7 @@ const worlds = [
 				id: "5.11",
 				baseFov: 40,
 				fovTransition: false,
-				sequenceBobName: "hinata",
+				sequenceBobName: "link",
 
 				type: "blender-points",
 
@@ -812,7 +812,7 @@ const worlds = [
 					tubes: false,
 					timelines: false
 				},
-				
+
 				fog: {
 					enabled: false,
 					color: "#0D063B",
@@ -864,7 +864,7 @@ const worlds = [
 							fov: 15,
 							stepEase: "linear"
 						},
-						
+
 					]
 				},
 
@@ -886,13 +886,14 @@ const worlds = [
 				id: "6.12",
 				baseFov: 25,
 				fovTransition: false,
-				sequenceBobName: "linkShader",
+				// sequenceBobName: "hinataShine",
+				bobRestoreSize: 0.0008,
 
-				type: "third-person",
-				cameraTriggerTimeDecay: 15,
-				cameraType: "helmet-dance-down",
+				type: "fake-orbit",
+				// cameraTriggerTimeDecay: 15,
+				// cameraType: "movingHips-lookUp",
 
-				until: 119.7,
+				until: 122.7,
 				nextInstruction: "switch-scene",
 
 				animatedMesh: false,
@@ -902,22 +903,44 @@ const worlds = [
 					tubes: false,
 					timelines: false
 				},
-				
+
 				fog: {
-					enabled: false,
-					color: "#ff7b00",
-					intensity: .35
+					enabled: true,
+					color: "#000005",
+					intensity: .3
 				},
 
-				// slowmo: 1.3,
+				slowmo: 2,
 
 				bobImposedMoves: {
 					forward: false,
 					shift: false,
-					backward: false,
-					hiphop: true,
+					backward: true,
+					hiphop: false,
 					left: false,
 					right: false,
+				},
+
+				alice: {
+					handleGround: true,
+					name: "linkShaderPlastic",
+					move: {
+						housedance: true
+					},
+					offset: {
+						x: 0,
+						y: 0,
+						z: 0
+					},
+					scale: 0.01,
+					slowmo: 1.5,
+					customShaderOptions: {
+						shaderTimeRatio: 1.5,
+						shaderTimeDecay: 5,
+						isCameraPositionInfluenced: false,
+						sin: false,
+						sinAmplitude: 60
+					}
 				},
 
 				postproc: [
@@ -928,14 +951,14 @@ const worlds = [
 					// 	angle: -25
 					// },
 
-					// {
-					// 	type: "bloom",
-					// 	value: {
-					// 		strength: 0.7,
-					// 		threshold: 0.00035,
-					// 		radius: 0.7
-					// 	}
-					// },
+					{
+						type: "bloom",
+						value: {
+							strength: 0.7,
+							threshold: 0.00035,
+							radius: 0.3
+						}
+					},
 
 					// {
 					// 	type: "blur",
@@ -950,7 +973,7 @@ const worlds = [
 				]
 
 			},
-			
+
 		]
 
 	},
@@ -975,7 +998,7 @@ const worlds = [
 				color: 0xff9500,
 				intensity: .85
 			},
-			
+
 			meshInfos: {
 
 				glbPath: "/assets/3d/worlds/caveEntrance/caveEntrance.glb",
@@ -1013,7 +1036,7 @@ const worlds = [
 					tubes: false,
 					timelines: false
 				},
-				
+
 				fog: {
 					enabled: false,
 					color: "#0D063B",
@@ -1062,7 +1085,7 @@ const worlds = [
 							fov: 10,
 							stepEase: "linear"
 						}
-						
+
 					]
 				},
 
@@ -1099,7 +1122,7 @@ const worlds = [
 				cameraType: "movingHips-4",
 
 				until: 43,
-	
+
 				nextInstruction: "switch-sequence",
 
 				animatedMesh: false,
@@ -1109,7 +1132,7 @@ const worlds = [
 					tubes: false,
 					timelines: false
 				},
-				
+
 				fog: {
 					enabled: false,
 					color: "#0D063B",
@@ -1191,14 +1214,14 @@ const worlds = [
 					tubes: false,
 					timelines: false
 				},
-				
+
 				fog: {
 					enabled: false,
 					color: "#0D063B",
 					intensity: .4
 				},
 
-				slowmo: 1,
+				slowmo: 1.4,
 
 				bobImposedMoves: {
 					forward: true,
@@ -1245,7 +1268,7 @@ const worlds = [
 						value: {
 							focus: 1,
 							aperture: 0.025,
-							maxblur: 0.014
+							maxblur: 0.0004
 						}
 					},
 
@@ -1272,7 +1295,7 @@ const worlds = [
 					tubes: false,
 					timelines: false
 				},
-				
+
 				fog: {
 					enabled: false,
 					color: "#0D063B",
@@ -1338,7 +1361,7 @@ const worlds = [
 				id: "4.8",
 				baseFov: 25,
 				fovTransition: false,
-				sequenceBobName: "link",
+				sequenceBobName: "hinata",
 
 				type: "blender-points",
 				cameraInvert: {
@@ -1346,7 +1369,7 @@ const worlds = [
 					y: true
 				},
 
-				until: 82.85,
+				until: 79.1,
 				nextInstruction: "switch-sequence",
 
 				animatedMesh: false,
@@ -1356,7 +1379,7 @@ const worlds = [
 					tubes: false,
 					timelines: false
 				},
-				
+
 				fog: {
 					enabled: false,
 					color: "#0D063B",
@@ -1407,7 +1430,7 @@ const worlds = [
 							fov: 20,
 							stepEase: "linear"
 						},
-						
+
 					]
 				},
 
@@ -1439,7 +1462,7 @@ const worlds = [
 				id: "4.9",
 				baseFov: 32,
 				fovTransition: false,
-				sequenceBobName: "link",
+				sequenceBobName: "hinata",
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 10,
@@ -1455,7 +1478,7 @@ const worlds = [
 					tubes: false,
 					timelines: false
 				},
-				
+
 				fog: {
 					enabled: false,
 					color: "#0D063B",
@@ -1484,7 +1507,7 @@ const worlds = [
 					}
 				},
 
-				slowmo: 2,
+				slowmo: 2.3,
 
 				bobImposedMoves: {
 					forward: true,
@@ -1517,7 +1540,7 @@ const worlds = [
 				]
 
 			},
-			
+
 		]
 
 	},
@@ -1557,7 +1580,7 @@ const worlds = [
 					}
 				}
 			],
-			
+
 			meshInfos: {
 
 				glbPath: "/assets/3d/worlds/greenMountain/greenMountain.glb",
@@ -1577,7 +1600,7 @@ const worlds = [
 				id: "5.12",
 				baseFov: 32,
 				fovTransition: true,
-				sequenceBobName: "link",
+				sequenceBobName: "linkShine",
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 5,
@@ -1593,7 +1616,7 @@ const worlds = [
 					tubes: false,
 					timelines: false
 				},
-				
+
 				fog: {
 					enabled: true,
 					color: "#000105",
@@ -1601,25 +1624,25 @@ const worlds = [
 				},
 
 				alice: {
-					handleGround: false,
-					name: "queenShader",
+					handleGround: true,
+					name: "hinataShine",
 					move: {
-						floating: true
+						hiphop: true
 					},
 					offset: {
 						x: 0,
 						y: 0,
 						z: 0
 					},
-					scale: 0.02,
-					slowmo: 1.3,
-					customShaderOptions: {
-						shaderTimeRatio: 0.1,
-						shaderTimeDecay: 12,
-						isCameraPositionInfluenced: false,
-						sin: true,
-						sinAmplitude: 120
-					}
+					scale: 0.035,
+					slowmo: 3.6,
+					// customShaderOptions: {
+					// 	shaderTimeRatio: 0.1,
+					// 	shaderTimeDecay: 12,
+					// 	isCameraPositionInfluenced: false,
+					// 	sin: true,
+					// 	sinAmplitude: 120
+					// }
 				},
 
 				bobImposedMoves: {
@@ -1629,7 +1652,7 @@ const worlds = [
 				// slowmo: 1.6,
 
 				postproc: [
-			
+
 					{
 						type: "bloom",
 						value: {
@@ -1640,11 +1663,11 @@ const worlds = [
 					},
 					{
 						type: "blur",
-						focusTarget: "link",
+						focusTarget: "hinataShine",
 						value: {
 							focus: 1,
 							aperture: 0.025,
-							maxblur: 0.04
+							maxblur: 0.004
 						}
 					},
 
@@ -1671,7 +1694,7 @@ const worlds = [
 					tubes: false,
 					timelines: false
 				},
-				
+
 				fog: {
 					enabled: false,
 					color: "#000105",
@@ -1699,7 +1722,7 @@ const worlds = [
 				// slowmo: 1.6,
 
 				postproc: [
-			
+
 					{
 						type: "bloom",
 						value: {
@@ -1721,8 +1744,8 @@ const worlds = [
 				]
 
 			},
-		
-			
+
+
 		]
 
 	},
@@ -1761,7 +1784,7 @@ const worlds = [
 	// 				}
 	// 			}
 	// 		],
-			
+
 	// 		meshInfos: {
 
 	// 			glbPath: "/assets/3d/worlds/swift/swift.glb",
@@ -1797,7 +1820,7 @@ const worlds = [
 	// 				tubes: false,
 	// 				timelines: false
 	// 			},
-				
+
 	// 			fog: {
 	// 				enabled: false,
 	// 				color: "#000000",
@@ -1853,7 +1876,7 @@ const worlds = [
 	// 				tubes: false,
 	// 				timelines: false
 	// 			},
-				
+
 	// 			fog: {
 	// 				enabled: false,
 	// 				color: "#0D063B",
@@ -1887,7 +1910,7 @@ const worlds = [
 	// 			slowmo: 1.6,
 
 	// 			postproc: [
-			
+
 	// 				{
 	// 					type: "bloom",
 	// 					value: {
@@ -1909,7 +1932,7 @@ const worlds = [
 	// 			]
 
 	// 		},
-			
+
 	// 	]
 
 	// },
@@ -1949,7 +1972,7 @@ const worlds = [
 	// 				}
 	// 			}
 	// 		],
-			
+
 	// 		meshInfos: {
 
 	// 			glbPath: "/assets/3d/worlds/forestWing/forestWing.glb",
@@ -1985,7 +2008,7 @@ const worlds = [
 	// 				tubes: false,
 	// 				timelines: false
 	// 			},
-				
+
 	// 			fog: {
 	// 				enabled: true,
 	// 				color: "#8ff5f5",
@@ -2030,7 +2053,7 @@ const worlds = [
 	// 				tubes: false,
 	// 				timelines: false
 	// 			},
-				
+
 	// 			fog: {
 	// 				enabled: true,
 	// 				color: "#8ff5f5",
@@ -2071,7 +2094,7 @@ const worlds = [
 	// 					darkness: -0.8,
 	// 					offset: 0.8
 	// 				},
-					
+
 	// 			]
 
 	// 		},
@@ -2096,7 +2119,7 @@ const worlds = [
 	// 				tubes: false,
 	// 				timelines: false
 	// 			},
-				
+
 	// 			fog: {
 	// 				enabled: true,
 	// 				color: "#000000",
@@ -2134,7 +2157,7 @@ const worlds = [
 	// 			]
 
 	// 		},
-			
+
 	// 	]
 
 	// },
@@ -2159,7 +2182,7 @@ const worlds = [
 	// 			color: 0xff9500,
 	// 			intensity: .15
 	// 		},
-			
+
 	// 		meshInfos: {
 
 	// 			glbPath: "/assets/3d/worlds/oula/oula.glb",
@@ -2209,7 +2232,7 @@ const worlds = [
 	// 				tubes: false,
 	// 				timelines: false
 	// 			},
-				
+
 	// 			fog: {
 	// 				enabled: false,
 	// 				color: "#FFFFFF",
@@ -2228,7 +2251,7 @@ const worlds = [
 	// 			postproc: []
 
 	// 		},
-			
+
 	// 	]
 
 	// },
@@ -2253,7 +2276,7 @@ const worlds = [
 				color: 0xff9500,
 				intensity: .15
 			},
-			
+
 			meshInfos: {
 
 				glbPath: "/assets/3d/worlds/faceMountain/faceMountain.glb",
@@ -2287,7 +2310,7 @@ const worlds = [
 					tubes: false,
 					timelines: false
 				},
-				
+
 				fog: {
 					enabled: false,
 					color: "#FFFFFF",
@@ -2307,7 +2330,7 @@ const worlds = [
 							fov: 15,
 							stepEase: "linear"
 						},
-						
+
 					]
 				},
 
@@ -2371,7 +2394,7 @@ const worlds = [
 					tubes: false,
 					timelines: false
 				},
-				
+
 				fog: {
 					enabled: false,
 					color: "#FFFFFF",
@@ -2421,7 +2444,7 @@ const worlds = [
 				]
 
 			},
-			
+
 		]
 
 	},
@@ -2446,7 +2469,7 @@ const worlds = [
 				color: 0xff9500,
 				intensity: .15
 			},
-			
+
 			meshInfos: {
 
 				glbPath: "/assets/3d/worlds/five/five.glb",
@@ -2485,7 +2508,7 @@ const worlds = [
 					y: 0.0015,
 					z: -0.0015
 				},
-				
+
 				fog: {
 					enabled: true,
 					color: "#FFFFFF",
@@ -2540,7 +2563,7 @@ const worlds = [
 			// 		y: -0.01,
 			// 		z: 0
 			// 	},
-				
+
 			// 	fog: {
 			// 		enabled: true,
 			// 		color: "#FFFFFF",
@@ -2569,7 +2592,7 @@ const worlds = [
 			// 	]
 
 			// },
-			
+
 		]
 
 	},

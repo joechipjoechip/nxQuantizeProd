@@ -105,10 +105,6 @@ class SequencesManager{
 			|| this.currentSequenceElements.bobImposedMoves?.climb
 		);
 
-		if( this.currentSequenceElements.bobRestoreSize ){
-
-		}
-
 	}
 
 	killOldSequence( oldSequenceID ){
@@ -612,25 +608,26 @@ class SequencesManager{
 			this.focusTargetAndBlurTheRestHandler();
 		}
 
-
-		// if any BlenderTube is supposed to be played with its lookAt()
-		if( this.currentSequenceElements.blenderTubesManager?._tubeTravelTargetPosition ){
-
-			this.sceneBundlePassed.camera.lookAt(
-				this.currentSequenceElements.blenderTubesManager._tubeTravelTargetPosition
-			);
-
-			this.currentSequenceElements.camera.rotation.y += (currentMousePos.x / 10) * (this.currentSequenceElements.sequenceInfos.cameraInvert?.x ? -1 : 1);
-			this.currentSequenceElements.camera.rotation.x += (currentMousePos.y / 10) * (this.currentSequenceElements.sequenceInfos.cameraInvert?.y ? -1 : 1);
-
-		}
-
 		// if any fake-orbit
 		if( this.currentSequenceElements.fakeOrbit ){
 
 			this.currentSequenceElements.blenderTubesManager._FakeOrbit(currentMousePos, this.vm.$store.state.downScale);
 
+		} else if( this.currentSequenceElements.blenderTubesManager?._tubeTravelTargetPosition ){
+			// if any BlenderTube is supposed to be played with its lookAt()
+
+			this.sceneBundlePassed.camera.lookAt(
+				this.currentSequenceElements.blenderTubesManager._tubeTravelTargetPosition
+			);
+
+			if( !this.currentSequenceElements.fakeOrbit ){
+				this.currentSequenceElements.camera.rotation.y += (currentMousePos.x / 10) * (this.currentSequenceElements.sequenceInfos.cameraInvert?.x ? -1 : 1);
+				this.currentSequenceElements.camera.rotation.x += (currentMousePos.y / 10) * (this.currentSequenceElements.sequenceInfos.cameraInvert?.y ? -1 : 1);
+			}
+
 		}
+
+		
 
 		// if meshes with custom shader 
 		if( this.sceneBundlePassed.sceneElements.meshesForCustomShaderBuilt ){

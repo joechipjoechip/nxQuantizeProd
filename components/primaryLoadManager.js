@@ -190,10 +190,16 @@ class PrimaryLoadManager{
 	_ReplaceMaterialWithEmissive(baseMaterial, emissiveOptions, emissiveKey){
 		// console.log("bbaseMaterial for replace : ", baseMaterial, `0x${emissiveOptions.color}`);
 
-		return new THREE.MeshStandardMaterial({
-			emissive: new THREE.Color(emissiveOptions[emissiveKey].color),
-			emissiveIntensity: emissiveOptions[emissiveKey].intensity
-		});
+		if( emissiveOptions[emissiveKey]?.enabled ){
+
+			return new THREE.MeshStandardMaterial({
+				emissive: new THREE.Color(emissiveOptions[emissiveKey].color),
+				emissiveIntensity: emissiveOptions[emissiveKey].intensity
+			});
+
+		} else {
+			return baseMaterial;
+		}
 
 	}
 

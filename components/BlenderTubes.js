@@ -102,14 +102,17 @@ class BlenderTubes{
 			y: ((mousePos.y + 1) / 2) / downScale
 		};
 
+		// console.log("8FakeOrbit method called : ", reformatedMousePos.x , reformatedMousePos.y);
+
 		const pos1 = this._tube.geometry.parameters.path.getPointAt(
 			Math.min(reformatedMousePos.x, 1)
 		);
 
-		// console.log("pos1 : ", pos1);
+		console.log("pos1 : ", pos1);
 		
 
 		this._camera.position.copy(pos1);
+		this._camera.lookAt(this._target.position);
 
 	}
 
