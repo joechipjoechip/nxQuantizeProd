@@ -11,8 +11,6 @@ class BlenderTubes{
 		this._sequenceInfos = params.sequenceInfos;
 		this._sequenceInfosID = params.sequenceInfos.id.replace(".", "-");
 
-		console.log("Blender tubes build for : ", this._sequenceInfosID);
-
 		this._blenderPoints = this._ParseBlenderPoints(params.blenderPoints);
 		this._target = params.blenderPoints.find(point => (point.name.includes("_target") && point.name.includes(this._sequenceInfosID)));
 
@@ -23,8 +21,6 @@ class BlenderTubes{
 			displayTube: this._sequenceInfos.helpers.tubes,
 			timelines: this._sequenceInfos.helpers.timelines
 		};
-
-		this._fakeOrbitPoint = 0;
 	
 		this._Inits();
 
@@ -108,10 +104,11 @@ class BlenderTubes{
 			Math.min(reformatedMousePos.x, 1)
 		);
 
-		console.log("pos1 : ", pos1);
+		// console.log("pos1 : ", pos1);
 		
 
 		this._camera.position.copy(pos1);
+
 		this._camera.lookAt(this._target.position);
 
 	}

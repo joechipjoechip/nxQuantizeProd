@@ -620,10 +620,8 @@ class SequencesManager{
 				this.currentSequenceElements.blenderTubesManager._tubeTravelTargetPosition
 			);
 
-			if( !this.currentSequenceElements.fakeOrbit ){
-				this.currentSequenceElements.camera.rotation.y += (currentMousePos.x / 10) * (this.currentSequenceElements.sequenceInfos.cameraInvert?.x ? -1 : 1);
-				this.currentSequenceElements.camera.rotation.x += (currentMousePos.y / 10) * (this.currentSequenceElements.sequenceInfos.cameraInvert?.y ? -1 : 1);
-			}
+			this.currentSequenceElements.camera.rotation.y += (currentMousePos.x / 10) * (this.currentSequenceElements.sequenceInfos.cameraInvert?.x ? -1 : 1);
+			this.currentSequenceElements.camera.rotation.x += (currentMousePos.y / 10) * (this.currentSequenceElements.sequenceInfos.cameraInvert?.y ? -1 : 1);
 
 		}
 
@@ -631,11 +629,8 @@ class SequencesManager{
 
 		// if meshes with custom shader 
 		if( this.sceneBundlePassed.sceneElements.meshesForCustomShaderBuilt ){
-			// console.log("oui, cette scene comporte des meshes avec customshader");
 
 			this.sceneBundlePassed.sceneElements.meshesForCustomShaderBuilt.forEach(mesh => {
-
-				// console.log("update d'un custom shader classic");
 	
 				mesh.material.uniforms.iGlobalTime.value = elapsedTime * this.sceneBundlePassed.sceneElements.meshCustomShaderOptions.shaderTimeRatio || 0.5;
 				
@@ -645,8 +640,6 @@ class SequencesManager{
 		
 		// if bob with custom shader 
 		if( this.sceneBundlePassed.sceneElements.bobs[this.currentBobName]?._controls._params.bobInfos.shader ){
-
-			// console.log("update d'un custom shader sur un personnage");
 
 			const shaderInfos = this.sceneBundlePassed.sceneElements.bobs[this.currentBobName]?._controls._params.bobInfos.shader;
 

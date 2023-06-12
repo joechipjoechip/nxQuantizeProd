@@ -421,6 +421,11 @@ const worlds = [
 
 				type: "blender-points",
 
+				cameraInvert: {
+					x: false,
+					y: true
+				},
+
 				animatedMesh: false,
 
 				helpers: {
@@ -886,12 +891,9 @@ const worlds = [
 				id: "6.12",
 				baseFov: 25,
 				fovTransition: false,
-				// sequenceBobName: "hinataShine",
 				bobRestoreSize: 0.0008,
 
 				type: "fake-orbit",
-				// cameraTriggerTimeDecay: 15,
-				// cameraType: "movingHips-lookUp",
 
 				until: 122.7,
 				nextInstruction: "switch-scene",
@@ -1195,11 +1197,11 @@ const worlds = [
 			{
 				id: "2.7",
 				baseFov: 30,
-				fovTransition: true,
+				fovTransition: false,
 				sequenceBobName: "hinata",
 
 				type: "third-person",
-				cameraTriggerTimeDecay: 0,
+				cameraTriggerTimeDecay: 3,
 				cameraType: "movingHips-lookUp",
 
 				// drop du run ! timer
@@ -1363,7 +1365,8 @@ const worlds = [
 				fovTransition: false,
 				sequenceBobName: "hinata",
 
-				type: "blender-points",
+				// type: "blender-points",
+				type: "fake-orbit",
 				cameraInvert: {
 					x: false,
 					y: true
