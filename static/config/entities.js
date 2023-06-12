@@ -17,15 +17,53 @@ const entities = {
 				}
 			},
 			options: {
-				emissiveEnabled: false,
+				emissiveEnabled: true,
+				emissive: {
+					skin: {
+						color: "#FFFFFF",
+						intensity: 4,
+						enabled: true
+					}
+				}
+			}
+		},
+		linkShine: {
+			name: "linkShine",
+			// fbxPath: "./assets/3d/persos/link.fbx",
+			fbxPath: "./assets/3d/persos/sasuke/sasukewoke.fbx",
+			infos: {
+				scale: 0.0012,
+				// scale: 1,z
+				velocity: {
+					// x & z -> displacement
+					x: 0.35,
+					z: 0.35,
+					// y -> rotation
+					y: 0.1,
+				}
+			},
+			options: {
+				emissiveEnabled: true,
 				emissive: {
 					one: {
-						color: "#FF9000",
-						intensity: 0.5
+						color: "#00FCFF",
+						intensity: 0.3,
+						enabled: true
 					},
 					two: {
-						color: "#6812FF",
-						intensity: 0.4
+						color: "#5C31FF",
+						intensity: 0.2,
+						enabled: false
+					},
+					three: {
+						color: "#FFEEF1",
+						intensity: 500,
+						enabled: true
+					},
+					skin: {
+						color: "#FFFFFF",
+						intensity: 4,
+						enabled: false
 					}
 				}
 			}
@@ -72,12 +110,12 @@ const entities = {
 				},
 				shader: {
 					shaderName: "bobShader",
-					shaderScale: 1,
-					shaderAxe: "xz",
+					shaderScale: 0.5,
+					shaderAxe: "xy",
 					specificShaderName: "plastic",
 					shaderTimeRatio: 0.25,
-					isCameraPositionInfluenced: false,
-					sin: true,
+					isCameraPositionInfluenced: true,
+					sin: false,
 					sinAmplitude: 260
 				}
 			}
@@ -87,7 +125,7 @@ const entities = {
 			// fbxPath: "./assets/3d/persos/juan.fbx",
 			fbxPath: "./assets/3d/persos/hinata/hinata.fbx",
 			infos: {
-				scale: 0.0008,
+				scale: 0.0012,
 				// scale: 1,z
 				velocity: {
 					// x & z -> displacement
@@ -102,15 +140,64 @@ const entities = {
 				emissive: {
 					one: {
 						color: "#71E79B",
-						intensity: 0.3
+						intensity: 0.3,
+						enabled: false
 					},
 					two: {
 						color: "#5CE7E4",
-						intensity: 0.2
+						intensity: 0.2,
+						enabled: false
 					},
 					three: {
 						color: "#FFFFFF",
-						intensity: 0.7
+						intensity: 500,
+						enabled: true
+					},
+					skin: {
+						color: "#693B1B",
+						intensity: 0.1,
+						enabled: false
+					}
+				}
+			}
+		},
+		hinataShine: {
+			name: "hinataShine",
+			// fbxPath: "./assets/3d/persos/juan.fbx",
+			fbxPath: "./assets/3d/persos/hinata/hinata.fbx",
+			infos: {
+				scale: 0.0012,
+				// scale: 1,z
+				velocity: {
+					// x & z -> displacement
+					x: 0.5,
+					z: 0.5,
+					// y -> rotation
+					y: 0.1,
+				}
+			},
+			options: {
+				emissiveEnabled: true,
+				emissive: {
+					one: {
+						color: "#71E79B",
+						intensity: 0.2,
+						enabled: false
+					},
+					two: {
+						color: "#5CE7E4",
+						intensity: 0.5,
+						enabled: true
+					},
+					three: {
+						color: "#FFFFFF",
+						intensity: 500,
+						enabled: false
+					},
+					skin: {
+						color: "#693B1B",
+						intensity: 0.1,
+						enabled: false
 					}
 				}
 			}
@@ -120,7 +207,7 @@ const entities = {
 			// fbxPath: "./assets/3d/persos/queen.fbx",
 			fbxPath: "./assets/3d/persos/realqueen/realqueen.fbx",
 			infos: {
-				scale: 0.0008,
+				scale: 0.0012,
 				// scale: 1,z
 				velocity: {
 					// x & z -> displacement
@@ -136,7 +223,7 @@ const entities = {
 			// fbxPath: "./assets/3d/persos/queen.fbx",
 			fbxPath: "./assets/3d/persos/realqueen/realqueen.fbx",
 			infos: {
-				scale: 0.0008,
+				scale: 0.0012,
 				// scale: 1,z
 				velocity: {
 					// x & z -> displacement
