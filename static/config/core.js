@@ -203,6 +203,41 @@ const core = {
 				},
 			},
 		},
+		"movingHips-link-edge": {
+			offset: {
+				x: 0.03,
+				y: 0.0001,
+				z: -0.035
+			},
+			lookAt: {
+				x: 0,
+				y: 0.03,
+				z: 0.01
+			},
+			straightness: 0.015,
+			mouseOrientationPonderation: {
+				x: 0.015,
+				y: 0.026
+			},
+			motion: {
+				// motion will move the camera continuously
+				// with a sin() (so -1 to 1)
+				// and it's related at the offset values
+				x: {
+					// ratios
+					range: -0.05,
+					velocity: 0.45
+				},
+				y: {
+					range: 0.001,
+					velocity: 0.4
+				},
+				z: {
+					range: -0.055,
+					velocity: 0.1
+				},
+			},
+		},
 		"movingHips-lookUp": {
 			offset: {
 				x: 0,
@@ -784,6 +819,42 @@ const core = {
 				z: {
 					range: 0.015,
 					velocity: 0.4
+				},
+			},
+		},
+
+		"movingFly-queen": {
+			offset: {
+				x: -0.04,
+				y: 0.09,
+				z: -0.055
+			},
+			lookAt: {
+				x: 0,
+				y: 0,
+				z: 0.1
+			},
+			straightness: 0.04,
+			mouseOrientationPonderation: {
+				x: 0.085,
+				y: 0.085
+			},
+			motion: {
+				// motion will move the camera continuously
+				// with a sin() (so -1 to 1)
+				// and it's related at the offset values
+				x: {
+					// ratios
+					range: 0.16,
+					velocity: 0.15
+				},
+				y: {
+					range: 0.006,
+					velocity: 0.5
+				},
+				z: {
+					range: -0.06,
+					velocity: 0.1
 				},
 			},
 		},

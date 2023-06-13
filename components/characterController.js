@@ -116,10 +116,10 @@ class BasicCharacterController {
 			acc.multiplyScalar(3.0);
 		}
 
-		if(this._input._keys.fly ){
-			acc.multiplyScalar(0.1);
-			velocity.y -= acc.y * timeInSeconds / 3.5;
-		}
+		// if(this._input._keys.fly ){
+		// 	acc.multiplyScalar(0.1);
+		// 	velocity.y -= acc.y * timeInSeconds / 3.5;
+		// }
 
 		if (this._stateMachine._currentState?.Name == 'dance') {
 			acc.multiplyScalar(0.0);

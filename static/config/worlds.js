@@ -95,9 +95,9 @@ const worlds = [
 			spaceColorWithBloom: "#000105",
 
 			ambient: {
-				sunColor: "#7AFF00",
-				intensity: 0.6,
-				groundColor: "#051442"
+				sunColor: "#FFFFFF",
+				intensity: 0.12,
+				groundColor: "#FFFFFF"
 			},
 
 			fog: {
@@ -159,6 +159,11 @@ const worlds = [
 				type: "blender-points",
 
 				animatedMesh: false,
+
+				cameraInvert: {
+					x: false,
+					y: true
+				},
 
 				helpers: {
 					orbit: false,
@@ -373,9 +378,9 @@ const worlds = [
 			spaceColorWithBloom: "#000005",
 
 			ambient: {
-				sunColor: "#000005",
-				intensity: 0.6,
-				groundColor: "#04007A"
+				sunColor: "#FFFFFF",
+				intensity: 0.12,
+				groundColor: "#FFFFFF"
 			},
 
 			particles: [
@@ -505,8 +510,8 @@ const worlds = [
 				sequenceBobName: "link",
 
 				type: "third-person",
-				cameraTriggerTimeDecay: 12,
-				cameraType: "movingHips-lookUp",
+				cameraTriggerTimeDecay: 10,
+				cameraType: "movingHips-link-edge",
 
 				until: 28.5,
 				nextInstruction: "drop-and-load-and-switch",
@@ -722,6 +727,11 @@ const worlds = [
 				until: 97.3,
 				nextInstruction: "switch-sequence",
 
+				cameraInvert: {
+					x: false,
+					y: true
+				},
+
 				animatedMesh: false,
 
 				helpers: {
@@ -889,13 +899,18 @@ const worlds = [
 			},
 			{
 				id: "6.12",
-				baseFov: 25,
+				baseFov: 10,
 				fovTransition: false,
 				bobRestoreSize: 0.0008,
 
-				type: "fake-orbit",
+				type: "blender-points",
 
-				until: 122.7,
+				cameraInvert: {
+					x: false,
+					y: true
+				},
+
+				until: 124.7,
 				nextInstruction: "switch-scene",
 
 				animatedMesh: false,
@@ -907,9 +922,26 @@ const worlds = [
 				},
 
 				fog: {
-					enabled: true,
+					enabled: false,
 					color: "#000005",
 					intensity: .3
+				},
+
+				tubeInfos: {
+					duration: 12,
+					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
+					isUsingTarget: true,
+					steps: [
+						// n steps are possibles
+						// n has nothing to do with the number of points for the curve
+						{
+							// this amount is a percent of the global duration
+							amount: 100,
+							fov: 25,
+							stepEase: "linear"
+						}
+
+					]
 				},
 
 				slowmo: 2,
@@ -934,8 +966,8 @@ const worlds = [
 						y: 0,
 						z: 0
 					},
-					scale: 0.01,
-					slowmo: 1.5,
+					scale: 0.009,
+					slowmo: 2,
 					customShaderOptions: {
 						shaderTimeRatio: 1.5,
 						shaderTimeDecay: 5,
@@ -990,15 +1022,15 @@ const worlds = [
 			spaceColorWithBloom: "#040101",
 
 			ambient: {
-				sunColor: "#040101",
-				intensity: 0.4,
-				groundColor: "#3B3B3B"
+				sunColor: "#8700a7",
+				intensity: 0.16,
+				groundColor: "#370090"
 			},
 
 			fog: {
 				enabled: false,
 				color: 0xff9500,
-				intensity: .85
+				intensity: .05
 			},
 
 			meshInfos: {
@@ -1558,8 +1590,8 @@ const worlds = [
 			spaceColorWithBloom: "#000105",
 
 			ambient: {
-				sunColor: "#FF7400",
-				intensity: 0.55,
+				sunColor: "#FFFFFF",
+				intensity: 0.35,
 				groundColor: "#6200FF"
 			},
 
@@ -1681,13 +1713,13 @@ const worlds = [
 				id: "7.12",
 				baseFov: 22,
 				fovTransition: true,
-				sequenceBobName: "linkShader",
+				sequenceBobName: "link",
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 5,
 				cameraType: "movingHips-lookUp",
 
-				until: 129.8,
+				until: 136.5,
 				nextInstruction: "drop-and-load-and-switch",
 
 				animatedMesh: false,
@@ -1706,41 +1738,53 @@ const worlds = [
 
 				alice: {
 					handleGround: true,
-					name: "link",
+					name: "linkShaderPlastic",
 					move: {
 						// floating: true
+						// shift: false,
+						forward: true,
+						// left: false,
+						// right: false
+					},
+					customShaderOptions: {
+						shaderTimeRatio: 0.8,
+						shaderTimeDecay: 12,
+						isCameraPositionInfluenced: false,
+						sin: false,
+						sinAmplitude: 20
 					},
 					offset: {
 						x: 0,
 						y: 0,
 						z: 0
 					},
-					scale: 0.008,
-					slowmo: 1,
+					scale: 0.03,
+					slowmo: 2.5,
 				},
 
 				bobImposedMoves: {
+					forward: true
 				},
 
-				// slowmo: 1.6,
+				slowmo: 1,
 
 				postproc: [
 
 					{
 						type: "bloom",
 						value: {
-							strength: .7,
-							threshold: 0.00045,
-							radius: 0.07
+							strength: 0.7,
+							threshold: 0.0035,
+							radius: 0.7
 						}
 					},
 					{
 						type: "blur",
-						focusTarget: "link",
+						focusTarget: "linkShaderPlastic",
 						value: {
 							focus: 1,
 							aperture: 0.025,
-							maxblur: 0.03
+							maxblur: 0.015
 						}
 					},
 
@@ -2269,9 +2313,9 @@ const worlds = [
 			spaceColorWithBloom: "#000000",
 
 			ambient: {
-				sunColor: "#2700FF",
-				intensity: 0.5,
-				groundColor: "#FF3700"
+				sunColor: "#FFFFFF",
+				intensity: 0.12,
+				groundColor: "#FFFFFF"
 			},
 
 			fog: {
@@ -2475,10 +2519,18 @@ const worlds = [
 
 			meshInfos: {
 
-				glbPath: "/assets/3d/worlds/five/five.glb",
+				glbPath: "/assets/3d/worlds/falling/falling.glb",
 				imagePath: {
-					landscape: "/assets/3d/worlds/five/fiveBake.jpg"
+					landscape: "/assets/3d/worlds/falling/fallingBake.jpg"
 				}
+			},
+
+			meshCustomShaderOptions: {
+				enabled: true,
+				shaderTimeRatio: 0.5,
+				shaderName: "galaxy",
+				shaderScale: 1,
+				shaderAxe: "xz"
 			},
 
 		},
@@ -2486,17 +2538,21 @@ const worlds = [
 		sequences: [
 			{
 				id: "7.15",
-				baseFov: 20,
+				baseFov: 30,
 				fovTransition: true,
-				sequenceBobName: "link",
-				bobRestoreSize: 0.0008,
+				sequenceBobName: "hinata",
+				bobRestoreSize: 0.0012,
 
 				type: "third-person",
-				cameraTriggerTimeDecay: 20,
-				cameraType: "movingFly",
+				cameraTriggerTimeDecay: 45,
+				cameraType: "movingFly-queen",
 
 				until: 188.8,
 				nextInstruction: "switch-sequence",
+
+				// customShaderOptions: {
+				// 	timeRatio: 2.15
+				// },
 
 				animatedMesh: false,
 
@@ -2506,11 +2562,11 @@ const worlds = [
 					timelines: false
 				},
 
-				landscapeMove: {
-					x: 0,
-					y: 0.0015,
-					z: -0.0015
-				},
+				// landscapeMove: {
+				// 	x: 0,
+				// 	y: 0.0015,
+				// 	z: -0.0015
+				// },
 
 				fog: {
 					enabled: true,
@@ -2529,14 +2585,14 @@ const worlds = [
 				slowmo: 1,
 
 				postproc: [
-					{
-						type: "bloom",
-						value: {
-							strength: .49,
-							threshold: 0.047,
-							radius: 0.26
-						}
-					},
+					// {
+					// 	type: "bloom",
+					// 	value: {
+					// 		strength: .3,
+					// 		threshold: 0.0047,
+					// 		radius: 0.26
+					// 	}
+					// },
 				]
 
 			},

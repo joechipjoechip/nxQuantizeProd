@@ -156,6 +156,9 @@ class DynamicLightsBuilder {
 
 			if( createdLight ){
 
+				createdLight.position.copy(blenderLight.position);
+				createdLight.rotation.copy(blenderLight.rotation);
+
 				this._createdLights.push(createdLight);
 	
 				this._BuildHelper(createdLight, index);

@@ -19,10 +19,30 @@ const entities = {
 			options: {
 				emissiveEnabled: true,
 				emissive: {
+					// skin: {
+					// 	color: "#FFFFFF",
+					// 	intensity: 4,
+					// 	enabled: true
+					// }
+					one: {
+						color: "#557072",
+						intensity: 0.3,
+						enabled: false
+					},
+					two: {
+						color: "#465E7A",
+						intensity: 0.2,
+						enabled: false
+					},
+					three: {
+						color: "#FFFFFF",
+						intensity: 500,
+						enabled: true
+					},
 					skin: {
 						color: "#FFFFFF",
 						intensity: 4,
-						enabled: true
+						enabled: false
 					}
 				}
 			}
@@ -46,19 +66,19 @@ const entities = {
 				emissiveEnabled: true,
 				emissive: {
 					one: {
-						color: "#00FCFF",
-						intensity: 0.3,
+						color: "#557072",
+						intensity: 0.35,
 						enabled: true
 					},
 					two: {
-						color: "#5C31FF",
+						color: "#465E7A",
 						intensity: 0.2,
-						enabled: false
+						enabled: true
 					},
 					three: {
-						color: "#FFEEF1",
+						color: "#FFFFFF",
 						intensity: 500,
-						enabled: true
+						enabled: false
 					},
 					skin: {
 						color: "#FFFFFF",
@@ -110,13 +130,39 @@ const entities = {
 				},
 				shader: {
 					shaderName: "bobShader",
-					shaderScale: 0.5,
+					shaderScale: 1,
 					shaderAxe: "xy",
 					specificShaderName: "plastic",
 					shaderTimeRatio: 0.25,
 					isCameraPositionInfluenced: true,
 					sin: false,
 					sinAmplitude: 260
+				}
+			}
+		},
+		linkShaderFlying: {
+			name: "linkShaderFlying",
+			// fbxPath: "./assets/3d/persos/link.fbx",
+			fbxPath: "./assets/3d/persos/sasuke/sasukewoke.fbx",
+			infos: {
+				scale: 0.0012,
+				// scale: 1,z
+				velocity: {
+					// x & z -> displacement
+					x: 0.35,
+					z: 0.35,
+					// y -> rotation
+					y: 0.1,
+				},
+				shader: {
+					shaderName: "bobShader",
+					shaderScale: 2,
+					shaderAxe: "xy",
+					specificShaderName: "galaxy",
+					shaderTimeRatio: 4.5,
+					isCameraPositionInfluenced: false,
+					sin: false,
+					sinAmplitude: 5260
 				}
 			}
 		},
@@ -202,6 +248,58 @@ const entities = {
 				}
 			}
 		},
+		hinataShader: {
+			name: "hinataShader",
+			// fbxPath: "./assets/3d/persos/juan.fbx",
+			fbxPath: "./assets/3d/persos/hinata/hinata.fbx",
+			infos: {
+				scale: 0.0012,
+				// scale: 1,z
+				velocity: {
+					// x & z -> displacement
+					x: 0.5,
+					z: 0.5,
+					// y -> rotation
+					y: 0.1,
+				},
+				shader: {
+					shaderName: "bobShader",
+					shaderScale: 0.2,
+					shaderAxe: "zy",
+					specificShaderName: "galaxy",
+					shaderTimeRatio: 0.25,
+					isCameraPositionInfluenced: false,
+					sin: false,
+					sinAmplitude: 60
+				}
+			}
+		},
+		hinataShaderFlying: {
+			name: "hinataShaderFlying",
+			// fbxPath: "./assets/3d/persos/link.fbx",
+			fbxPath: "./assets/3d/persos/hinata/hinata.fbx",
+			infos: {
+				scale: 0.0012,
+				// scale: 1,z
+				velocity: {
+					// x & z -> displacement
+					x: 0.35,
+					z: 0.35,
+					// y -> rotation
+					y: 0.1,
+				},
+				shader: {
+					shaderName: "bobShader",
+					shaderScale: 2,
+					shaderAxe: "xy",
+					specificShaderName: "galaxy",
+					shaderTimeRatio: 4.5,
+					isCameraPositionInfluenced: false,
+					sin: false,
+					sinAmplitude: 5260
+				}
+			}
+		},
 		queen: {
 			name: "queen",
 			// fbxPath: "./assets/3d/persos/queen.fbx",
@@ -237,6 +335,32 @@ const entities = {
 					shaderScale: 0.1,
 					shaderAxe: "zy",
 					specificShaderName: "galaxy"
+				}
+			}
+		},
+		queenShaderFlying: {
+			name: "queenShaderFlying",
+			// fbxPath: "./assets/3d/persos/queen.fbx",
+			fbxPath: "./assets/3d/persos/realqueen/realqueen.fbx",
+			infos: {
+				scale: 0.0012,
+				// scale: 1,z
+				velocity: {
+					// x & z -> displacement
+					x: 0.5,
+					z: 0.5,
+					// y -> rotation
+					y: 0.1,
+				},
+				shader: {
+					shaderName: "aliceShader",
+					shaderScale: 1,
+					shaderAxe: "zy",
+					specificShaderName: "kalei",
+					shaderTimeRatio: 0.15,
+					isCameraPositionInfluenced: false,
+					sin: false,
+					sinAmplitude: 5260
 				}
 			}
 		}

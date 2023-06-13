@@ -72,6 +72,8 @@ class SequencesManager{
 
 		this.activeGoodCastShadows(newSequenceID, oldSequenceID);
 
+		this.activeGoodLightsOnly(newSequenceID);
+
 
 		this.sceneBundlePassed.sceneElements.newSequenceTriggerTime = this.clock.getElapsedTime();
 
@@ -173,6 +175,21 @@ class SequencesManager{
 			aliceControls._target.rotation.y += y;
 			aliceControls._target.rotation.z += z;
 		}
+
+	}
+
+	activeGoodLightsOnly( newSequenceID ){
+
+		this.sceneBundlePassed.sceneElements.dynamicLights.forEach(light => {
+
+			if( light.name.includes(newSequenceID) || light.name.includes("sun") ){
+				light.visible = true;
+			} else {
+				light.visible = false;
+			}
+
+		});
+
 
 	}
 
@@ -647,11 +664,12 @@ class SequencesManager{
 
 		}
 
+		// if alice with custom shader 
 		if( this.currentSequenceElements.aliceInfos?.customShaderOptions ){
 
 			const shaderInfos = this.currentSequenceElements.aliceInfos.customShaderOptions;
 
-			this.sceneBundlePassed.sceneElements.bobs[this.currentSequenceElements.aliceInfos.name]._controls._target.children.find(child => child.name !== "Armature").material.uniforms.iGlobalTime.value = shaderInfos.shaderTimeRatio * (shaderInfos.sin ? (Math.sin(elapsedTime) * shaderInfos.sinAmplitude) : elapsedTime) + shaderInfos.shaderTimeDecay;
+			this.sceneBundlePassed.sceneElements.bobs[this.currentSequenceElements.aliceInfos.name]._controls._target.children.find(child => child.name !== "Armature").material.uniforms.iGlobalTime.value = shaderInfos.shaderTimeRatio * (shaderInfos.sin ? ((Math.sin(elapsedTime) * shaderInfos.sinAmplitude)) : elapsedTime) + (shaderInfos.shaderTimeDecay || 0);
 
 		}
 
