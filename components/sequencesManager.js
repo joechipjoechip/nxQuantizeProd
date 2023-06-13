@@ -105,6 +105,7 @@ class SequencesManager{
 			this.currentSequenceElements.bobImposedMoves?.fly 
 			|| this.currentSequenceElements.bobImposedMoves?.floating 
 			|| this.currentSequenceElements.bobImposedMoves?.climb
+			|| this.currentSequenceElements.bobImposedMoves?.teeter
 		);
 
 	}

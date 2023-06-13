@@ -164,11 +164,11 @@ class HiphopState extends State {
 			curAction.setEffectiveTimeScale(1.0);
 			curAction.setEffectiveWeight(1.0);
 
-			curAction.crossFadeFrom(prevAction, 0.5, true);
+			curAction.crossFadeFrom(prevAction, 0.005, true);
 			curAction.play();
 		} else {
-			curAction.play();
 		}
+		curAction.play();
 	}
 
 	Exit() {
@@ -219,6 +219,34 @@ class HousedanceState extends State {
 
 		if (input._keys.housedance) {
 			this._parent.SetState('housedance');
+			return;
+		}
+
+		this._parent.SetState('idle');
+	}
+};
+
+class TeeterState extends State {
+	constructor(parent) {
+		super(parent);
+	}
+
+	get Name() {
+		return 'teeter';
+	}
+
+	Enter(prevState) {
+		const curAction = this._parent._proxy._animations['teeter'].action;
+		curAction.play();
+	}
+
+	Exit() {
+	}
+
+	Update(timeElapsed, input) {
+
+		if (input._keys.teeter) {
+			this._parent.SetState('teeter');
 			return;
 		}
 
@@ -557,6 +585,8 @@ class IdleState extends State {
 			this._parent.SetState('climb');
 		} else if( input._keys.enjoy){
 			this._parent.SetState('enjoy');
+		} else if( input._keys.teeter){
+			this._parent.SetState('teeter');
 		}
 	}
 };
@@ -576,5 +606,6 @@ export {
 	HiphopState,
 	HousedanceState,
 	ClimbState,
-	EnjoyState
+	EnjoyState,
+	TeeterState
 };

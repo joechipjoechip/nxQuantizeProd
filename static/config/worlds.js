@@ -447,10 +447,14 @@ const worlds = [
 
 				bobImposedMoves: {
 					backward: false,
-					forward: false,
+					forward: true,
 					shift: false,
-					dance: false
+					dance: false,
+					left: false,
+					right: false
 				},
+
+				slowmo: 2.3,
 
 				tubeInfos: {
 					duration: 8,
@@ -534,8 +538,13 @@ const worlds = [
 					backward: false,
 					forward: false,
 					shift: false,
-					dance: false
+					dance: false,
+					teeter: true,
+					left: false,
+					right: false
 				},
+
+				slowmo: 1.9,
 
 				// alice: {
 				// 	handleGround: false,

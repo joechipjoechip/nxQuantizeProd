@@ -40,7 +40,8 @@ const core = {
 			"hiphop",
 			"housedance",
 			"climb",
-			"enjoy"
+			"enjoy",
+			"teeter"
 		]
 	},
 
@@ -206,7 +207,7 @@ const core = {
 		"movingHips-link-edge": {
 			offset: {
 				x: 0.03,
-				y: 0.0001,
+				y: 0.01,
 				z: -0.035
 			},
 			lookAt: {
