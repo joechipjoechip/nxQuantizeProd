@@ -1222,15 +1222,15 @@ const worlds = [
 						}
 					},
 
-					{
-						type: "blur",
-						focusTarget: "queenShader",
-						value: {
-							focus: 1,
-							aperture: 0.0025,
-							maxblur: 0.06
-						}
-					},
+					// {
+					// 	type: "blur",
+					// 	focusTarget: "queenShader",
+					// 	value: {
+					// 		focus: 1,
+					// 		aperture: 0.0025,
+					// 		maxblur: 0.06
+					// 	}
+					// },
 
 				]
 
@@ -1305,15 +1305,15 @@ const worlds = [
 						}
 					},
 
-					{
-						type: "blur",
-						focusTarget: "queenShader",
-						value: {
-							focus: 1,
-							aperture: 0.025,
-							maxblur: 0.0004
-						}
-					},
+					// {
+					// 	type: "blur",
+					// 	focusTarget: "queenShader",
+					// 	value: {
+					// 		focus: 1,
+					// 		aperture: 0.025,
+					// 		maxblur: 0.0004
+					// 	}
+					// },
 
 				]
 
@@ -1383,7 +1383,7 @@ const worlds = [
 						value: {
 							strength: 0.8,
 							threshold: 0.00035,
-							radius: 0.7
+							radius: 0.4
 						}
 					},
 

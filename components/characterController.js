@@ -135,7 +135,7 @@ class BasicCharacterController {
 			velocity.y += acc.y * timeInSeconds / 3.5;
 		}
 
-		if (this._input._keys.forward || this._input._keys.fly) {
+		if (this._input._keys.forward) {
 			velocity.z += acc.z * timeInSeconds;
 		}
 

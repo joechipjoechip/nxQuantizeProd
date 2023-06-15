@@ -348,25 +348,7 @@ class FlyState extends State {
 
 	Enter(prevState) {
 		const curAction = this._parent._proxy._animations['fly'].action;
-		if (prevState) {
-			const prevAction = this._parent._proxy._animations[prevState.Name].action;
-
-			curAction.enabled = true;
-
-			if (prevState.Name == 'run') {
-				const ratio = curAction.getClip().duration / prevAction.getClip().duration;
-				curAction.time = prevAction.time * ratio;
-			} else {
-				curAction.time = 0.0;
-				curAction.setEffectiveTimeScale(1.0);
-				curAction.setEffectiveWeight(1.0);
-			}
-
-			curAction.crossFadeFrom(prevAction, 0.5, true);
-			curAction.play();
-		} else {
-			curAction.play();
-		}
+		curAction.play();
 	}
 
 	Exit() {
@@ -374,14 +356,10 @@ class FlyState extends State {
 
 	Update(timeElapsed, input) {
 
-
-
 		if (input._keys.fly) {
 			this._parent.SetState('fly');
 			return;
 		}
-			
-
 
 		this._parent.SetState('idle');
 	}

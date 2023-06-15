@@ -109,12 +109,6 @@
 				if( newVal ){
 					console.log("all assets are loaded");
 				}
-			},
-
-			"$store.state.downScale"(newVal){
-				console.log("downscale watcher triggered : ", newVal);
-				
-				this.onResize();
 			}
 
 		},
@@ -174,7 +168,7 @@
 
 				setTimeout(() => {
 
-					const goTo = 90.5;
+					const goTo = 0;
 
 					if( goTo > 0 ){
 						this.$store.commit("setAudioTimecode", goTo);

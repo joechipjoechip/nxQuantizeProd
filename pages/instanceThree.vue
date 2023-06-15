@@ -28,8 +28,6 @@
 	import { SceneBuilder } from '@/components/sceneBuilder.js';
 	import { SequencesManager } from '@/components/sequencesManager.js';
 
-	const frameRate = 1/60;
-
 	// THREE
 	import * as THREE from 'three';
 
@@ -76,25 +74,30 @@
 				worlds,
 
 				// Animation
-				frameRate,
+				frameRate: 1/60,
 				deltaTime: 0,
 
 				arbitraryFpsIdeal: 60,
 				arbitraryFpsLimit: 50,
 				arbitraryDownScaleLimit: 1.5,
+				downScaleCount: 0,
 
-				currentFPS: 0,
+				fpsStandardChanged: false,
+				badCpuSpotted: false,
+
 				startTime: performance.now(),
 				currentFPSValue: 0,
 				frames: 0,
 				isAdjustingDownScale: false,
 				performanceTimeoutID: null,
 
-				// sequenceID: "1.0",
+				// Others
 				lastKnownSequenceID: "1.0",
 				loopIsAsked: false,
 
-				// Others
+				nextWorldIndex: 0,
+				initialLoadDone: false,
+
 				debug: {
 					animated: true,
 					stats: true
@@ -119,9 +122,6 @@
 					primary: null,
 					secondary: null
 				},
-
-				nextWorldIndex: 0,
-				initialLoadDone: false
 
 			}
 
@@ -150,7 +150,7 @@
 
 				this.sequencesManager.current.sequenceChangeHandler(this.sequenceID);
 
-				newVal.onResize(this.canvasSizeRef);
+				newVal.recomputeCameraAspectRatio(this.canvasSizeRef);
 
 			},
 
@@ -163,6 +163,9 @@
 
 			sequenceID(newVal, oldVal){
 
+				// this.setDownScale(this.$store.state.downScale);
+				// this.isAdjustingDownScale = false;
+
 				this.sequencesManager.current.sequenceChangeHandler(newVal, oldVal);
 
 				if( this.performanceTimeoutID ){
@@ -170,11 +173,48 @@
 				}
 			},
 
-			"canvasSizeRef.width"(){
+			"$store.state.downScale"(newVal){
 
-				this.renderer.setSize(this.canvasSizeRef.width, this.canvasSizeRef.height);
+				console.log("downscale watcher triggered : ", newVal);
 
-				this.skeleton.current.onResize(this.canvasSizeRef);
+				const newWidth = window.innerWidth / this.$store.state.downScale;
+				const newHeight = window.innerHeight / this.$store.state.downScale;
+
+				if( this.sequencesManager.current.composer ){
+					
+					this.sequencesManager.current.composer.setSize(newWidth, newHeight);
+					
+				} else {
+
+					this.renderer.setSize(newWidth, newHeight);
+
+				}
+
+				this.skeleton.current.recomputeCameraAspectRatio(this.canvasSizeRef);
+
+				// and update parent value for mousePositions consistency
+				this.$parent.canvasSizeRef.width = newWidth;
+				this.$parent.canvasSizeRef.height = newHeight;
+
+				if( newVal !== 1 && !this.fpsStandardChanged && this.$store.state.audioBase.currentTime <= 10 ){
+					this.downScaleCount++;
+				}
+
+			},
+
+			downScaleCount( newVal ){
+
+				if( newVal > 5 ){
+
+					this.frameRate = 1/30;
+					this.arbitraryFpsIdeal = 30;
+					this.arbitraryFpsLimit = 20;
+
+					this.fpsStandardChanged = true;
+					this.badCpuSpotted = true;
+
+				}
+
 			},
 
 			initialLoadDone( newVal ){
@@ -289,8 +329,6 @@
 
 			async dropAndLoadAndSwitch(){
 
-				
-
 				if( this.nextWorldIndex > this.worlds.length ){ return; }
 
 				// DROP la scene non courante
@@ -304,7 +342,6 @@
 					this.switchScene();
 					this.$nuxt.$emit("please-update-sequence-id", this.computeNextSequenceID(this.sequenceID));
 				});
-
 				
 			},
 
@@ -391,16 +428,17 @@
 				if( !this.debug.animated ) return;
 
 				this.deltaTime += this.clock.getDelta();
-
-				
-				this.computeFPS();
-
-				this.handleFpsAndDownScaling();
-
-				this.checkCurrentTime();
 				
 				// NOW CHECK IF FRAMERATE IS GOOD
 				if( this.deltaTime >= this.frameRate ){
+					this.computeFPS();
+	
+					this.handleFpsAndDownScaling();
+					
+					console.log("act render");
+
+
+					this.checkCurrentTime();
 	
 					this.sequencesManager.current.checkStuffsToAnimateAtRender(this.deltaTime, this.viewPos);
 
@@ -420,6 +458,8 @@
 
 					this.deltaTime = this.deltaTime % this.frameRate;
 
+				} else {
+					console.log("DO NOT act render");
 				}
 
 				window.requestAnimationFrame(this.mainTick);
@@ -455,6 +495,9 @@
 							break;
 
 						case "drop-and-load-and-switch":
+							// drop inactive
+							// store current
+							// load new one
 							console.log("- - - switch/case :: drop and load and switch - - -");
 							this.$nuxt.$emit("drop-and-load-and-switch", {});
 							break;
@@ -487,8 +530,10 @@
 				const t = performance.now();
 				const dt = t - this.startTime;
 
+				// console.log("dt : ", dt);
+
 				if( dt > this.frameRate ){
-					this.currentFPSValue = parseInt(this.frames * 1000 / dt);
+					this.currentFPSValue = this.frames * 1000 / dt;
 
 					this.frames = 0;
 					this.startTime = t;
@@ -509,9 +554,9 @@
 
 				if( this.currentFPSValue > this.arbitraryFpsLimit && this.$store.state.downScale !== 1 ){
 
-					this.setDownScale(1);
-
 					this.clearDownScaleTimeout();
+
+					this.setDownScale(1);
 
 					return;
 
@@ -527,7 +572,7 @@
 						if( this.currentFPSValue < this.arbitraryFpsLimit || this.$store.state.downScale > this.arbitraryDownScaleLimit ){
 							// console.log("adjusting verify (in timeout): fps value : ", this.currentFPSValue);
 
-							const diff = (((this.arbitraryFpsIdeal - this.currentFPSValue) / 10) + 1) * 1.2;
+							const diff = (((this.arbitraryFpsIdeal - this.currentFPSValue) / 10) + 1) * 1.75;
 
 							if( diff > 1 ){
 								this.setDownScale(diff);
@@ -541,7 +586,7 @@
 
 						}
 
-					}, 1000);
+					}, 500);
 
 				} else {
 

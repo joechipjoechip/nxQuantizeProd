@@ -437,7 +437,7 @@ class SceneBuilder {
 
 	}
 
-	onResize( canvasSizeRef ){
+	recomputeCameraAspectRatio( canvasSizeRef ){
 
 		this.aspectRatio = canvasSizeRef.width / canvasSizeRef.height;
 
