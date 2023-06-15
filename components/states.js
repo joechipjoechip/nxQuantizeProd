@@ -73,20 +73,7 @@ class FloatingState extends State {
 
 	Enter(prevState) {
 		const curAction = this._parent._proxy._animations['floating'].action;
-		if (prevState) {
-			const prevAction = this._parent._proxy._animations[prevState.Name].action;
-
-			curAction.enabled = true;
-
-			curAction.time = 0.0;
-			curAction.setEffectiveTimeScale(1.0);
-			curAction.setEffectiveWeight(1.0);
-
-			curAction.crossFadeFrom(prevAction, 0.5, true);
-			curAction.play();
-		} else {
-			curAction.play();
-		}
+		curAction.play();
 	}
 
 	Exit() {

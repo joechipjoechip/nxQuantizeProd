@@ -431,12 +431,11 @@
 				
 				// NOW CHECK IF FRAMERATE IS GOOD
 				if( this.deltaTime >= this.frameRate ){
-					this.computeFPS();
-	
-					this.handleFpsAndDownScaling();
+					// console.log("act render");
 					
-					console.log("act render");
-
+					this.computeFPS();
+					
+					this.handleFpsAndDownScaling();
 
 					this.checkCurrentTime();
 	
@@ -458,8 +457,6 @@
 
 					this.deltaTime = this.deltaTime % this.frameRate;
 
-				} else {
-					console.log("DO NOT act render");
 				}
 
 				window.requestAnimationFrame(this.mainTick);
@@ -471,7 +468,6 @@
 
 				if( !this.loopIsAsked && this.$store.state.audioBase.currentTime >= 151.5 ){
 					// console.log("if -> end time is almost reached");
-					this.loopIsAsked = true;
 					this.startLoop();
 				}
 				
@@ -620,6 +616,8 @@
 			startLoop(){
 
 				console.log("startLoop triggered");
+
+				this.loopIsAsked = true;
 
 				this.$store.state.audioLoop.play();
 				

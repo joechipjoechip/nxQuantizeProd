@@ -919,7 +919,7 @@ const worlds = [
 					y: true
 				},
 
-				until: 124.7,
+				until: 122.35,
 				nextInstruction: "switch-scene",
 
 				animatedMesh: false,
@@ -937,7 +937,7 @@ const worlds = [
 				},
 
 				tubeInfos: {
-					duration: 12,
+					duration: 8,
 					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
 					isUsingTarget: true,
 					steps: [
@@ -975,7 +975,7 @@ const worlds = [
 						y: 0,
 						z: 0
 					},
-					scale: 0.009,
+					scale: 0.01,
 					slowmo: 2,
 					customShaderOptions: {
 						shaderTimeRatio: 1.5,
@@ -1406,8 +1406,8 @@ const worlds = [
 				fovTransition: false,
 				sequenceBobName: "hinata",
 
-				// type: "blender-points",
-				type: "fake-orbit",
+				type: "blender-points",
+				// type: "fake-orbit",
 				cameraInvert: {
 					x: false,
 					y: true
@@ -1464,7 +1464,7 @@ const worlds = [
 				tubeInfos: {
 					duration: 12,
 					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
-					isUsingTarget: "link",
+					isUsingTarget: "hinata",
 					steps: [
 						// n steps are possibles
 						// n has nothing to do with the number of points for the curve
@@ -1720,16 +1720,16 @@ const worlds = [
 			},
 			{
 				id: "7.12",
-				baseFov: 22,
-				fovTransition: true,
+				baseFov: 15,
+				fovTransition: false,
 				sequenceBobName: "link",
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 5,
 				cameraType: "movingHips-lookUp",
 
-				until: 136.5,
-				nextInstruction: "drop-and-load-and-switch",
+				until: 129.5,
+				nextInstruction: "switch-sequence",
 
 				animatedMesh: false,
 
@@ -1767,15 +1767,15 @@ const worlds = [
 						y: 0,
 						z: 0
 					},
-					scale: 0.03,
-					slowmo: 2.5,
+					scale: 0.015,
+					slowmo: 1.5,
 				},
 
 				bobImposedMoves: {
 					forward: true
 				},
 
-				slowmo: 1,
+				slowmo: 1.5,
 
 				postproc: [
 
@@ -1790,6 +1790,109 @@ const worlds = [
 					{
 						type: "blur",
 						focusTarget: "linkShaderPlastic",
+						value: {
+							focus: 1,
+							aperture: 0.025,
+							maxblur: 0.015
+						}
+					},
+
+				]
+
+			},
+			{
+				id: "7.13",
+				baseFov: 100,
+				fovTransition: false,
+				sequenceBobName: "link",
+
+				type: "blender-points",
+
+				until: 143.9,
+				nextInstruction: "drop-and-load-and-switch",
+
+				animatedMesh: false,
+
+				cameraInvert: {
+					x: false,
+					y: true
+				},
+
+				helpers: {
+					orbit: false,
+					tubes: false,
+					timelines: false
+				},
+
+				fog: {
+					enabled: false,
+					color: "#000105",
+					intensity: .2
+				},
+
+				tubeInfos: {
+					duration: 15,
+					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
+					isUsingTarget: true,
+					steps: [
+						// n steps are possibles
+						// n has nothing to do with the number of points for the curve
+						{
+							// this amount is a percent of the global duration
+							amount: 100,
+							fov: 20,
+							stepEase: "linear"
+						},
+
+					]
+				},
+
+				alice: {
+					handleGround: false,
+					name: "linkShader",
+					move: {
+						floating: true,
+						// shift: false,
+						forward: false,
+						// left: false,
+						// right: false
+					},
+					customShaderOptions: {
+						shaderTimeRatio: 0.8,
+						shaderTimeDecay: 12,
+						isCameraPositionInfluenced: false,
+						sin: false,
+						sinAmplitude: 20
+					},
+					offset: {
+						x: 0,
+						y: 0,
+						z: 0
+					},
+					scale: 0.015,
+					slowmo: 3.5,
+				},
+
+				bobImposedMoves: {
+					forward: false,
+					floating: true
+				},
+
+				slowmo: 3.5,
+
+				postproc: [
+
+					{
+						type: "bloom",
+						value: {
+							strength: 0.5,
+							threshold: 0.0035,
+							radius: 0.4
+						}
+					},
+					{
+						type: "blur",
+						focusTarget: "link",
 						value: {
 							focus: 1,
 							aperture: 0.025,
