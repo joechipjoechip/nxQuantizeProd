@@ -1064,7 +1064,7 @@ const worlds = [
 		sequences: [
 			{
 				id: "2.5",
-				baseFov: 180,
+				baseFov: 350,
 				fovTransition: false,
 				sequenceBobName: "hinata",
 				until: 36,
@@ -1116,7 +1116,7 @@ const worlds = [
 				},
 
 				tubeInfos: {
-					duration: 8,
+					duration: 7,
 					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
 					isUsingTarget: true,
 					steps: [
@@ -1125,7 +1125,7 @@ const worlds = [
 						{
 							// this amount is a percent of the global duration
 							amount: 100,
-							fov: 10,
+							fov: 15,
 							stepEase: "linear"
 						}
 
