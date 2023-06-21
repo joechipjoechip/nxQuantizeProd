@@ -11,7 +11,7 @@
 			<div v-if="$store.state.audioCurrent" class="stats">{{ $store.state.audioCurrent.currentTime }}</div>
 			<div v-if="currentSequence" class="stats">next step : {{ currentSequence.until }}</div>
 			<div v-if="currentSequence" class="stats">isAdjustingDownScale : {{ isAdjustingDownScale }}</div>
-			<div v-if="currentSequence" class="stats">performanceTimeoutID : {{ performanceTimeoutID }}</div>
+			<div v-if="currentSequence" class="stats">bad cpu : {{ badCpuSpotted }}</div>
 		</div>
 
 		<canvas 
@@ -81,6 +81,8 @@
 				arbitraryFpsLimit: 45,
 				arbitraryDownScaleLimit: 1.5,
 				downScaleCount: 0,
+				rescaleRatio: 1.5,
+				rescaleInterval: 500,
 
 				fpsStandardChanged: false,
 				badCpuSpotted: false,
@@ -196,7 +198,7 @@
 				this.$parent.canvasSizeRef.width = newWidth;
 				this.$parent.canvasSizeRef.height = newHeight;
 
-				if( newVal !== 1 && !this.fpsStandardChanged && this.$store.state.audioBase.currentTime <= 10 ){
+				if( this.$store.state.audioBase.currentTime <= 14 && newVal !== 1 && !this.fpsStandardChanged ){
 					this.downScaleCount++;
 				}
 
@@ -206,9 +208,11 @@
 
 				if( newVal > 5 ){
 
-					this.frameRate = 1/30;
-					this.arbitraryFpsIdeal = 30;
-					this.arbitraryFpsLimit = 20;
+					this.frameRate = 1/40;
+					this.arbitraryFpsIdeal = 40;
+					this.arbitraryFpsLimit = 25;
+					this.rescaleRatio = 1.75;
+					this.rescaleInterval = 1000;
 
 					this.fpsStandardChanged = true;
 					this.badCpuSpotted = true;
@@ -568,7 +572,7 @@
 						if( this.currentFPSValue < this.arbitraryFpsLimit || this.$store.state.downScale > this.arbitraryDownScaleLimit ){
 							// console.log("adjusting verify (in timeout): fps value : ", this.currentFPSValue);
 
-							const diff = (((this.arbitraryFpsIdeal - this.currentFPSValue) / 10) + 1) * 1.5;
+							const diff = (((this.arbitraryFpsIdeal - this.currentFPSValue) / 10) + 1) * this.rescaleRatio;
 
 							if( diff > 1 ){
 								this.setDownScale(diff);
@@ -582,7 +586,7 @@
 
 						}
 
-					}, 1000);
+					}, this.rescaleInterval);
 
 				} else {
 

@@ -15,7 +15,8 @@ import {
 	HousedanceState,
 	ClimbState,
 	EnjoyState,
-	TeeterState
+	TeeterState,
+	PrayupState
 } from '@/components/states.js'
 
 class BasicCharacterControllerProxy {
@@ -259,6 +260,7 @@ class BasicCharacterControllerInput {
 			climb: false || this._imposedMoves.climb,
 			enjoy: false || this._imposedMoves.enjoy,
 			teeter: false || this._imposedMoves.teeter,
+			prayup: false || this._imposedMoves.prayup,
 		};
 
 		document.addEventListener('keydown', ( event ) => this._onKeyDown( event ), false);
@@ -372,6 +374,7 @@ class CharacterFSM extends FiniteStateMachine {
 		this._AddState('climb', ClimbState);
 		this._AddState('enjoy', EnjoyState);
 		this._AddState('teeter', TeeterState);
+		this._AddState('prayup', PrayupState);
 	}
 };
 

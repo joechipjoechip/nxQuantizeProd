@@ -88,6 +88,88 @@ const entities = {
 				}
 			}
 		},
+		linkShineEyes: {
+			name: "linkShineEyes",
+			// fbxPath: "./assets/3d/persos/link.fbx",
+			fbxPath: "./assets/3d/persos/sasuke/sasukewoke.fbx",
+			infos: {
+				scale: 0.0012,
+				// scale: 1,z
+				velocity: {
+					// x & z -> displacement
+					x: 0.35,
+					z: 0.35,
+					// y -> rotation
+					y: 0.1,
+				}
+			},
+			options: {
+				emissiveEnabled: true,
+				emissive: {
+					one: {
+						color: "#557072",
+						intensity: 0.35,
+						enabled: false
+					},
+					two: {
+						color: "#465E7A",
+						intensity: 0.2,
+						enabled: false
+					},
+					three: {
+						color: "#FFFFFF",
+						intensity: 500,
+						enabled: true
+					},
+					skin: {
+						color: "#FFFFFF",
+						intensity: 4,
+						enabled: false
+					}
+				}
+			}
+		},
+		linkShineSkin: {
+			name: "linkShineSkin",
+			// fbxPath: "./assets/3d/persos/link.fbx",
+			fbxPath: "./assets/3d/persos/sasuke/sasukewoke.fbx",
+			infos: {
+				scale: 0.0012,
+				// scale: 1,z
+				velocity: {
+					// x & z -> displacement
+					x: 0.35,
+					z: 0.35,
+					// y -> rotation
+					y: 0.1,
+				}
+			},
+			options: {
+				emissiveEnabled: true,
+				emissive: {
+					one: {
+						color: "#557072",
+						intensity: 0.35,
+						enabled: false
+					},
+					two: {
+						color: "#465E7A",
+						intensity: 0.2,
+						enabled: false
+					},
+					three: {
+						color: "#FFFFFF",
+						intensity: 500,
+						enabled: false
+					},
+					skin: {
+						color: "#FFFFFF",
+						intensity: 500,
+						enabled: true
+					}
+				}
+			}
+		},
 		linkShader: {
 			name: "linkShader",
 			// fbxPath: "./assets/3d/persos/link.fbx",
@@ -137,6 +219,32 @@ const entities = {
 					isCameraPositionInfluenced: true,
 					sin: false,
 					sinAmplitude: 260
+				}
+			}
+		},
+		linkShaderPlasticTwo: {
+			name: "linkShaderPlasticTwo",
+			// fbxPath: "./assets/3d/persos/link.fbx",
+			fbxPath: "./assets/3d/persos/sasuke/sasukewoke.fbx",
+			infos: {
+				scale: 0.0012,
+				// scale: 1,z
+				velocity: {
+					// x & z -> displacement
+					x: 0.35,
+					z: 0.35,
+					// y -> rotation
+					y: 0.1,
+				},
+				shader: {
+					shaderName: "bobShader",
+					shaderScale: 1,
+					shaderAxe: "zz",
+					specificShaderName: "plastic",
+					shaderTimeRatio: 0.25,
+					isCameraPositionInfluenced: false,
+					sin: true,
+					sinAmplitude: 120
 				}
 			}
 		},
@@ -243,6 +351,88 @@ const entities = {
 					skin: {
 						color: "#693B1B",
 						intensity: 0.1,
+						enabled: false
+					}
+				}
+			}
+		},
+		hinataShineSkin: {
+			name: "hinataShineSkin",
+			// fbxPath: "./assets/3d/persos/juan.fbx",
+			fbxPath: "./assets/3d/persos/hinata/hinata.fbx",
+			infos: {
+				scale: 0.0012,
+				// scale: 1,z
+				velocity: {
+					// x & z -> displacement
+					x: 0.5,
+					z: 0.5,
+					// y -> rotation
+					y: 0.1,
+				}
+			},
+			options: {
+				emissiveEnabled: true,
+				emissive: {
+					one: {
+						color: "#71E79B",
+						intensity: 0.2,
+						enabled: false
+					},
+					two: {
+						color: "#5CE7E4",
+						intensity: 0.5,
+						enabled: false
+					},
+					three: {
+						color: "#FFFFFF",
+						intensity: 500,
+						enabled: false
+					},
+					skin: {
+						color: "#693B1B",
+						intensity: 500,
+						enabled: true
+					}
+				}
+			}
+		},
+		hinataShineEyes: {
+			name: "hinataShineEyes",
+			// fbxPath: "./assets/3d/persos/juan.fbx",
+			fbxPath: "./assets/3d/persos/hinata/hinata.fbx",
+			infos: {
+				scale: 0.0012,
+				// scale: 1,z
+				velocity: {
+					// x & z -> displacement
+					x: 0.5,
+					z: 0.5,
+					// y -> rotation
+					y: 0.1,
+				}
+			},
+			options: {
+				emissiveEnabled: true,
+				emissive: {
+					one: {
+						color: "#71E79B",
+						intensity: 0.2,
+						enabled: false
+					},
+					two: {
+						color: "#5CE7E4",
+						intensity: 0.5,
+						enabled: false
+					},
+					three: {
+						color: "#FFFFFF",
+						intensity: 500,
+						enabled: true
+					},
+					skin: {
+						color: "#693B1B",
+						intensity: 500,
 						enabled: false
 					}
 				}

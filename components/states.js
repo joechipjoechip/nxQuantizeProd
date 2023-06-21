@@ -73,7 +73,20 @@ class FloatingState extends State {
 
 	Enter(prevState) {
 		const curAction = this._parent._proxy._animations['floating'].action;
-		curAction.play();
+		if (prevState) {
+			const prevAction = this._parent._proxy._animations[prevState.Name].action;
+
+			curAction.enabled = true;
+
+			curAction.time = 0.0;
+			curAction.setEffectiveTimeScale(1.0);
+			curAction.setEffectiveWeight(1.0);
+
+			curAction.crossFadeFrom(prevAction, 0.005, true);
+			curAction.play();
+		} else {
+			curAction.play();
+		}
 	}
 
 	Exit() {
@@ -241,6 +254,52 @@ class TeeterState extends State {
 	}
 };
 
+class PrayupState extends State {
+	constructor(parent) {
+		super(parent);
+	}
+
+	get Name() {
+		return 'prayup';
+	}
+
+	Enter(prevState) {
+		const curAction = this._parent._proxy._animations['prayup'].action;
+		if (prevState) {
+			const prevAction = this._parent._proxy._animations[prevState.Name].action;
+
+			curAction.enabled = true;
+
+			if (prevState.Name == 'run') {
+				const ratio = curAction.getClip().duration / prevAction.getClip().duration;
+				curAction.time = prevAction.time * ratio;
+			} else {
+				curAction.time = 0.0;
+				curAction.setEffectiveTimeScale(1.0);
+				curAction.setEffectiveWeight(1.0);
+			}
+
+			curAction.crossFadeFrom(prevAction, 0.5, true);
+			curAction.play();
+		} else {
+			curAction.play();
+		}
+	}
+
+	Exit() {
+	}
+
+	Update(timeElapsed, input) {
+
+		if (input._keys.prayup) {
+			this._parent.SetState('prayup');
+			return;
+		}
+
+		this._parent.SetState('idle');
+	}
+};
+
 class EnjoyState extends State {
 	constructor(parent) {
 		super(parent);
@@ -335,7 +394,25 @@ class FlyState extends State {
 
 	Enter(prevState) {
 		const curAction = this._parent._proxy._animations['fly'].action;
-		curAction.play();
+		if (prevState) {
+			const prevAction = this._parent._proxy._animations[prevState.Name].action;
+
+			curAction.enabled = true;
+
+			if (prevState.Name == 'run') {
+				const ratio = curAction.getClip().duration / prevAction.getClip().duration;
+				curAction.time = prevAction.time * ratio;
+			} else {
+				curAction.time = 0.0;
+				curAction.setEffectiveTimeScale(1.0);
+				curAction.setEffectiveWeight(1.0);
+			}
+
+			curAction.crossFadeFrom(prevAction, 0.5, true);
+			curAction.play();
+		} else {
+			curAction.play();
+		}
 	}
 
 	Exit() {
@@ -552,6 +629,8 @@ class IdleState extends State {
 			this._parent.SetState('enjoy');
 		} else if( input._keys.teeter){
 			this._parent.SetState('teeter');
+		} else if( input._keys.prayup){
+			this._parent.SetState('prayup');
 		}
 	}
 };
@@ -572,5 +651,6 @@ export {
 	HousedanceState,
 	ClimbState,
 	EnjoyState,
-	TeeterState
+	TeeterState,
+	PrayupState
 };

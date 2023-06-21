@@ -41,7 +41,8 @@ const core = {
 			"housedance",
 			"climb",
 			"enjoy",
-			"teeter"
+			"teeter",
+			"prayup"
 		]
 	},
 
@@ -790,19 +791,19 @@ const core = {
 		},
 		movingFly: {
 			offset: {
-				x: 0,
-				y: 0.03,
-				z: -0.06
+				x: -0.01,
+				y: 0.035,
+				z: -0.04
 			},
 			lookAt: {
 				x: 0,
-				y: 0,
-				z: 0.001
+				y: 0.025,
+				z: 0.035
 			},
 			straightness: 0.04,
 			mouseOrientationPonderation: {
-				x: 0.025,
-				y: 0.025
+				x: 0.02,
+				y: 0.02
 			},
 			motion: {
 				// motion will move the camera continuously
@@ -810,15 +811,15 @@ const core = {
 				// and it's related at the offset values
 				x: {
 					// ratios
-					range: 0.04,
+					range: 0.025,
 					velocity: 0.25
 				},
 				y: {
-					range: 0.015,
+					range: -0.011,
 					velocity: 0.5
 				},
 				z: {
-					range: 0.015,
+					range: -0.01,
 					velocity: 0.4
 				},
 			},

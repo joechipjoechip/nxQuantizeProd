@@ -1072,6 +1072,11 @@ const worlds = [
 
 				type: "blender-points",
 
+				cameraInvert: {
+					x: false,
+					y: true
+				},
+
 				animatedMesh: false,
 
 				helpers: {
@@ -1885,9 +1890,9 @@ const worlds = [
 					{
 						type: "bloom",
 						value: {
-							strength: 0.5,
-							threshold: 0.0035,
-							radius: 0.4
+							strength: 0.4,
+							threshold: 0.00035,
+							radius: 0.3
 						}
 					},
 					{
@@ -1908,705 +1913,6 @@ const worlds = [
 		]
 
 	},
-	// {
-	// 	name: "world_015",
-
-	// 	main: {
-
-	// 		spaceColor: "#000000",
-	// 		spaceColorDarker: "#000000",
-	// 		spaceColorWithBloom: "#000000",
-
-	// 		ambient: {
-	// 			sunColor: "#FF7400",
-	// 			intensity: 0.55,
-	// 			groundColor: "#6200FF"
-	// 		},
-
-	// 		fog: {
-	// 			enabled: true,
-	// 			color: 0x000000,
-	// 			intensity: .85
-	// 		},
-
-	// 		particles: [
-	// 			{
-	// 				type: "fireflies",
-	// 				count: 650,
-	// 				particleSize: 25,
-	// 				additive: true,
-	// 				timeRatio: 400.0,
-	// 				blockSize: {
-	// 					x: 2,
-	// 					y: 3,
-	// 					z: 2
-	// 				}
-	// 			}
-	// 		],
-
-	// 		meshInfos: {
-
-	// 			glbPath: "/assets/3d/worlds/swift/swift.glb",
-	// 			imagePath: {
-	// 				landscape: "/assets/3d/worlds/swift/swiftBake.jpg"
-	// 			}
-	// 		},
-
-
-	// 		entities: ["link", "hinata"],
-
-	// 	},
-
-	// 	sequences: [
-
-	// 		{
-	// 			id: "4.5",
-	// 			baseFov: 35,
-	// 			fovTransition: true,
-	// 			sequenceBobName: "link",
-
-	// 			type: "third-person",
-	// 			cameraTriggerTimeDecay: 15,
-	// 			cameraType: "climb-view",
-
-	// 			until: 78,
-	// 			nextInstruction: "switch-sequence",
-
-	// 			animatedMesh: false,
-
-	// 			helpers: {
-	// 				orbit: false,
-	// 				tubes: false,
-	// 				timelines: false
-	// 			},
-
-	// 			fog: {
-	// 				enabled: false,
-	// 				color: "#000000",
-	// 				intensity: .75
-	// 			},
-
-	// 			bobImposedMoves: {
-	// 				forward: false,
-	// 				shift: false,
-	// 				backward: false,
-	// 				climb: true,
-	// 				left: false,
-	// 				right: false
-	// 			},
-
-	// 			slowmo: 1.3,
-
-	// 			postproc: [
-	// 				// {
-	// 				// 	type: "rgbShift",
-	// 				// 	amount: 0.006
-	// 				// },
-	// 				{
-	// 					type: "blur",
-	// 					focusTarget: "link",
-	// 					value: {
-	// 						focus: 1,
-	// 						aperture: 0.4,
-	// 						maxblur: 0.045
-	// 					}
-	// 				},
-	// 			]
-
-	// 		},
-
-	// 		{
-	// 			id: "4.6",
-	// 			baseFov: 32,
-	// 			fovTransition: true,
-	// 			sequenceBobName: "hinata",
-
-	// 			type: "third-person",
-	// 			cameraTriggerTimeDecay: 5,
-	// 			cameraType: "helmet-low-moving",
-
-	// 			until: 85.5,
-	// 			nextInstruction: "drop-and-load-and-switch",
-
-	// 			animatedMesh: false,
-
-	// 			helpers: {
-	// 				orbit: false,
-	// 				tubes: false,
-	// 				timelines: false
-	// 			},
-
-	// 			fog: {
-	// 				enabled: false,
-	// 				color: "#0D063B",
-	// 				intensity: .15
-	// 			},
-
-	// 			alice: {
-	// 				handleGround: false,
-	// 				name: "link",
-	// 				move: {
-	// 					climb: true
-	// 				},
-	// 				offset: {
-	// 					x: 0,
-	// 					y: 0,
-	// 					z: 0
-	// 				},
-	// 				scale: 0.001,
-	// 				slowmo: 1.3
-	// 			},
-
-	// 			bobImposedMoves: {
-	// 				forward: false,
-	// 				shift: false,
-	// 				backward: false,
-	// 				housedance: true,
-	// 				left: false,
-	// 				right: false
-	// 			},
-
-	// 			slowmo: 1.6,
-
-	// 			postproc: [
-
-	// 				{
-	// 					type: "bloom",
-	// 					value: {
-	// 						strength: .5,
-	// 						threshold: 0.45,
-	// 						radius: 0.05
-	// 					}
-	// 				},
-	// 				{
-	// 					type: "blur",
-	// 					focusTarget: "link",
-	// 					value: {
-	// 						focus: 1,
-	// 						aperture: 0.025,
-	// 						maxblur: 0.015
-	// 					}
-	// 				},
-
-	// 			]
-
-	// 		},
-
-	// 	]
-
-	// },
-
-	// {
-	// 	name: "world_020",
-
-	// 	main: {
-
-	// 		spaceColor: "#FFFFFF",
-	// 		spaceColorDarker: "#FFFFFF",
-	// 		spaceColorWithBloom: "#FFFFFF",
-
-	// 		ambient: {
-	// 			sunColor: "#FFFFFF",
-	// 			intensity: 0.6,
-	// 			groundColor: "#8ff5f5"
-	// 		},
-
-	// 		fog: {
-	// 			enabled: true,
-	// 			color: 0xff9500,
-	// 			intensity: .15
-	// 		},
-
-	// 		particles: [
-	// 			{
-	// 				type: "fireflies",
-	// 				count: 200,
-	// 				particleSize: 20,
-	// 				additive: true,
-	// 				timeRatio: 3.0,
-	// 				blockSize: {
-	// 					x: 5,
-	// 					y: 2,
-	// 					z: 5
-	// 				}
-	// 			}
-	// 		],
-
-	// 		meshInfos: {
-
-	// 			glbPath: "/assets/3d/worlds/forestWing/forestWing.glb",
-	// 			imagePath: {
-	// 				landscape: "/assets/3d/worlds/forestWing/forestWingBake.jpg"
-	// 			}
-	// 		},
-
-
-	// 		entities: ["link", "hinata", "queen"],
-
-	// 	},
-
-	// 	sequences: [
-	// 		{
-	// 			id: "4.7",
-	// 			baseFov: 35,
-	// 			fovTransition: true,
-	// 			sequenceBobName: "link",
-
-	// 			// type: "blender-points",
-	// 			type: "third-person",
-	// 			cameraTriggerTimeDecay: 18,
-	// 			cameraType: "movingHips-3",
-
-	// 			until: 94,
-	// 			nextInstruction: "switch-sequence",
-
-	// 			animatedMesh: false,
-
-	// 			helpers: {
-	// 				orbit: false,
-	// 				tubes: false,
-	// 				timelines: false
-	// 			},
-
-	// 			fog: {
-	// 				enabled: true,
-	// 				color: "#8ff5f5",
-	// 				intensity: .65
-	// 			},
-
-	// 			bobImposedMoves: {
-	// 				// shift: true,
-	// 				// forward: true,
-	// 				enjoy: true
-	// 			},
-
-	// 			postproc: [
-
-	// 				{
-	// 					type: "vignette",
-	// 					darkness: -0.9,
-	// 					offset: 0.8
-	// 				}
-
-	// 			]
-
-	// 		},
-	// 		{
-	// 			id: "4.8",
-	// 			baseFov: 35,
-	// 			fovTransition: true,
-	// 			sequenceBobName: "hinata",
-
-	// 			// type: "blender-points",
-	// 			type: "third-person",
-	// 			cameraTriggerTimeDecay: 4,
-	// 			cameraType: "movingHips-lookUp",
-
-	// 			until: 101,
-	// 			nextInstruction: "switch-sequence",
-
-	// 			animatedMesh: false,
-
-	// 			helpers: {
-	// 				orbit: false,
-	// 				tubes: false,
-	// 				timelines: false
-	// 			},
-
-	// 			fog: {
-	// 				enabled: true,
-	// 				color: "#8ff5f5",
-	// 				intensity: .12
-	// 			},
-
-	// 			alice: {
-	// 				handleGround: false,
-	// 				name: "queen",
-	// 				move: {
-	// 					housedance: true
-	// 				},
-	// 				offset: {
-	// 					x: 0,
-	// 					y: -0.55,
-	// 					z: 0
-	// 				},
-	// 				scale: 0.25,
-	// 				slowmo: 8
-	// 			},
-
-	// 			bobImposedMoves: {
-	// 				enjoy: true
-	// 			},
-
-	// 			postproc: [
-	// 				{
-	// 					type: "blur",
-	// 					focusTarget: "queen",
-	// 					value: {
-	// 						focus: 1,
-	// 						aperture: 0.025,
-	// 						maxblur: 0.025
-	// 					}
-	// 				},
-	// 				{
-	// 					type: "vignette",
-	// 					darkness: -0.8,
-	// 					offset: 0.8
-	// 				},
-
-	// 			]
-
-	// 		},
-	// 		{
-	// 			id: "4.9",
-	// 			baseFov: 30,
-	// 			fovTransition: true,
-	// 			sequenceBobName: "link",
-
-	// 			// type: "blender-points",
-	// 			type: "third-person",
-	// 			cameraTriggerTimeDecay: 4,
-	// 			cameraType: "helmet-low-moving-2",
-
-	// 			until: 107.5,
-	// 			nextInstruction: "drop-and-load-and-switch",
-
-	// 			animatedMesh: false,
-
-	// 			helpers: {
-	// 				orbit: false,
-	// 				tubes: false,
-	// 				timelines: false
-	// 			},
-
-	// 			fog: {
-	// 				enabled: true,
-	// 				color: "#000000",
-	// 				intensity: .43
-	// 			},
-
-	// 			bobImposedMoves: {
-	// 				hiphop: true,
-	// 				left: false,
-	// 				right: false
-	// 			},
-
-	// 			slowmo: 0.85,
-
-	// 			postproc: [
-
-	// 				{
-	// 					type: "bloom",
-	// 					value: {
-	// 						strength: 0.2,
-	// 						threshold: 0.005,
-	// 						radius: 0.2
-	// 					}
-	// 				},
-	// 				{
-	// 					type: "blur",
-	// 					focusTarget: "link",
-	// 					value: {
-	// 						focus: 1,
-	// 						aperture: 0.025,
-	// 						maxblur: 0.025
-	// 					}
-	// 				},
-
-	// 			]
-
-	// 		},
-
-	// 	]
-
-	// },
-
-	// {
-	// 	name: "world_025",
-
-	// 	main: {
-
-	// 		spaceColor: "#002038",
-	// 		spaceColorDarker: "#001220",
-	// 		spaceColorWithBloom: "#000B14",
-
-	// 		ambient: {
-	// 			sunColor: "#FFFFFF",
-	// 			intensity: 0.6,
-	// 			groundColor: "#04007A"
-	// 		},
-
-	// 		fog: {
-	// 			enabled: true,
-	// 			color: 0xff9500,
-	// 			intensity: .15
-	// 		},
-
-	// 		meshInfos: {
-
-	// 			glbPath: "/assets/3d/worlds/oula/oula.glb",
-	// 			imagePath: {
-	// 				landscape: "/assets/3d/worlds/oula/oulaBake.jpg"
-	// 			}
-	// 		},
-
-	// 		particles: [
-	// 			{
-	// 				type: "fireflies",
-	// 				count: 250,
-	// 				particleSize: 10,
-	// 				additive: true,
-	// 				timeRatio: 36.0,
-	// 				blockSize: {
-	// 					x: 7,
-	// 					y: 3,
-	// 					z: 2
-	// 				}
-	// 			}
-	// 		],
-
-
-	// 		entities: ["hinata", "link"],
-
-	// 	},
-
-	// 	sequences: [
-	// 		{
-	// 			id: "4.10",
-	// 			baseFov: 35,
-	// 			fovTransition: true,
-	// 			sequenceBobName: "hinata",
-
-	// 			type: "third-person",
-	// 			cameraTriggerTimeDecay: 8,
-	// 			cameraType: "gtaLike-oula",
-
-	// 			until: 122.8,
-	// 			nextInstruction: "drop-and-load-and-switch",
-
-	// 			animatedMesh: false,
-
-	// 			helpers: {
-	// 				orbit: false,
-	// 				tubes: false,
-	// 				timelines: false
-	// 			},
-
-	// 			fog: {
-	// 				enabled: false,
-	// 				color: "#FFFFFF",
-	// 				intensity: .43
-	// 			},
-
-	// 			bobImposedMoves: {
-	// 				forward: true,
-	// 				shift: true,
-	// 				housedance: false,
-	// 				hiphop: false,
-	// 				climb: false,
-	// 				floating: false
-	// 			},
-
-	// 			postproc: []
-
-	// 		},
-
-	// 	]
-
-	// },
-
-	{
-		name: "world_030",
-
-		main: {
-
-			spaceColor: "#002038",
-			spaceColorDarker: "#001220",
-			spaceColorWithBloom: "#000000",
-
-			ambient: {
-				sunColor: "#FFFFFF",
-				intensity: 0.12,
-				groundColor: "#FFFFFF"
-			},
-
-			fog: {
-				enabled: false,
-				color: 0xff9500,
-				intensity: .15
-			},
-
-			meshInfos: {
-
-				glbPath: "/assets/3d/worlds/faceMountain/faceMountain.glb",
-				imagePath: {
-					landscape: "/assets/3d/worlds/faceMountain/faceMountainBake.jpg"
-				}
-			},
-
-		},
-
-		sequences: [
-			{
-				id: "7.13",
-				baseFov: 90,
-				fovTransition: false,
-				sequenceBobName: "link",
-
-				type: "blender-points",
-				cameraInvert: {
-					x: false,
-					y: true
-				},
-
-				until: 137,
-				nextInstruction: "switch-sequence",
-
-				animatedMesh: false,
-
-				helpers: {
-					orbit: false,
-					tubes: false,
-					timelines: false
-				},
-
-				fog: {
-					enabled: false,
-					color: "#FFFFFF",
-					intensity: .43
-				},
-
-				tubeInfos: {
-					duration: 8,
-					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
-					isUsingTarget: true,
-					steps: [
-						// n steps are possibles
-						// n has nothing to do with the number of points for the curve
-						{
-							// this amount is a percent of the global duration
-							amount: 100,
-							fov: 15,
-							stepEase: "linear"
-						},
-
-					]
-				},
-
-				alice: {
-					handleGround: false,
-					name: "hinata",
-					move: {
-						climb: true,
-						forward: false,
-						backward: false,
-						left: false,
-						right: false
-					},
-					offset: {
-						x: 0,
-						y: 0,
-						z: 0
-					},
-					scale: 0.001,
-					slowmo: 1.5
-				},
-
-				postproc: [
-					{
-						type: "bloom",
-						value: {
-							strength: .65,
-							threshold: 0.05,
-							radius: 0.4
-						}
-					},
-					// {
-					// 	type: "blur",
-					// 	focusTarget: "hinata",
-					// 	value: {
-					// 		focus: 1,
-					// 		aperture: 0.015,
-					// 		maxblur: 0.028
-					// 	}
-					// },
-				]
-
-			},
-			{
-				id: "7.14",
-				baseFov: 35,
-				fovTransition: true,
-				sequenceBobName: "linkShader",
-
-				type: "third-person",
-				cameraTriggerTimeDecay: 5,
-				cameraType: "movingHips-2",
-
-				until: 143.8,
-				nextInstruction: "drop-and-load-and-switch",
-
-				animatedMesh: false,
-
-				helpers: {
-					orbit: false,
-					tubes: false,
-					timelines: false
-				},
-
-				fog: {
-					enabled: false,
-					color: "#FFFFFF",
-					intensity: .43
-				},
-
-				alice: {
-					handleGround: true,
-					name: "link",
-					move: {
-						// climb: true
-						forward: true
-					},
-					offset: {
-						x: 0,
-						y: 0,
-						z: 0
-					},
-					scale: 0.008,
-					slowmo: 1
-				},
-
-				bobImposedMoves: {
-					forward: true
-				},
-
-				// slowmo: 1,
-
-				postproc: [
-					{
-						type: "bloom",
-						value: {
-							strength: .65,
-							threshold: 0.05,
-							radius: 0.4
-						}
-					},
-					{
-						type: "blur",
-						focusTarget: "link",
-						value: {
-							focus: 1,
-							aperture: 0.015,
-							maxblur: 0.028
-						}
-					},
-				]
-
-			},
-
-		]
-
-	},
 
 	{
 		name: "world_035",
@@ -2618,8 +1924,8 @@ const worlds = [
 			spaceColorWithBloom: "#FFFFFF",
 
 			ambient: {
-				sunColor: "#FFFFFF",
-				intensity: 0.4,
+				sunColor: "#eeeeee",
+				intensity: 0.6,
 				groundColor: "#1f165e"
 			},
 
@@ -2631,33 +1937,25 @@ const worlds = [
 
 			meshInfos: {
 
-				glbPath: "/assets/3d/worlds/falling/falling.glb",
+				glbPath: "/assets/3d/worlds/five/five.glb",
 				imagePath: {
-					landscape: "/assets/3d/worlds/falling/fallingBake.jpg"
+					landscape: "/assets/3d/worlds/five/fiveBake.jpg"
 				}
-			},
-
-			meshCustomShaderOptions: {
-				enabled: true,
-				shaderTimeRatio: 0.5,
-				shaderName: "galaxy",
-				shaderScale: 1,
-				shaderAxe: "xz"
 			},
 
 		},
 
 		sequences: [
 			{
-				id: "7.15",
-				baseFov: 30,
+				id: "7.14",
+				baseFov: 35,
 				fovTransition: true,
-				sequenceBobName: "hinata",
-				bobRestoreSize: 0.0012,
+				sequenceBobName: "hinataShine",
+				bobRestoreSize: 0.0008,
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 45,
-				cameraType: "movingFly-queen",
+				cameraType: "movingFly",
 
 				until: 188.8,
 				nextInstruction: "switch-sequence",
@@ -2682,88 +1980,69 @@ const worlds = [
 
 				fog: {
 					enabled: true,
-					color: "#FFFFFF",
-					intensity: .02
+					color: "#ffffff",
+					intensity: .16
 				},
 
 				bobImposedMoves: {
 					// forward: true
 					fly: true,
-					// forward: false,
+					forward: false,
 					backward: false,
-					shift: false
+					// shift: false,
+					// left: false,
+					// right: false
 				},
 
 				slowmo: 1,
+				
+				alice: {
+					handleGround: false,
+					name: "link",
+					move: {
+						prayup: true,
+						shift: false,
+						left: false,
+						right: false
+					},
+					offset: {
+						x: 0,
+						y: -3.4,
+						z: -0.8
+					},
+					scale: 0.14,
+					slowmo: 2,
+					// customShaderOptions: {
+					// 	shaderTimeRatio: 1.8,
+					// 	shaderTimeDecay: 5,
+					// 	isCameraPositionInfluenced: false,
+					// 	sin: false,
+					// 	sinAmplitude: 60
+					// }
+				},
 
 				postproc: [
+					{
+						type: "bloom",
+						value: {
+							strength: .25,
+							threshold: 0.0004,
+							radius: 0.7
+						}
+					},
 					// {
-					// 	type: "bloom",
+					// 	type: "blur",
+					// 	focusTarget: "hinata",
 					// 	value: {
-					// 		strength: .3,
-					// 		threshold: 0.0047,
-					// 		radius: 0.26
+					// 		focus: 1,
+					// 		aperture: 0.015,
+					// 		maxblur: 0.038
 					// 	}
 					// },
 				]
 
 			},
-			// {
-			// 	id: "4.14",
-			// 	baseFov: 45,
-			// 	fovTransition: false,
-			// 	sequenceBobName: "link",
-
-			// 	type: "third-person",
-			// 	cameraTriggerTimeDecay: 35,
-			// 	cameraType: "movingFly-helmet",
-
-			// 	until: 292.5,
-			// 	nextInstruction: "switch-sequence",
-
-			// 	animatedMesh: false,
-
-			// 	helpers: {
-			// 		orbit: false,
-			// 		tubes: false,
-			// 		timelines: false
-			// 	},
-
-			// 	landscapeMove: {
-			// 		x: 0,
-			// 		y: -0.01,
-			// 		z: 0
-			// 	},
-
-			// 	fog: {
-			// 		enabled: true,
-			// 		color: "#FFFFFF",
-			// 		intensity: .01
-			// 	},
-
-			// 	bobImposedMoves: {
-			// 		// forward: true
-			// 		fly: true,
-			// 		forward: false,
-			// 		backward: false,
-			// 		left: false,
-			// 		right: false,
-
-			// 	},
-
-			// 	postproc: [
-			// 		{
-			// 			type: "bloom",
-			// 			value: {
-			// 				strength: .49,
-			// 				threshold: 0.047,
-			// 				radius: 0.26
-			// 			}
-			// 		},
-			// 	]
-
-			// },
-
+			
 		]
 
 	},
