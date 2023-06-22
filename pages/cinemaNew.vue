@@ -3,9 +3,9 @@
 
 		<div class="debug-buttons-container">
 			<button @click="playPauseAnimationHandler">start/stop animation</button>
-			<button @click="switchScene">switch scene</button>
-			<button @click="dropAndLoadAndSwitch">drop and load and switch</button>
-			<button @click="changeSequenceHandler">next sequence</button>
+			<!-- <button @click="switchScene">switch scene</button>
+			<button @click="changeSequenceHandler">next sequence</button> -->
+			<button @click="dropAndLoadAndSwitch">dropAndLoadAndSwitch</button>
 		</div>
 
 		<div 
@@ -168,7 +168,7 @@
 
 				setTimeout(() => {
 
-					const goTo = 132;
+					const goTo = 134;
 
 					if( goTo > 0 ){
 						this.$store.commit("setAudioTimecode", goTo);

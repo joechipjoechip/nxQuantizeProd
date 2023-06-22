@@ -351,6 +351,8 @@ const worlds = [
 
 				postproc: [
 
+					
+
 					{
 						type: "bloom",
 						value: {
@@ -358,6 +360,11 @@ const worlds = [
 							threshold: 0.00035,
 							radius: 0.7
 						}
+					},
+
+					{
+						type: "rgbShift",
+						amount: 0.02
 					},
 
 				]
@@ -1925,8 +1932,8 @@ const worlds = [
 
 			ambient: {
 				sunColor: "#eeeeee",
-				intensity: 0.6,
-				groundColor: "#1f165e"
+				intensity: 0.25,
+				groundColor: "#eeeeee"
 			},
 
 			fog: {
@@ -1948,10 +1955,10 @@ const worlds = [
 		sequences: [
 			{
 				id: "7.14",
-				baseFov: 35,
+				baseFov: 23,
 				fovTransition: true,
 				sequenceBobName: "hinataShine",
-				bobRestoreSize: 0.0008,
+				bobRestoreSize: 0.00075,
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 45,
@@ -1981,7 +1988,7 @@ const worlds = [
 				fog: {
 					enabled: true,
 					color: "#ffffff",
-					intensity: .16
+					intensity: .14
 				},
 
 				bobImposedMoves: {
@@ -1998,7 +2005,7 @@ const worlds = [
 				
 				alice: {
 					handleGround: false,
-					name: "link",
+					name: "linkShine",
 					move: {
 						prayup: true,
 						shift: false,
@@ -2007,10 +2014,10 @@ const worlds = [
 					},
 					offset: {
 						x: 0,
-						y: -3.4,
+						y: -6.4,
 						z: -0.8
 					},
-					scale: 0.14,
+					scale: 0.19,
 					slowmo: 2,
 					// customShaderOptions: {
 					// 	shaderTimeRatio: 1.8,
@@ -2030,13 +2037,140 @@ const worlds = [
 							radius: 0.7
 						}
 					},
+					{
+						type: "blur",
+						focusTarget: "hinataShine",
+						value: {
+							focus: 1,
+							aperture: 0.015,
+							maxblur: 0.0038
+						}
+					},
+				]
+
+			},
+			
+		]
+
+	},
+
+	{
+		name: "world_040",
+
+		main: {
+
+			spaceColor: "#000000",
+			spaceColorDarker: "#000000",
+			spaceColorWithBloom: "#000000",
+
+			ambient: {
+				sunColor: "#eeeeee",
+				intensity: 0.25,
+				groundColor: "#eeeeee"
+			},
+
+			fog: {
+				enabled: false,
+				color: 0xff9500,
+				intensity: .15
+			},
+
+			meshInfos: {
+
+				glbPath: "/assets/3d/worlds/choice/choice.glb",
+				imagePath: {
+					landscape: "/assets/3d/worlds/choice/choiceBake.jpg"
+				}
+			},
+
+		},
+
+		sequences: [
+			{
+				id: "7.15",
+				baseFov: 23,
+				fovTransition: true,
+				sequenceBobName: "link",
+				// bobRestoreSize: 0.0008,
+
+				type: "third-person",
+				cameraTriggerTimeDecay: 45,
+				cameraType: "movingHips-lookUp",
+
+				until: 288.8,
+				nextInstruction: "switch-sequence",
+
+				// customShaderOptions: {
+				// 	timeRatio: 2.15
+				// },
+
+				animatedMesh: false,
+
+				helpers: {
+					orbit: false,
+					tubes: false,
+					timelines: false
+				},
+
+				// landscapeMove: {
+				// 	x: 0,
+				// 	y: 0.0015,
+				// 	z: -0.0015
+				// },
+
+				fog: {
+					enabled: false,
+					color: "#ffffff",
+					intensity: .14
+				},
+
+				bobImposedMoves: {
+					fly: false,
+				},
+
+				slowmo: 1,
+				
+				// alice: {
+				// 	handleGround: false,
+				// 	name: "linkShine",
+				// 	move: {
+				// 		prayup: true,
+				// 		shift: false,
+				// 		left: false,
+				// 		right: false
+				// 	},
+				// 	offset: {
+				// 		x: 0,
+				// 		y: -6.4,
+				// 		z: -0.8
+				// 	},
+				// 	scale: 0.19,
+				// 	slowmo: 2,
+				// 	// customShaderOptions: {
+				// 	// 	shaderTimeRatio: 1.8,
+				// 	// 	shaderTimeDecay: 5,
+				// 	// 	isCameraPositionInfluenced: false,
+				// 	// 	sin: false,
+				// 	// 	sinAmplitude: 60
+				// 	// }
+				// },
+
+				postproc: [
+					{
+						type: "bloom",
+						value: {
+							strength: .7,
+							threshold: 0.0004,
+							radius: 0.7
+						}
+					},
 					// {
 					// 	type: "blur",
-					// 	focusTarget: "hinata",
+					// 	focusTarget: "hinataShine",
 					// 	value: {
 					// 		focus: 1,
 					// 		aperture: 0.015,
-					// 		maxblur: 0.038
+					// 		maxblur: 0.0038
 					// 	}
 					// },
 				]
