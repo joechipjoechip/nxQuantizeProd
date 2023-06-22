@@ -160,9 +160,11 @@ class DynamicLightsBuilder {
 				createdLight.rotation.copy(blenderLight.rotation);
 
 				this._createdLights.push(createdLight);
+
+				if( core.debug.lightsHelpers.light || core.debug.lightsHelpers.shadow) {
+					this._BuildHelper(createdLight, index);
+				}
 	
-				this._BuildHelper(createdLight, index);
-				
 			}
 
 		});
