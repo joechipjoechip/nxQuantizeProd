@@ -152,7 +152,7 @@ const worlds = [
 				id: "1.0",
 				baseFov: 5,
 				fovTransition: false,
-				sequenceBobName: "hinata",
+				sequenceBobName: "marie",
 				until: 7.3,
 				nextInstruction: "switch-sequence",
 
@@ -223,7 +223,7 @@ const worlds = [
 				id: "1.1",
 				baseFov: 27,
 				fovTransition: false,
-				sequenceBobName: "hinata",
+				sequenceBobName: "marie",
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 5,
@@ -271,7 +271,7 @@ const worlds = [
 				id: "1.2",
 				baseFov: 20,
 				fovTransition: false,
-				sequenceBobName: "hinata",
+				sequenceBobName: "marie",
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 6,
@@ -319,7 +319,7 @@ const worlds = [
 				id: "1.3",
 				baseFov: 25,
 				fovTransition: false,
-				sequenceBobName: "hinata",
+				sequenceBobName: "marie",
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 15,
@@ -1073,7 +1073,7 @@ const worlds = [
 				id: "2.5",
 				baseFov: 350,
 				fovTransition: false,
-				sequenceBobName: "hinata",
+				sequenceBobName: "marie",
 				until: 36,
 				nextInstruction: "switch-sequence",
 
@@ -1170,7 +1170,7 @@ const worlds = [
 				id: "2.6",
 				baseFov: 85,
 				fovTransition: false,
-				sequenceBobName: "hinata",
+				sequenceBobName: "marie",
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 8,
@@ -1251,7 +1251,7 @@ const worlds = [
 				id: "2.7",
 				baseFov: 30,
 				fovTransition: false,
-				sequenceBobName: "hinata",
+				sequenceBobName: "marie",
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 3,
@@ -1334,7 +1334,7 @@ const worlds = [
 				id: "4.7",
 				baseFov: 32,
 				fovTransition: false,
-				sequenceBobName: "hinata",
+				sequenceBobName: "marie",
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 6,
@@ -1416,7 +1416,7 @@ const worlds = [
 				id: "4.8",
 				baseFov: 25,
 				fovTransition: false,
-				sequenceBobName: "hinata",
+				sequenceBobName: "marie",
 
 				type: "blender-points",
 				// type: "fake-orbit",
@@ -1476,14 +1476,14 @@ const worlds = [
 				tubeInfos: {
 					duration: 12,
 					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
-					isUsingTarget: "hinata",
+					isUsingTarget: "marie",
 					steps: [
 						// n steps are possibles
 						// n has nothing to do with the number of points for the curve
 						{
 							// this amount is a percent of the global duration
 							amount: 100,
-							fov: 20,
+							fov: 90,
 							stepEase: "linear"
 						},
 
@@ -1518,7 +1518,7 @@ const worlds = [
 				id: "4.9",
 				baseFov: 32,
 				fovTransition: false,
-				sequenceBobName: "hinata",
+				sequenceBobName: "marie",
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 10,
@@ -1646,7 +1646,7 @@ const worlds = [
 			},
 
 
-			entities: ["link", "hinata"],
+			entities: ["link", "marie"],
 
 		},
 
@@ -1682,7 +1682,7 @@ const worlds = [
 
 				alice: {
 					handleGround: true,
-					name: "hinataShine",
+					name: "marieShine",
 					move: {
 						hiphop: true
 					},
@@ -1721,7 +1721,7 @@ const worlds = [
 					},
 					{
 						type: "blur",
-						focusTarget: "hinataShine",
+						focusTarget: "marieShine",
 						value: {
 							focus: 1,
 							aperture: 0.025,
@@ -1959,7 +1959,7 @@ const worlds = [
 				id: "7.14",
 				baseFov: 23,
 				fovTransition: true,
-				sequenceBobName: "hinataShine",
+				sequenceBobName: "marieShine",
 				bobRestoreSize: 0.00075,
 
 				type: "third-person",
@@ -2041,7 +2041,7 @@ const worlds = [
 					},
 					{
 						type: "blur",
-						focusTarget: "hinataShine",
+						focusTarget: "marieShine",
 						value: {
 							focus: 1,
 							aperture: 0.015,

@@ -274,10 +274,10 @@ const entities = {
 				}
 			}
 		},
-		hinata: {
-			name: "hinata",
+		marie: {
+			name: "marie",
 			// fbxPath: "./assets/3d/persos/juan.fbx",
-			fbxPath: "./assets/3d/persos/hinata/hinata.fbx",
+			fbxPath: "./assets/3d/persos/marie/marie.fbx",
 			infos: {
 				scale: 0.0012,
 				// scale: 1,z
@@ -308,17 +308,17 @@ const entities = {
 						enabled: true
 					},
 					skin: {
-						color: "#693B1B",
+						color: "#FFFFFF",
 						intensity: 0.1,
 						enabled: false
 					}
 				}
 			}
 		},
-		hinataShine: {
-			name: "hinataShine",
+		marieShine: {
+			name: "marieShine",
 			// fbxPath: "./assets/3d/persos/juan.fbx",
-			fbxPath: "./assets/3d/persos/hinata/hinata.fbx",
+			fbxPath: "./assets/3d/persos/marie/marie.fbx",
 			infos: {
 				scale: 0.0012,
 				// scale: 1,z
@@ -349,17 +349,17 @@ const entities = {
 						enabled: false
 					},
 					skin: {
-						color: "#693B1B",
+						color: "#FFFFFF",
 						intensity: 0.1,
 						enabled: false
 					}
 				}
 			}
 		},
-		hinataShineSkin: {
-			name: "hinataShineSkin",
+		marieShineSkin: {
+			name: "marieShineSkin",
 			// fbxPath: "./assets/3d/persos/juan.fbx",
-			fbxPath: "./assets/3d/persos/hinata/hinata.fbx",
+			fbxPath: "./assets/3d/persos/marie/marie.fbx",
 			infos: {
 				scale: 0.0012,
 				// scale: 1,z
@@ -390,17 +390,17 @@ const entities = {
 						enabled: false
 					},
 					skin: {
-						color: "#693B1B",
+						color: "#FFFFFF",
 						intensity: 500,
 						enabled: true
 					}
 				}
 			}
 		},
-		hinataShineEyes: {
-			name: "hinataShineEyes",
+		marieShineEyes: {
+			name: "marieShineEyes",
 			// fbxPath: "./assets/3d/persos/juan.fbx",
-			fbxPath: "./assets/3d/persos/hinata/hinata.fbx",
+			fbxPath: "./assets/3d/persos/marie/marie.fbx",
 			infos: {
 				scale: 0.0012,
 				// scale: 1,z
@@ -431,17 +431,17 @@ const entities = {
 						enabled: true
 					},
 					skin: {
-						color: "#693B1B",
+						color: "#FFFFFF",
 						intensity: 500,
 						enabled: false
 					}
 				}
 			}
 		},
-		hinataShader: {
-			name: "hinataShader",
+		marieShader: {
+			name: "marieShader",
 			// fbxPath: "./assets/3d/persos/juan.fbx",
-			fbxPath: "./assets/3d/persos/hinata/hinata.fbx",
+			fbxPath: "./assets/3d/persos/marie/marie.fbx",
 			infos: {
 				scale: 0.0012,
 				// scale: 1,z
@@ -464,10 +464,10 @@ const entities = {
 				}
 			}
 		},
-		hinataShaderFlying: {
-			name: "hinataShaderFlying",
+		marieShaderFlying: {
+			name: "marieShaderFlying",
 			// fbxPath: "./assets/3d/persos/link.fbx",
-			fbxPath: "./assets/3d/persos/hinata/hinata.fbx",
+			fbxPath: "./assets/3d/persos/marie/marie.fbx",
 			infos: {
 				scale: 0.0012,
 				// scale: 1,z

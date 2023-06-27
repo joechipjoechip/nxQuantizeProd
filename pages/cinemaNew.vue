@@ -168,7 +168,7 @@
 
 				setTimeout(() => {
 
-					const goTo = 4;
+					const goTo = 134;
 
 					if( goTo > 0 ){
 						this.$store.commit("setAudioTimecode", goTo);
