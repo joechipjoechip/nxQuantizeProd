@@ -26,7 +26,6 @@
 			:canvasSizeRef="canvasSizeRef"
 		/>
 
-
 		<instancethree 
 			v-if="(allIsLoaded && viewPos)"
 			ref="instancethree"

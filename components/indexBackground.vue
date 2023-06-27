@@ -19,7 +19,24 @@
                 frameRate: 1/60,
                 deltaTime: 0,
 
-                animate: true
+                animate: true,
+
+                params: {
+                    hemisphereLight: [0xFFFFFF, 0x000000, 0.1],
+                    pointLight: [ 0xFFFFFF, 0.7],
+                    pointLightBasePosition: [0, 1, 4],
+                    perspectiveCamera: [75, window.innerWidth / window.innerHeight, 0.1, 100],
+                    perspectiveCameraBasePosition: [0,0,3],
+                    model: {
+                        name: "marie",
+                        scale: 0.1,
+                        basePosition: [0,-3.5,0],
+                        animName: "floating"
+                    },
+                    render: {
+                        bgColor: "#000000"
+                    }
+                }
             }
         },
         // watch: {
@@ -42,19 +59,15 @@
                 this.scene = new THREE.Scene();
                 
                 // CAMERA
-                const aspectRatio = this.canvasSizeRef.width / this.canvasSizeRef.height;
-				this.camera = new THREE.PerspectiveCamera(75, aspectRatio, 0.1, 100);
-				this.camera.position.z = 3;
+				this.camera = new THREE.PerspectiveCamera(...this.params.perspectiveCamera);
+				this.camera.position.set(...this.params.perspectiveCameraBasePosition)
                 
                 // LIGHT
-				this.hemisphericLight = new THREE.HemisphereLight(0xFFFFFF, 0x000000, 0.1);
+				this.hemisphericLight = new THREE.HemisphereLight(...this.params.hemisphereLight);
 
-				this.light = new THREE.PointLight(
-                    0xFFFFFF, 
-                    0.7
-                );
+				this.light = new THREE.PointLight(...this.params.pointLight);
 
-                this.light.position.set(0, 1, 4);
+                this.light.position.set(...this.params.pointLightBasePosition);
 
                 this.loadModel().then(
                     model => {
@@ -63,7 +76,7 @@
                         // load moves 
                         this._LoadMoves(this.model).then(() => {
 
-                            const clip = this.model.animations.floating.clip;
+                            const clip = this.model.animations[this.params.model.animName].clip;
 
                             const action = this.mixer.clipAction(clip);
 
@@ -103,11 +116,11 @@
                     const loader = new FBXLoader();
                     let target;
 
-                    loader.setPath("./../assets/3d/persos/marie/");
+                    loader.setPath(`./../assets/3d/persos/${this.params.model.name}/`);
 
-                    loader.load("marie.fbx", (fbx) => {
+                    loader.load(`${this.params.model.name}.fbx`, (fbx) => {
 
-                        fbx.scale.setScalar(0.1);
+                        fbx.scale.setScalar(this.params.model.scale);
 
                         fbx.traverse(c => {
                             if( c.type !== "Bone" ){
@@ -116,9 +129,9 @@
                         });
 
                         target = fbx;
-                        target.name = "modelIndex";
+                        target.name = this.params.model.name;
                         
-                        target.position.copy(new THREE.Vector3(0,-3.5,0));
+                        target.position.copy(new THREE.Vector3(...this.params.model.basePosition));
                         // target.rotation.copy(new THREE.Vector3(0,Math.PI / 2,0));
 
                         // if( mainObj.infos.shader ){
@@ -171,7 +184,7 @@
 
                     loader.setPath("./../assets/3d/persos/moves/smallGuy/");
 
-                    loader.load(`floating.fbx`, (a) => { _OnLoad("floating", a); });
+                    loader.load(`${this.params.model.animName}.fbx`, (a) => { _OnLoad(this.params.model.animName, a); });
 
                 });
 
@@ -188,7 +201,7 @@
 
                 this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-                this.renderer.setClearColor("#000000");
+                this.renderer.setClearColor(this.params.render.bgColor);
 
                 this.renderer.outputEncoding = THREE.sRGBEncoding;
 
