@@ -4,7 +4,7 @@ const entities = {
 		link: {
 			name: "link",
 			// fbxPath: "./assets/3d/persos/link.fbx",
-			fbxPath: "./assets/3d/persos/sasuke/sasukewoke.fbx",
+			fbxPath: "./assets/3d/persos/joseph/joseph.fbx",
 			infos: {
 				scale: 0.0012,
 				// scale: 1,z
@@ -50,7 +50,7 @@ const entities = {
 		linkShine: {
 			name: "linkShine",
 			// fbxPath: "./assets/3d/persos/link.fbx",
-			fbxPath: "./assets/3d/persos/sasuke/sasukewoke.fbx",
+			fbxPath: "./assets/3d/persos/joseph/joseph.fbx",
 			infos: {
 				scale: 0.0012,
 				// scale: 1,z
@@ -91,7 +91,7 @@ const entities = {
 		linkShineEyes: {
 			name: "linkShineEyes",
 			// fbxPath: "./assets/3d/persos/link.fbx",
-			fbxPath: "./assets/3d/persos/sasuke/sasukewoke.fbx",
+			fbxPath: "./assets/3d/persos/joseph/joseph.fbx",
 			infos: {
 				scale: 0.0012,
 				// scale: 1,z
@@ -132,7 +132,7 @@ const entities = {
 		linkShineSkin: {
 			name: "linkShineSkin",
 			// fbxPath: "./assets/3d/persos/link.fbx",
-			fbxPath: "./assets/3d/persos/sasuke/sasukewoke.fbx",
+			fbxPath: "./assets/3d/persos/joseph/joseph.fbx",
 			infos: {
 				scale: 0.0012,
 				// scale: 1,z
@@ -173,7 +173,7 @@ const entities = {
 		linkShader: {
 			name: "linkShader",
 			// fbxPath: "./assets/3d/persos/link.fbx",
-			fbxPath: "./assets/3d/persos/sasuke/sasukewoke.fbx",
+			fbxPath: "./assets/3d/persos/joseph/joseph.fbx",
 			infos: {
 				scale: 0.0012,
 				// scale: 1,z
@@ -199,7 +199,7 @@ const entities = {
 		linkShaderPlastic: {
 			name: "linkShaderPlastic",
 			// fbxPath: "./assets/3d/persos/link.fbx",
-			fbxPath: "./assets/3d/persos/sasuke/sasukewoke.fbx",
+			fbxPath: "./assets/3d/persos/joseph/joseph.fbx",
 			infos: {
 				scale: 0.0012,
 				// scale: 1,z
@@ -225,7 +225,7 @@ const entities = {
 		linkShaderPlasticTwo: {
 			name: "linkShaderPlasticTwo",
 			// fbxPath: "./assets/3d/persos/link.fbx",
-			fbxPath: "./assets/3d/persos/sasuke/sasukewoke.fbx",
+			fbxPath: "./assets/3d/persos/joseph/joseph.fbx",
 			infos: {
 				scale: 0.0012,
 				// scale: 1,z
@@ -251,7 +251,7 @@ const entities = {
 		linkShaderFlying: {
 			name: "linkShaderFlying",
 			// fbxPath: "./assets/3d/persos/link.fbx",
-			fbxPath: "./assets/3d/persos/sasuke/sasukewoke.fbx",
+			fbxPath: "./assets/3d/persos/joseph/joseph.fbx",
 			infos: {
 				scale: 0.0012,
 				// scale: 1,z
