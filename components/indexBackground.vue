@@ -12,10 +12,11 @@
 	export default {
 		data(){
             return {
-                canvasSizeRef: { 
-					width: window.innerWidth, 
+                canvasSizeRef: {
+					width: window.innerWidth,
 					height: window.innerHeight
 				},
+
                 frameRate: 1/60,
                 deltaTime: 0,
 
@@ -23,19 +24,22 @@
 
                 params: {
                     hemisphereLight: [0xFFFFFF, 0x000000, 0.1],
-                    pointLight: [ 0xFFFFFF, 0.7],
+                    pointLight: [0xFFFFFF, 0.7],
                     pointLightBasePosition: [0, 1, 4],
                     perspectiveCamera: [75, window.innerWidth / window.innerHeight, 0.1, 100],
                     perspectiveCameraBasePosition: [0,0,3],
+
                     model: {
                         name: "marie",
                         scale: 0.1,
                         basePosition: [0,-3.5,0],
                         animName: "floating"
                     },
+
                     render: {
                         bgColor: "#000000"
                     }
+
                 }
             }
         },
@@ -53,14 +57,14 @@
         },
         methods: {
 
-            async createScene(){
+            createScene(){
 
                 // SCENE
                 this.scene = new THREE.Scene();
                 
                 // CAMERA
 				this.camera = new THREE.PerspectiveCamera(...this.params.perspectiveCamera);
-				this.camera.position.set(...this.params.perspectiveCameraBasePosition)
+				this.camera.position.set(...this.params.perspectiveCameraBasePosition);
                 
                 // LIGHT
 				this.hemisphericLight = new THREE.HemisphereLight(...this.params.hemisphereLight);
@@ -74,7 +78,7 @@
                         this.model = model;
 
                         // load moves 
-                        this._LoadMoves(this.model).then(() => {
+                        this.loadMoves(this.model).then(() => {
 
                             const clip = this.model.animations[this.params.model.animName].clip;
 
@@ -85,11 +89,9 @@
                             this.mixer.clipAction(clip).play();
 
                             // olright let's go
-                            this.fullFillScene();
-                            this.mainTick();
+                            this.launchAll()
 
                         });
-
 
                     }, 
                     error => {
@@ -100,13 +102,26 @@
 				
             },
 
-            fullFillScene(){
+            initRenderer(){
 
-                // then add theses to the scene
-				this.scene.add(this.model);
-				this.scene.add(this.camera);
-				this.scene.add(this.hemisphericLight);
-				this.scene.add(this.light);
+                this.renderer = new THREE.WebGLRenderer({
+                    canvas: this.$refs.canvasIndex,
+                    antialias: true
+                });
+
+                this.renderer.setSize(this.canvasSizeRef.width, this.canvasSizeRef.height);
+
+                this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+                this.renderer.setClearColor(this.params.render.bgColor);
+
+                this.renderer.outputEncoding = THREE.sRGBEncoding;
+
+                this.renderer.shadowMap.enabled = true;
+
+                this.renderer.shadowMap.type = THREE.PCFShadowMap;
+
+                this.clock = new THREE.Clock();
 
             },
 
@@ -152,14 +167,14 @@
 
             },
 
-            async _LoadMoves( target ){
+            loadMoves( model ){
 
                 return new Promise(res => {
 
                     const manager = new THREE.LoadingManager();
                     const loader = new FBXLoader(manager);
                     
-                    this.mixer = new THREE.AnimationMixer(target);
+                    this.mixer = new THREE.AnimationMixer(model);
 
                     manager.onLoad = () => {
                         res();
@@ -175,7 +190,7 @@
                         action.setEffectiveTimeScale(1.0);
                         action.setEffectiveWeight(1.0);
 
-                        target.animations[animName] = {
+                        model.animations[animName] = {
                             clip: clip,
                             action: action
                         };
@@ -190,32 +205,22 @@
 
             },
 
-            initRenderer(){
+            fullFillScene(){
 
-                this.renderer = new THREE.WebGLRenderer({
-                    canvas: this.$refs.canvasIndex,
-                    antialias: true
-                });
-
-                this.renderer.setSize(this.canvasSizeRef.width, this.canvasSizeRef.height);
-
-                this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-                this.renderer.setClearColor(this.params.render.bgColor);
-
-                this.renderer.outputEncoding = THREE.sRGBEncoding;
-
-                this.renderer.shadowMap.enabled = true;
-
-                this.renderer.shadowMap.type = THREE.PCFShadowMap;
-
-                this.clock = new THREE.Clock();
+                // then add theses to the scene
+                this.scene.add(this.model);
+                this.scene.add(this.camera);
+                this.scene.add(this.hemisphericLight);
+                this.scene.add(this.light);
 
             },
 
-            mainTick(){
+            launchAll(){
+                this.fullFillScene();
+                this.mainTick();
+            },
 
-                console.log("mainTick");
+            mainTick(){
 
                 this.deltaTime += this.clock.getDelta();
                 
@@ -243,19 +248,14 @@
             },
 
             updateThings(){
+                const elapsedTime = this.clock.getElapsedTime();
 
-                this.mixer.update(
-                    // Math.sin( this.clock.getElapsedTime() ) / 100
-                    // this.clock.getElapsedTime() / 100
-                    this.deltaTime / 10
-                );
-
-                console.log("deltatime : ", this.deltaTime);
+                this.mixer.update(this.deltaTime / 10);
 
                 this.light.position.set(
-                    Math.sin(this.clock.getElapsedTime()) * 15,
-                    Math.sin(this.clock.getElapsedTime()) * 5,
-                    Math.sin(this.clock.getElapsedTime()) * 2
+                    Math.sin(elapsedTime) * 15,
+                    Math.sin(elapsedTime) * 5,
+                    Math.sin(elapsedTime) * 2
                 );
 
             }
