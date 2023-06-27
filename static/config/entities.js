@@ -528,6 +528,7 @@ const entities = {
 				}
 			}
 		},
+		
 		queenShaderFlying: {
 			name: "queenShaderFlying",
 			// fbxPath: "./assets/3d/persos/queen.fbx",
@@ -551,6 +552,32 @@ const entities = {
 					isCameraPositionInfluenced: false,
 					sin: false,
 					sinAmplitude: 5260
+				}
+			}
+		},
+		queenFinal: {
+			name: "queenFinal",
+			// fbxPath: "./assets/3d/persos/queen.fbx",
+			fbxPath: "./assets/3d/persos/realqueen/realqueen-final2.fbx",
+			infos: {
+				scale: 0.0012,
+				// scale: 1,z
+				velocity: {
+					// x & z -> displacement
+					x: 0.5,
+					z: 0.5,
+					// y -> rotation
+					y: 0.1,
+				},
+				shader: {
+					shaderName: "aliceShader",
+					shaderScale: 10,
+					shaderAxe: "xy",
+					specificShaderName: "plastic2",
+					shaderTimeRatio: 4,
+					isCameraPositionInfluenced: false,
+					sin: false,
+					sinAmplitude: 260
 				}
 			}
 		}

@@ -5,12 +5,13 @@ import { galaxyFragment } from "../static/assets/js/shaders/galaxy/fragment";
 
 import { plasticVertex } from '../static/assets/js/shaders/plastic/vertex';
 import { plasticFragment } from "../static/assets/js/shaders/plastic/fragment";
+import { plasticFragment2 } from "../static/assets/js/shaders/plastic/fragment2";
 
 import { psycheVertex } from "../static/assets/js/shaders/psyche/vertex";
 import { psycheFragment } from "../static/assets/js/shaders/psyche/fragment";
 
 import { kaleiVertex } from "../static/assets/js/shaders/kalei/vertex";
-import { KaleiFragment, kaleiFragment } from "../static/assets/js/shaders/kalei/fragment";
+import { kaleiFragment } from "../static/assets/js/shaders/kalei/fragment";
 
 class CustomShaderBuilder {
 
@@ -36,17 +37,18 @@ class CustomShaderBuilder {
                 return new THREE.ShaderMaterial({
                     uniforms,
                     vertexShader: galaxyVertex.replace("fragCoord = position.yz;", `fragCoord = position.${shaderAxe};`),
-                    fragmentShader: galaxyFragment
+                    fragmentShader: this.giveSpecificShader(shaderName)
                   });
 
                 break;
 
             case "plastic":
+            case "plastic2":
 
                 return new THREE.ShaderMaterial({
                     uniforms,
                     vertexShader: plasticVertex.replace("fragCoord = position.xy;", `fragCoord = position.${shaderAxe};`),
-                    fragmentShader: plasticFragment
+                    fragmentShader: this.giveSpecificShader(shaderName)
                   });
 
                 break;
@@ -56,7 +58,7 @@ class CustomShaderBuilder {
                 return new THREE.ShaderMaterial({
                     uniforms,
                     vertexShader: psycheVertex.replace("fragCoord = position.xy;", `fragCoord = position.${shaderAxe};`),
-                    fragmentShader: psycheFragment
+                    fragmentShader: this.giveSpecificShader(shaderName)
                   });
 
                 break;
@@ -66,7 +68,7 @@ class CustomShaderBuilder {
                 return new THREE.ShaderMaterial({
                     uniforms,
                     vertexShader: kaleiVertex.replace("fragCoord = position.xy;", `fragCoord = position.${shaderAxe};`),
-                    fragmentShader: kaleiFragment
+                    fragmentShader: this.giveSpecificShader(shaderName)
                   });
 
                 break;
@@ -117,6 +119,12 @@ class CustomShaderBuilder {
             case "plastic":
 
                 return plasticFragment;
+
+                break;
+
+            case "plastic2":
+
+                return plasticFragment2;
 
                 break;
 

@@ -140,7 +140,7 @@ const worlds = [
 			meshCustomShaderOptions: {
 				enabled: true,
 				shaderTimeRatio: 0.3,
-				shaderName: "plastic",
+				shaderName: "plastic2",
 				shaderScale: 3,
 				shaderAxe: "xy"
 			},
@@ -1464,7 +1464,7 @@ const worlds = [
 					}
 				},
 
-				// slowmo: 6,
+				slowmo: 2,
 
 				bobImposedMoves: {
 					forward: true,
@@ -1657,6 +1657,7 @@ const worlds = [
 				baseFov: 32,
 				fovTransition: true,
 				sequenceBobName: "linkShine",
+				bobRestoreSize: 0.0009,
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 5,
@@ -1702,10 +1703,11 @@ const worlds = [
 				},
 
 				bobImposedMoves: {
-					forward: true
+					forward: true,
+					shift: true,
 				},
 
-				// slowmo: 1.6,
+				slowmo: 1.4,
 
 				postproc: [
 
@@ -2064,9 +2066,10 @@ const worlds = [
 			spaceColorWithBloom: "#000000",
 
 			ambient: {
-				sunColor: "#eeeeee",
-				intensity: 0.25,
-				groundColor: "#eeeeee"
+				sunColor: "#000000",
+				// intensity: 0.17,
+				intensity: 0,
+				groundColor: "#ffffff"
 			},
 
 			fog: {
@@ -2088,10 +2091,10 @@ const worlds = [
 		sequences: [
 			{
 				id: "7.15",
-				baseFov: 23,
+				baseFov: 28,
 				fovTransition: true,
-				sequenceBobName: "link",
-				// bobRestoreSize: 0.0008,
+				sequenceBobName: "queenFinal",
+				bobRestoreSize: 0.0014,
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 45,
@@ -2126,9 +2129,11 @@ const worlds = [
 
 				bobImposedMoves: {
 					fly: false,
+					forward: true,
+					backward: false
 				},
 
-				slowmo: 1,
+				slowmo: 1.4,
 				
 				// alice: {
 				// 	handleGround: false,
@@ -2159,20 +2164,20 @@ const worlds = [
 					{
 						type: "bloom",
 						value: {
-							strength: .7,
-							threshold: 0.0004,
+							strength: 0.7,
+							threshold: 0.0000000035,
 							radius: 0.7
 						}
 					},
-					// {
-					// 	type: "blur",
-					// 	focusTarget: "hinataShine",
-					// 	value: {
-					// 		focus: 1,
-					// 		aperture: 0.015,
-					// 		maxblur: 0.0038
-					// 	}
-					// },
+					{
+						type: "blur",
+						focusTarget: "queenFinal",
+						value: {
+							focus: 1,
+							aperture: 0.035,
+							maxblur: 0.009
+						}
+					},
 				]
 
 			},
