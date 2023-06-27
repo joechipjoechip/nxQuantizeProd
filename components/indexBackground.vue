@@ -47,14 +47,14 @@
 				this.camera.position.z = 3;
                 
                 // LIGHT
-				this.hemisphericLight = new THREE.HemisphereLight(0xFFFFFF, 0x000000, 0.4);
+				this.hemisphericLight = new THREE.HemisphereLight(0xFFFFFF, 0x000000, 0.1);
 
 				this.light = new THREE.PointLight(
-                    0xFF0000, 
-                    10
+                    0xFFFFFF, 
+                    0.7
                 );
 
-                this.light.position.set(0, 3, 1);
+                this.light.position.set(0, 1, 4);
 
                 this.loadModel().then(
                     model => {
@@ -211,11 +211,7 @@
 
                     console.log("act render");
                     
-                    this.mixer.update(
-                        // Math.sin( this.clock.getElapsedTime() ) / 100
-                        // this.clock.getElapsedTime() / 100
-                        this.deltaTime / 10
-                    );
+                    this.updateThings();
 
                     // NOW COMPUTE RENDER
                     this.renderer.render(this.scene, this.camera);
@@ -232,6 +228,24 @@
                 }
 
             },
+
+            updateThings(){
+
+                this.mixer.update(
+                    // Math.sin( this.clock.getElapsedTime() ) / 100
+                    // this.clock.getElapsedTime() / 100
+                    this.deltaTime / 10
+                );
+
+                console.log("deltatime : ", this.deltaTime);
+
+                this.light.position.set(
+                    Math.sin(this.clock.getElapsedTime()) * 15,
+                    Math.sin(this.clock.getElapsedTime()) * 5,
+                    Math.sin(this.clock.getElapsedTime()) * 2
+                );
+
+            }
 
         }
 
