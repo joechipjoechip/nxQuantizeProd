@@ -49,8 +49,8 @@
 			computePosition( event ){
 
 				return {
-					x: (((event.offsetX + window.innerWidth / 2) / window.innerWidth) - 1) * 2,
-					y: (((event.offsetY + window.innerHeight / 2) / window.innerHeight) - 1) * -2
+					x: (((event.screenX + window.innerWidth / 2) / window.innerWidth) - 1) * 2,
+					y: (((event.screenY + window.innerHeight / 2) / window.innerHeight) - 1) * -2
 				};
 
 

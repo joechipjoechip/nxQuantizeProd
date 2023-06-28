@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="background-wrapper">
         <button @click="animate = !animate">animation</button>
 		<canvas id="canvasIndex" ref="canvasIndex"></canvas>
 	</div>
@@ -29,6 +29,8 @@
                 deltaTime: 0,
 
                 animate: false,
+
+                requestAnimationFrameID: null,
 
                 params: {
                     hemisphereLight: [0x000000, 0x0049ff, 0.3],
@@ -122,8 +124,10 @@
 
         },
         beforeDestroy(){
-            this.$nuxt.$off("view-update-by-stick", this.mouseUpdate);
 
+            window.cancelAnimationFrame(this.requestAnimationFrameID);
+            this.disposeScene(this.scene);
+            this.$nuxt.$off("view-update-by-stick", this.mouseUpdate);
         },
         methods: {
 
@@ -384,7 +388,7 @@
                 }
 
                 if( this.animate ){
-                    window.requestAnimationFrame(this.mainTick);
+                    this.requestAnimationFrameID = window.requestAnimationFrame(this.mainTick);
                 } else {
                     // pour voir une frame sans animer pour autant
                     this.renderer.render(this.scene, this.camera);
@@ -427,7 +431,45 @@
 
             mouseUpdate( event ){
                 this.currentMousePos = event;
-            }
+            },
+
+			disposeScene( scene ){
+
+				this.sceneTraverse(scene, o => {
+
+					if (o.geometry) {
+						o.geometry.dispose();
+					}
+
+					if (o.material) {
+						if (o.material.length) {
+							for (let i = 0; i < o.material.length; ++i) {
+								o.material[i].dispose();
+							}
+						}
+						else {
+							o.material.dispose();
+						}
+					}
+				})          
+
+				scene = null;
+	
+			},
+
+            sceneTraverse(obj, fn){
+
+				if (!obj) return
+
+				fn(obj)
+
+				if (obj.children && obj.children.length > 0) {
+					obj.children.forEach(o => {
+						this.sceneTraverse(o, fn)
+					})
+				}
+
+			}
 
         }
 
@@ -436,6 +478,11 @@
 </script>
 
 <style lang="scss" scoped>
+
+    .background-wrapper {
+        background-color: #000005;
+    }
+
     canvas {
         z-index: 3;
         width: 100% !important;

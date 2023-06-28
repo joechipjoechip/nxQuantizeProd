@@ -140,7 +140,7 @@ class PrimaryLoadManager{
 	
 								c.material.forEach((child, index) => {
 	
-									console.log("material : ", child.name)
+									// console.log("material : ", child.name)
 	
 									if( child.name.includes("emissive") ){
 										c.material[index] = this._ReplaceMaterialWithEmissive(

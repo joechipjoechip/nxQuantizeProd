@@ -22,9 +22,9 @@
 			ref="joystick"
 		/>
 
-		<!-- <mouse-handler v-else
+		<mouse-handler v-else
 			:canvasSizeRef="canvasSizeRef"
-		/> -->
+		/>
 
 		<instancethree 
 			v-if="(allIsLoaded && viewPos)"
