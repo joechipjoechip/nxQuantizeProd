@@ -86,7 +86,8 @@
 			flex-flow: row nowrap;
 			justify-content: center;
 			align-items: center;
-			width: 60%;
+			width: 100%;
+			max-width: 900px;
 			margin: 0 auto;
 		}
 

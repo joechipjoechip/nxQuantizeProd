@@ -33,14 +33,16 @@
                 requestAnimationFrameID: null,
 
                 params: {
-                    hemisphereLight: [0x000000, 0x0049ff, 0.3],
-                    pointLight: ["#0049ff", 0.4],
-                    pointLightBasePosition: [0, 5, 4],
-                    perspectiveCamera: [75, window.innerWidth / window.innerHeight, 0.1, 100],
-                    perspectiveCameraBasePosition: [0,0,3],
+                    hemisphereLight: [0x000000, 0x0049ff, 0.4],
+                    pointLight: ["#0049ff", 0.45],
+                    pointLightBasePosition: [0, 5, 2],
+                    pointLight2: ["#ffa500", 0.3],
+                    pointLightBasePosition2: [0, 0, -3],
+                    perspectiveCamera: [55, window.innerWidth / window.innerHeight, 0.1, 20],
+                    perspectiveCameraBasePosition: [0,0,3.5],
 
                     render: {
-                        bgColor: "#000005"
+                        bgColor: "#0049ff"
                     },
 
                     model: {
@@ -53,7 +55,7 @@
                             specific: {
                                 one: {
                                     color: "#71E79B",
-                                    intensity: 0.2,
+                                    intensity: 1,
                                     enabled: false
                                 },
                                 two: {
@@ -63,7 +65,7 @@
                                 },
                                 three: {
                                     color: "#FFFFFF",
-                                    intensity: 500,
+                                    intensity: 1,
                                     enabled: false
                                 },
                                 skin: {
@@ -83,13 +85,13 @@
                     postProcs: {
                         bloom: {
                             threshold: 0.00005,
-                            strength: 1,
-                            radius: 1
+                            strength: 0.8,
+                            radius: 0.7
                         },
                         blur: {
                             focus: 1,
-							aperture: 0.0003,
-							maxblur: 0.08
+							aperture: 0.0002,
+							maxblur: 3
                         }
                     }
 
@@ -144,8 +146,10 @@
 				this.hemisphericLight = new THREE.HemisphereLight(...this.params.hemisphereLight);
 
 				this.light = new THREE.PointLight(...this.params.pointLight);
-
                 this.light.position.set(...this.params.pointLightBasePosition);
+
+				this.light2 = new THREE.PointLight(...this.params.pointLight2);
+                this.light2.position.set(...this.params.pointLightBasePosition2);
 
                 this.loadModel().then(
                     model => {
@@ -360,6 +364,7 @@
                 this.scene.add(this.camera);
                 this.scene.add(this.hemisphericLight);
                 this.scene.add(this.light);
+                this.scene.add(this.light2);
 
             },
 
@@ -401,17 +406,20 @@
 
                 this.mixer.update(this.deltaTime / 10);
 
-                this.light.position.x = this.currentMousePos.x * -25;
+                this.light.position.x = this.currentMousePos.x * 25;
+
+                this.light2.position.x = this.currentMousePos.x * 10;
+                this.light2.position.y = (this.currentMousePos.y * 25);
 
                 this.camera.position.set(
-                    this.currentMousePos.x * 0.5,
+                    this.currentMousePos.x * 0.75,
                     this.currentMousePos.y * 0.25 + 1,
-                    Math.cos(elapsedTime) * 0.05 + 2,
+                    Math.cos(elapsedTime) * 0.05 + this.params.perspectiveCameraBasePosition[2],
                 );
 
                 this.camera.lookAt(new THREE.Vector3(
                     this.model.position.x,
-                    this.model.position.y + 4,
+                    this.model.position.y + 3.8,
                     this.model.position.z
                 ));
 
@@ -420,7 +428,7 @@
             },
 
             updateBlurFocus(elapsedTime){
-                const { x, y, z } = this.camera;
+                const { x, y, z } = this.camera.position;
 
                 // compute distance beetween camera and target
                 const distance = new THREE.Vector3(x,y,z).distanceTo({...this.model.position});
