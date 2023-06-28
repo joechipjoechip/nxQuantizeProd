@@ -1,11 +1,5 @@
 <template>
 	<div class="app-wrapper">
-		<div class="temp">
-			hello ! let's go : 
-			<button>
-				<nuxt-link to="cinemaNew">GO</nuxt-link>
-			</button>
-		</div>
 
 		<index-body class="body" />
 
@@ -59,13 +53,9 @@
 	.body {
 		z-index: 10;
 		position: relative;
+
+		// temp for the "animation button"
+		top: 20px;
 	}
 
-	.temp {
-		border: solid 2px yellow;
-		z-index: 20;
-		position: relative;
-		margin-top: 30px;
-		color: white;
-	}
 </style>

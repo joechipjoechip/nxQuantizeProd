@@ -405,8 +405,8 @@
 
                 this.camera.position.set(
                     this.currentMousePos.x * 0.5,
-                    this.currentMousePos.y + 1,
-                    Math.cos(elapsedTime) / 3 + 2.5,
+                    this.currentMousePos.y * 0.25 + 1,
+                    Math.cos(elapsedTime) * 0.05 + 2,
                 );
 
                 this.camera.lookAt(new THREE.Vector3(

@@ -7,8 +7,12 @@
 			<p class="artist-spacer">&</p>
 			<h3 class="artist-name font-medium">LeeLo.js</h3>
 		</div>
-		<p class="font-small">for</p>
-		<h4 class="font-medium">Omakaze Recordings</h4>
+		<div class="label-box">
+			<p class="font-small">for</p>
+			<h4 class="font-label">Omakaze Recordings</h4>
+		</div>
+
+		<nuxt-link class="button-experience" to="cinemaNew">GO</nuxt-link>
 	</div>
 </template>
 
@@ -29,6 +33,7 @@
 	.font {
 
 		&-small,
+		&-label,
 		&-medium,
 		&-big {
 			margin: 0;
@@ -38,19 +43,23 @@
 			font-size: 1rem;
 		}
 
+		&-label {
+			font-size: 2rem;
+		}
+
 		&-medium {
-			font-size: 2.5rem;
+			font-size: 3.5rem;
 		}
 
 		&-big {
-			font-size: 6rem;
+			font-size: 8rem;
 		}
 	}
 
 	.body {
 		&-wrapper {
 			color: white;
-			border: solid 2px green;
+			// border: solid 2px green;
 			text-align: center;
 			position: relative;
 
@@ -77,22 +86,39 @@
 			flex-flow: row nowrap;
 			justify-content: center;
 			align-items: center;
-			width: 100%;
-
+			width: 60%;
+			margin: 0 auto;
 		}
 
 		&-name {
-			width: 45%;
-			&:first-of-type {
-				text-align: right;
-			}
-			&:last-of-type {
-				text-align: left;
-			}
+			width: 48%;
+			// &:first-of-type {
+			// 	text-align: right;
+			// }
+			// &:last-of-type {
+			// 	text-align: left;
+			// }
 		}
 
 		&-spacer {
-			width: 10%;
+			width: 2rem;
+		}
+	}
+
+	.label {
+		&-box {
+			margin-top: 4rem;
+		}
+	}
+
+	.button {
+
+		&-experience {
+			display: inline-block;
+			background-color: white;
+			margin: 2rem auto 0 auto;
+			padding: 0.5rem 1.25rem;
+			border-radius: 0.5rem;
 		}
 	}
 
