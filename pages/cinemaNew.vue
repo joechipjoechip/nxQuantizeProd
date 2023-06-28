@@ -22,9 +22,9 @@
 			ref="joystick"
 		/>
 
-		<mouse-handler v-else
+		<!-- <mouse-handler v-else
 			:canvasSizeRef="canvasSizeRef"
-		/>
+		/> -->
 
 		<instancethree 
 			v-if="(allIsLoaded && viewPos)"
@@ -167,7 +167,7 @@
 
 				setTimeout(() => {
 
-					const goTo = 90;
+					const goTo = 0;
 
 					if( goTo > 0 ){
 						this.$store.commit("setAudioTimecode", goTo);

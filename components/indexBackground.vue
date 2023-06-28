@@ -15,12 +15,15 @@
     import { BokehPass } from 'three/examples/jsm/postprocessing/BokehPass.js';
 
 	export default {
+        props: {
+            canvasSizeRef: {
+                type: Object,
+                required: true
+            }
+        },
 		data(){
             return {
-                canvasSizeRef: {
-					width: window.innerWidth,
-					height: window.innerHeight
-				},
+                
 
                 frameRate: 1/60,
                 deltaTime: 0,
@@ -28,36 +31,71 @@
                 animate: false,
 
                 params: {
-                    hemisphereLight: [0xFFFFFF, 0x000000, 0.1],
-                    pointLight: [0xFFFFFF, 0.7],
-                    pointLightBasePosition: [0, 1, 4],
+                    hemisphereLight: [0x000000, 0x0049ff, 0.3],
+                    pointLight: ["#0049ff", 0.4],
+                    pointLightBasePosition: [0, 5, 4],
                     perspectiveCamera: [75, window.innerWidth / window.innerHeight, 0.1, 100],
                     perspectiveCameraBasePosition: [0,0,3],
+
+                    render: {
+                        bgColor: "#000005"
+                    },
 
                     model: {
                         name: "marie",
                         scale: 0.1,
                         basePosition: [0,-3.5,0],
-                        animName: "floating"
-                    },
-
-                    render: {
-                        bgColor: "#000000"
+                        animName: "floating",
+                        emissive: {
+                            enabled: true,
+                            specific: {
+                                one: {
+                                    color: "#71E79B",
+                                    intensity: 0.2,
+                                    enabled: false
+                                },
+                                two: {
+                                    color: "#5CE7E4",
+                                    intensity: 1,
+                                    enabled: false
+                                },
+                                three: {
+                                    color: "#FFFFFF",
+                                    intensity: 500,
+                                    enabled: false
+                                },
+                                skin: {
+                                    color: "#FFFFFF",
+                                    intensity: 500,
+                                    enabled: false
+                                },
+                                eyes: {
+                                    color: "#FFFFFF",
+                                    intensity: 100,
+                                    enabled: true
+                                }
+                            }
+                        }
                     },
 
                     postProcs: {
                         bloom: {
                             threshold: 0.00005,
-                            strength: 0.4,
-                            radius: 0.8
+                            strength: 1,
+                            radius: 1
                         },
                         blur: {
                             focus: 1,
-							aperture: 0.0005,
-							maxblur: 0.4
+							aperture: 0.0003,
+							maxblur: 0.08
                         }
                     }
 
+                },
+
+                currentMousePos: {
+                    x: 0,
+                    y: 0
                 }
             }
         },
@@ -72,6 +110,8 @@
 
             console.log("mounted");
 
+            this.$nuxt.$on("view-update-by-stick", this.mouseUpdate);
+
             this.createScene();
 
             this.initRenderer();
@@ -79,6 +119,10 @@
             this.initComposer();
 
             this.createPostProc();
+
+        },
+        beforeDestroy(){
+            this.$nuxt.$off("view-update-by-stick", this.mouseUpdate);
 
         },
         methods: {
@@ -209,29 +253,61 @@
                             if( c.type !== "Bone" ){
                                 c.castShadow = true;
                             }
+
+                            if( this.params.model.emissive.enabled ){
+
+                                if( c.type === "SkinnedMesh" ){
+            
+                                    if( c.material.length ){
+            
+                                        c.material.forEach((child, index) => {
+            
+                                            console.log("material : ", child.name)
+            
+                                            if( child.name.includes("emissive") ){
+
+                                                c.material[index] = this.replaceMaterialWithEmissive(
+                                                    child,
+                                                    child.name.replace("emissive-", "")
+                                                );
+
+                                            }
+            
+                                        });
+            
+                                    }
+            
+                                }
+
+                            }
+
                         });
 
                         target = fbx;
                         target.name = this.params.model.name;
                         
                         target.position.copy(new THREE.Vector3(...this.params.model.basePosition));
-                        // target.rotation.copy(new THREE.Vector3(0,Math.PI / 2,0));
-
-                        // if( mainObj.infos.shader ){
-
-                        //     const shaderInfos = mainObj.infos.shader;
-
-                        //     const targetMesh = target.children.find(child => child.name !== "Armature");
-
-                        //     targetMesh.material = new CustomShaderBuilder(shaderInfos);
-
-                        // }
 
                         res(target);
 
                     });
 
                 });
+
+            },
+
+            replaceMaterialWithEmissive(baseMaterial, emissiveKey){
+
+                if( this.params.model.emissive.specific[emissiveKey]?.enabled ){
+
+                    return new THREE.MeshStandardMaterial({
+                        emissive: new THREE.Color(this.params.model.emissive.specific[emissiveKey].color),
+                        emissiveIntensity: this.params.model.emissive.specific[emissiveKey].intensity
+                    });
+
+                } else {
+                    return baseMaterial;
+                }
 
             },
 
@@ -321,16 +397,12 @@
 
                 this.mixer.update(this.deltaTime / 10);
 
-                this.light.position.set(
-                    Math.sin(elapsedTime) * 15,
-                    Math.sin(elapsedTime) * 5,
-                    Math.sin(elapsedTime) * 2
-                );
+                this.light.position.x = this.currentMousePos.x * -25;
 
                 this.camera.position.set(
-                    Math.sin(elapsedTime) * 6.7,
-                    Math.cos(elapsedTime) * 2,
-                    Math.cos(elapsedTime) + 4,
+                    this.currentMousePos.x * 0.5,
+                    this.currentMousePos.y + 1,
+                    Math.cos(elapsedTime) / 3 + 2.5,
                 );
 
                 this.camera.lookAt(new THREE.Vector3(
@@ -351,6 +423,10 @@
 
                 // update focus value in blur effect
                 this.blurPass.uniforms.focus.value = distance + Math.sin(elapsedTime);
+            },
+
+            mouseUpdate( event ){
+                this.currentMousePos = event;
             }
 
         }

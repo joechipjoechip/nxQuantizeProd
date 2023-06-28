@@ -43,6 +43,11 @@ const entities = {
 						color: "#FFFFFF",
 						intensity: 4,
 						enabled: false
+					},
+					eyes: {
+						color: "#FFFFFF",
+						intensity: 10,
+						enabled: false
 					}
 				}
 			}
@@ -83,6 +88,11 @@ const entities = {
 					skin: {
 						color: "#FFFFFF",
 						intensity: 4,
+						enabled: false
+					},
+					eyes: {
+						color: "#FFFFFF",
+						intensity: 10,
 						enabled: false
 					}
 				}
@@ -125,6 +135,11 @@ const entities = {
 						color: "#FFFFFF",
 						intensity: 4,
 						enabled: false
+					},
+					eyes: {
+						color: "#FFFFFF",
+						intensity: 10,
+						enabled: true
 					}
 				}
 			}
@@ -166,6 +181,11 @@ const entities = {
 						color: "#FFFFFF",
 						intensity: 500,
 						enabled: true
+					},
+					eyes: {
+						color: "#FFFFFF",
+						intensity: 10,
+						enabled: false
 					}
 				}
 			}
@@ -311,6 +331,11 @@ const entities = {
 						color: "#FFFFFF",
 						intensity: 0.1,
 						enabled: false
+					},
+					eyes: {
+						color: "#FFFFFF",
+						intensity: 10,
+						enabled: false
 					}
 				}
 			}
@@ -351,6 +376,11 @@ const entities = {
 					skin: {
 						color: "#FFFFFF",
 						intensity: 0.1,
+						enabled: false
+					},
+					eyes: {
+						color: "#FFFFFF",
+						intensity: 10,
 						enabled: false
 					}
 				}
@@ -393,6 +423,11 @@ const entities = {
 						color: "#FFFFFF",
 						intensity: 500,
 						enabled: true
+					},
+					eyes: {
+						color: "#FFFFFF",
+						intensity: 10,
+						enabled: false
 					}
 				}
 			}
@@ -434,6 +469,11 @@ const entities = {
 						color: "#FFFFFF",
 						intensity: 500,
 						enabled: false
+					},
+					eyes: {
+						color: "#FFFFFF",
+						intensity: 10,
+						enabled: true
 					}
 				}
 			}

@@ -5,7 +5,14 @@
 			<nuxt-link to="cinemaNew">GO</nuxt-link>
 		</button>
 
-		<index-background></index-background>
+		<index-background
+			:canvasSizeRef="canvasSizeRef"
+		/>
+
+		<mouse-handler
+			:canvasSizeRef="canvasSizeRef"
+		/>
+
 	</div>
 </template>
 
@@ -13,6 +20,14 @@
 	import indexBackground from '../components/indexBackground.vue'
 	export default {
   		components: { indexBackground },
+		data(){
+			return {
+				canvasSizeRef: {
+					width: window.innerWidth,
+					height: window.innerHeight
+				}
+			}
+		}
 		
 	}
 </script>

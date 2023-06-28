@@ -133,11 +133,10 @@ class PrimaryLoadManager{
 					if( mainObj.options?.emissiveEnabled ){
 
 						if( c.type === "SkinnedMesh" ){
-							console.log("fileName : ", fileName,  c);
 	
 							if( c.material.length ){
 
-								console.log("emissive enabled spotted : ", mainObj.options);
+								// console.log("emissive enabled spotted : ", mainObj.options);
 	
 								c.material.forEach((child, index) => {
 	
@@ -188,7 +187,6 @@ class PrimaryLoadManager{
 	}
 
 	_ReplaceMaterialWithEmissive(baseMaterial, emissiveOptions, emissiveKey){
-		// console.log("bbaseMaterial for replace : ", baseMaterial, `0x${emissiveOptions.color}`);
 
 		if( emissiveOptions[emissiveKey]?.enabled ){
 
