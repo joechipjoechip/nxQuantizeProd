@@ -224,11 +224,10 @@ class PostprocsBuilder {
 				break;
 
 			case "bloom":
-				const { threshold, strength, radius } = postProcInfos.value;
 				const bloomPass = new UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 1.5, 0.4, 0.85 );
 
 				effectsArrayToReturn.push(
-					Object.assign(bloomPass, { threshold, strength, radius })
+					Object.assign(bloomPass, { ...postProcInfos.value })
 				);
 
 				break;

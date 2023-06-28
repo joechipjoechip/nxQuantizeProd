@@ -1,5 +1,6 @@
 <template>
 	<div>
+        <button @click="animate = !animate">animation</button>
 		<canvas id="canvasIndex" ref="canvasIndex"></canvas>
 	</div>
 </template>
@@ -8,6 +9,10 @@
 
     import * as THREE from 'three';
     import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
+    import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
+    import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
+    import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
+    import { BokehPass } from 'three/examples/jsm/postprocessing/BokehPass.js';
 
 	export default {
 		data(){
@@ -20,7 +25,7 @@
                 frameRate: 1/60,
                 deltaTime: 0,
 
-                animate: true,
+                animate: false,
 
                 params: {
                     hemisphereLight: [0xFFFFFF, 0x000000, 0.1],
@@ -38,14 +43,31 @@
 
                     render: {
                         bgColor: "#000000"
+                    },
+
+                    postProcs: {
+                        bloom: {
+                            threshold: 0.00005,
+                            strength: 0.4,
+                            radius: 0.8
+                        },
+                        blur: {
+                            focus: 1,
+							aperture: 0.0005,
+							maxblur: 0.4
+                        }
                     }
 
                 }
             }
         },
-        // watch: {
-
-        // },
+        watch: {
+            animate( newVal ){
+                if( newVal ){
+                    this.mainTick();
+                }
+            }
+        },
         mounted(){
 
             console.log("mounted");
@@ -53,6 +75,10 @@
             this.createScene();
 
             this.initRenderer();
+
+            this.initComposer();
+
+            this.createPostProc();
 
         },
         methods: {
@@ -122,6 +148,48 @@
                 this.renderer.shadowMap.type = THREE.PCFShadowMap;
 
                 this.clock = new THREE.Clock();
+
+            },
+
+            initComposer(){
+
+                const renderPass = new RenderPass(this.scene, this.camera);
+
+                this.composer = new EffectComposer(this.renderer);
+
+                this.composer.setSize(this.canvasSizeRef.width, this.canvasSizeRef.height);
+
+                this.composer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+
+                this.composer.addPass(renderPass);
+
+            },
+
+            createPostProc(){
+
+                // BLOOM
+                const { threshold, strength, radius } = this.params.postProcs.bloom;
+
+				const bloomPass = new UnrealBloomPass( new THREE.Vector2( this.canvasSizeRef.width, this.canvasSizeRef.height ), strength, radius, threshold);
+
+                // BLUR
+                const { focus, aperture, maxblur } = this.params.postProcs.blur;
+                this.blurPass = new BokehPass( 
+						this.scene, 
+						this.camera, 
+						{
+							focus, aperture, maxblur,
+							width: this.canvasSizeRef.width,
+							height: this.canvasSizeRef.height
+						}
+					);
+
+
+
+                // ADD
+				this.composer.addPass(bloomPass);
+				this.composer.addPass(this.blurPass);
 
             },
 
@@ -232,7 +300,8 @@
                     this.updateThings();
 
                     // NOW COMPUTE RENDER
-                    this.renderer.render(this.scene, this.camera);
+                    // this.renderer.render(this.scene, this.camera);
+                    this.composer.render();
 
                     this.deltaTime = this.deltaTime % this.frameRate;
 
@@ -258,6 +327,30 @@
                     Math.sin(elapsedTime) * 2
                 );
 
+                this.camera.position.set(
+                    Math.sin(elapsedTime) * 6.7,
+                    Math.cos(elapsedTime) * 2,
+                    Math.cos(elapsedTime) + 4,
+                );
+
+                this.camera.lookAt(new THREE.Vector3(
+                    this.model.position.x,
+                    this.model.position.y + 4,
+                    this.model.position.z
+                ));
+
+                this.updateBlurFocus(elapsedTime);
+
+            },
+
+            updateBlurFocus(elapsedTime){
+                const { x, y, z } = this.camera;
+
+                // compute distance beetween camera and target
+                const distance = new THREE.Vector3(x,y,z).distanceTo({...this.model.position});
+
+                // update focus value in blur effect
+                this.blurPass.uniforms.focus.value = distance + Math.sin(elapsedTime);
             }
 
         }

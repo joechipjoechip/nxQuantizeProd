@@ -1724,8 +1724,8 @@ const worlds = [
 						focusTarget: "marieShine",
 						value: {
 							focus: 1,
-							aperture: 0.025,
-							maxblur: 0.004
+							aperture: 0.0025,
+							maxblur: 0.3
 						}
 					},
 
