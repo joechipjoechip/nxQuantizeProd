@@ -527,8 +527,8 @@
                         this.params.postProcs.rgbShifter.tweenNameOpen,
                         "this.rgbShiftShader.uniforms.amount.value",
                         this.params.postProcs.rgbShifter.min,
-                        this.params.postProcs.rgbShifter.max,
-                        this.params.postProcs.rgbShifter.durationOpen,
+                        this.params.postProcs.rgbShifter.max * Math.random(),
+                        this.params.postProcs.rgbShifter.durationOpen * Math.random(),
                         "easeIn",
                         // callback (onComplete)
                         () => {
@@ -568,7 +568,7 @@
                         "this.afterImage.uniforms.damp.value",
                         this.params.postProcs.afterImage.min,
                         this.params.postProcs.afterImage.max,
-                        this.params.postProcs.afterImage.durationOpen,
+                        this.params.postProcs.afterImage.durationOpen * Math.random(),
                         "easeInOut",
                         // callback (onComplete)
                         () => {
