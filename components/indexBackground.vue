@@ -1,6 +1,7 @@
 <template>
 	<div class="background-wrapper">
         <button @click="animate = !animate">animation</button>
+        <span style="color: white;">fps : {{ currentFPSValue }}</span>
 		<canvas id="canvasIndex" ref="canvasIndex"></canvas>
 	</div>
 </template>
@@ -11,8 +12,12 @@
     import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
     import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
     import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
+    import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
+
     import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
     import { BokehPass } from 'three/examples/jsm/postprocessing/BokehPass.js';
+    import { RGBShiftShader } from 'three/examples/jsm/shaders/RGBShiftShader.js'
+    import { AfterimagePass } from 'three/examples/jsm/postprocessing/AfterimagePass.js';;
 
 	export default {
         props: {
@@ -23,10 +28,12 @@
         },
 		data(){
             return {
-                
-
                 frameRate: 1/60,
                 deltaTime: 0,
+
+                startTime: 0,
+                currentFPSValue: 0,
+                frames: 0,
 
                 animate: false,
 
@@ -34,10 +41,13 @@
 
                 params: {
                     hemisphereLight: [0x000000, 0x0049ff, 0.4],
+
                     pointLight: ["#0049ff", 0.45],
                     pointLightBasePosition: [0, 5, 2],
+
                     pointLight2: ["#ffa500", 0.3],
                     pointLightBasePosition2: [0, 0, -3],
+                    
                     perspectiveCamera: [55, window.innerWidth / window.innerHeight, 0.1, 20],
                     perspectiveCameraBasePosition: [0,0,3.5],
 
@@ -84,7 +94,7 @@
 
                     postProcs: {
                         bloom: {
-                            threshold: 0.00005,
+                            threshold: 0.0002,
                             strength: 0.8,
                             radius: 0.7
                         },
@@ -92,6 +102,14 @@
                             focus: 1,
 							aperture: 0.0002,
 							maxblur: 3
+                        },
+                        rgbShifter: {
+                            max: 0.05,
+                            durationOpen: 0.4,
+                            durationClose: 1.5
+                        },
+                        afterImage: {
+                            max: 0.9
                         }
                     }
 
@@ -128,8 +146,11 @@
         beforeDestroy(){
 
             window.cancelAnimationFrame(this.requestAnimationFrameID);
+            
             this.disposeScene(this.scene);
+            
             this.$nuxt.$off("view-update-by-stick", this.mouseUpdate);
+
         },
         methods: {
 
@@ -222,7 +243,6 @@
 
                 // BLOOM
                 const { threshold, strength, radius } = this.params.postProcs.bloom;
-
 				const bloomPass = new UnrealBloomPass( new THREE.Vector2( this.canvasSizeRef.width, this.canvasSizeRef.height ), strength, radius, threshold);
 
                 // BLUR
@@ -237,9 +257,19 @@
 						}
 					);
 
+                // RGB
+                this.rgbShiftShader = new ShaderPass( RGBShiftShader );
+				this.rgbShiftShader.uniforms["amount"].value = this.params.postProcs.rgbShifter.max;
+
+				// AFTERIMAGE
+                this.afterImage = new AfterimagePass();
+				this.afterImage.uniforms["damp"].value = this.params.postProcs.afterImage.max;
+
 
 
                 // ADD
+				this.composer.addPass(this.rgbShiftShader);
+				this.composer.addPass(this.afterImage);
 				this.composer.addPass(bloomPass);
 				this.composer.addPass(this.blurPass);
 
@@ -381,6 +411,8 @@
                 if( this.deltaTime >= this.frameRate ){
 
                     console.log("act render");
+
+                    this.computeFPS();
                     
                     this.updateThings();
 
@@ -400,6 +432,21 @@
                 }
 
             },
+
+            computeFPS(){
+				const t = performance.now();
+				const dt = t - this.startTime;
+
+				// console.log("dt : ", dt);
+
+				if( dt > this.frameRate ){
+					this.currentFPSValue = this.frames * 1000 / dt;
+
+					this.frames = 0;
+					this.startTime = t;
+				}
+				this.frames++;
+			},
 
             updateThings(){
                 const elapsedTime = this.clock.getElapsedTime();
@@ -423,18 +470,36 @@
                     this.model.position.z
                 ));
 
-                this.updateBlurFocus(elapsedTime);
+                this.updatePostProcs(elapsedTime);
+
+
+            },
+            updatePostProcs( elapsedTime ){
+                
+                this.updateBlurFocus();
+
+                this.updateRGB(elapsedTime);
 
             },
 
-            updateBlurFocus(elapsedTime){
+            updateBlurFocus(){
                 const { x, y, z } = this.camera.position;
 
                 // compute distance beetween camera and target
                 const distance = new THREE.Vector3(x,y,z).distanceTo({...this.model.position});
 
                 // update focus value in blur effect
-                this.blurPass.uniforms.focus.value = distance + Math.sin(elapsedTime);
+                this.blurPass.uniforms.focus.value = distance;
+            },
+
+            updateRGB( elapsedTime ){
+
+                if( elapsedTime % 5 ){
+                    console.log("ok le elapsed time de 5secondes");
+
+                    // do things
+                }
+
             },
 
             mouseUpdate( event ){

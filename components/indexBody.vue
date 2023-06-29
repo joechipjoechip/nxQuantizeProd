@@ -1,15 +1,15 @@
 <template>
 	<div class="body-wrapper">
 		<h2 class="font-big">OnYi</h2>
-		<p class="font-small">an experience by</p>
+		<p class="font-small sentence">an experience by</p>
 		<div class="artist-box">
-			<h3 class="artist-name font-medium">NxQuantize</h3>
+			<h3 class="artist-name font-medium artist-item">NxQuantize</h3>
 			<p class="artist-spacer">&</p>
-			<h3 class="artist-name font-medium">LeeLo.js</h3>
+			<h3 class="artist-name font-medium artist-item">LeeLo.js</h3>
 		</div>
 		<div class="label-box">
-			<p class="font-small">for</p>
-			<h4 class="font-label">Omakaze Recordings</h4>
+			<p class="font-small sentence">for</p>
+			<h4 class="font-label label-item">Omakaze Recordings</h4>
 		</div>
 
 		<nuxt-link class="button-experience" to="cinemaNew">GO</nuxt-link>
@@ -44,15 +44,15 @@
 		}
 
 		&-label {
-			font-size: 2rem;
+			font-size: 1.5rem;
 		}
 
 		&-medium {
-			font-size: 3.5rem;
+			font-size: 2.5rem;
 		}
 
 		&-big {
-			font-size: 8rem;
+			font-size: 7rem;
 		}
 	}
 
@@ -73,7 +73,7 @@
 			flex-flow: column nowrap;
 			justify-content: center;
 
-			font-family: 'Comfortaa', cursive;
+			font-family: 'Comfortaa', arial;
 			-webkit-font-smoothing: antialiased;
     		-moz-osx-font-smoothing: grayscale;
 		}
@@ -92,7 +92,10 @@
 		}
 
 		&-name {
-			width: 48%;
+			// width: 48%;
+			
+
+			// display: inline-block;
 			// &:first-of-type {
 			// 	text-align: right;
 			// }
@@ -108,8 +111,34 @@
 
 	.label {
 		&-box {
-			margin-top: 4rem;
+			margin-top: 2rem;
 		}
+	}
+
+	.artist,
+	.label {
+		&-item {
+
+			display: inline-block;
+			padding: 0.75rem 1.25rem;
+			border-radius: 20px;
+			backdrop-filter: blur(8px);
+
+			box-shadow: 0 -1px 0px rgba(255, 255, 255, 0.15),
+						0 2px 2px rgba(0,0,0, 0.25),
+						1px -1px 1px transparent;
+
+			&:hover {
+				box-shadow: 0 -1px 0px rgba(255,255,255,0.15),
+							0 2px 2px rgba(0,0,0, 0.25),
+							0 -20px 60px #00f9ff;
+			}
+
+		}
+	}
+
+	.sentence {
+		margin-bottom: 0.5rem;
 	}
 
 	.button {
@@ -121,6 +150,7 @@
 			padding: 0.5rem 1.25rem;
 			border-radius: 0.5rem;
 		}
+
 	}
 
 </style>
