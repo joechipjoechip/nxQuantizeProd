@@ -9,6 +9,8 @@
 <script>
 
     import * as THREE from 'three';
+    import { TimelineLite } from 'gsap';
+
     import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
     import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
     import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
@@ -104,9 +106,14 @@
 							maxblur: 3
                         },
                         rgbShifter: {
-                            max: 0.05,
-                            durationOpen: 0.4,
-                            durationClose: 1.5
+                            min: 0,
+                            max: 0.1,
+                            durationOpen: .2,
+                            durationClose: 1.5,
+                            isOpen: false,
+                            tweenName: "rgbTween",
+                            // every 5 seconds
+                            reccurency: 5
                         },
                         afterImage: {
                             max: 0.9
@@ -118,7 +125,9 @@
                 currentMousePos: {
                     x: 0,
                     y: 0
-                }
+                },
+
+                tweens: {}
             }
         },
         watch: {
@@ -259,7 +268,7 @@
 
                 // RGB
                 this.rgbShiftShader = new ShaderPass( RGBShiftShader );
-				this.rgbShiftShader.uniforms["amount"].value = this.params.postProcs.rgbShifter.max;
+				this.rgbShiftShader.uniforms["amount"].value = this.params.postProcs.rgbShifter.min;
 
 				// AFTERIMAGE
                 this.afterImage = new AfterimagePass();
@@ -410,7 +419,7 @@
                 // NOW CHECK IF FRAMERATE IS GOOD
                 if( this.deltaTime >= this.frameRate ){
 
-                    console.log("act render");
+                    // console.log("act render");
 
                     this.computeFPS();
                     
@@ -494,11 +503,51 @@
 
             updateRGB( elapsedTime ){
 
-                if( elapsedTime % 5 ){
-                    console.log("ok le elapsed time de 5secondes");
+                if( 
+                    !this.tweens[this.params.postProcs.rgbShifter.tweenName] 
+                    && Math.floor(elapsedTime) % this.params.postProcs.rgbShifter.reccurency === 0 
+                ){
 
                     // do things
+                    this.tweenBuilder(
+                        this.params.postProcs.rgbShifter.tweenName,
+                        "this.rgbShiftShader.uniforms.amount.value",
+                        this.params.postProcs.rgbShifter.min,
+                        this.params.postProcs.rgbShifter.max,
+                        this.params.postProcs.rgbShifter.durationOpen
+                    );
+                   
                 }
+
+            },
+
+            tweenBuilder( tweenName, valueToAnimateString, startingValue, endingValue, duration ){
+
+                 const animatedObject = {
+                    x: startingValue
+                };
+
+                console.log("ok un tween est build");
+
+                this.tweens[tweenName] = new TimelineLite();
+
+                this.tweens[tweenName].to(animatedObject, duration, {
+                    x: endingValue,
+                    onUpdate( that, stringPathToTheValue ){
+                        const pathToValue = stringPathToTheValue.split(".");
+
+                        that[pathToValue[1]][pathToValue[2]][pathToValue[3]][pathToValue[4]] = animatedObject.x;
+
+                    },
+                    onUpdateParams: [this, valueToAnimateString],
+                    onComplete( that ){
+                        console.log("onComplete triggered : tweenname : ", tweenName);
+                        that.tweens[tweenName] = null;
+                    },
+                    onCompleteParams: [this]
+                });
+
+
 
             },
 
