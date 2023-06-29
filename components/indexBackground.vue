@@ -107,16 +107,25 @@
                         },
                         rgbShifter: {
                             min: 0,
-                            max: 0.1,
-                            durationOpen: .2,
-                            durationClose: 1.5,
-                            isOpen: false,
-                            tweenName: "rgbTween",
-                            // every 5 seconds
-                            reccurency: 5
+                            max: 0.13,
+                            durationOpen: 5.5,
+                            durationClose: 0.35,
+                            tweenNameOpen: "rgbTweenOpen",
+                            tweenNameClose: "rgbTweenClose",
+                            // every n seconds
+                            reccurency: 15,
+                            haveBeenTrigered: false
                         },
                         afterImage: {
-                            max: 0.9
+                            min: 0.8,
+                            max: 0.96,
+                            durationOpen: 4,
+                            durationClose: 2,
+                            tweenNameOpen: "afterImageTweenOpen",
+                            tweenNameClose: "afterImageTweenClose",
+                            // every n seconds
+                            reccurency: 10,
+                            haveBeenTrigered: false
                         }
                     }
 
@@ -489,6 +498,8 @@
 
                 this.updateRGB(elapsedTime);
 
+                this.updateAfterImage(elapsedTime);
+
             },
 
             updateBlurFocus(){
@@ -506,22 +517,80 @@
                 if( 
                     !this.tweens[this.params.postProcs.rgbShifter.tweenName] 
                     && Math.floor(elapsedTime) % this.params.postProcs.rgbShifter.reccurency === 0 
+                    && !this.params.postProcs.rgbShifter.haveBeenTrigered
                 ){
+
+                    this.params.postProcs.rgbShifter.haveBeenTrigered = true;
 
                     // do things
                     this.tweenBuilder(
-                        this.params.postProcs.rgbShifter.tweenName,
+                        this.params.postProcs.rgbShifter.tweenNameOpen,
                         "this.rgbShiftShader.uniforms.amount.value",
                         this.params.postProcs.rgbShifter.min,
                         this.params.postProcs.rgbShifter.max,
-                        this.params.postProcs.rgbShifter.durationOpen
+                        this.params.postProcs.rgbShifter.durationOpen,
+                        "easeIn",
+                        // callback (onComplete)
+                        () => {
+                            this.tweenBuilder(
+                                this.params.postProcs.rgbShifter.tweenNameClose,
+                                "this.rgbShiftShader.uniforms.amount.value",
+                                this.params.postProcs.rgbShifter.max,
+                                this.params.postProcs.rgbShifter.min,
+                                this.params.postProcs.rgbShifter.durationClose,
+                                "elastic",
+                                () => {
+                                    this.params.postProcs.rgbShifter.haveBeenTrigered = false;
+
+                                    this.params.postProcs.rgbShifter.max *= -1
+                                }
+                            );
+                        }
                     );
                    
                 }
 
             },
 
-            tweenBuilder( tweenName, valueToAnimateString, startingValue, endingValue, duration ){
+            updateAfterImage( elapsedTime ){
+
+                if( 
+                    !this.tweens[this.params.postProcs.afterImage.tweenName] 
+                    && Math.floor(elapsedTime) % this.params.postProcs.afterImage.reccurency === 0 
+                    && !this.params.postProcs.afterImage.haveBeenTrigered
+                ){
+
+                    this.params.postProcs.afterImage.haveBeenTrigered = true;
+
+                    // do things
+                    this.tweenBuilder(
+                        this.params.postProcs.afterImage.tweenNameOpen,
+                        "this.afterImage.uniforms.damp.value",
+                        this.params.postProcs.afterImage.min,
+                        this.params.postProcs.afterImage.max,
+                        this.params.postProcs.afterImage.durationOpen,
+                        "easeInOut",
+                        // callback (onComplete)
+                        () => {
+                            this.tweenBuilder(
+                                this.params.postProcs.afterImage.tweenNameClose,
+                                "this.afterImage.uniforms.damp.value",
+                                this.params.postProcs.afterImage.max,
+                                this.params.postProcs.afterImage.min,
+                                this.params.postProcs.afterImage.durationClose,
+                                "easeInOut",
+                                () => {
+                                    this.params.postProcs.afterImage.haveBeenTrigered = false;
+                                }
+                            );
+                        }
+                    );
+                   
+                }
+
+            },
+
+            tweenBuilder( tweenName, valueToAnimateString, startingValue, endingValue, duration, ease, callback ){
 
                  const animatedObject = {
                     x: startingValue
@@ -533,6 +602,7 @@
 
                 this.tweens[tweenName].to(animatedObject, duration, {
                     x: endingValue,
+                    ease,
                     onUpdate( that, stringPathToTheValue ){
                         const pathToValue = stringPathToTheValue.split(".");
 
@@ -540,11 +610,15 @@
 
                     },
                     onUpdateParams: [this, valueToAnimateString],
-                    onComplete( that ){
-                        console.log("onComplete triggered : tweenname : ", tweenName);
+                    onComplete( that, callback ){
+
                         that.tweens[tweenName] = null;
+
+                        // launch closing
+                        callback()
+                        
                     },
-                    onCompleteParams: [this]
+                    onCompleteParams: [this, callback]
                 });
 
 
