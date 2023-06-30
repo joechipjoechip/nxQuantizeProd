@@ -46,7 +46,7 @@
 
 	import Joystick from '@/components/joystick.vue';
 	import MouseHandler from '@/components/mouseHandler.vue';
-	import InstanceThree from "./instanceThree.vue";
+	import InstanceThree from "@/components/instanceThree.vue";
 
 	import { worlds } from '@/static/config/worlds.js';
 	import { entities } from '@/static/config/entities.js';
@@ -232,38 +232,43 @@
 
 			playPauseAnimationHandler( fromFocus ){
 
-				const currentTimelines = this.$refs.instancethree.sceneBundle.current.sequencesElements[this.sequenceID].timelines;
-				const currentTimelinesKeys = Object.keys(currentTimelines);
+				const currentTimelines = this.$refs.instancethree?.sceneBundle.current.sequencesElements[this.sequenceID].timelines;
 
-				const goPlay = !this.$refs.instancethree.debug.animated;
+				if( currentTimelines ){
 
-				this.$refs.instancethree.debug.animated = !this.$refs.instancethree.debug.animated;
-
-				if( goPlay && fromFocus ){
-
-					this.$refs.instancethree.mainTick();
-
-					this.$refs.instancethree.clock.start();
-					this.$store.state.audioCurrent.play();
-
-				} else {
-					this.$refs.instancethree.clock.stop();
-
-					this.$store.state.audioCurrent.pause();
-				}
-
-
-				if( currentTimelinesKeys.length ){
-
-					currentTimelinesKeys.forEach(tlKey => {
-
-						if( !currentTimelines[tlKey] ){ return; }
-
-						currentTimelines[tlKey].isActive() ? 
-							currentTimelines[tlKey].pause() 
-							: currentTimelines[tlKey].play();
-
-					});
+					const currentTimelinesKeys = Object.keys(currentTimelines);
+	
+					const goPlay = !this.$refs.instancethree.debug.animated;
+	
+					this.$refs.instancethree.debug.animated = !this.$refs.instancethree.debug.animated;
+	
+					if( goPlay && fromFocus ){
+	
+						this.$refs.instancethree.mainTick();
+	
+						this.$refs.instancethree.clock.start();
+						this.$store.state.audioCurrent.play();
+	
+					} else {
+						this.$refs.instancethree.clock.stop();
+	
+						this.$store.state.audioCurrent.pause();
+					}
+	
+	
+					if( currentTimelinesKeys.length ){
+	
+						currentTimelinesKeys.forEach(tlKey => {
+	
+							if( !currentTimelines[tlKey] ){ return; }
+	
+							currentTimelines[tlKey].isActive() ? 
+								currentTimelines[tlKey].pause() 
+								: currentTimelines[tlKey].play();
+	
+						});
+	
+					}
 
 				}
 
@@ -361,11 +366,6 @@
 
 <style lang="scss" scoped>
 
-body {
-	padding: 0;
-	margin: 0;
-}
-
 button {
 	background-color: #b50000;
 	background-color: beige;
@@ -373,6 +373,7 @@ button {
 
 .cinema-main_wrapper {
 	position: relative;
+	background-color: #000;
 }
 
 .curtain {

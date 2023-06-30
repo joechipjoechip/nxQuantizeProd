@@ -28,6 +28,8 @@
 	import { SceneBuilder } from '@/components/sceneBuilder.js';
 	import { SequencesManager } from '@/components/sequencesManager.js';
 
+	import { disposeScene } from '@/components/sceneDisposer.js'
+
 	// THREE
 	import * as THREE from 'three';
 
@@ -357,48 +359,11 @@
 					console.log("ratage du dropScene : ", slotToDropKey);
 				}
 
-				this.disposeScene(sequencesManagerToDrop.sceneBundlePassed.scene);
+				disposeScene(sequencesManagerToDrop.sceneBundlePassed.scene);
 
 				sequencesManagerToDrop = null;
 
 
-			},
-
-			sceneTraverse(obj, fn){
-
-				if (!obj) return
-
-				fn(obj)
-
-				if (obj.children && obj.children.length > 0) {
-					obj.children.forEach(o => {
-						this.sceneTraverse(o, fn)
-					})
-				}
-			},
-
-			disposeScene( scene ){
-
-				this.sceneTraverse(scene, o => {
-
-					if (o.geometry) {
-						o.geometry.dispose();
-					}
-
-					if (o.material) {
-						if (o.material.length) {
-							for (let i = 0; i < o.material.length; ++i) {
-								o.material[i].dispose();
-							}
-						}
-						else {
-							o.material.dispose();
-						}
-					}
-				})          
-
-				scene = null;
-	
 			},
 			
 			initRenderer( currentWorldConfig ){

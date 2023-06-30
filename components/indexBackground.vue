@@ -10,6 +10,7 @@
 
     import * as THREE from 'three';
     import { TimelineLite } from 'gsap';
+    import { disposeScene } from '@/components/sceneDisposer.js'
 
     import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
     import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
@@ -19,7 +20,8 @@
     import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
     import { BokehPass } from 'three/examples/jsm/postprocessing/BokehPass.js';
     import { RGBShiftShader } from 'three/examples/jsm/shaders/RGBShiftShader.js'
-    import { AfterimagePass } from 'three/examples/jsm/postprocessing/AfterimagePass.js';;
+    import { AfterimagePass } from 'three/examples/jsm/postprocessing/AfterimagePass.js';
+    import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js';
 
 	export default {
         props: {
@@ -109,7 +111,7 @@
                             min: 0,
                             max: 0.13,
                             durationOpen: 5.5,
-                            durationClose: 0.35,
+                            durationClose: 0.25,
                             tweenNameOpen: "rgbTweenOpen",
                             tweenNameClose: "rgbTweenClose",
                             // every n seconds
@@ -117,14 +119,19 @@
                             haveBeenTrigered: false
                         },
                         afterImage: {
-                            min: 0.8,
-                            max: 0.96,
+                            min: 0.7,
+                            max: 0.97,
                             durationOpen: 4,
                             durationClose: 2,
                             tweenNameOpen: "afterImageTweenOpen",
                             tweenNameClose: "afterImageTweenClose",
                             // every n seconds
                             reccurency: 10,
+                            haveBeenTrigered: false
+                        },
+                        glitch: {
+                            reccurency: 6,
+                            duration: 1,
                             haveBeenTrigered: false
                         }
                     }
@@ -144,6 +151,13 @@
                 if( newVal ){
                     this.mainTick();
                 }
+            },
+
+            "params.postProcs.afterImage.haveBeenTrigered"( newVal ){
+                if( !newVal ){
+                    this.afterImage.uniforms.damp.value = 0;
+                }
+
             }
         },
         mounted(){
@@ -165,7 +179,7 @@
 
             window.cancelAnimationFrame(this.requestAnimationFrameID);
             
-            this.disposeScene(this.scene);
+            disposeScene(this.scene);
             
             this.$nuxt.$off("view-update-by-stick", this.mouseUpdate);
 
@@ -283,11 +297,13 @@
                 this.afterImage = new AfterimagePass();
 				this.afterImage.uniforms["damp"].value = this.params.postProcs.afterImage.max;
 
+                // GLITCH
+                this.glitch = new GlitchPass();
+
 
 
                 // ADD
-				this.composer.addPass(this.rgbShiftShader);
-				this.composer.addPass(this.afterImage);
+                this.composer.addPass(this.afterImage);
 				this.composer.addPass(bloomPass);
 				this.composer.addPass(this.blurPass);
 
@@ -492,12 +508,15 @@
 
 
             },
+
             updatePostProcs( elapsedTime ){
                 
                 this.updateBlurFocus();
 
+                this.updateGlitch(elapsedTime);
+                
                 this.updateRGB(elapsedTime);
-
+                
                 this.updateAfterImage(elapsedTime);
 
             },
@@ -512,6 +531,31 @@
                 this.blurPass.uniforms.focus.value = distance;
             },
 
+            updateGlitch( elapsedTime ){
+
+                if( 
+                    Math.floor(elapsedTime) % this.params.postProcs.glitch.reccurency === 0
+                    && !this.params.postProcs.glitch.haveBeenTrigered
+                ){
+                    
+                    this.params.postProcs.glitch.haveBeenTrigered = true;
+                    
+                    this.composer.addPass(this.glitch);
+                    
+                    setTimeout(() => {
+                        
+                        this.composer.removePass(this.glitch);
+                        
+                        if( this.params.postProcs.glitch.haveBeenTrigered ){
+                            this.params.postProcs.glitch.haveBeenTrigered = false;
+                        }
+
+                    }, this.params.postProcs.glitch.duration);
+
+                }
+
+            },
+
             updateRGB( elapsedTime ){
 
                 if( 
@@ -521,6 +565,8 @@
                 ){
 
                     this.params.postProcs.rgbShifter.haveBeenTrigered = true;
+
+                    this.composer.addPass(this.rgbShiftShader);
 
                     // do things
                     this.tweenBuilder(
@@ -540,8 +586,10 @@
                                 this.params.postProcs.rgbShifter.durationClose,
                                 "elastic",
                                 () => {
+                                    this.composer.removePass(this.rgbShiftShader);
+                                    
                                     this.params.postProcs.rgbShifter.haveBeenTrigered = false;
-
+                                    
                                     this.params.postProcs.rgbShifter.max *= -1
                                 }
                             );
@@ -569,7 +617,7 @@
                         this.params.postProcs.afterImage.min,
                         this.params.postProcs.afterImage.max,
                         this.params.postProcs.afterImage.durationOpen * Math.random(),
-                        "easeInOut",
+                        "easeOut",
                         // callback (onComplete)
                         () => {
                             this.tweenBuilder(
@@ -627,45 +675,7 @@
 
             mouseUpdate( event ){
                 this.currentMousePos = event;
-            },
-
-			disposeScene( scene ){
-
-				this.sceneTraverse(scene, o => {
-
-					if (o.geometry) {
-						o.geometry.dispose();
-					}
-
-					if (o.material) {
-						if (o.material.length) {
-							for (let i = 0; i < o.material.length; ++i) {
-								o.material[i].dispose();
-							}
-						}
-						else {
-							o.material.dispose();
-						}
-					}
-				})          
-
-				scene = null;
-	
-			},
-
-            sceneTraverse(obj, fn){
-
-				if (!obj) return
-
-				fn(obj)
-
-				if (obj.children && obj.children.length > 0) {
-					obj.children.forEach(o => {
-						this.sceneTraverse(o, fn)
-					})
-				}
-
-			}
+            }
 
         }
 
