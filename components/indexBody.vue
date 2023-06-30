@@ -12,7 +12,23 @@
 			<h4 class="font-label label-item">Omakaze Recordings</h4>
 		</div>
 
-		<nuxt-link class="button-experience" to="cinemaNew">GO</nuxt-link>
+		<div>
+
+			<button v-if="!cinemaIsReady" 
+				class="button-experience" 
+				disabled
+			>
+				Loading ...
+			</button>
+
+			<button v-else 
+				class="button-experience"
+				@click="$parent.isAtEntrance = false"
+			>
+				GO
+			</button>
+
+		</div>
 	</div>
 </template>
 
@@ -21,6 +37,20 @@
 	export default {
 		data(){
 			return {
+				cinemaIsReady: false
+			}
+		},
+		mounted(){
+			this.$nuxt.$on("cinema-is-ready", this.toggleStartButton);
+		},
+		beforeDestroy(){
+			this.$nuxt.$off("cinema-is-ready", this.toggleStartButton);
+		},
+		methods: {
+			toggleStartButton( event ){
+				if( event ){
+					this.cinemaIsReady = true;
+				}
 			}
 		}
 	}

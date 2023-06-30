@@ -435,6 +435,7 @@
             launchAll(){
                 this.fullFillScene();
                 this.mainTick();
+                this.$parent.backgroundIsLaunched = true;
             },
 
             mainTick(){

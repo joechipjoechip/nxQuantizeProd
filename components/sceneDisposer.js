@@ -1,7 +1,5 @@
 function disposeScene( scene ){
 
-    console.log("scene disposer triggerd");
-
     sceneTraverse(scene, o => {
 
         if (o.geometry) {
@@ -25,8 +23,6 @@ function disposeScene( scene ){
 }
 
 function sceneTraverse(obj, fn){
-
-    console.log("scene traverse triggerd", obj);
 
     if (!obj) return
 

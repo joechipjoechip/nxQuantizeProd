@@ -1,22 +1,32 @@
 <template>
 	<div class="app-wrapper">
 
-		<index-body class="body" />
+		<div v-show="isAtEntrance">
 
-		<index-background class="background"
-			:canvasSizeRef="canvasSizeRef"
-		/>
+			<index-body class="body" />
+	
+			<index-background class="background"
+				:canvasSizeRef="canvasSizeRef"
+			/>
+	
+			<mouse-handler
+				:canvasSizeRef="canvasSizeRef"
+			/>
 
-		<mouse-handler
-			:canvasSizeRef="canvasSizeRef"
-		/>
+		</div>
+
+		<div v-if="backgroundIsLaunched" v-show="!isAtEntrance">
+			<cinema-new />
+		</div>
+
 
 	</div>
 </template>
 
 <script>
-	import IndexBody from '../components/indexBody.vue';
-	import indexBackground from '../components/indexBackground.vue';
+	import IndexBody from '@/components/indexBody.vue';
+	import indexBackground from '@/components/indexBackground.vue';
+	import cinemaNew from '@/components/cinemaNew.vue';
 
 	export default {
   		components: { indexBackground, IndexBody },
@@ -25,7 +35,9 @@
 				canvasSizeRef: {
 					width: window.innerWidth,
 					height: window.innerHeight
-				}
+				},
+				isAtEntrance: true,
+				backgroundIsLaunched: false
 			}
 		}
 		

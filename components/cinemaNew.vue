@@ -3,8 +3,6 @@
 
 		<div class="debug-buttons-container">
 			<button @click="playPauseAnimationHandler">start/stop animation</button>
-			<!-- <button @click="switchScene">switch scene</button>
-			<button @click="changeSequenceHandler">next sequence</button> -->
 			<button @click="dropAndLoadAndSwitch">dropAndLoadAndSwitch</button>
 		</div>
 
@@ -27,7 +25,7 @@
 		/>
 
 		<instancethree 
-			v-if="(allIsLoaded && viewPos)"
+			v-if="(allIsLoaded && viewPos && !$parent.isAtEntrance)"
 			ref="instancethree"
 			:canvasSizeRef="canvasSizeRef"
 			:sequenceID="sequenceID"
@@ -106,6 +104,7 @@
 
 			allIsLoaded( newVal ){
 				if( newVal ){
+					this.$nuxt.$emit("cinema-is-ready", true);
 					console.log("all assets are loaded");
 				}
 			}
