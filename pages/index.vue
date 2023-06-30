@@ -1,13 +1,17 @@
 <template>
 	<div class="app-wrapper">
 
-		<div v-show="isAtEntrance">
+		<div class="primal-curtain" v-if="!backgroundIsLaunched && primalCurtainIsDisplayed">
+			<p>
+				Loading de la baaase ...
+			</p>
+		</div>
+
+		<div v-if="isAtEntrance" v-show="isAtEntrance && backgroundIsLaunched">
 
 			<index-body class="body" />
 	
-			<index-background class="background"
-				:canvasSizeRef="canvasSizeRef"
-			/>
+			<component is="indexBackground" class="background" :canvasSizeRef="canvasSizeRef" />
 	
 			<mouse-handler
 				:canvasSizeRef="canvasSizeRef"
@@ -15,8 +19,8 @@
 
 		</div>
 
-		<div v-if="backgroundIsLaunched" v-show="!isAtEntrance">
-			<cinema-new />
+		<div v-if="!primalCurtainIsDisplayed && backgroundIsLaunched" v-show="!isAtEntrance">
+			<component is="cinemaNew" />
 		</div>
 
 
@@ -25,11 +29,9 @@
 
 <script>
 	import IndexBody from '@/components/indexBody.vue';
-	import indexBackground from '@/components/indexBackground.vue';
-	import cinemaNew from '@/components/cinemaNew.vue';
 
 	export default {
-  		components: { indexBackground, IndexBody },
+  		components: { IndexBody },
 		data(){
 			return {
 				canvasSizeRef: {
@@ -37,8 +39,26 @@
 					height: window.innerHeight
 				},
 				isAtEntrance: true,
-				backgroundIsLaunched: false
+				backgroundIsLaunched: false,
+				primalCurtainIsDisplayed: true
 			}
+		},
+		watch: {
+			primalCurtainIsDisplayed( newVal ){
+				if( !newVal ){
+					import(`@/components/indexBackground.vue`);
+				}
+			},
+			backgroundIsLaunched( newVal ){
+
+				if( newVal ){
+					this.primalCurtainIsDisplayed = false
+					// @import cinemaNew from '@/components/cinemaNew.vue';
+					import(`@/components/cinemaNew.vue`);
+				}
+
+			}
+
 		}
 		
 	}
@@ -50,6 +70,19 @@
 		width: 100%;	
 		height: 100%;
 		position: relative;
+	}
+	
+	.primal-curtain {
+		width: 100%;	
+		height: 100vh;
+		position: relative;
+		background-color: white;
+		color: green;
+
+		display: flex;
+		flex-flow: column nowrap;
+		justify-content: center;
+		align-items: center;
 	}
 
 	.background {

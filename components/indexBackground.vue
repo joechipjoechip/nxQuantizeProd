@@ -1,7 +1,7 @@
 <template>
 	<div class="background-wrapper">
-        <button @click="animate = !animate">animation</button>
-        <span style="color: white;">fps : {{ currentFPSValue }}</span>
+        <!-- <button @click="animate = !animate">animation</button>
+        <span style="color: white;">fps : {{ currentFPSValue }}</span> -->
 		<canvas id="canvasIndex" ref="canvasIndex"></canvas>
 	</div>
 </template>
@@ -39,7 +39,7 @@
                 currentFPSValue: 0,
                 frames: 0,
 
-                animate: false,
+                animate: true,
 
                 requestAnimationFrameID: null,
 
@@ -176,6 +176,8 @@
 
         },
         beforeDestroy(){
+
+            this.killTweens();
 
             window.cancelAnimationFrame(this.requestAnimationFrameID);
             
@@ -671,6 +673,15 @@
                 });
 
 
+
+            },
+
+            killTweens(){
+
+                Object.keys(this.tweens).forEach(tweenKey => {
+                    this.tweens[tweenKey]?.kill();
+                    this.tweens[tweenKey] = null;
+                })
 
             },
 
