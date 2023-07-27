@@ -584,6 +584,15 @@ const worlds = [
 							radius: 0.7
 						}
 					},
+					{
+						type: "blur",
+						focusTarget: "link",
+						value: {
+							focus: 1,
+							aperture: 0.025,
+							maxblur: 0.008
+						}
+					},
 				]
 
 			},

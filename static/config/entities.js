@@ -381,7 +381,7 @@ const entities = {
 					eyes: {
 						color: "#FFFFFF",
 						intensity: 10,
-						enabled: false
+						enabled: true
 					}
 				}
 			}

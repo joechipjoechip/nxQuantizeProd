@@ -23,7 +23,6 @@
 			<component is="cinemaNew" />
 		</div>
 
-
 	</div>
 </template>
 

@@ -647,8 +647,6 @@
                     x: startingValue
                 };
 
-                console.log("ok un tween est build");
-
                 this.tweens[tweenName] = new TimelineLite();
 
                 this.tweens[tweenName].to(animatedObject, duration, {
