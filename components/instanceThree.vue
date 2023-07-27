@@ -435,7 +435,7 @@
 			checkCurrentTime(){
 
 
-				if( !this.loopIsAsked && this.$store.state.audioBase.currentTime >= 155.219 ){
+				if( !this.loopIsAsked && this.$store.state.audioBase.currentTime >= (this.$store.state.audioBase.duration - 0.1) ){
 					// console.log("if -> end time is almost reached");
 					this.startLoop();
 				}
@@ -587,8 +587,6 @@
 				console.log("startLoop triggered");
 
 				this.loopIsAsked = true;
-
-				
 				
 				console.log("audio loop : ", this.$store.state.audioLoopNeutral)
 				
@@ -599,7 +597,7 @@
 				setTimeout(()=>{
 					this.$store.state.audioBase.pause();
 					this.$store.state.audioBase.removeEventListener("ended", this.handleAudioEnded);
-				}, 250);
+				}, 300);
 
 			},
 
