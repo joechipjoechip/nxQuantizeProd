@@ -4,12 +4,14 @@ export const state = () => ({
 	isMobile: window.matchMedia("(pointer: coarse)").matches,
 	audioCurrent: null,
 	audioBase: null,
-	audioLoop: null,
+	audioLoopNeutral: null,
+	audioLoopDrumOne: null,
+	audioLoopDrumTwo: null,
 })
 
 export const getters = {
+	
 	// useless af
-
 	getDownScale(state) {
 		return state.downScale
 	},
@@ -20,6 +22,7 @@ export const getters = {
 }
 
 export const mutations = {
+
 	setDownScale(state, payload) {
 		state.downScale = payload
 	},
@@ -37,8 +40,16 @@ export const mutations = {
 		state.audioBase = payload
 	},
 
-	setAudioLoop(state, payload){
-		state.audioLoop = payload
+	setAudioLoopNeutral(state, payload){
+		state.audioLoopNeutral = payload
+	},
+
+	setAudioLoopDrumOne(state, payload){
+		state.audioLoopDrumOne = payload
+	},
+
+	setAudioLoopDrumTwo(state, payload){
+		state.audioLoopDrumTwo = payload
 	},
 
 	setAudioTimecode(state, payload){

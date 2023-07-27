@@ -17,7 +17,6 @@ import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 import { loopify } from '@/components/loopify.js';
 
 import soundBase from "@/static/assets/audio/onyi-firstPart.mp3";
-// import soundLoop from "@/static/assets/audio/onyi-loop-real.wav";
 
 class PrimaryLoadManager{
 
@@ -62,7 +61,7 @@ class PrimaryLoadManager{
 
 		loopify(
 			this.vm,
-			"assets/audio/onyi-loop-light.wav", 
+			"assets/audio/onyi-loop-light-compressed.wav", 
 			(err, loop) => {
 				// If something went wrong, `err` is supplied
 				if (err) {
@@ -71,7 +70,37 @@ class PrimaryLoadManager{
 
 				// Play it whenever you want
 				// loop.play();
-				this.vm.$store.commit("setAudioLoop", loop);
+				this.vm.$store.commit("setAudioLoopNeutral", loop);
+			}
+		);
+
+		loopify(
+			this.vm,
+			"assets/audio/loopDrumOne-compressed.wav", 
+			(err, loop) => {
+				// If something went wrong, `err` is supplied
+				if (err) {
+					console.log("loopify error -------> ", err);
+				}
+
+				// Play it whenever you want
+				// loop.play();
+				this.vm.$store.commit("setAudioLoopDrumOne", loop);
+			}
+		);
+
+		loopify(
+			this.vm,
+			"assets/audio/loopDrumTwo-compressed.wav", 
+			(err, loop) => {
+				// If something went wrong, `err` is supplied
+				if (err) {
+					console.log("loopify error -------> ", err);
+				}
+
+				// Play it whenever you want
+				// loop.play();
+				this.vm.$store.commit("setAudioLoopDrumTwo", loop);
 			}
 		);
 

@@ -32,6 +32,12 @@ function loopify(vm, uri, cb) {
 	function success(buffer) {
 
 		var source;
+		var gainNode = context.createGain();
+		gainNode.connect(context.destination);
+
+		function volume(newVolume){
+			gainNode.gain.value = newVolume
+		}
 
 		function play() {
 
@@ -40,7 +46,11 @@ function loopify(vm, uri, cb) {
 
 			// Create a new source (can't replay an existing source)
 			source = context.createBufferSource();
-			source.connect(context.destination);
+			
+			source.connect(gainNode);
+
+			gainNode.connect(context.destination);
+
 
 			// Set the buffer
 			source.buffer = buffer;
@@ -63,10 +73,7 @@ function loopify(vm, uri, cb) {
 
 		}
 
-		cb(null,{
-			play: play,
-			stop: stop
-		});
+		cb(null,{ play, stop, volume });
 
 	}
 

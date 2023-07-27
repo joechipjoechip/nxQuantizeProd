@@ -98,7 +98,13 @@
 			"$store.state.audioBase"(){
 				this.checkIfAllIsLoaded();
 			},
-			"$store.state.audioLoop"(){
+			"$store.state.audioLoopNeutral"(){
+				this.checkIfAllIsLoaded();
+			},
+			"$store.state.audioLoopDrumOne"(){
+				this.checkIfAllIsLoaded();
+			},
+			"$store.state.audioLoopDrumTwo"(){
 				this.checkIfAllIsLoaded();
 			},
 
@@ -166,7 +172,7 @@
 
 				setTimeout(() => {
 
-					const goTo = 100;
+					const goTo = 138;
 
 					if( goTo > 0 ){
 						this.$store.commit("setAudioTimecode", goTo);
@@ -201,7 +207,9 @@
 					&& this.textures.length  === worlds.length
 					&& this.glbs.length 	 === worlds.length
 					&& this.$store.state.audioBase	 !== null
-					&& this.$store.state.audioLoop	 !== null
+					&& this.$store.state.audioLoopNeutral	 !== null
+					&& this.$store.state.audioLoopDrumOne	 !== null
+					&& this.$store.state.audioLoopDrumTwo	 !== null
 				){
 
 					this.allIsLoaded = true;
