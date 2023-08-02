@@ -164,12 +164,8 @@ class PrimaryLoadManager{
 						if( c.type === "SkinnedMesh" ){
 	
 							if( c.material.length ){
-
-								// console.log("emissive enabled spotted : ", mainObj.options);
 	
 								c.material.forEach((child, index) => {
-	
-									// console.log("material : ", child.name)
 	
 									if( child.name.includes("emissive") ){
 										c.material[index] = this._ReplaceMaterialWithEmissive(
@@ -181,9 +177,10 @@ class PrimaryLoadManager{
 	
 								})
 	
-							} else {
-								console.log("material solo : ", c.material.name)
-							}
+							} 
+							// else {
+							// 	console.log("material solo : ", c.material.name)
+							// }
 	
 						}
 
