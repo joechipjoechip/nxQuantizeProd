@@ -2107,10 +2107,12 @@ const worlds = [
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 45,
-				cameraType: "movingHips-lookUp",
+				cameraType: "movingHips-lookUp-choice",
 
 				until: 288.8,
 				nextInstruction: "switch-sequence",
+
+				choiceSequence: true,
 
 				// customShaderOptions: {
 				// 	timeRatio: 2.15
@@ -2139,35 +2141,12 @@ const worlds = [
 				bobImposedMoves: {
 					fly: false,
 					forward: true,
-					backward: false
+					backward: false,
+					left: false,
+					right: false
 				},
 
 				slowmo: 1.4,
-				
-				// alice: {
-				// 	handleGround: false,
-				// 	name: "linkShine",
-				// 	move: {
-				// 		prayup: true,
-				// 		shift: false,
-				// 		left: false,
-				// 		right: false
-				// 	},
-				// 	offset: {
-				// 		x: 0,
-				// 		y: -6.4,
-				// 		z: -0.8
-				// 	},
-				// 	scale: 0.19,
-				// 	slowmo: 2,
-				// 	// customShaderOptions: {
-				// 	// 	shaderTimeRatio: 1.8,
-				// 	// 	shaderTimeDecay: 5,
-				// 	// 	isCameraPositionInfluenced: false,
-				// 	// 	sin: false,
-				// 	// 	sinAmplitude: 60
-				// 	// }
-				// },
 
 				postproc: [
 					{

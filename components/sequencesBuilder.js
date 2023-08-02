@@ -50,7 +50,8 @@ class SequencesBuilder {
 				slowmo: sequenceInfos.slowmo ? sequenceInfos.slowmo : 1,
 				sequenceBobName: sequenceInfos.sequenceBobName,
 				aliceInfos: sequenceInfos.alice,
-				fakeOrbit: false
+				fakeOrbit: false,
+				choiceSequence : sequenceInfos.choiceSequence
 			};
 
 			this._BuildPostprocsCollections(sequenceInfos);

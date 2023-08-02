@@ -31,9 +31,8 @@ function loopify(vm, uri, cb) {
 
 	function success(buffer) {
 
-		var source;
-		var gainNode = context.createGain();
-		// gainNode.connect(context.destination);
+		let source;
+		const gainNode = context.createGain();
 
 		function volume(newVolume){
 			gainNode.gain.value = newVolume

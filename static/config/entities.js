@@ -611,13 +611,13 @@ const entities = {
 				},
 				shader: {
 					shaderName: "aliceShader",
-					shaderScale: 10,
+					shaderScale: 1,
 					shaderAxe: "xy",
 					specificShaderName: "plastic2",
-					shaderTimeRatio: 4,
+					shaderTimeRatio: 20,
 					isCameraPositionInfluenced: false,
 					sin: false,
-					sinAmplitude: 260
+					sinAmplitude: 560
 				}
 			}
 		}

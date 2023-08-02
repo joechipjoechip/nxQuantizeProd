@@ -275,6 +275,41 @@ const core = {
 				},
 			},
 		},
+		"movingHips-lookUp-choice": {
+			offset: {
+				x: 0.01,
+				y: 0.0005,
+				z: -0.045
+			},
+			lookAt: {
+				x: 0,
+				y: 0.03,
+				z: 0.05
+			},
+			straightness: 0.035,
+			mouseOrientationPonderation: {
+				x: 0.035,
+				y: 0.07
+			},
+			motion: {
+				// motion will move the camera continuously
+				// with a sin() (so -1 to 1)
+				// and it's related at the offset values
+				x: {
+					// ratios
+					range: -0.02,
+					velocity: 0.15
+				},
+				y: {
+					range: 0.01,
+					velocity: 0.2
+				},
+				z: {
+					range: -0.04,
+					velocity: 0.25
+				},
+			},
+		},
 		"movingHips-lookUp-xDecayed": {
 			offset: {
 				x: 0.025,

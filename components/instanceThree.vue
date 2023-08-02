@@ -410,7 +410,6 @@
 	
 					this.sequencesManager.current.checkStuffsToAnimateAtRender(this.deltaTime, this.viewPos);
 
-
 					// NOW COMPUTE RENDER
 					if( this.sequencesManager.current.composer ){
 						// console.log("use composer : ", this.sequencesManager.current.name);
@@ -589,10 +588,16 @@
 				this.loopIsAsked = true;
 				
 				console.log("audio loop : ", this.$store.state.audioLoopNeutral)
+
 				
 				this.$store.state.audioLoopNeutral.play();
-				// this.$store.state.audioLoopNeutral.volume(0.15);
+				this.$store.state.audioLoopNeutral.volume(1);
 
+				this.$store.state.audioLoopDrumOne.play();
+				this.$store.state.audioLoopDrumOne.volume(0);
+				
+				this.$store.state.audioLoopDrumTwo.play();
+				this.$store.state.audioLoopDrumTwo.volume(0);
 				
 				setTimeout(()=>{
 					this.$store.state.audioBase.pause();

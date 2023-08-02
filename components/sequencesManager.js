@@ -34,7 +34,15 @@ class SequencesManager{
 	updateBobStickedInputs( event, that ){
 		if( !that.currentBobName ){ return; }
 
-		that.sceneBundlePassed.sceneElements.bobs[that.currentBobName]._controls._input._UpdateBobStickedInputs(event);
+		if( this.currentSequenceElements?.choiceSequence ){
+
+			//
+			
+		} else {
+
+			that.sceneBundlePassed.sceneElements.bobs[that.currentBobName]._controls._input._UpdateBobStickedInputs(event);
+
+		}
 
 	}
 
@@ -49,6 +57,8 @@ class SequencesManager{
 		this.currentSequenceElements = this.sceneBundlePassed.sequencesElements[newSequenceID];
 
 		this.updateCommonsValues();
+		
+		this.initEventualSpecialEvents();
 
 		this.killOldSequence(oldSequenceID);
 
@@ -88,7 +98,6 @@ class SequencesManager{
 
 		}, 100);
 
-
 	}
 
 	updateCommonsValues(){
@@ -116,6 +125,7 @@ class SequencesManager{
 		const oldTimelines = this.sceneBundlePassed.sequencesElements[oldSequenceID]?.timelines;
 
 		if( oldTimelines ){
+			
 			Object.keys(oldTimelines).forEach(timelineKey => {
 
 				if( oldTimelines[timelineKey] ){
@@ -123,7 +133,7 @@ class SequencesManager{
 					oldTimelines[timelineKey] = null;
 				}
 
-				console.log("oldTimeline killed : ", oldSequenceID, timelineKey);
+				// console.log("oldTimeline killed : ", oldSequenceID, timelineKey);
 
 			});
 		}
@@ -251,8 +261,6 @@ class SequencesManager{
 		if( lightToUpdate.name.includes("for-bob-shadow") ){
 			lightToUpdate.castShadow = true;
 		}
-
-
 
 	}
 
@@ -713,10 +721,68 @@ class SequencesManager{
 		const distance = new THREE.Vector3(x,y,z).distanceTo({...this.currentSequenceElements.focusTarget._controls._position});
 
 		// update focus value in blur effect
-		this.currentSequenceElements.postproc.find(postproc => postproc.postprocType === "blur").effectsPass[0].uniforms.focus.value = distance
+		this.currentSequenceElements.postproc.find(postproc => postproc.postprocType === "blur").effectsPass[0].uniforms.focus.value = distance;
 
 	}
 
+	initEventualSpecialEvents(){
+
+		console.log("initiEventualSpecialEvents : ", this.currentSequenceElements)
+
+		if( !this.currentSequenceElements.choiceSequence ){ return }
+
+		document.addEventListener("keydown", event => this.choiceHandler(event));
+
+		setTimeout(()=> {
+			this.choiceHandler({key: "q"});
+			this.vm.$store.state.audioLoopNeutral.volume(0)
+			this.vm.$store.state.audioLoopNeutral.stop()
+		}, 1500);
+
+	}
+
+	choiceHandler( event ){
+
+		const camera = this.currentSequenceElements.thirdPersonCamera[this.currentBobName]
+		const lookAtDecay = 0.03
+		const offsetDecay = 0.015
+		let choiceState
+
+		switch(event.key){
+
+			case "d":
+			case "D":
+				console.log("ok go right")
+
+				choiceState = "right"
+				camera._specs.lookAt.x = lookAtDecay * -1
+				camera._specs.offset.x = offsetDecay
+			break;
+				
+			case "q":
+			case "Q":
+				console.log("ok go left")
+
+				choiceState = "left"
+				camera._specs.lookAt.x = lookAtDecay
+				camera._specs.offset.x = offsetDecay * -1
+			break;
+
+		}
+
+		switch(choiceState){
+			case "left":
+				this.vm.$store.state.audioLoopDrumOne.volume(1)
+				this.vm.$store.state.audioLoopDrumTwo.volume(0)
+				break;
+
+			case "right":
+				this.vm.$store.state.audioLoopDrumOne.volume(0)
+				this.vm.$store.state.audioLoopDrumTwo.volume(1)
+				break;
+		}
+		
+	}
 
 }
 
