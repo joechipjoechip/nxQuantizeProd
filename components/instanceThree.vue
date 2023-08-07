@@ -412,12 +412,12 @@
 
 					// NOW COMPUTE RENDER
 					if( this.sequencesManager.current.composer ){
-						// console.log("use composer : ", this.sequencesManager.current.name);
+						console.log("use composer : ", this.sequencesManager.current.name);
 						
 						this.sequencesManager.current.composer.render();
 						
 					} else {
-						// console.log("use classic renderer : ", this.sceneBundle.current.name);
+						console.log("use classic renderer : ", this.sceneBundle.current.name);
 
 						this.renderer.render(this.sceneBundle.current.scene, this.sceneBundle.current.camera);
 
@@ -436,7 +436,7 @@
 
 				if( !this.loopIsAsked && this.$store.state.audioBase.currentTime >= (this.$store.state.audioBase.duration - 0.1) ){
 					// console.log("if -> end time is almost reached");
-					this.startLoop();
+					this.startLoops();
 				}
 				
 				if( !this.$store.state.audioBase.paused && (this.$store.state.audioCurrent.currentTime >= this.currentSequence.until && !this.currentSequence.alreadyTriggered) ){
@@ -576,14 +576,14 @@
 
 				if( !this.loopIsAsked ){
 					console.log("! ! ! ! ! ! ! ! ! fallback 'ended' started loop ! ! ! ! ! ! ! ! !");
-					this.startLoop();
+					this.startLoops();
 				}
 				
 			},
 			
-			startLoop(){
+			startLoops(){
 
-				console.log("startLoop triggered");
+				console.log("startLoops triggered");
 
 				this.loopIsAsked = true;
 				

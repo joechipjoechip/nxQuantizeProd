@@ -229,11 +229,12 @@
 
 			focusBlurHandler( event ){
 
-				if( event.type === "focus" ){
-					this.playPauseAnimationHandler(true);
-				} else {
-					this.playPauseAnimationHandler(false);
-				}
+				// TODO : uncomment for prod
+				// if( event.type === "focus" ){
+				// 	this.playPauseAnimationHandler(true);
+				// } else {
+				// 	this.playPauseAnimationHandler(false);
+				// }
 
 			},
 

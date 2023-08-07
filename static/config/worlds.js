@@ -2100,10 +2100,10 @@ const worlds = [
 		sequences: [
 			{
 				id: "7.15",
-				baseFov: 28,
+				baseFov: 22,
 				fovTransition: true,
 				sequenceBobName: "queenFinal",
-				bobRestoreSize: 0.0014,
+				bobRestoreSize: 0.0012,
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 45,
@@ -2146,17 +2146,38 @@ const worlds = [
 					right: false
 				},
 
-				slowmo: 1.4,
+				// alice: {
+				// 	handleGround: true,
+				// 	name: "link",
+				// 	move: {
+				// 		enjoy: true,
+				// 		forward: false,
+				// 		shift: false,
+				// 		left: false,
+				// 		right: false,
+				// 		backward: false,
+				// 		dance: false,
+				// 	},
+				// 	offset: {
+				// 		x: 0,
+				// 		y: 0,
+				// 		z: 0
+				// 	},
+				// 	scale: 0.0024,
+				// 	slowmo: 1,
+				// },
+
+				slowmo: 1.6,
 
 				postproc: [
-					{
-						type: "bloom",
-						value: {
-							strength: 0.7,
-							threshold: 0.0000000035,
-							radius: 0.7
-						}
-					},
+					// {
+					// 	type: "bloom",
+					// 	value: {
+					// 		strength: 0.7,
+					// 		threshold: 0.0000000035,
+					// 		radius: 0.7
+					// 	}
+					// },
 					{
 						type: "blur",
 						focusTarget: "queenFinal",
@@ -2173,6 +2194,132 @@ const worlds = [
 		]
 
 	},
+
+	{
+		name: "world_050",
+
+		main: {
+
+			spaceColor: "#000000",
+			spaceColorDarker: "#000000",
+			spaceColorWithBloom: "#000000",
+
+			ambient: {
+				sunColor: "#FF5A00",
+				// intensity: 0.17,
+				intensity: 0.3,
+				groundColor: "#1B00FF"
+			},
+
+			fog: {
+				enabled: false,
+				color: 0xff9500,
+				intensity: .15
+			},
+
+			meshInfos: {
+
+				glbPath: "/assets/3d/worlds/mirror/mirror.glb",
+				imagePath: {
+					landscape: "/assets/3d/worlds/mirror/mirrorBake.jpg"
+				}
+			},
+
+		},
+
+		sequences: [
+			{
+				id: "7.16",
+				baseFov: 28,
+				fovTransition: true,
+				sequenceBobName: "linkShineEyes",
+
+				type: "third-person",
+				cameraTriggerTimeDecay: 45,
+				cameraType: "gtaLike",
+
+				until: 288.8,
+				nextInstruction: "switch-sequence",
+
+				// customShaderOptions: {
+				// 	timeRatio: 2.15
+				// },
+
+				animatedMesh: false,
+
+				helpers: {
+					orbit: false,
+					tubes: false,
+					timelines: false
+				},
+
+				// landscapeMove: {
+				// 	x: 0,
+				// 	y: 0.0015,
+				// 	z: -0.0015
+				// },
+
+				fog: {
+					enabled: false,
+					color: "#ffffff",
+					intensity: .14
+				},
+
+				bobImposedMoves: {
+					// fly: false,
+					// forward: true,
+					// backward: false,
+					// left: false,
+					// right: false
+				},
+
+				alice: {
+					handleGround: true,
+					name: "marieShineEyes",
+					move: {
+						forward: true,
+						shift: false,
+						left: false,
+						right: false,
+						backward: false,
+						dance: false,
+					},
+					offset: {
+						x: 0,
+						y: 0,
+						z: 0
+					},
+					scale: 0.002,
+					slowmo: 6
+				},
+
+				slowmo: 1,
+
+				postproc: [
+					// {
+					// 	type: "bloom",
+					// 	value: {
+					// 		strength: 0.3,
+					// 		threshold: 0.00035,
+					// 		radius: 0.3
+					// 	}
+					// },
+					// {
+					// 	type: "blur",
+					// 	focusTarget: "queenFinal",
+					// 	value: {
+					// 		focus: 1,
+					// 		aperture: 0.035,
+					// 		maxblur: 0.009
+					// 	}
+					// },
+				]
+
+			},
+			
+		]
+
+	}
 
 ]
 

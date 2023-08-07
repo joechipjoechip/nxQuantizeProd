@@ -5,6 +5,7 @@ import { SequencesBuilder } from '@/components/sequencesBuilder.js';
 import { DynamicLightsBuilder } from '@/components/dynamicLightsBuilder.js';
 import { ParticlesBuilder } from '@/components/particlesBuilder.js';
 import { CustomShaderBuilder } from '@/components/customShaderBuilder.js';
+import { Reflector } from 'three/examples/jsm/objects/Reflector'
 
 class SceneBuilder {
 
@@ -38,6 +39,8 @@ class SceneBuilder {
 		this.sceneElements = {
 			name: this.worldConfig.name,
 			landscape: null,
+			mirrorMeshes: [],
+			mirrorMeshesBuilt: [],
 			sky: null,
 			bobs: this.bobs,
 			initialCamera: new THREE.Object3D({ position: { x: 0, y: 0, z: 0 }}),
@@ -143,6 +146,13 @@ class SceneBuilder {
 
 			}
 
+			// find meshes for custom shaders
+			if( child.name.includes("mirror") ){
+
+				this.sceneElements.mirrorMeshes.push(child);
+
+			}
+
 			// find misc positions
 			if( child.name.includes("position_") ){
 
@@ -188,7 +198,6 @@ class SceneBuilder {
 		const texture = textureTransmitted.file;
 
 		texture.flipY = false;
-
 		texture.encoding = THREE.sRGBEncoding;
 
 		if( textureTransmitted.options.metalness ){
@@ -211,7 +220,6 @@ class SceneBuilder {
 			});
 
 		}
-
 
 		// apply baked material
 		this.sceneElements.landscape.material = bakedMaterial;
@@ -239,6 +247,11 @@ class SceneBuilder {
 		// standard meshes
 		this.sceneElements.meshesForCustomShader.forEach(mesh => {
 			this.createMeshWithCustomShader(mesh);
+		});
+
+		// mirror meshes
+		this.sceneElements.mirrorMeshes.forEach(mesh => {
+			this.createMirrorMesh(mesh);
 		});
 
 		// particles
@@ -312,6 +325,22 @@ class SceneBuilder {
 
 	}
 
+	createMirrorMesh( mesh ){
+
+		const mirrorMesh = new Reflector( mesh.geometry, {
+			textureWidth: window.innerWidth * window.devicePixelRatio,
+			textureHeight: window.innerHeight * window.devicePixelRatio,
+			color: new THREE.Color(0xb5b5b5)
+		});
+
+		mirrorMesh.scale.copy(mesh.scale);
+		mirrorMesh.position.copy(mesh.position);
+		mirrorMesh.rotation.copy(mesh.rotation);
+
+		this.sceneElements.mirrorMeshesBuilt.push(mirrorMesh);
+
+	}
+
 	createLandscapeShadow( blenderObj ){
 
 		const shadowLandscapeMesh = blenderObj;
@@ -374,6 +403,13 @@ class SceneBuilder {
 		// meshes for custom shaders
 		this.sceneElements.meshesForCustomShaderBuilt
 			.forEach(mesh => {
+				this.scene.add(mesh);
+			});
+
+		// mirror meshes
+		this.sceneElements.mirrorMeshesBuilt
+			.forEach(mesh => {
+				console.log("- - - - - - add mirror : ", mesh)
 				this.scene.add(mesh);
 			});
 

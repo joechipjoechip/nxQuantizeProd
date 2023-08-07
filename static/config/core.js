@@ -291,6 +291,16 @@ const core = {
 				x: 0.035,
 				y: 0.07
 			},
+			mouseOrientationLimits: {
+				x: {
+					min: -1,
+					max: 1
+				},
+				y: {
+					min: -0.1,
+					max: 1
+				},
+			},
 			motion: {
 				// motion will move the camera continuously
 				// with a sin() (so -1 to 1)

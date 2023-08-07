@@ -98,6 +98,8 @@ class SequencesManager{
 
 		}, 100);
 
+		console.log("----> current scene : ", this.sceneBundlePassed)
+
 	}
 
 	updateCommonsValues(){
@@ -783,6 +785,8 @@ class SequencesManager{
 		}
 		
 	}
+
+	
 
 }
 
