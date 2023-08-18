@@ -346,6 +346,7 @@ class SceneBuilder {
 		const shadowLandscapeMesh = blenderObj;
 
 		const shadowMaterial = new THREE.ShadowMaterial({
+
 			color: 0x000000,
 			opacity: 0.48
 		});
@@ -451,7 +452,7 @@ class SceneBuilder {
 
 		// and we initialise
 		this.camera.position.copy(this.sceneElements.initialCamera.position);
-		this.camera.rotation.copy( this.sceneElements.initialCamera.rotation);
+		this.camera.rotation.copy(this.sceneElements.initialCamera.rotation);
 	
 		this.scene.add(this.camera);
 

@@ -1,32 +1,9 @@
 [
   {
-    "name": "cinema",
-    "path": "/cinema",
-    "component": "/Users/joechip/Desktop/mesRepos/nxQuantize/pages/cinema.vue",
-    "chunkName": "pages/cinema"
-  },
-  {
-    "name": "cinemaNew",
-    "path": "/cinemaNew",
-    "component": "/Users/joechip/Desktop/mesRepos/nxQuantize/pages/cinemaNew.vue",
-    "chunkName": "pages/cinemaNew"
-  },
-  {
-    "name": "instanceThree",
-    "path": "/instanceThree",
-    "component": "/Users/joechip/Desktop/mesRepos/nxQuantize/pages/instanceThree.vue",
-    "chunkName": "pages/instanceThree"
-  },
-  {
-    "name": "world",
-    "path": "/world",
-    "component": "/Users/joechip/Desktop/mesRepos/nxQuantize/pages/world.vue",
-    "chunkName": "pages/world"
-  },
-  {
     "name": "index",
     "path": "/",
-    "component": "/Users/joechip/Desktop/mesRepos/nxQuantize/pages/index.vue",
-    "chunkName": "pages/index"
+    "component": "C:\\\\Users\\\\lione\\\\Desktop\\\\CODINGSTUFFS\\\\nxQuantizeProd\\\\pages\\\\index.vue",
+    "chunkName": "pages/index",
+    "_name": "_33496faf"
   }
 ]

@@ -5,14 +5,32 @@
   "CharacterController": {
     "description": "Auto imported from components/characterController.js"
   },
+  "CinemaNew": {
+    "description": "Auto imported from components/cinemaNew.vue"
+  },
+  "CustomPhongShaderBuilder": {
+    "description": "Auto imported from components/customPhongShaderBuilder.js"
+  },
+  "CustomShaderBuilder": {
+    "description": "Auto imported from components/customShaderBuilder.js"
+  },
   "DynamicLightsBuilder": {
     "description": "Auto imported from components/dynamicLightsBuilder.js"
   },
-  "GuiManager": {
-    "description": "Auto imported from components/guiManager.js"
+  "IndexBackground": {
+    "description": "Auto imported from components/indexBackground.vue"
+  },
+  "IndexBody": {
+    "description": "Auto imported from components/indexBody.vue"
+  },
+  "InstanceThree": {
+    "description": "Auto imported from components/instanceThree.vue"
   },
   "Joystick": {
     "description": "Auto imported from components/joystick.vue"
+  },
+  "Loopify": {
+    "description": "Auto imported from components/loopify.js"
   },
   "MouseHandler": {
     "description": "Auto imported from components/mouseHandler.vue"
@@ -29,6 +47,9 @@
   "SceneBuilder": {
     "description": "Auto imported from components/sceneBuilder.js"
   },
+  "SceneDisposer": {
+    "description": "Auto imported from components/sceneDisposer.js"
+  },
   "SequencesBuilder": {
     "description": "Auto imported from components/sequencesBuilder.js"
   },
@@ -36,7 +57,7 @@
     "description": "Auto imported from components/sequencesManager.js"
   },
   "SpecificManualCameraTweenBuilder": {
-    "description": "Auto imported from components/specificManualCameraTweenBuilder.js"
+    "description": "Auto imported from components/SpecificManualCameraTweenBuilder.js"
   },
   "States": {
     "description": "Auto imported from components/states.js"
@@ -46,5 +67,11 @@
   },
   "ThirdPersonCamera": {
     "description": "Auto imported from components/thirdPersonCamera.js"
+  },
+  "UpdateBobWorker": {
+    "description": "Auto imported from components/updateBob.worker.js"
+  },
+  "Worker": {
+    "description": "Auto imported from components/worker.js"
   }
 }

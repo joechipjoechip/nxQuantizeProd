@@ -3,7 +3,6 @@ const entities = {
 	bobs: {
 		link: {
 			name: "link",
-			// fbxPath: "./assets/3d/persos/link.fbx",
 			fbxPath: "./assets/3d/persos/joseph/joseph.fbx",
 			infos: {
 				scale: 0.0012,
@@ -54,7 +53,6 @@ const entities = {
 		},
 		linkShine: {
 			name: "linkShine",
-			// fbxPath: "./assets/3d/persos/link.fbx",
 			fbxPath: "./assets/3d/persos/joseph/joseph.fbx",
 			infos: {
 				scale: 0.0012,
@@ -100,7 +98,6 @@ const entities = {
 		},
 		linkShineEyes: {
 			name: "linkShineEyes",
-			// fbxPath: "./assets/3d/persos/link.fbx",
 			fbxPath: "./assets/3d/persos/joseph/joseph.fbx",
 			infos: {
 				scale: 0.0012,
@@ -146,7 +143,6 @@ const entities = {
 		},
 		linkShineSkin: {
 			name: "linkShineSkin",
-			// fbxPath: "./assets/3d/persos/link.fbx",
 			fbxPath: "./assets/3d/persos/joseph/joseph.fbx",
 			infos: {
 				scale: 0.0012,
@@ -192,7 +188,6 @@ const entities = {
 		},
 		linkShader: {
 			name: "linkShader",
-			// fbxPath: "./assets/3d/persos/link.fbx",
 			fbxPath: "./assets/3d/persos/joseph/joseph.fbx",
 			infos: {
 				scale: 0.0012,
@@ -218,7 +213,6 @@ const entities = {
 		},
 		linkShaderPlastic: {
 			name: "linkShaderPlastic",
-			// fbxPath: "./assets/3d/persos/link.fbx",
 			fbxPath: "./assets/3d/persos/joseph/joseph.fbx",
 			infos: {
 				scale: 0.0012,
@@ -244,7 +238,6 @@ const entities = {
 		},
 		linkShaderPlasticTwo: {
 			name: "linkShaderPlasticTwo",
-			// fbxPath: "./assets/3d/persos/link.fbx",
 			fbxPath: "./assets/3d/persos/joseph/joseph.fbx",
 			infos: {
 				scale: 0.0012,
@@ -270,7 +263,6 @@ const entities = {
 		},
 		linkShaderFlying: {
 			name: "linkShaderFlying",
-			// fbxPath: "./assets/3d/persos/link.fbx",
 			fbxPath: "./assets/3d/persos/joseph/joseph.fbx",
 			infos: {
 				scale: 0.0012,
@@ -296,7 +288,6 @@ const entities = {
 		},
 		marie: {
 			name: "marie",
-			// fbxPath: "./assets/3d/persos/juan.fbx",
 			fbxPath: "./assets/3d/persos/marie/marie.fbx",
 			infos: {
 				scale: 0.0012,
@@ -342,7 +333,6 @@ const entities = {
 		},
 		marieShine: {
 			name: "marieShine",
-			// fbxPath: "./assets/3d/persos/juan.fbx",
 			fbxPath: "./assets/3d/persos/marie/marie.fbx",
 			infos: {
 				scale: 0.0012,
@@ -388,7 +378,6 @@ const entities = {
 		},
 		marieShineSkin: {
 			name: "marieShineSkin",
-			// fbxPath: "./assets/3d/persos/juan.fbx",
 			fbxPath: "./assets/3d/persos/marie/marie.fbx",
 			infos: {
 				scale: 0.0012,
@@ -434,7 +423,6 @@ const entities = {
 		},
 		marieShineEyes: {
 			name: "marieShineEyes",
-			// fbxPath: "./assets/3d/persos/juan.fbx",
 			fbxPath: "./assets/3d/persos/marie/marie.fbx",
 			infos: {
 				scale: 0.0012,
@@ -480,7 +468,6 @@ const entities = {
 		},
 		marieShader: {
 			name: "marieShader",
-			// fbxPath: "./assets/3d/persos/juan.fbx",
 			fbxPath: "./assets/3d/persos/marie/marie.fbx",
 			infos: {
 				scale: 0.0012,
@@ -506,7 +493,6 @@ const entities = {
 		},
 		marieShaderFlying: {
 			name: "marieShaderFlying",
-			// fbxPath: "./assets/3d/persos/link.fbx",
 			fbxPath: "./assets/3d/persos/marie/marie.fbx",
 			infos: {
 				scale: 0.0012,
@@ -532,7 +518,6 @@ const entities = {
 		},
 		queen: {
 			name: "queen",
-			// fbxPath: "./assets/3d/persos/queen.fbx",
 			fbxPath: "./assets/3d/persos/realqueen/realqueen.fbx",
 			infos: {
 				scale: 0.0012,
@@ -548,7 +533,6 @@ const entities = {
 		},
 		queenShader: {
 			name: "queenShader",
-			// fbxPath: "./assets/3d/persos/queen.fbx",
 			fbxPath: "./assets/3d/persos/realqueen/realqueen.fbx",
 			infos: {
 				scale: 0.0012,
@@ -571,7 +555,6 @@ const entities = {
 		
 		queenShaderFlying: {
 			name: "queenShaderFlying",
-			// fbxPath: "./assets/3d/persos/queen.fbx",
 			fbxPath: "./assets/3d/persos/realqueen/realqueen.fbx",
 			infos: {
 				scale: 0.0012,
@@ -597,7 +580,6 @@ const entities = {
 		},
 		queenFinal: {
 			name: "queenFinal",
-			// fbxPath: "./assets/3d/persos/queen.fbx",
 			fbxPath: "./assets/3d/persos/realqueen/realqueen-final2.fbx",
 			infos: {
 				scale: 0.0012,
