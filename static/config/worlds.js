@@ -110,13 +110,13 @@ const worlds = [
 				{
 					type: "fireflies",
 					count: 250,
-					particleSize: 30,
+					particleSize: 20,
 					additive: true,
 					timeRatio: 36.0,
 					blockSize: {
-						x: 3,
-						y: 2,
-						z: 2
+						x: 1.5,
+						y: 1.5,
+						z: 1.5
 					}
 				}
 			],
@@ -176,13 +176,13 @@ const worlds = [
 				},
 
 				fog: {
-					enabled: false,
+					enabled: true,
 					color: "#000000",
 					intensity: .25
 				},
 
 				tubeInfos: {
-					duration: 18,
+					duration: 12,
 					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
 					isUsingTarget: true,
 					steps: [
@@ -722,7 +722,7 @@ const worlds = [
 
 				type: "blender-points",
 
-				until: 94.4,
+				until: 93.85,
 				nextInstruction: "switch-sequence",
 
 				cameraInvert: {
@@ -881,13 +881,13 @@ const worlds = [
 						},
 						{
 							// this amount is a percent of the global duration
-							amount: 30,
+							amount: 33,
 							fov: 55,
 							stepEase: "easeInOut"
 						},
 						{
 							// this amount is a percent of the global duration
-							amount: 15,
+							amount: 32,
 							fov: 5,
 							stepEase: "easeIn"
 						},
@@ -1429,7 +1429,7 @@ const worlds = [
 					y: false
 				},
 
-				until: 79.1,
+				until: 78.9,
 				nextInstruction: "switch-sequence",
 
 				animatedMesh: false,
@@ -1739,15 +1739,15 @@ const worlds = [
 							radius: 0.07
 						}
 					},
-					{
-						type: "blur",
-						focusTarget: "marieShine",
-						value: {
-							focus: 1,
-							aperture: 0.0025,
-							maxblur: 0.3
-						}
-					},
+					// {
+					// 	type: "blur",
+					// 	focusTarget: "marieShine",
+					// 	value: {
+					// 		focus: 1,
+					// 		aperture: 0.0025,
+					// 		maxblur: 0.3
+					// 	}
+					// },
 
 				]
 
