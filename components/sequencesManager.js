@@ -5,7 +5,7 @@ import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 
 class SequencesManager{
 
-	constructor(sceneBundle, cinema, renderer, clock, canvasSizeRef, mousePos, vm){
+	constructor(sceneBundle, cinema, renderer, clock, canvasSizeRef, vm){
 
 		this.sceneBundlePassed = sceneBundle;
 		this.name = sceneBundle.name;
@@ -17,13 +17,13 @@ class SequencesManager{
 		this.currentSequenceID = null;
 		this.currentBobName = null;
 		this.currentAliceName = null;
-		this.mousePos = mousePos;
 		this.isPlaying = false;
 		this.bobHandleGround = true;
 		this.vm = vm;
 		this.stickedBobInputs = {};
 		this.isCurrentlyTransitionning = false;
 		this.axes = ["x", "y", "z"];
+		this.isChoiceScene = false;
 
 		this.currentSequenceElements = null;
 
@@ -713,6 +713,11 @@ class SequencesManager{
 			
 		}
 
+		// if choice is active
+		if( this.isChoiceScene ){
+			this.handleMouseDuringChoice(currentMousePos.x)
+		}
+
 	}
 
 	focusTargetAndBlurTheRestHandler(){
@@ -732,10 +737,11 @@ class SequencesManager{
 		console.log("initiEventualSpecialEvents : ", this.currentSequenceElements)
 
 		if( !this.currentSequenceElements.choiceSequence ){ return }
-
-		document.addEventListener("keydown", event => this.choiceHandler(event));
-
+				
+		// document.addEventListener("keydown", event => this.choiceHandler(event));
+		
 		setTimeout(()=> {
+			this.isChoiceScene = true;
 			this.choiceHandler({key: "q"});
 			this.vm.$store.state.audioLoopNeutral.volume(0)
 			this.vm.$store.state.audioLoopNeutral.stop()
@@ -750,10 +756,9 @@ class SequencesManager{
 		const offsetDecay = 0.015
 		let choiceState
 
-		switch(event.key){
+		switch(event.key.toLowerCase()){
 
 			case "d":
-			case "D":
 				console.log("ok go right")
 
 				choiceState = "right"
@@ -762,7 +767,6 @@ class SequencesManager{
 			break;
 				
 			case "q":
-			case "Q":
 				console.log("ok go left")
 
 				choiceState = "left"
@@ -784,6 +788,18 @@ class SequencesManager{
 				break;
 		}
 		
+	}
+
+	handleMouseDuringChoice(currentMousePosX){
+
+		if( currentMousePosX > 0 ){
+			this.choiceHandler({ key: "d"})
+		} 
+		
+		if( currentMousePosX < 0 ){
+			this.choiceHandler({ key: "q"})
+		}
+
 	}
 
 	

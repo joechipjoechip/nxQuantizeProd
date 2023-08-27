@@ -282,7 +282,6 @@
 					this.renderer,
 					this.clock,
 					this.canvasSizeRef,
-					this.viewPos,
 					this
 				);
 

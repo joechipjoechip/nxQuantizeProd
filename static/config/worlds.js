@@ -448,8 +448,8 @@ const worlds = [
 
 				fog: {
 					enabled: false,
-					color: "#0D063B",
-					intensity: .15
+					color: "#22ffa2",
+					intensity: 15
 				},
 
 				bobImposedMoves: {
@@ -553,28 +553,6 @@ const worlds = [
 
 				slowmo: 1.9,
 
-				// alice: {
-				// 	handleGround: false,
-				// 	name: "queenShader",
-				// 	move: {
-				// 		floating: true
-				// 	},
-				// 	offset: {
-				// 		x: 0,
-				// 		y: -0.01,
-				// 		z: 0
-				// 	},
-				// 	scale: 0.035,
-				// 	slowmo: 9,
-				// 	customShaderOptions: {
-				// 		shaderTimeRatio: 0.5,
-				// 		shaderTimeDecay: 5,
-				// 		isCameraPositionInfluenced: false,
-				// 		sin: false,
-				// 		sinAmplitude: 60
-				// 	}
-				// },
-
 				postproc: [
 					{
 						type: "bloom",
@@ -583,16 +561,7 @@ const worlds = [
 							threshold: 0.00035,
 							radius: 0.7
 						}
-					},
-					// {
-					// 	type: "blur",
-					// 	focusTarget: "link",
-					// 	value: {
-					// 		focus: 1,
-					// 		aperture: 0.025,
-					// 		maxblur: 0.008
-					// 	}
-					// },
+					}
 				]
 
 			},
@@ -608,7 +577,7 @@ const worlds = [
 				cameraTriggerTimeDecay: 6,
 				cameraType: "movingHips-lookUp-xDecayed",
 
-				until: 65,
+				until: 64.58,
 				nextInstruction: "switch-scene",
 
 				animatedMesh: false,
@@ -621,8 +590,8 @@ const worlds = [
 
 				fog: {
 					enabled: false,
-					color: "#0D063B",
-					intensity: .3
+					color: "#22ffa2",
+					intensity: 15
 				},
 
 				bobImposedMoves: {
@@ -636,7 +605,9 @@ const worlds = [
 					handleGround: false,
 					name: "queenShader",
 					move: {
-						floating: true
+						floating: true,
+						left: false,
+						right: false
 					},
 					offset: {
 						x: 0,
@@ -678,7 +649,7 @@ const worlds = [
 				cameraTriggerTimeDecay: 6,
 				cameraType: "movingHips-lookUp",
 
-				until: 90.5,
+				until: 91,
 				nextInstruction: "switch-sequence",
 
 				animatedMesh: false,
@@ -703,13 +674,15 @@ const worlds = [
 					enjoy: true
 				},
 
-				slowmo: 1.3,
+				slowmo: 1.1,
 
 				alice: {
 					handleGround: false,
 					name: "queenShader",
 					move: {
-						floating: true
+						floating: true,
+						left: false,
+						right: false
 					},
 					offset: {
 						x: 0,
@@ -749,7 +722,7 @@ const worlds = [
 
 				type: "blender-points",
 
-				until: 94.7,
+				until: 94.4,
 				nextInstruction: "switch-sequence",
 
 				cameraInvert: {
@@ -779,13 +752,15 @@ const worlds = [
 					enjoy: true
 				},
 
-				slowmo: 1.4,
+				slowmo: 1.1,
 
 				alice: {
 					handleGround: false,
 					name: "queenShader",
 					move: {
-						floating: true
+						floating: true,
+						left: false,
+						right: false
 					},
 					offset: {
 						x: 0,
@@ -804,7 +779,7 @@ const worlds = [
 				},
 
 				tubeInfos: {
-					duration: 7,
+					duration: 6,
 					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
 					isUsingTarget: true,
 					steps: [
@@ -906,13 +881,13 @@ const worlds = [
 						},
 						{
 							// this amount is a percent of the global duration
-							amount: 20,
+							amount: 30,
 							fov: 55,
 							stepEase: "easeInOut"
 						},
 						{
 							// this amount is a percent of the global duration
-							amount: 25,
+							amount: 15,
 							fov: 5,
 							stepEase: "easeIn"
 						},
@@ -1114,9 +1089,9 @@ const worlds = [
 				},
 
 				fog: {
-					enabled: false,
-					color: "#0D063B",
-					intensity: .55
+					enabled: true,
+					color: "#22ffa2",
+					intensity: .15
 				},
 
 				bobImposedMoves: {
@@ -1130,7 +1105,9 @@ const worlds = [
 					handleGround: false,
 					name: "queenShader",
 					move: {
-						floating: true
+						floating: true,
+						left: false,
+						right: false
 					},
 					offset: {
 						x: 0,
@@ -1210,16 +1187,18 @@ const worlds = [
 				},
 
 				fog: {
-					enabled: false,
-					color: "#0D063B",
-					intensity: .4
+					enabled: true,
+					color: "#22ffa2",
+					intensity: .15
 				},
 
 				alice: {
 					handleGround: false,
 					name: "queenShader",
 					move: {
-						floating: true
+						floating: true,
+						left: false,
+						right: false
 					},
 					offset: {
 						x: 0,
@@ -1249,7 +1228,7 @@ const worlds = [
 					{
 						type: "bloom",
 						value: {
-							strength: 0.8,
+							strength: 0.6,
 							threshold: 0.00035,
 							radius: 0.7
 						}
@@ -1275,7 +1254,7 @@ const worlds = [
 				sequenceBobName: "marie",
 
 				type: "third-person",
-				cameraTriggerTimeDecay: 3,
+				cameraTriggerTimeDecay: 6,
 				cameraType: "movingHips-lookUp",
 
 				// drop du run ! timer
@@ -1292,9 +1271,9 @@ const worlds = [
 				},
 
 				fog: {
-					enabled: false,
-					color: "#0D063B",
-					intensity: .4
+					enabled: true,
+					color: "#22ffa2",
+					intensity: .3
 				},
 
 				slowmo: 1.4,
@@ -1309,7 +1288,9 @@ const worlds = [
 					handleGround: false,
 					name: "queenShader",
 					move: {
-						floating: true
+						floating: true,
+						left: false,
+						right: false
 					},
 					offset: {
 						x: 0,
@@ -1332,7 +1313,7 @@ const worlds = [
 					{
 						type: "bloom",
 						value: {
-							strength: 0.8,
+							strength: 0.6,
 							threshold: 0.00035,
 							radius: 0.7
 						}
@@ -1373,16 +1354,18 @@ const worlds = [
 				},
 
 				fog: {
-					enabled: false,
-					color: "#0D063B",
-					intensity: .4
+					enabled: true,
+					color: "#22ffa2",
+					intensity: .2
 				},
 
 				alice: {
 					handleGround: false,
 					name: "queenShader",
 					move: {
-						floating: true
+						floating: true,
+						left: false,
+						right: false
 					},
 					offset: {
 						x: 0,
@@ -1435,7 +1418,7 @@ const worlds = [
 			},
 			{
 				id: "4.8",
-				baseFov: 40,
+				baseFov: 20,
 				fovTransition: false,
 				sequenceBobName: "marie",
 
@@ -1458,16 +1441,18 @@ const worlds = [
 				},
 
 				fog: {
-					enabled: false,
-					color: "#0D063B",
-					intensity: .4
+					enabled: true,
+					color: "#22ffa2",
+					intensity: .15
 				},
 
 				alice: {
 					handleGround: false,
 					name: "queenShader",
 					move: {
-						floating: true
+						floating: true,
+						left: false,
+						right: false
 					},
 					offset: {
 						x: 0,
@@ -1495,7 +1480,7 @@ const worlds = [
 				},
 
 				tubeInfos: {
-					duration: 12,
+					duration: 8,
 					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
 					isUsingTarget: "marie",
 					steps: [
@@ -1503,9 +1488,21 @@ const worlds = [
 						// n has nothing to do with the number of points for the curve
 						{
 							// this amount is a percent of the global duration
-							amount: 100,
+							amount: 25,
 							fov: 90,
-							stepEase: "linear"
+							stepEase: "easeInOut"
+						},
+						{
+							// this amount is a percent of the global duration
+							amount: 20,
+							fov: 25,
+							stepEase: "easeIn"
+						},
+						{
+							// this amount is a percent of the global duration
+							amount: 55,
+							fov: 85,
+							stepEase: "easeOut"
 						},
 
 					]
@@ -1557,16 +1554,18 @@ const worlds = [
 				},
 
 				fog: {
-					enabled: false,
-					color: "#0D063B",
-					intensity: .4
+					enabled: true,
+					color: "#22ffa2",
+					intensity: .35
 				},
 
 				alice: {
 					handleGround: false,
 					name: "queenShader",
 					move: {
-						floating: true
+						floating: true,
+						left: false,
+						right: false
 					},
 					offset: {
 						x: 0,
@@ -1785,10 +1784,10 @@ const worlds = [
 					name: "linkShaderPlastic",
 					move: {
 						// floating: true
-						// shift: false,
+						shift: false,
 						forward: true,
-						// left: false,
-						// right: false
+						left: false,
+						right: false
 					},
 					customShaderOptions: {
 						shaderTimeRatio: 0.8,
@@ -1803,14 +1802,15 @@ const worlds = [
 						z: 0
 					},
 					scale: 0.015,
-					slowmo: 2,
+					slowmo: 2.8,
 				},
 
 				bobImposedMoves: {
-					forward: true
+					forward: true,
+					shift: true
 				},
 
-				slowmo: 1.8,
+				slowmo: 2.8,
 
 				postproc: [
 
@@ -1837,13 +1837,13 @@ const worlds = [
 			},
 			{
 				id: "7.13",
-				baseFov: 5,
+				baseFov: 120,
 				fovTransition: false,
 				sequenceBobName: "link",
 
 				type: "blender-points",
 
-				until: 143.9,
+				until: 142.9,
 				nextInstruction: "drop-and-load-and-switch",
 
 				animatedMesh: false,
@@ -1882,27 +1882,15 @@ const worlds = [
 						
 						{
 							// this amount is a percent of the global duration
-							amount: 5,
-							fov: 100,
-							stepEase: "easeInOut"
-						},
-						{
-							// this amount is a percent of the global duration
-							amount: 5,
-							fov: 30,
-							stepEase: "easeInOut"
-						},
-						{
-							// this amount is a percent of the global duration
-							amount: 5,
-							fov: 120,
+							amount: 25,
+							fov: 20,
 							stepEase: "easeInOut"
 						},
 						
 						{
 							// this amount is a percent of the global duration
-							amount: 85,
-							fov: 25,
+							amount: 75,
+							fov: 55,
 							stepEase: "easeInOut"
 						},
 
@@ -2167,12 +2155,6 @@ const worlds = [
 					timelines: false
 				},
 
-				// landscapeMove: {
-				// 	x: 0,
-				// 	y: 0.0015,
-				// 	z: -0.0015
-				// },
-
 				fog: {
 					enabled: false,
 					color: "#ffffff",
@@ -2184,41 +2166,13 @@ const worlds = [
 					forward: true,
 					backward: false,
 					left: false,
-					right: false
+					right: false,
+					shift: false
 				},
-
-				// alice: {
-				// 	handleGround: true,
-				// 	name: "link",
-				// 	move: {
-				// 		enjoy: true,
-				// 		forward: false,
-				// 		shift: false,
-				// 		left: false,
-				// 		right: false,
-				// 		backward: false,
-				// 		dance: false,
-				// 	},
-				// 	offset: {
-				// 		x: 0,
-				// 		y: 0,
-				// 		z: 0
-				// 	},
-				// 	scale: 0.0024,
-				// 	slowmo: 1,
-				// },
 
 				slowmo: 1.6,
 
 				postproc: [
-					// {
-					// 	type: "bloom",
-					// 	value: {
-					// 		strength: 0.7,
-					// 		threshold: 0.0000000035,
-					// 		radius: 0.7
-					// 	}
-					// },
 					{
 						type: "blur",
 						focusTarget: "queenFinal",
