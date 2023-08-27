@@ -177,7 +177,7 @@ class PrimaryLoadManager{
 	
 								})
 	
-							} 
+							}
 							// else {
 							// 	console.log("material solo : ", c.material.name)
 							// }
@@ -200,7 +200,10 @@ class PrimaryLoadManager{
 
 					const targetMesh = target.children.find(child => child.name !== "Armature");
 
-					targetMesh.material = new CustomShaderBuilder(shaderInfos);
+					if( targetMesh && targetMesh.material ){
+						targetMesh.material = new CustomShaderBuilder(shaderInfos);
+					}
+
 
 				}
 

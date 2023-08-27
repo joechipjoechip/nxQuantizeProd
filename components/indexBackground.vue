@@ -56,7 +56,7 @@
                     perspectiveCameraBasePosition: [0,0,3.5],
 
                     render: {
-                        bgColor: "#0049ff"
+                        bgColor: "#346eff"
                     },
 
                     model: {
@@ -120,7 +120,7 @@
                         },
                         afterImage: {
                             min: 0.7,
-                            max: 0.97,
+                            max: 0.985,
                             durationOpen: 4,
                             durationClose: 2,
                             tweenNameOpen: "afterImageTweenOpen",
@@ -161,8 +161,6 @@
             }
         },
         mounted(){
-
-            console.log("mounted");
 
             this.$nuxt.$on("view-update-by-stick", this.mouseUpdate);
 
@@ -335,8 +333,6 @@
                                     if( c.material.length ){
             
                                         c.material.forEach((child, index) => {
-            
-                                            console.log("material : ", child.name)
             
                                             if( child.name.includes("emissive") ){
 

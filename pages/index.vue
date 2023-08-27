@@ -11,7 +11,7 @@
 
 			<index-body class="body" />
 	
-			<component is="indexBackground" class="background" :canvasSizeRef="canvasSizeRef" />
+			<component :is="'indexBackground'" class="background" :canvasSizeRef="canvasSizeRef" />
 	
 			<mouse-handler
 				:canvasSizeRef="canvasSizeRef"
@@ -20,7 +20,7 @@
 		</div>
 
 		<div v-if="!primalCurtainIsDisplayed && backgroundIsLaunched" v-show="!isAtEntrance">
-			<component is="cinemaNew" />
+			<component :is="'cinemaNew'" />
 		</div>
 
 	</div>

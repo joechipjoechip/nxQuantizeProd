@@ -110,7 +110,7 @@ const worlds = [
 				{
 					type: "fireflies",
 					count: 250,
-					particleSize: 20,
+					particleSize: 30,
 					additive: true,
 					timeRatio: 36.0,
 					blockSize: {
@@ -584,15 +584,15 @@ const worlds = [
 							radius: 0.7
 						}
 					},
-					{
-						type: "blur",
-						focusTarget: "link",
-						value: {
-							focus: 1,
-							aperture: 0.025,
-							maxblur: 0.008
-						}
-					},
+					// {
+					// 	type: "blur",
+					// 	focusTarget: "link",
+					// 	value: {
+					// 		focus: 1,
+					// 		aperture: 0.025,
+					// 		maxblur: 0.008
+					// 	}
+					// },
 				]
 
 			},
@@ -670,7 +670,7 @@ const worlds = [
 			},
 			{
 				id: "5.9",
-				baseFov: 35,
+				baseFov: 30,
 				fovTransition: false,
 				sequenceBobName: "link",
 
@@ -678,7 +678,7 @@ const worlds = [
 				cameraTriggerTimeDecay: 6,
 				cameraType: "movingHips-lookUp",
 
-				until: 93.9,
+				until: 90.5,
 				nextInstruction: "switch-sequence",
 
 				animatedMesh: false,
@@ -749,7 +749,7 @@ const worlds = [
 
 				type: "blender-points",
 
-				until: 97.3,
+				until: 94.7,
 				nextInstruction: "switch-sequence",
 
 				cameraInvert: {
@@ -804,7 +804,7 @@ const worlds = [
 				},
 
 				tubeInfos: {
-					duration: 80,
+					duration: 7,
 					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
 					isUsingTarget: true,
 					steps: [
@@ -813,7 +813,7 @@ const worlds = [
 						{
 							// this amount is a percent of the global duration
 							amount: 100,
-							fov: 25,
+							fov: 18,
 							stepEase: "linear"
 						},
 
@@ -836,7 +836,7 @@ const worlds = [
 			},
 			{
 				id: "5.11",
-				baseFov: 40,
+				baseFov: 90,
 				fovTransition: false,
 				sequenceBobName: "link",
 
@@ -892,7 +892,7 @@ const worlds = [
 				},
 
 				tubeInfos: {
-					duration: 3,
+					duration: 7,
 					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
 					isUsingTarget: true,
 					steps: [
@@ -900,9 +900,21 @@ const worlds = [
 						// n has nothing to do with the number of points for the curve
 						{
 							// this amount is a percent of the global duration
-							amount: 100,
-							fov: 15,
-							stepEase: "linear"
+							amount: 35,
+							fov: 25,
+							stepEase: "easeInOut"
+						},
+						{
+							// this amount is a percent of the global duration
+							amount: 20,
+							fov: 55,
+							stepEase: "easeInOut"
+						},
+						{
+							// this amount is a percent of the global duration
+							amount: 25,
+							fov: 5,
+							stepEase: "easeIn"
 						},
 
 					]
@@ -1423,15 +1435,15 @@ const worlds = [
 			},
 			{
 				id: "4.8",
-				baseFov: 25,
+				baseFov: 40,
 				fovTransition: false,
 				sequenceBobName: "marie",
 
 				type: "blender-points",
 				// type: "fake-orbit",
 				cameraInvert: {
-					x: false,
-					y: true
+					x: true,
+					y: false
 				},
 
 				until: 79.1,
@@ -1663,7 +1675,7 @@ const worlds = [
 
 			{
 				id: "5.12",
-				baseFov: 32,
+				baseFov: 15,
 				fovTransition: true,
 				sequenceBobName: "linkShine",
 				bobRestoreSize: 0.0009,
@@ -1751,7 +1763,7 @@ const worlds = [
 				cameraTriggerTimeDecay: 5,
 				cameraType: "movingHips-lookUp",
 
-				until: 129.5,
+				until: 134,
 				nextInstruction: "switch-sequence",
 
 				animatedMesh: false,
@@ -1791,14 +1803,14 @@ const worlds = [
 						z: 0
 					},
 					scale: 0.015,
-					slowmo: 1.5,
+					slowmo: 2,
 				},
 
 				bobImposedMoves: {
 					forward: true
 				},
 
-				slowmo: 1.5,
+				slowmo: 1.8,
 
 				postproc: [
 
@@ -1810,22 +1822,22 @@ const worlds = [
 							radius: 0.7
 						}
 					},
-					{
-						type: "blur",
-						focusTarget: "linkShaderPlastic",
-						value: {
-							focus: 1,
-							aperture: 0.025,
-							maxblur: 0.015
-						}
-					},
+					// {
+					// 	type: "blur",
+					// 	focusTarget: "linkShaderPlastic",
+					// 	value: {
+					// 		focus: 1,
+					// 		aperture: 0.025,
+					// 		maxblur: 0.015
+					// 	}
+					// },
 
 				]
 
 			},
 			{
 				id: "7.13",
-				baseFov: 100,
+				baseFov: 5,
 				fovTransition: false,
 				sequenceBobName: "link",
 
@@ -1854,17 +1866,44 @@ const worlds = [
 				},
 
 				tubeInfos: {
-					duration: 15,
+					duration: 11,
 					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
 					isUsingTarget: true,
 					steps: [
 						// n steps are possibles
 						// n has nothing to do with the number of points for the curve
+						// {
+						// 	// this amount is a percent of the global duration
+						// 	amount: 100,
+						// 	fov: 20,
+						// 	stepEase: "linear"
+						// },
+
+						
 						{
 							// this amount is a percent of the global duration
-							amount: 100,
-							fov: 20,
-							stepEase: "linear"
+							amount: 5,
+							fov: 100,
+							stepEase: "easeInOut"
+						},
+						{
+							// this amount is a percent of the global duration
+							amount: 5,
+							fov: 30,
+							stepEase: "easeInOut"
+						},
+						{
+							// this amount is a percent of the global duration
+							amount: 5,
+							fov: 120,
+							stepEase: "easeInOut"
+						},
+						
+						{
+							// this amount is a percent of the global duration
+							amount: 85,
+							fov: 25,
+							stepEase: "easeInOut"
 						},
 
 					]
@@ -1875,10 +1914,10 @@ const worlds = [
 					name: "linkShader",
 					move: {
 						floating: true,
-						// shift: false,
 						forward: false,
-						// left: false,
-						// right: false
+						left: false,
+						right: true,
+						shift: false
 					},
 					customShaderOptions: {
 						shaderTimeRatio: 0.8,
@@ -1898,7 +1937,9 @@ const worlds = [
 
 				bobImposedMoves: {
 					forward: false,
-					floating: true
+					floating: true,
+					left: false,
+					right: true
 				},
 
 				slowmo: 3.5,
