@@ -764,7 +764,7 @@ const worlds = [
 					},
 					offset: {
 						x: 0,
-						y: -0.25,
+						y: -0.275,
 						z: 0
 					},
 					scale: 0.03,
@@ -875,19 +875,19 @@ const worlds = [
 						// n has nothing to do with the number of points for the curve
 						{
 							// this amount is a percent of the global duration
-							amount: 35,
+							amount: 32,
 							fov: 25,
 							stepEase: "easeInOut"
 						},
 						{
 							// this amount is a percent of the global duration
-							amount: 33,
+							amount: 25,
 							fov: 55,
 							stepEase: "easeInOut"
 						},
 						{
 							// this amount is a percent of the global duration
-							amount: 32,
+							amount: 43,
 							fov: 5,
 							stepEase: "easeIn"
 						},
@@ -1674,7 +1674,7 @@ const worlds = [
 
 			{
 				id: "5.12",
-				baseFov: 15,
+				baseFov: 23,
 				fovTransition: true,
 				sequenceBobName: "linkShine",
 				bobRestoreSize: 0.0009,
@@ -1966,9 +1966,9 @@ const worlds = [
 
 		main: {
 
-			spaceColor: "#FFFFFF",
-			spaceColorDarker: "#FFFFFF",
-			spaceColorWithBloom: "#FFFFFF",
+			spaceColor: "#05000b",
+			spaceColorDarker: "#05000b",
+			spaceColorWithBloom: "#05000b",
 
 			ambient: {
 				sunColor: "#eeeeee",
@@ -1981,6 +1981,21 @@ const worlds = [
 				color: 0xff9500,
 				intensity: .15
 			},
+
+			particles: [
+				{
+					type: "fireflies",
+					count: 250,
+					particleSize: 25,
+					additive: true,
+					timeRatio: 36.0,
+					blockSize: {
+						x: 16,
+						y: 16,
+						z: 15
+					}
+				}
+			],
 
 			meshInfos: {
 
@@ -1997,7 +2012,7 @@ const worlds = [
 				id: "7.14",
 				baseFov: 23,
 				fovTransition: true,
-				sequenceBobName: "marieShine",
+				sequenceBobName: "marie",
 				bobRestoreSize: 0.00075,
 
 				type: "third-person",
@@ -2027,8 +2042,8 @@ const worlds = [
 
 				fog: {
 					enabled: true,
-					color: "#ffffff",
-					intensity: .14
+					color: "#05000b",
+					intensity: .06
 				},
 
 				bobImposedMoves: {
@@ -2045,7 +2060,7 @@ const worlds = [
 				
 				alice: {
 					handleGround: false,
-					name: "linkShine",
+					name: "linkShineEyes",
 					move: {
 						prayup: true,
 						shift: false,
@@ -2057,7 +2072,7 @@ const worlds = [
 						y: -6.4,
 						z: -0.8
 					},
-					scale: 0.19,
+					scale: 0.165,
 					slowmo: 2,
 					// customShaderOptions: {
 					// 	shaderTimeRatio: 1.8,
@@ -2072,20 +2087,20 @@ const worlds = [
 					{
 						type: "bloom",
 						value: {
-							strength: .25,
+							strength: .4,
 							threshold: 0.0004,
-							radius: 0.7
+							radius: 0.45
 						}
 					},
-					{
-						type: "blur",
-						focusTarget: "marieShine",
-						value: {
-							focus: 1,
-							aperture: 0.015,
-							maxblur: 0.0038
-						}
-					},
+					// {
+					// 	type: "blur",
+					// 	focusTarget: "marieShine",
+					// 	value: {
+					// 		focus: 1,
+					// 		aperture: 0.015,
+					// 		maxblur: 0.0038
+					// 	}
+					// },
 				]
 
 			},
@@ -2195,9 +2210,9 @@ const worlds = [
 
 		main: {
 
-			spaceColor: "#000000",
-			spaceColorDarker: "#000000",
-			spaceColorWithBloom: "#000000",
+			spaceColor: "#05000b",
+			spaceColorDarker: "#05000b",
+			spaceColorWithBloom: "#05000b",
 
 			ambient: {
 				sunColor: "#FF5A00",
@@ -2219,6 +2234,21 @@ const worlds = [
 					landscape: "/assets/3d/worlds/mirror/mirrorBake.jpg"
 				}
 			},
+
+			particles: [
+				{
+					type: "fireflies",
+					count: 350,
+					particleSize: 25,
+					additive: true,
+					timeRatio: 36.0,
+					blockSize: {
+						x: 4,
+						y: 4,
+						z: 2
+					}
+				}
+			],
 
 		},
 

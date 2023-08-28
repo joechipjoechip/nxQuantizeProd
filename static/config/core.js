@@ -837,8 +837,8 @@ const core = {
 		movingFly: {
 			offset: {
 				x: -0.01,
-				y: 0.035,
-				z: -0.04
+				y: 0.038,
+				z: -0.038
 			},
 			lookAt: {
 				x: 0,

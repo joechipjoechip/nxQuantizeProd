@@ -276,10 +276,10 @@ const entities = {
 				},
 				shader: {
 					shaderName: "bobShader",
-					shaderScale: 2,
-					shaderAxe: "xy",
+					shaderScale: 7,
+					shaderAxe: "zy",
 					specificShaderName: "galaxy",
-					shaderTimeRatio: 4.5,
+					shaderTimeRatio: 1.5,
 					isCameraPositionInfluenced: false,
 					sin: false,
 					sinAmplitude: 5260
