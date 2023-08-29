@@ -237,7 +237,7 @@
 
                 this.renderer = new THREE.WebGLRenderer({
                     canvas: this.$refs.canvasIndex,
-                    antialias: true
+                    // antialias: true
                 });
 
                 this.renderer.setSize(this.canvasSizeRef.width, this.canvasSizeRef.height);

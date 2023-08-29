@@ -1676,7 +1676,7 @@ const worlds = [
 				id: "5.12",
 				baseFov: 23,
 				fovTransition: true,
-				sequenceBobName: "linkShine",
+				sequenceBobName: "link",
 				bobRestoreSize: 0.0009,
 
 				type: "third-person",
@@ -1702,7 +1702,7 @@ const worlds = [
 
 				alice: {
 					handleGround: true,
-					name: "marieShine",
+					name: "marie",
 					move: {
 						hiphop: true
 					},
@@ -1741,7 +1741,7 @@ const worlds = [
 					},
 					// {
 					// 	type: "blur",
-					// 	focusTarget: "marieShine",
+					// 	focusTarget: "marie",
 					// 	value: {
 					// 		focus: 1,
 					// 		aperture: 0.0025,
@@ -1817,9 +1817,9 @@ const worlds = [
 					{
 						type: "bloom",
 						value: {
-							strength: 0.7,
+							strength: 0.45,
 							threshold: 0.0035,
-							radius: 0.7
+							radius: 0.5
 						}
 					},
 					// {
@@ -1899,7 +1899,7 @@ const worlds = [
 
 				alice: {
 					handleGround: false,
-					name: "linkShader",
+					name: "linkShaderPlastic",
 					move: {
 						floating: true,
 						forward: false,
@@ -2060,7 +2060,7 @@ const worlds = [
 				
 				alice: {
 					handleGround: false,
-					name: "linkShineEyes",
+					name: "linkShaderFlying",
 					move: {
 						prayup: true,
 						shift: false,
@@ -2074,13 +2074,12 @@ const worlds = [
 					},
 					scale: 0.165,
 					slowmo: 2,
-					// customShaderOptions: {
-					// 	shaderTimeRatio: 1.8,
-					// 	shaderTimeDecay: 5,
-					// 	isCameraPositionInfluenced: false,
-					// 	sin: false,
-					// 	sinAmplitude: 60
-					// }
+					customShaderOptions: {
+						shaderTimeRatio: 0.18,
+						shaderTimeDecay: 20,
+						sin: false,
+						sinAmplitude: 60
+					}
 				},
 
 				postproc: [
@@ -2094,7 +2093,7 @@ const worlds = [
 					},
 					// {
 					// 	type: "blur",
-					// 	focusTarget: "marieShine",
+					// 	focusTarget: "marie",
 					// 	value: {
 					// 		focus: 1,
 					// 		aperture: 0.015,
@@ -2121,8 +2120,8 @@ const worlds = [
 			ambient: {
 				sunColor: "#000000",
 				// intensity: 0.17,
-				intensity: 0,
-				groundColor: "#ffffff"
+				intensity: 0.15,
+				groundColor: "#7400FF"
 			},
 
 			fog: {
@@ -2139,6 +2138,22 @@ const worlds = [
 				}
 			},
 
+			particles: [
+				{
+					type: "fireflies",
+					count: 550,
+					particleSize: 25,
+					additive: true,
+					timeRatio: 400.0,
+					blockSize: {
+						x: 3,
+						y: 3,
+						z: 3
+					}
+				}
+			],
+
+
 		},
 
 		sequences: [
@@ -2146,7 +2161,7 @@ const worlds = [
 				id: "7.15",
 				baseFov: 22,
 				fovTransition: true,
-				sequenceBobName: "queenFinal",
+				sequenceBobName: "marie",
 				bobRestoreSize: 0.0012,
 
 				type: "third-person",
@@ -2157,10 +2172,6 @@ const worlds = [
 				nextInstruction: "switch-sequence",
 
 				choiceSequence: true,
-
-				// customShaderOptions: {
-				// 	timeRatio: 2.15
-				// },
 
 				animatedMesh: false,
 
@@ -2187,10 +2198,30 @@ const worlds = [
 
 				slowmo: 1.6,
 
+				alice: {
+					handleGround: true,
+					name: "link",
+					move: {
+						fly: false,
+						forward: true,
+						backward: false,
+						left: false,
+						right: false,
+						shift: false
+					},
+					offset: {
+						x: 0,
+						y: 0,
+						z: 0
+					},
+					scale: 0.0012,
+					slowmo: 1.2
+				},
+
 				postproc: [
 					{
 						type: "blur",
-						focusTarget: "queenFinal",
+						focusTarget: "link",
 						value: {
 							focus: 1,
 							aperture: 0.035,
@@ -2257,7 +2288,7 @@ const worlds = [
 				id: "7.16",
 				baseFov: 28,
 				fovTransition: true,
-				sequenceBobName: "linkShineEyes",
+				sequenceBobName: "link",
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 45,
@@ -2300,7 +2331,7 @@ const worlds = [
 
 				alice: {
 					handleGround: true,
-					name: "marieShineEyes",
+					name: "marie",
 					move: {
 						forward: true,
 						shift: false,

@@ -231,6 +231,12 @@
 					this.$store.state.audioCurrent.play();
 
 				}
+			},
+
+			badCpuSpotted( newVal ){
+				if( newVal ){
+					this.setDownScale(3)
+				}
 			}
 
 		},
@@ -371,7 +377,7 @@
 				this.renderer = new THREE.WebGLRenderer({
 					canvas: this.$refs.canvas,
 					// antialias : ne peut pas être déclaré en dehors de l'instanciation
-					antialias: true
+					// antialias: true
 				});
 
 				this.renderer.setSize(this.canvasSizeRef.width, this.canvasSizeRef.height);
@@ -384,7 +390,7 @@
 
 				this.renderer.shadowMap.enabled = true;
 
-				this.renderer.shadowMap.type = THREE.PCFShadowMap;
+				// this.renderer.shadowMap.type = THREE.PCFShadowMap;
 
 				this.clock = new THREE.Clock();
 
@@ -401,9 +407,11 @@
 				if( this.deltaTime >= this.frameRate ){
 					// console.log("act render");
 					
-					this.computeFPS();
 					
-					this.handleFpsAndDownScaling();
+					if( !this.badCpuSpotted ){
+						this.computeFPS();
+						this.handleFpsAndDownScaling();
+					}
 
 					this.checkCurrentTime();
 	

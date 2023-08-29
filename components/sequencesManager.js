@@ -759,7 +759,7 @@ class SequencesManager{
 		switch(event.key.toLowerCase()){
 
 			case "d":
-				console.log("ok go right")
+				// console.log("ok go right")
 
 				choiceState = "right"
 				camera._specs.lookAt.x = lookAtDecay * -1
@@ -767,7 +767,7 @@ class SequencesManager{
 			break;
 				
 			case "q":
-				console.log("ok go left")
+				// console.log("ok go left")
 
 				choiceState = "left"
 				camera._specs.lookAt.x = lookAtDecay
