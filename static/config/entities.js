@@ -51,51 +51,6 @@ const entities = {
 				}
 			}
 		},
-		// linkShineEyes: {
-		// 	name: "linkShineEyes",
-		// 	fbxPath: "./assets/3d/persos/joseph/joseph.fbx",
-		// 	infos: {
-		// 		scale: 0.0012,
-		// 		// scale: 1,z
-		// 		velocity: {
-		// 			// x & z -> displacement
-		// 			x: 0.35,
-		// 			z: 0.35,
-		// 			// y -> rotation
-		// 			y: 0.1,
-		// 		}
-		// 	},
-		// 	options: {
-		// 		emissiveEnabled: true,
-		// 		emissive: {
-		// 			one: {
-		// 				color: "#557072",
-		// 				intensity: 0.35,
-		// 				enabled: false
-		// 			},
-		// 			two: {
-		// 				color: "#465E7A",
-		// 				intensity: 0.2,
-		// 				enabled: false
-		// 			},
-		// 			three: {
-		// 				color: "#FFFFFF",
-		// 				intensity: 500,
-		// 				enabled: true
-		// 			},
-		// 			skin: {
-		// 				color: "#FFFFFF",
-		// 				intensity: 4,
-		// 				enabled: false
-		// 			},
-		// 			eyes: {
-		// 				color: "#FFFFFF",
-		// 				intensity: 10,
-		// 				enabled: true
-		// 			}
-		// 		}
-		// 	}
-		// },
 		linkShaderPlastic: {
 			name: "linkShaderPlastic",
 			fbxPath: "./assets/3d/persos/joseph/joseph.fbx",

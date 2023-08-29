@@ -180,6 +180,8 @@
             window.cancelAnimationFrame(this.requestAnimationFrameID);
             
             disposeScene(this.scene);
+
+            this.renderer.dispose();
             
             this.$nuxt.$off("view-update-by-stick", this.mouseUpdate);
 
