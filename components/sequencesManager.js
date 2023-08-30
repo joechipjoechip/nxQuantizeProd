@@ -593,6 +593,7 @@ class SequencesManager{
 				deltaTime / this.currentSequenceElements.slowmo,
 				{
 					bobNeedsToHandleGround: this.bobHandleGround,
+					isEndSequence: this.currentSequenceElements.isEndSequence
 					// stickedBobInputs: this.stickedBobInputs
 				}
 			);

@@ -90,14 +90,14 @@ const worlds = [
 
 		main: {
 
-			spaceColor: "#051442",
-			spaceColorDarker: "#051442",
-			spaceColorWithBloom: "#000105",
+			spaceColor: "#000211",
+			spaceColorDarker: "#000211",
+			spaceColorWithBloom: "#000211",
 
 			ambient: {
-				sunColor: "#FFFFFF",
-				intensity: 0.12,
-				groundColor: "#FFFFFF"
+				sunColor: "#ffffff",
+				intensity: 0.13,
+				groundColor: "#000a54"
 			},
 
 			fog: {
@@ -109,14 +109,14 @@ const worlds = [
 			particles: [
 				{
 					type: "fireflies",
-					count: 250,
-					particleSize: 20,
+					count: 100,
+					particleSize: 180,
 					additive: true,
 					timeRatio: 36.0,
 					blockSize: {
-						x: 1.5,
-						y: 1.5,
-						z: 1.5
+						x: 3,
+						y: 3,
+						z: 3
 					}
 				}
 			],
@@ -134,14 +134,13 @@ const worlds = [
 				// 	shininess: 20,
 				// 	specular: 0xFF0000,
 				// }
-
 			},
 
 			meshCustomShaderOptions: {
 				enabled: true,
-				shaderTimeRatio: 0.3,
+				shaderTimeRatio: 10,
 				shaderName: "plastic2",
-				shaderScale: 3,
+				shaderScale: 16,
 				shaderAxe: "xy"
 			},
 
@@ -177,8 +176,8 @@ const worlds = [
 
 				fog: {
 					enabled: true,
-					color: "#000000",
-					intensity: .25
+					color: "#ffffff",
+					intensity: .05
 				},
 
 				tubeInfos: {
@@ -198,7 +197,7 @@ const worlds = [
 					]
 				},
 
-				slowmo: 5,
+				slowmo: 2.7,
 
 				bobImposedMoves: {
 					forward: true,
@@ -246,7 +245,7 @@ const worlds = [
 					intensity: .68
 				},
 
-				slowmo: 6,
+				slowmo: 2.7,
 
 				bobImposedMoves: {
 					forward: true,
@@ -294,7 +293,7 @@ const worlds = [
 					intensity: .68
 				},
 
-				slowmo: 6,
+				slowmo: 1.85,
 
 				bobImposedMoves: {
 					forward: true,
@@ -322,7 +321,7 @@ const worlds = [
 				sequenceBobName: "marie",
 
 				type: "third-person",
-				cameraTriggerTimeDecay: 15,
+				cameraTriggerTimeDecay: 10,
 				cameraType: "movingHips-lookUp",
 
 				until: 14.2,
@@ -342,7 +341,7 @@ const worlds = [
 					intensity: .68
 				},
 
-				slowmo: 20,
+				slowmo: 1.85,
 
 				bobImposedMoves: {
 					forward: true,
@@ -350,23 +349,15 @@ const worlds = [
 				},
 
 				postproc: [
-
-					
-
 					{
 						type: "bloom",
 						value: {
-							strength: 0.7,
+							strength: 0.8,
 							threshold: 0.00035,
-							radius: 0.7
+							radius: 0.45
 						}
 					},
-
-					{
-						type: "rgbShift",
-						amount: 0.02
-					},
-
+					
 				]
 
 			},
@@ -394,13 +385,13 @@ const worlds = [
 				{
 					type: "fireflies",
 					count: 150,
-					particleSize: 25,
+					particleSize: 70,
 					additive: true,
 					timeRatio: 8.0,
 					blockSize: {
-						x: 4,
-						y: 5,
-						z: 4
+						x: 7,
+						y: 12,
+						z: 5
 					}
 				}
 			],
@@ -1029,12 +1020,12 @@ const worlds = [
 
 		main: {
 
-			spaceColor: "#040101",
-			spaceColorDarker: "#040101",
-			spaceColorWithBloom: "#040101",
+			spaceColor: "#000211",
+			spaceColorDarker: "#000211",
+			spaceColorWithBloom: "#000211",
 
 			ambient: {
-				sunColor: "#8700a7",
+				sunColor: "#1d00a7",
 				intensity: 0.16,
 				groundColor: "#370090"
 			},
@@ -1228,10 +1219,14 @@ const worlds = [
 					{
 						type: "bloom",
 						value: {
-							strength: 0.6,
+							strength: 0.55,
 							threshold: 0.00035,
-							radius: 0.7
+							radius: 0.45
 						}
+					},
+
+					{
+						type: "glitch"
 					},
 
 					// {
@@ -1276,7 +1271,7 @@ const worlds = [
 					intensity: .3
 				},
 
-				slowmo: 1.4,
+				slowmo: 1.2,
 
 				bobImposedMoves: {
 					forward: true,
@@ -1646,7 +1641,7 @@ const worlds = [
 				{
 					type: "fireflies",
 					count: 550,
-					particleSize: 25,
+					particleSize: 70,
 					additive: true,
 					timeRatio: 400.0,
 					blockSize: {
@@ -1985,13 +1980,13 @@ const worlds = [
 			particles: [
 				{
 					type: "fireflies",
-					count: 250,
-					particleSize: 25,
+					count: 500,
+					particleSize: 70,
 					additive: true,
 					timeRatio: 36.0,
 					blockSize: {
-						x: 16,
-						y: 16,
+						x: 10,
+						y: 10,
 						z: 15
 					}
 				}
@@ -2141,8 +2136,8 @@ const worlds = [
 			particles: [
 				{
 					type: "fireflies",
-					count: 550,
-					particleSize: 25,
+					count: 50,
+					particleSize: 60,
 					additive: true,
 					timeRatio: 400.0,
 					blockSize: {
@@ -2241,9 +2236,9 @@ const worlds = [
 
 		main: {
 
-			spaceColor: "#05000b",
-			spaceColorDarker: "#05000b",
-			spaceColorWithBloom: "#05000b",
+			spaceColor: "#000000",
+			spaceColorDarker: "#000000",
+			spaceColorWithBloom: "#000000",
 
 			ambient: {
 				sunColor: "#FF5A00",
@@ -2260,23 +2255,31 @@ const worlds = [
 
 			meshInfos: {
 
-				glbPath: "/assets/3d/worlds/mirror/mirror.glb",
+				glbPath: "/assets/3d/worlds/end01/end01.glb",
 				imagePath: {
-					landscape: "/assets/3d/worlds/mirror/mirrorBake.jpg"
+					landscape: "/assets/3d/worlds/end01/end01Bake.jpg"
 				}
+			},
+
+			meshCustomShaderOptions: {
+				enabled: true,
+				shaderTimeRatio: 1.85,
+				shaderName: "plastic",
+				shaderScale: 16,
+				shaderAxe: "zy"
 			},
 
 			particles: [
 				{
 					type: "fireflies",
-					count: 350,
-					particleSize: 25,
+					count: 1500,
+					particleSize: 70,
 					additive: true,
-					timeRatio: 36.0,
+					timeRatio: 500.0,
 					blockSize: {
-						x: 4,
-						y: 4,
-						z: 2
+						x: 3,
+						y: 3,
+						z: 3
 					}
 				}
 			],
@@ -2287,12 +2290,14 @@ const worlds = [
 			{
 				id: "7.16",
 				baseFov: 28,
-				fovTransition: true,
-				sequenceBobName: "link",
+				fovTransition: false,
+				sequenceBobName: "linkShaderFlying",
+				bobRestoreSize: 0.0014,
+				isEndSequence: true,
 
 				type: "third-person",
-				cameraTriggerTimeDecay: 45,
-				cameraType: "gtaLike",
+				cameraTriggerTimeDecay: 16,
+				cameraType: "movingFlyEnd",
 
 				until: 288.8,
 				nextInstruction: "switch-sequence",
@@ -2300,6 +2305,15 @@ const worlds = [
 				// customShaderOptions: {
 				// 	timeRatio: 2.15
 				// },
+
+				
+
+				customShaderOptions: {
+					shaderTimeRatio: 0.2,
+					shaderTimeDecay: 10,
+					sin: false,
+					sinAmplitude: 60
+				},
 
 				animatedMesh: false,
 
@@ -2322,44 +2336,41 @@ const worlds = [
 				},
 
 				bobImposedMoves: {
-					// fly: false,
-					// forward: true,
-					// backward: false,
+					fly: true,
+					forward: false,
+					backward: false,
 					// left: false,
 					// right: false
 				},
 
 				alice: {
-					handleGround: true,
+					handleGround: false,
 					name: "marie",
 					move: {
-						forward: true,
-						shift: false,
-						left: false,
-						right: false,
+						fly: true,
+						forward: false,
 						backward: false,
-						dance: false,
 					},
 					offset: {
 						x: 0,
-						y: 0,
-						z: 0
+						y: 0.35,
+						z: 0.25
 					},
-					scale: 0.002,
-					slowmo: 6
+					scale: 0.057,
+					slowmo: 1
 				},
 
 				slowmo: 1,
 
 				postproc: [
-					// {
-					// 	type: "bloom",
-					// 	value: {
-					// 		strength: 0.3,
-					// 		threshold: 0.00035,
-					// 		radius: 0.3
-					// 	}
-					// },
+					{
+						type: "bloom",
+						value: {
+							strength: 0.45,
+							threshold: 0.0035,
+							radius: 0.1
+						}
+					},
 					// {
 					// 	type: "blur",
 					// 	focusTarget: "queenFinal",

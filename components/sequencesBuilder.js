@@ -51,7 +51,8 @@ class SequencesBuilder {
 				sequenceBobName: sequenceInfos.sequenceBobName,
 				aliceInfos: sequenceInfos.alice,
 				fakeOrbit: false,
-				choiceSequence : sequenceInfos.choiceSequence
+				choiceSequence : sequenceInfos.choiceSequence,
+				isEndSequence: sequenceInfos.isEndSequence
 			};
 
 			this._BuildPostprocsCollections(sequenceInfos);

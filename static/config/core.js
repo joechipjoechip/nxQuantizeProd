@@ -869,6 +869,42 @@ const core = {
 				},
 			},
 		},
+		movingFlyEnd: {
+			offset: {
+				x: 0.05,
+				y: 0.07,
+				z: 0.085,
+			},
+			lookAt: {
+				x: 0,
+				z: 0.025,
+				y: 0.035
+			},
+			straightness: 0.04,
+			mouseOrientationPonderation: {
+				x: 0.02,
+				y: 0.02
+			},
+			motion: {
+				// motion will move the camera continuously
+				// with a sin() (so -1 to 1)
+				// and it's related at the offset values
+				x: {
+					// ratios
+					range: -0.15,
+					velocity: 0.09
+				},
+				y: {
+					range: -0.22,
+					velocity: 0.15
+				},
+				z: {
+					range: -0.2,
+					velocity: 0.06
+				},
+				
+			},
+		},
 
 		"movingFly-queen": {
 			offset: {

@@ -118,10 +118,17 @@ class BasicCharacterController {
 			acc.multiplyScalar(3.0);
 		}
 
-		if(this._input._keys.fly ){
+		if( this._input._keys.fly ){
 			acc.multiplyScalar(0.01);
-			velocity.y -= acc.y * timeInSeconds / 60;
-			velocity.z += acc.z * timeInSeconds * 35;
+
+			velocity.z += acc.z * timeInSeconds * 60;
+			
+			if( optionsObj.isEndSequence ){
+				// velocity.y += acc.y * timeInSeconds;
+				acc.multiplyScalar(0.1);
+			} else {
+				velocity.y -= acc.y * timeInSeconds / 100;
+			}
 			
 		}
 
