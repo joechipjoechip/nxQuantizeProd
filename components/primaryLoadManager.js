@@ -17,6 +17,8 @@ import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 import { loopify } from '@/components/loopify.js';
 
 import soundBase from "@/static/assets/audio/onyi-firstPart.mp3";
+import soundEndOne from "@/static/assets/audio/onyi-end-one.mp3";
+import soundEndTwo from "@/static/assets/audio/onyi-end-one.mp3";
 
 class PrimaryLoadManager{
 
@@ -58,6 +60,8 @@ class PrimaryLoadManager{
 	_InitSounds(){
 
 		this.vm.$store.commit("setAudioBase", new Audio(soundBase));
+		this.vm.$store.commit("setAudioEndOne", new Audio(soundEndOne));
+		this.vm.$store.commit("setAudioEndTwo", new Audio(soundEndTwo));
 
 		loopify(
 			this.vm,

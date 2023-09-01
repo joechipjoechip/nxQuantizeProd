@@ -1778,11 +1778,11 @@ const worlds = [
 					handleGround: true,
 					name: "linkShaderPlastic",
 					move: {
-						// floating: true
+						// idle: true,
 						shift: false,
 						forward: true,
-						left: false,
-						right: false
+						// left: false,
+						// right: false
 					},
 					customShaderOptions: {
 						shaderTimeRatio: 0.8,
@@ -1797,7 +1797,7 @@ const worlds = [
 						z: 0
 					},
 					scale: 0.015,
-					slowmo: 2.8,
+					slowmo: 3.4,
 				},
 
 				bobImposedMoves: {
@@ -1805,7 +1805,7 @@ const worlds = [
 					shift: true
 				},
 
-				slowmo: 2.8,
+				slowmo: 1.3,
 
 				postproc: [
 
@@ -1838,7 +1838,7 @@ const worlds = [
 
 				type: "blender-points",
 
-				until: 142.9,
+				until: 144,
 				nextInstruction: "drop-and-load-and-switch",
 
 				animatedMesh: false,
@@ -1861,7 +1861,7 @@ const worlds = [
 				},
 
 				tubeInfos: {
-					duration: 11,
+					duration: 10.2,
 					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
 					isUsingTarget: true,
 					steps: [
@@ -1877,15 +1877,22 @@ const worlds = [
 						
 						{
 							// this amount is a percent of the global duration
-							amount: 25,
+							amount: 20,
 							fov: 20,
 							stepEase: "easeInOut"
 						},
 						
 						{
 							// this amount is a percent of the global duration
-							amount: 75,
+							amount: 40,
 							fov: 55,
+							stepEase: "easeIn"
+						},
+
+						{
+							// this amount is a percent of the global duration
+							amount: 40,
+							fov: 190,
 							stepEase: "easeInOut"
 						},
 

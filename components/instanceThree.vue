@@ -98,6 +98,9 @@
 				// Others
 				lastKnownSequenceID: "1.0",
 				loopIsAsked: false,
+				loopClock: null,
+				choiceIsDisplayed: false,
+				choiceHaveBeenMade: false,
 
 				nextWorldIndex: 0,
 				initialLoadDone: false,
@@ -236,6 +239,12 @@
 			badCpuSpotted( newVal ){
 				if( newVal ){
 					this.setDownScale(3)
+				}
+			},
+
+			loopIsAsked( newVal ){
+				if( newVal ){
+					this.loopClock = new THREE.Clock()
 				}
 			}
 
@@ -434,6 +443,10 @@
 
 				}
 
+				if( this.loopClock ){
+					this.checkLoopClock();
+				}
+
 				window.requestAnimationFrame(this.mainTick);
 
 			},
@@ -498,10 +511,9 @@
 			},
 
 			computeFPS(){
+
 				const t = performance.now();
 				const dt = t - this.startTime;
-
-				// console.log("dt : ", dt);
 
 				if( dt > this.frameRate ){
 					this.currentFPSValue = this.frames * 1000 / dt;
@@ -509,7 +521,9 @@
 					this.frames = 0;
 					this.startTime = t;
 				}
+
 				this.frames++;
+
 			},
 
 			setDownScale(newRatio){
@@ -615,15 +629,55 @@
 
 			stopLoop(){
 
-				console.log("ok stop loop");
+				console.log("ok stop neutral loop");
 				this.$store.state.audioLoopNeutral.stop();
-				// this.startEndingAudio();
 
 			},
 
-			startEndingAudio(){
-				//
+			checkLoopClock(){
+
+				console.log("checkLoopClock : ", this.loopClock.getElapsedTime());
+
+				if( !this.choiceIsDisplayed && this.loopClock.getElapsedTime() >= 16.5 ){
+					this.$nuxt.$emit("drop-and-load-and-switch");
+					this.choiceIsDisplayed = true;
+					
+				}
+
+				if( this.choiceIsDisplayed && this.loopClock.getElapsedTime() >= 44.25 ){
+					// 42.5 is temp : à déterminer précisément quand on aura les assets
+
+					this.choiceHaveBeenMade = true;
+
+					// temp : ici on switchera sur le choix qui aura été fait
+					// mais pour l'instant on reste linéaire pour dev
+					this.$nuxt.$emit("drop-and-load-and-switch");
+					
+					this.dropLoops()
+
+					// launch ending mp3 (à voir laquelle sera choisie)
+					this.$store.state.audioEndOne.play()
+
+				}
+
+
+
+			},
+
+			dropLoops(){
+
+				// this.$store.state.audioLoopNeutral.stop();
+				// done in sequencesManager
+
+				this.$store.state.audioLoopDrumOne.stop();
+				this.$store.state.audioLoopDrumTwo.stop();
+
+				this.loopClock.stop()
+				this.loopClock = null
+
 			}
+
+			
 
 		}
 

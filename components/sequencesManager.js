@@ -746,7 +746,7 @@ class SequencesManager{
 			this.choiceHandler({key: "q"});
 			this.vm.$store.state.audioLoopNeutral.volume(0)
 			this.vm.$store.state.audioLoopNeutral.stop()
-		}, 1500);
+		}, 300);
 
 	}
 

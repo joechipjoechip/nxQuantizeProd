@@ -4,6 +4,8 @@ export const state = () => ({
 	isMobile: window.matchMedia("(pointer: coarse)").matches,
 	audioCurrent: null,
 	audioBase: null,
+	audioEndOne: null,
+	audioEndTwo: null,
 	audioLoopNeutral: null,
 	audioLoopDrumOne: null,
 	audioLoopDrumTwo: null,
@@ -38,6 +40,16 @@ export const mutations = {
 	setAudioBase(state, payload){
 		payload.playsInline = true;
 		state.audioBase = payload
+	},
+
+	setAudioEndOne(state, payload){
+		payload.playsInline = true;
+		state.audioEndOne = payload
+	},
+
+	setAudioEndTwo(state, payload){
+		payload.playsInline = true;
+		state.audioEndTwo = payload
 	},
 
 	setAudioLoopNeutral(state, payload){
