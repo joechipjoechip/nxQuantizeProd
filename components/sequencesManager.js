@@ -595,7 +595,9 @@ class SequencesManager{
 					bobNeedsToHandleGround: this.bobHandleGround,
 					isEndSequence: this.currentSequenceElements.isEndSequence
 					// stickedBobInputs: this.stickedBobInputs
-				}
+				},
+				currentMousePos,
+				this.currentSequenceElements.sequenceImposedMoves
 			);
 		}
 

@@ -882,8 +882,8 @@ const core = {
 			},
 			straightness: 0.04,
 			mouseOrientationPonderation: {
-				x: 0.02,
-				y: 0.02
+				x: 0.002,
+				y: 0.002
 			},
 			motion: {
 				// motion will move the camera continuously

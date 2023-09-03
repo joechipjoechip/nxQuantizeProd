@@ -203,7 +203,9 @@ const worlds = [
 					forward: true,
 					dance: false,
 					backward: false,
-					shift: false
+					shift: false,
+					left: false,
+					right: false,
 				},
 
 				postproc: [
@@ -249,7 +251,9 @@ const worlds = [
 
 				bobImposedMoves: {
 					forward: true,
-					dance: false
+					dance: false,
+					left: false,
+					right: false,
 				},
 
 				postproc: [
@@ -740,7 +744,9 @@ const worlds = [
 					forward: false,
 					shift: false,
 					dance: false,
-					enjoy: true
+					enjoy: true,
+					left: false,
+					right: false,
 				},
 
 				slowmo: 1.1,
@@ -1088,6 +1094,8 @@ const worlds = [
 				bobImposedMoves: {
 					forward: true,
 					// shift: false
+					left: false,
+					right: false,
 				},
 
 				slowmo: 2.3,
@@ -1471,7 +1479,9 @@ const worlds = [
 					forward: true,
 					shift: true,
 					backward: false,
-					dance: false
+					dance: false,
+					left: false,
+					right: false,
 				},
 
 				tubeInfos: {
@@ -2312,6 +2322,10 @@ const worlds = [
 				// customShaderOptions: {
 				// 	timeRatio: 2.15
 				// },
+				cameraInvert: {
+					x: false,
+					y: true
+				},
 
 				
 
@@ -2346,8 +2360,8 @@ const worlds = [
 					fly: true,
 					forward: false,
 					backward: false,
-					// left: false,
-					// right: false
+					left: false,
+					right: false
 				},
 
 				alice: {

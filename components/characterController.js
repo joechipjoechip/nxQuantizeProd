@@ -45,6 +45,7 @@ class BasicCharacterController {
 		this._animations = params.animations;
 		this._scene = params.scene
 		this._isAlice = this._params.isAlice;
+		
 
 
 		this._decceleration = new THREE.Vector3(-0.0005, -0.0001, -5.0);
@@ -89,7 +90,9 @@ class BasicCharacterController {
 		return this._target.quaternion;
 	}
 
-	Update(timeInSeconds, optionsObj) {
+	Update(timeInSeconds, optionsObj, currentMousePos, sequenceImposedMoves) {
+
+		console.log("sequenceimposedmoves dans Update du character : ", sequenceImposedMoves)
 
 		this._stateMachine.Update(timeInSeconds, this._input);
 
@@ -99,6 +102,7 @@ class BasicCharacterController {
 			velocity.y * this._decceleration.y,
 			velocity.z * this._decceleration.z
 		);
+
 		frameDecceleration.multiplyScalar(timeInSeconds);
 		frameDecceleration.z = Math.sign(frameDecceleration.z) * Math.min(
 			Math.abs(frameDecceleration.z), 
@@ -153,15 +157,15 @@ class BasicCharacterController {
 			velocity.z -= acc.z * timeInSeconds;
 		}
 
-		if (this._input._keys.left) {
+		if ( sequenceImposedMoves?.left || (currentMousePos?.x < 0 && sequenceImposedMoves.left !== false) ) {
 			_A.set(0, 1, 0);
-			_Q.setFromAxisAngle(_A, 4.0 * Math.PI * timeInSeconds * this._acceleration.y * 0.4);
+			_Q.setFromAxisAngle(_A, 4.0 * Math.PI * timeInSeconds * this._acceleration.y * (Math.abs(currentMousePos.x) / 2));
 			_R.multiply(_Q);
 		}
 
-		if (this._input._keys.right) {
+		if ( sequenceImposedMoves?.right || (currentMousePos?.x > 0 && sequenceImposedMoves.right !== false) ) {
 			_A.set(0, 1, 0);
-			_Q.setFromAxisAngle(_A, 4.0 * -Math.PI * timeInSeconds * this._acceleration.y * 0.4);
+			_Q.setFromAxisAngle(_A, 4.0 * -Math.PI * timeInSeconds * this._acceleration.y * (Math.abs(currentMousePos.x) / 2));
 			_R.multiply(_Q);
 		}
 
@@ -272,8 +276,8 @@ class BasicCharacterControllerInput {
 			prayup: false || this._imposedMoves.prayup,
 		};
 
-		document.addEventListener('keydown', ( event ) => this._onKeyDown( event ), false);
-		document.addEventListener('keyup', ( event ) => this._onKeyUp( event ), false);
+		// document.addEventListener('keydown', ( event ) => this._onKeyDown( event ), false);
+		// document.addEventListener('keyup', ( event ) => this._onKeyUp( event ), false);
 
 	}
 

@@ -3,11 +3,11 @@
 
 		<div class="stick-container">
 
-			<stick
+			<!-- <stick
 				ref="left"
 				side="left"
 				role="bob"
-			/>
+			/> -->
 		
 			<stick
 				ref="right"
