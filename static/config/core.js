@@ -30,16 +30,11 @@ const core = {
 	movesSpecs: {
 		smallGuy: [
 			"walk",
-			"walk-back",
 			"run",
 			"idle",
-			"dance",
 			"fly",
 			"floating",
-			"jazz",
 			"hiphop",
-			"housedance",
-			"climb",
 			"enjoy",
 			"teeter",
 			"prayup"

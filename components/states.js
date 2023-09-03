@@ -10,58 +10,6 @@ class State {
 	Update() {}
 };
 
-
-
-class DanceState extends State {
-	constructor(parent) {
-		super(parent);
-
-		this._FinishedCallback = () => {
-			this._Finished();
-		}
-	}
-
-	get Name() {
-		return 'dance';
-	}
-
-	Enter(prevState) {
-		const curAction = this._parent._proxy._animations['dance'].action;
-		const mixer = curAction.getMixer();
-		mixer.addEventListener('finished', this._FinishedCallback);
-
-		if (prevState) {
-		const prevAction = this._parent._proxy._animations[prevState.Name].action;
-
-		curAction.reset();  
-		curAction.setLoop(THREE.LoopOnce, 1);
-		curAction.clampWhenFinished = true;
-		curAction.crossFadeFrom(prevAction, 0.2, true);
-		curAction.play();
-		} else {
-		curAction.play();
-		}
-	}
-
-	_Finished() {
-		this._Cleanup();
-		this._parent.SetState('idle');
-	}
-
-	_Cleanup() {
-		const action = this._parent._proxy._animations['dance'].action;
-		
-		action.getMixer().removeEventListener('finished', this._CleanupCallback);
-	}
-
-	Exit() {
-		this._Cleanup();
-	}
-
-	Update(_) {
-	}
-};
-
 class FloatingState extends State {
 	constructor(parent) {
 		super(parent);
@@ -103,47 +51,6 @@ class FloatingState extends State {
 	}
 };
 
-class JazzState extends State {
-	constructor(parent) {
-		super(parent);
-	}
-
-	get Name() {
-		return 'jazz';
-	}
-
-	Enter(prevState) {
-		const curAction = this._parent._proxy._animations['jazz'].action;
-		if (prevState) {
-			const prevAction = this._parent._proxy._animations[prevState.Name].action;
-
-			curAction.enabled = true;
-
-			curAction.time = 0.0;
-			curAction.setEffectiveTimeScale(1.0);
-			curAction.setEffectiveWeight(1.0);
-
-			curAction.crossFadeFrom(prevAction, 0.5, true);
-			curAction.play();
-		} else {
-			curAction.play();
-		}
-	}
-
-	Exit() {
-	}
-
-	Update(timeElapsed, input) {
-
-		if (input._keys.jazz) {
-			this._parent.SetState('jazz');
-			return;
-		}
-
-		this._parent.SetState('idle');
-	}
-};
-
 class HiphopState extends State {
 	constructor(parent) {
 		super(parent);
@@ -178,47 +85,6 @@ class HiphopState extends State {
 
 		if (input._keys.hiphop) {
 			this._parent.SetState('hiphop');
-			return;
-		}
-
-		this._parent.SetState('idle');
-	}
-};
-
-class HousedanceState extends State {
-	constructor(parent) {
-		super(parent);
-	}
-
-	get Name() {
-		return 'housedance';
-	}
-
-	Enter(prevState) {
-		const curAction = this._parent._proxy._animations['housedance'].action;
-		if (prevState) {
-			const prevAction = this._parent._proxy._animations[prevState.Name].action;
-
-			curAction.enabled = true;
-
-			curAction.time = 0.0;
-			curAction.setEffectiveTimeScale(1.0);
-			curAction.setEffectiveWeight(1.0);
-
-			curAction.crossFadeFrom(prevAction, 0.5, true);
-			curAction.play();
-		} else {
-			curAction.play();
-		}
-	}
-
-	Exit() {
-	}
-
-	Update(timeElapsed, input) {
-
-		if (input._keys.housedance) {
-			this._parent.SetState('housedance');
 			return;
 		}
 
@@ -341,48 +207,6 @@ class EnjoyState extends State {
 	}
 };
 
-class ClimbState extends State {
-	constructor(parent) {
-		super(parent);
-	}
-
-	get Name() {
-		return 'climb';
-	}
-
-	Enter(prevState) {
-		const curAction = this._parent._proxy._animations['climb'].action;
-		if (prevState) {
-			const prevAction = this._parent._proxy._animations[prevState.Name].action;
-
-			curAction.enabled = true;
-
-			curAction.time = 0.0;
-			curAction.setEffectiveTimeScale(1.0);
-			curAction.setEffectiveWeight(1.0);
-
-			curAction.crossFadeFrom(prevAction, 0.5, true);
-			curAction.play();
-		} else {
-			curAction.play();
-		}
-	}
-
-	Exit() {
-	}
-
-	Update(timeElapsed, input) {
-
-		if (input._keys.climb) {
-			this._parent.SetState('climb');
-			return;
-		}
-
-		this._parent.SetState('idle');
-	}
-};
-
-
 class FlyState extends State {
 	constructor(parent) {
 		super(parent);
@@ -479,51 +303,6 @@ class WalkState extends State {
 	}
 };
 
-class WalkStateBack extends State {
-	constructor(parent) {
-		super(parent);
-	}
-
-	get Name() {
-		return 'walk-back';
-	}
-
-	Enter(prevState) {
-		const curAction = this._parent._proxy._animations['walk-back'].action;
-		if (prevState) {
-			const prevAction = this._parent._proxy._animations[prevState.Name].action;
-
-			curAction.enabled = true;
-
-			if (prevState.Name == 'run') {
-				const ratio = curAction.getClip().duration / prevAction.getClip().duration;
-				curAction.time = prevAction.time * ratio;
-			} else {
-				curAction.time = 0.0;
-				curAction.setEffectiveTimeScale(1.0);
-				curAction.setEffectiveWeight(1.0);
-			}
-
-			curAction.crossFadeFrom(prevAction, 0.5, true);
-			curAction.play();
-		} else {
-			curAction.play();
-		}
-	}
-
-	Exit() {
-	}
-
-	Update(timeElapsed, input) {
-
-		if (input._keys.backward) {
-			return;
-		}
-
-		this._parent.SetState('idle');
-	}
-};
-
 class RunState extends State {
 	constructor(parent) {
 		super(parent);
@@ -575,9 +354,6 @@ class RunState extends State {
 		this._parent.SetState('idle');
 	}
 };
-
-
-
 
 class IdleState extends State {
 	constructor(parent) {
@@ -635,21 +411,14 @@ class IdleState extends State {
 	}
 };
 
-
 export {
 	State,
-	DanceState,
 	FlyState,
 	WalkState,
-	WalkStateBack,
 	RunState,
 	IdleState,
-
 	FloatingState,
-	JazzState,
 	HiphopState,
-	HousedanceState,
-	ClimbState,
 	EnjoyState,
 	TeeterState,
 	PrayupState

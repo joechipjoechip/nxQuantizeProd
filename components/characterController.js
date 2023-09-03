@@ -10,10 +10,7 @@ import {
 	RunState,
 	IdleState,
 	FloatingState,
-	JazzState,
 	HiphopState,
-	HousedanceState,
-	ClimbState,
 	EnjoyState,
 	TeeterState,
 	PrayupState
@@ -157,13 +154,13 @@ class BasicCharacterController {
 
 		if ( sequenceImposedMoves?.left || (currentMousePos?.x < 0 && sequenceImposedMoves.left !== false) ) {
 			_A.set(0, 1, 0);
-			_Q.setFromAxisAngle(_A, 4.0 * Math.PI * timeInSeconds * this._acceleration.y * (Math.abs(currentMousePos.x) / 2));
+			_Q.setFromAxisAngle(_A, 4.0 * Math.PI * timeInSeconds * this._acceleration.y * (Math.abs(currentMousePos.x) / 3));
 			_R.multiply(_Q);
 		}
 
 		if ( sequenceImposedMoves?.right || (currentMousePos?.x > 0 && sequenceImposedMoves.right !== false) ) {
 			_A.set(0, 1, 0);
-			_Q.setFromAxisAngle(_A, 4.0 * -Math.PI * timeInSeconds * this._acceleration.y * (Math.abs(currentMousePos.x) / 2));
+			_Q.setFromAxisAngle(_A, 4.0 * -Math.PI * timeInSeconds * this._acceleration.y * (Math.abs(currentMousePos.x) / 3));
 			_R.multiply(_Q);
 		}
 
@@ -373,16 +370,11 @@ class CharacterFSM extends FiniteStateMachine {
 	_Init() {
 		this._AddState('idle', IdleState);
 		this._AddState('walk', WalkState);
-		this._AddState('walk-back', WalkStateBack);
 		this._AddState('run', RunState);
-		this._AddState('dance', DanceState);
 		this._AddState('fly', FlyState);
 
 		this._AddState('floating', FloatingState);
-		this._AddState('jazz', JazzState);
-		this._AddState('housedance', HousedanceState);
 		this._AddState('hiphop', HiphopState);
-		this._AddState('climb', ClimbState);
 		this._AddState('enjoy', EnjoyState);
 		this._AddState('teeter', TeeterState);
 		this._AddState('prayup', PrayupState);
