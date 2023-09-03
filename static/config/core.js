@@ -8,7 +8,7 @@ const core = {
 	},
 
 	mouse: {
-		moveTimeout: 2.5,
+		moveTimeout: 1,
 		recenterDuration: 1,
 		orientationClamp: {
 			start: 0.00001,
@@ -17,7 +17,7 @@ const core = {
 		}
 	},
 	stick: {
-		moveTimeout: 0.2,
+		moveTimeout: 0,
 		recenterDuration: 1,
 		orientationClamp: {
 			start: 0.00001,
@@ -333,8 +333,8 @@ const core = {
 			},
 			straightness: 0.01,
 			mouseOrientationPonderation: {
-				x: 0.4,
-				y: 0.5
+				x: 0.1,
+				y: 0.25
 			},
 			motion: {
 				// motion will move the camera continuously

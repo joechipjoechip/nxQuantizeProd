@@ -594,7 +594,6 @@ class SequencesManager{
 				{
 					bobNeedsToHandleGround: this.bobHandleGround,
 					isEndSequence: this.currentSequenceElements.isEndSequence
-					// stickedBobInputs: this.stickedBobInputs
 				},
 				currentMousePos,
 				this.currentSequenceElements.sequenceImposedMoves
@@ -745,7 +744,7 @@ class SequencesManager{
 		
 		setTimeout(()=> {
 			this.isChoiceScene = true;
-			this.choiceHandler({key: "q"});
+			this.choiceHandler({direction: "left"});
 			this.vm.$store.state.audioLoopNeutral.volume(0)
 			this.vm.$store.state.audioLoopNeutral.stop()
 		}, 300);
@@ -757,37 +756,22 @@ class SequencesManager{
 		const camera = this.currentSequenceElements.thirdPersonCamera[this.currentBobName]
 		const lookAtDecay = 0.03
 		const offsetDecay = 0.015
-		let choiceState
 
-		switch(event.key.toLowerCase()){
-
-			case "d":
-				// console.log("ok go right")
-
-				choiceState = "right"
-				camera._specs.lookAt.x = lookAtDecay * -1
-				camera._specs.offset.x = offsetDecay
-			break;
-				
-			case "q":
-				// console.log("ok go left")
-
-				choiceState = "left"
-				camera._specs.lookAt.x = lookAtDecay
-				camera._specs.offset.x = offsetDecay * -1
-			break;
-
-		}
-
-		switch(choiceState){
+		switch(event.direction){
 			case "left":
 				this.vm.$store.state.audioLoopDrumOne.volume(1)
 				this.vm.$store.state.audioLoopDrumTwo.volume(0)
+
+				camera._specs.lookAt.x = lookAtDecay
+				camera._specs.offset.x = offsetDecay * -1
 				break;
 
 			case "right":
 				this.vm.$store.state.audioLoopDrumOne.volume(0)
 				this.vm.$store.state.audioLoopDrumTwo.volume(1)
+
+				camera._specs.lookAt.x = lookAtDecay * -1
+				camera._specs.offset.x = offsetDecay
 				break;
 		}
 		
@@ -796,16 +780,14 @@ class SequencesManager{
 	handleMouseDuringChoice(currentMousePosX){
 
 		if( currentMousePosX > 0 ){
-			this.choiceHandler({ key: "d"})
+			this.choiceHandler({ direction: "right"})
 		} 
 		
 		if( currentMousePosX < 0 ){
-			this.choiceHandler({ key: "q"})
+			this.choiceHandler({ direction: "left"})
 		}
 
 	}
-
-	
 
 }
 

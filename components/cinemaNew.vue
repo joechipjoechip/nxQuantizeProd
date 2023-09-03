@@ -172,7 +172,7 @@
 
 				setTimeout(() => {
 
-					const goTo = 0;
+					const goTo = 130;
 
 					if( goTo > 0 ){
 						this.$store.commit("setAudioTimecode", goTo);
@@ -315,39 +315,6 @@
 
 			},
 
-			changeSequenceHandler(){
-				// très basique pour l'instant, mais c'est bien
-				// ce mécanisme qui change la séquence en cours pour linstant
-				// (plus tard ce sera calé sur le currentTime de l'audio)
-
-				// console.log("change sequence triggered");
-
-				this.curtainActive = true;
-
-				setTimeout(() => {
-
-					switch(this.sequenceID){
-						case "1.0":
-							this.sequenceID = "1.1"
-							break
-						case "1.1":
-							this.sequenceID = "1.2"
-							break
-						case "1.2":
-							this.sequenceID = "1.3"
-							break
-						case "1.3":
-							this.sequenceID = "1.4"
-							break
-						default:
-							this.sequenceID = "1.0"
-							break
-					}
-
-				}, 800);
-
-			},
-
 			viewUpdateByStick( event ){
 
 				this.viewPos = event;
@@ -356,15 +323,13 @@
 
 			updateBobInputsByStick( position ){
 
-				const inputs = {
+				this.$nuxt.$emit("bob-inputs-update", {
 					shift: position.y > 0.9,
 					forward: position.y > this.core.stick.inputThreshold,
 					backward: position.y < this.core.stick.inputThreshold * -1,
 					right: position.x > this.core.stick.inputThreshold,
 					left: position.x < this.core.stick.inputThreshold * -1
-				};
-
-				this.$nuxt.$emit("bob-inputs-update", inputs);
+				});
 
 			},
 

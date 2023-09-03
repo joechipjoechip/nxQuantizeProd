@@ -968,7 +968,7 @@ const worlds = [
 					handleGround: true,
 					name: "linkShaderPlastic",
 					move: {
-						housedance: true
+						hiphop: true
 					},
 					offset: {
 						x: 0,
@@ -1219,11 +1219,12 @@ const worlds = [
 
 				bobImposedMoves: {
 					forward: true,
-					shift: false
+					shift: false,
+					left: false,
+					right: false
 				},
 
 				postproc: [
-
 					{
 						type: "bloom",
 						value: {
@@ -1232,21 +1233,9 @@ const worlds = [
 							radius: 0.45
 						}
 					},
-
 					{
 						type: "glitch"
 					},
-
-					// {
-					// 	type: "blur",
-					// 	focusTarget: "queenShader",
-					// 	value: {
-					// 		focus: 1,
-					// 		aperture: 0.0025,
-					// 		maxblur: 0.06
-					// 	}
-					// },
-
 				]
 
 			},

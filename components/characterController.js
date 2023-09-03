@@ -57,7 +57,7 @@ class BasicCharacterController {
 		this._velocity = new THREE.Vector3(0, 0, 0);
 		this._position = new THREE.Vector3();
 
-		this._input = new BasicCharacterControllerInput(params.vm);
+		this._input = new BasicCharacterControllerInput();
 
 		this._stateMachine = new CharacterFSM(
 			new BasicCharacterControllerProxy(this._animations)
@@ -91,8 +91,6 @@ class BasicCharacterController {
 	}
 
 	Update(timeInSeconds, optionsObj, currentMousePos, sequenceImposedMoves) {
-
-		console.log("sequenceimposedmoves dans Update du character : ", sequenceImposedMoves)
 
 		this._stateMachine.Update(timeInSeconds, this._input);
 
@@ -247,7 +245,7 @@ class BasicCharacterController {
 };
 
 class BasicCharacterControllerInput {
-	constructor(vm) {
+	constructor() {
 		this._imposedMoves = {};  
 		this._Init(); 
 	}
