@@ -96,7 +96,7 @@ const worlds = [
 
 			ambient: {
 				sunColor: "#ffffff",
-				intensity: 0.13,
+				intensity: 0.17,
 				groundColor: "#000a54"
 			},
 
@@ -201,7 +201,6 @@ const worlds = [
 
 				bobImposedMoves: {
 					forward: true,
-					dance: false,
 					backward: false,
 					shift: false,
 					left: false,
@@ -251,7 +250,6 @@ const worlds = [
 
 				bobImposedMoves: {
 					forward: true,
-					dance: false,
 					left: false,
 					right: false,
 				},
@@ -301,7 +299,6 @@ const worlds = [
 
 				bobImposedMoves: {
 					forward: true,
-					dance: false
 				},
 
 				postproc: [
@@ -451,7 +448,6 @@ const worlds = [
 					backward: false,
 					forward: true,
 					shift: false,
-					dance: false,
 					left: false,
 					right: false
 				},
@@ -540,7 +536,6 @@ const worlds = [
 					backward: false,
 					forward: false,
 					shift: false,
-					dance: false,
 					teeter: true,
 					left: false,
 					right: false
@@ -593,7 +588,6 @@ const worlds = [
 					backward: false,
 					forward: true,
 					shift: true,
-					dance: false
 				},
 
 				alice: {
@@ -665,7 +659,6 @@ const worlds = [
 					backward: false,
 					forward: false,
 					shift: false,
-					dance: false,
 					enjoy: true
 				},
 
@@ -743,7 +736,6 @@ const worlds = [
 					backward: false,
 					forward: false,
 					shift: false,
-					dance: false,
 					enjoy: true,
 					left: false,
 					right: false,
@@ -835,7 +827,6 @@ const worlds = [
 					backward: false,
 					forward: false,
 					shift: false,
-					dance: false,
 					enjoy: true
 				},
 
@@ -874,19 +865,19 @@ const worlds = [
 							// this amount is a percent of the global duration
 							amount: 32,
 							fov: 25,
-							stepEase: "easeInOut"
+							stepEase: "linear"
 						},
 						{
 							// this amount is a percent of the global duration
 							amount: 25,
 							fov: 55,
-							stepEase: "easeInOut"
+							stepEase: "linear"
 						},
 						{
 							// this amount is a percent of the global duration
 							amount: 43,
 							fov: 5,
-							stepEase: "easeIn"
+							stepEase: "linear"
 						},
 
 					]
@@ -937,7 +928,7 @@ const worlds = [
 				},
 
 				tubeInfos: {
-					duration: 8,
+					duration: 7,
 					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
 					isUsingTarget: true,
 					steps: [
@@ -945,10 +936,22 @@ const worlds = [
 						// n has nothing to do with the number of points for the curve
 						{
 							// this amount is a percent of the global duration
-							amount: 100,
-							fov: 25,
+							amount: 33,
+							fov: 20,
 							stepEase: "linear"
-						}
+						},
+						{
+							// this amount is a percent of the global duration
+							amount: 33,
+							fov: 10,
+							stepEase: "linear"
+						},
+						{
+							// this amount is a percent of the global duration
+							amount: 34,
+							fov: 40,
+							stepEase: "linear"
+						},
 
 					]
 				},
@@ -976,7 +979,7 @@ const worlds = [
 						z: 0
 					},
 					scale: 0.01,
-					slowmo: 2,
+					slowmo: 1,
 					customShaderOptions: {
 						shaderTimeRatio: 1.5,
 						shaderTimeDecay: 5,
@@ -1381,7 +1384,6 @@ const worlds = [
 					forward: true,
 					shift: true,
 					backward: false,
-					dance: false
 				},
 
 				postproc: [
@@ -1468,7 +1470,6 @@ const worlds = [
 					forward: true,
 					shift: true,
 					backward: false,
-					dance: false,
 					left: false,
 					right: false,
 				},
@@ -1583,7 +1584,6 @@ const worlds = [
 					forward: true,
 					shift: false,
 					backward: false,
-					dance: false
 				},
 
 				postproc: [
@@ -1706,7 +1706,7 @@ const worlds = [
 						z: 0
 					},
 					scale: 0.035,
-					slowmo: 3.6,
+					slowmo: 5,
 					// customShaderOptions: {
 					// 	shaderTimeRatio: 0.1,
 					// 	shaderTimeDecay: 12,
@@ -1796,7 +1796,7 @@ const worlds = [
 						z: 0
 					},
 					scale: 0.015,
-					slowmo: 3.4,
+					slowmo: 2,
 				},
 
 				bobImposedMoves: {

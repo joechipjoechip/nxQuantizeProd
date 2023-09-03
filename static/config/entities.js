@@ -135,7 +135,7 @@ const entities = {
 					},
 					skin: {
 						color: "#FFFFFF",
-						intensity: 0.1,
+						intensity: 4,
 						enabled: false
 					},
 					eyes: {
