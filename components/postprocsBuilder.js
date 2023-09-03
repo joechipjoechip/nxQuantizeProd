@@ -2,18 +2,10 @@ import * as THREE from 'three';
 
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
 import { GammaCorrectionShader } from 'three/examples/jsm/shaders/GammaCorrectionShader.js';
-import { LuminosityShader } from 'three/examples/jsm/shaders/LuminosityShader.js';
-import { SobelOperatorShader } from 'three/examples/jsm/shaders/SobelOperatorShader.js';
-import { DotScreenShader } from 'three/examples/jsm/shaders/DotScreenShader.js';
-import { RGBShiftShader } from 'three/examples/jsm/shaders/RGBShiftShader.js';
 
-import { BleachBypassShader } from 'three/examples/jsm/shaders/BleachBypassShader.js';
-// import { ColorifyShader } from 'three/examples/jsm/shaders/ColorifyShader.js';
 import { HorizontalBlurShader } from 'three/examples/jsm/shaders/HorizontalBlurShader.js';
 import { VerticalBlurShader } from 'three/examples/jsm/shaders/VerticalBlurShader.js';
-import { SepiaShader } from 'three/examples/jsm/shaders/SepiaShader.js';
-import { VignetteShader } from 'three/examples/jsm/shaders/VignetteShader.js';
-import { PixelShader } from 'three/examples/jsm/shaders/PixelShader.js';
+
 import { KaleidoShader } from 'three/examples/jsm/shaders/KaleidoShader.js';
 
 
@@ -22,7 +14,6 @@ import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js';
 import { BokehPass } from 'three/examples/jsm/postprocessing/BokehPass.js';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
 import { FilmPass } from 'three/examples/jsm/postprocessing/FilmPass.js';
-import { AfterimagePass } from 'three/examples/jsm/postprocessing/AfterimagePass.js';
 
 class PostprocsBuilder {
 	// Some effects needs a shaderPass + an effectPass
@@ -53,127 +44,12 @@ class PostprocsBuilder {
 		const gammaCorrectionShader = new ShaderPass(GammaCorrectionShader);
 		gammaCorrectionShader.isGamma = true;
 
-		const shaderBleach = BleachBypassShader;
-
-		const grayScaleShader = new ShaderPass( LuminosityShader );
-
 
 		switch(postProcInfos.type){
 
 			case "glitch":
 			case "blur":
 				this._IsAlreadyGamma() ? null : shadersArrayToReturn.push(gammaCorrectionShader);
-				break;
-				
-			case "sobel":
-				const sobelShader = new ShaderPass(SobelOperatorShader);
-				
-				sobelShader.uniforms["resolution"].value.x = window.innerWidth * Math.min(window.devicePixelRatio, 2);
-				sobelShader.uniforms["resolution"].value.y = window.innerHeight * Math.min(window.devicePixelRatio, 2);
-
-				shadersArrayToReturn.push(grayScaleShader);
-				shadersArrayToReturn.push(sobelShader);
-				break;
-
-			case "dotscreen":
-
-				const dotscreenShader = new ShaderPass( DotScreenShader );
-
-				dotscreenShader.uniforms["scale"].value = postProcInfos.dotSize;
-				
-				this._IsAlreadyGamma() ? null : shadersArrayToReturn.push(gammaCorrectionShader);
-
-				shadersArrayToReturn.push(dotscreenShader);
-				break;
-				
-			case "rgbShift":
-				const rgbShiftShader = new ShaderPass( RGBShiftShader );
-				
-				rgbShiftShader.uniforms["amount"].value = postProcInfos.amount;
-
-				this._IsAlreadyGamma() ? null : shadersArrayToReturn.push(gammaCorrectionShader);
-				shadersArrayToReturn.push( rgbShiftShader );
-			break;
-
-			case "grain":	
-				const effectHBlur = new ShaderPass( HorizontalBlurShader );
-				const effectVBlur = new ShaderPass( VerticalBlurShader );
-				
-				effectHBlur.uniforms["h"].value = 2 / ( window.innerWidth / postProcInfos.amount );
-				effectVBlur.uniforms["v"].value = 2 / ( window.innerHeight / postProcInfos.amount );
-				
-				shadersArrayToReturn.push( effectVBlur );
-				shadersArrayToReturn.push( effectVBlur );
-				this._IsAlreadyGamma() ? null : shadersArrayToReturn.push(gammaCorrectionShader);
-				break;
-			
-			case "sepia":
-				const shaderSepia = SepiaShader;
-				const effectSepia = new ShaderPass( shaderSepia );
-				effectSepia.uniforms[ 'amount' ].value = postProcInfos.amount;
-
-				this._IsAlreadyGamma() ? null : shadersArrayToReturn.push(gammaCorrectionShader);
-				shadersArrayToReturn.push(effectSepia)
-
-				break;
-
-			case "vignette":
-				const effectVignette = new ShaderPass( VignetteShader );
-
-				effectVignette.uniforms["offset"].value = postProcInfos.offset;
-				effectVignette.uniforms["darkness"].value = postProcInfos.darkness;
-
-				this._IsAlreadyGamma() ? null : shadersArrayToReturn.push(gammaCorrectionShader);
-				shadersArrayToReturn.push(effectVignette);
-
-				break;
-
-			case "bleach":
-				const effectBleach = new ShaderPass( shaderBleach );
-				effectBleach.uniforms["opacity"].value = postProcInfos.amount;
-
-				shadersArrayToReturn.push(effectBleach);
-				this._IsAlreadyGamma() ? null : shadersArrayToReturn.push(gammaCorrectionShader);
-
-				break;
-
-			case "film":
-				const { linesAmount, opacity, aberration } = postProcInfos;
-
-				const filmPass = new FilmPass(
-					opacity,
-					aberration,
-					linesAmount,
-					false
-				);
-
-				shadersArrayToReturn.push(filmPass);
-				this._IsAlreadyGamma() ? null : shadersArrayToReturn.push(gammaCorrectionShader);
-
-				break;
-
-			case "grayscale":
-				// console.log("grayscale - - - - >", grayScaleShader);
-				// grayScaleShader.uniforms["tDiffuse"].value = postProcInfos.amount
-				// this._IsAlreadyGamma() ? null : shadersArrayToReturn.push(gammaCorrectionShader);
-				shadersArrayToReturn.push(grayScaleShader);
-				break;
-
-			case "afterimage":
-				const afterimage = new AfterimagePass();
-				afterimage.uniforms["damp"].value = postProcInfos.amount;
-
-				shadersArrayToReturn.push(afterimage);
-				break;
-
-			case "pixel":
-				const pixelPass = new ShaderPass( PixelShader );
-				pixelPass.uniforms["resolution"].value = new THREE.Vector2(this._canvas.width, this._canvas.height);
-				// pixelPass.uniforms["resolution"].value.multiplyScalar(Math.min(window.devicePixelRatio, 2));
-				// debugger;
-				pixelPass.uniforms["pixelSize"].value = postProcInfos.pixelSize;
-				this._IsAlreadyGamma() ? null : shadersArrayToReturn.push(gammaCorrectionShader);
-				shadersArrayToReturn.push(pixelPass);
 				break;
 
 			case "kaleidoscope":

@@ -416,11 +416,13 @@
 				if( this.deltaTime >= this.frameRate ){
 					// console.log("act render");
 					
+					// @TODO : temporary disabling for dev
+					// et de toute facon, le benchmark va passer côté index
 					
-					if( !this.badCpuSpotted ){
-						this.computeFPS();
-						this.handleFpsAndDownScaling();
-					}
+					// if( !this.badCpuSpotted ){
+					// 	this.computeFPS();
+					// 	this.handleFpsAndDownScaling();
+					// }
 
 					this.checkCurrentTime();
 	

@@ -739,25 +739,23 @@ class SequencesManager{
 		console.log("initiEventualSpecialEvents : ", this.currentSequenceElements)
 
 		if( !this.currentSequenceElements.choiceSequence ){ return }
-				
-		// document.addEventListener("keydown", event => this.choiceHandler(event));
 		
 		setTimeout(()=> {
 			this.isChoiceScene = true;
-			this.choiceHandler({direction: "left"});
+			this.choiceHandler("left");
 			this.vm.$store.state.audioLoopNeutral.volume(0)
 			this.vm.$store.state.audioLoopNeutral.stop()
 		}, 300);
 
 	}
 
-	choiceHandler( event ){
+	choiceHandler( direction ){
 
 		const camera = this.currentSequenceElements.thirdPersonCamera[this.currentBobName]
 		const lookAtDecay = 0.03
 		const offsetDecay = 0.015
 
-		switch(event.direction){
+		switch(direction){
 			case "left":
 				this.vm.$store.state.audioLoopDrumOne.volume(1)
 				this.vm.$store.state.audioLoopDrumTwo.volume(0)
@@ -780,11 +778,11 @@ class SequencesManager{
 	handleMouseDuringChoice(currentMousePosX){
 
 		if( currentMousePosX > 0 ){
-			this.choiceHandler({ direction: "right"})
+			this.choiceHandler("right")
 		} 
 		
 		if( currentMousePosX < 0 ){
-			this.choiceHandler({ direction: "left"})
+			this.choiceHandler("left")
 		}
 
 	}
