@@ -1,85 +1,8 @@
-// {
-// 	type: "bloom",
-// 	value: {
-// 		strength: .85,
-// 		threshold: 0.045,
-// 		radius: 0.1
-// 	}
-// },
 
 // {
 // 	type: "kaleidoscope",
 // 	sides: 1,
 // 	angle: -45
-// },
-
-// {
-// 	type: "vignette",
-// 	darkness: 1.5,
-// 	offset: 1.04
-// },
-
-// {
-// 	type: "kaleidoscope",
-// 	sides: 1,
-// 	angle: -25
-// },
-
-// {
-// 	type: "bloom",
-// 	value: {
-// 		strength: .5,
-// 		threshold: 0.45,
-// 		radius: 0.01
-// 	}
-// },
-
-// {
-// 	type: "sepia",
-// 	amount: 1
-// },
-
-// {
-// 	type: "rgbShift",
-// 	amount: 0.12
-// },
-
-// {
-// 	type: "dotscreen",
-// 	dotSize: 4
-// },
-
-// {
-// 	type: "bloom",
-// 	value: {
-// 		strength: 0.9,
-// 		threshold: 0.35,
-// 		radius: 0.3
-// 	}
-// },
-
-// {
-// 	type: "glitch"
-// },
-
-// {
-// 	obscurci
-// 	type: "bleach",
-// 	amount: 0.5
-// }
-
-// {
-// 	type: "afterimage",
-// 	damp: 0.8
-// }
-
-// {
-// 	type: "pixel",
-// 	pixelSize: 1
-// }
-
-// {
-// 	type: "sobel"
 // },
 
 const worlds = [
@@ -979,7 +902,7 @@ const worlds = [
 						z: 0
 					},
 					scale: 0.01,
-					slowmo: 1,
+					slowmo: 1.8,
 					customShaderOptions: {
 						shaderTimeRatio: 1.5,
 						shaderTimeDecay: 5,
@@ -1967,9 +1890,9 @@ const worlds = [
 
 		main: {
 
-			spaceColor: "#05000b",
-			spaceColorDarker: "#05000b",
-			spaceColorWithBloom: "#05000b",
+			spaceColor: "#020202",
+			spaceColorDarker: "#020202",
+			spaceColorWithBloom: "#020202",
 
 			ambient: {
 				sunColor: "#eeeeee",
@@ -2043,8 +1966,8 @@ const worlds = [
 
 				fog: {
 					enabled: true,
-					color: "#05000b",
-					intensity: .06
+					color: "#000000",
+					intensity: .02
 				},
 
 				bobImposedMoves: {
@@ -2084,6 +2007,7 @@ const worlds = [
 				},
 
 				postproc: [
+					
 					{
 						type: "bloom",
 						value: {
@@ -2092,6 +2016,12 @@ const worlds = [
 							radius: 0.45
 						}
 					},
+					// {
+					// 	type: "vignette",
+					// 	darkness: -0.6,
+					// 	offset: 0.1
+					// },
+					
 					// {
 					// 	type: "blur",
 					// 	focusTarget: "marie",

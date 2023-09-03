@@ -154,13 +154,13 @@ class BasicCharacterController {
 
 		if ( sequenceImposedMoves?.left || (currentMousePos?.x < 0 && sequenceImposedMoves.left !== false) ) {
 			_A.set(0, 1, 0);
-			_Q.setFromAxisAngle(_A, 4.0 * Math.PI * timeInSeconds * this._acceleration.y * (Math.abs(currentMousePos.x) / 3));
+			_Q.setFromAxisAngle(_A, 4.0 * Math.PI * timeInSeconds * this._acceleration.y * (Math.abs(currentMousePos.x) / 3.5));
 			_R.multiply(_Q);
 		}
 
 		if ( sequenceImposedMoves?.right || (currentMousePos?.x > 0 && sequenceImposedMoves.right !== false) ) {
 			_A.set(0, 1, 0);
-			_Q.setFromAxisAngle(_A, 4.0 * -Math.PI * timeInSeconds * this._acceleration.y * (Math.abs(currentMousePos.x) / 3));
+			_Q.setFromAxisAngle(_A, 4.0 * -Math.PI * timeInSeconds * this._acceleration.y * (Math.abs(currentMousePos.x) / 3.5));
 			_R.multiply(_Q);
 		}
 

@@ -94,7 +94,7 @@ const entities = {
 					shaderScale: 1,
 					shaderAxe: "yz",
 					specificShaderName: "galaxy",
-					shaderTimeRatio: 1.5,
+					shaderTimeRatio: 1.25,
 					isCameraPositionInfluenced: false,
 					sin: false,
 					sinAmplitude: 5260
