@@ -232,9 +232,6 @@
 		align-items: center;
 		width: 50vw;
 		height: 80vh;
-		// box-shadow: inset 0 0 4vw rgba(255,255,255,.1S);
-
-		// border: solid 1px red;
 	}
 }
 
@@ -258,7 +255,7 @@
 		align-items: center;
 		width: 100%;
 		height: 100%;
-		// background-color: rgba(255,255,255,0.15);
+
 		box-shadow: inset 0 0 4vw rgba(255,255,255,.25);
 		border-radius: 50%;
 		pointer-events: none;
@@ -275,7 +272,6 @@
 
 		&.active {
 		background-color: rgba(255,255,255,.3);
-		// box-shadow: 0 0 0 transparent;
 		box-shadow: 0 0 22px rgba(255,255,255,.4);
 		transform: scale(1.2);
 		}
