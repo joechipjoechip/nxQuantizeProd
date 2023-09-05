@@ -7,6 +7,7 @@ You can directly use them in pages and other components without the need to impo
 **Tip:** If a component is conditionally rendered with `v-if` and is big, it is better to use `Lazy` or `lazy-` prefix to lazy load.
 
 - `<BlenderTubes>` | `<blender-tubes>` (components/BlenderTubes.js)
+- `<SpecificManualCameraTweenBuilder>` | `<specific-manual-camera-tween-builder>` (components/SpecificManualCameraTweenBuilder.js)
 - `<CharacterController>` | `<character-controller>` (components/characterController.js)
 - `<CinemaNew>` | `<cinema-new>` (components/cinemaNew.vue)
 - `<CustomPhongShaderBuilder>` | `<custom-phong-shader-builder>` (components/customPhongShaderBuilder.js)
@@ -25,7 +26,6 @@ You can directly use them in pages and other components without the need to impo
 - `<SceneDisposer>` | `<scene-disposer>` (components/sceneDisposer.js)
 - `<SequencesBuilder>` | `<sequences-builder>` (components/sequencesBuilder.js)
 - `<SequencesManager>` | `<sequences-manager>` (components/sequencesManager.js)
-- `<SpecificManualCameraTweenBuilder>` | `<specific-manual-camera-tween-builder>` (components/SpecificManualCameraTweenBuilder.js)
 - `<States>` | `<states>` (components/states.js)
 - `<Stick>` | `<stick>` (components/stick.vue)
 - `<ThirdPersonCamera>` | `<third-person-camera>` (components/thirdPersonCamera.js)

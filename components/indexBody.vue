@@ -41,16 +41,23 @@
 			}
 		},
 		mounted(){
-			this.$nuxt.$on("cinema-is-ready", this.toggleStartButton);
+			this.$nuxt.$on("cinema-is-ready", this.handleCinemaIsReady);
+			this.$nuxt.$on("benchmark-is-done", this.handleBenchmarkIsDone);
 		},
 		beforeDestroy(){
-			this.$nuxt.$off("cinema-is-ready", this.toggleStartButton);
+			this.$nuxt.$off("cinema-is-ready", this.handleCinemaIsReady);
+			this.$nuxt.$off("benchmark-is-done", this.handleBenchmarkIsDone);
 		},
 		methods: {
-			toggleStartButton( event ){
+			handleCinemaIsReady( event ){
 				if( event ){
-					this.cinemaIsReady = true;
+					// launch benchmark here
+					this.$nuxt.$emit("please-start-benchmark", {})
 				}
+			},
+			handleBenchmarkIsDone(){
+				// when it's done : 
+				this.cinemaIsReady = true;
 			}
 		}
 	}

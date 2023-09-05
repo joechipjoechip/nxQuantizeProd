@@ -10,8 +10,7 @@
 			<div v-if="sequenceID" class="stats">{{ sequenceID }}</div>
 			<div v-if="$store.state.audioCurrent" class="stats">{{ $store.state.audioCurrent.currentTime }}</div>
 			<div v-if="currentSequence" class="stats">next step : {{ currentSequence.until }}</div>
-			<div v-if="currentSequence" class="stats">isAdjustingDownScale : {{ isAdjustingDownScale }}</div>
-			<div v-if="currentSequence" class="stats">bad cpu : {{ badCpuSpotted }}</div>
+			<div v-if="currentSequence" class="stats">bad cpu : {{ $store.state.badComputer }}</div>
 		</div>
 
 		<canvas 
@@ -81,19 +80,10 @@
 
 				arbitraryFpsIdeal: 60,
 				arbitraryFpsLimit: 45,
-				arbitraryDownScaleLimit: 1.5,
-				downScaleCount: 0,
-				rescaleRatio: 1.5,
-				rescaleInterval: 500,
-
-				fpsStandardChanged: false,
-				badCpuSpotted: false,
 
 				startTime: performance.now(),
 				currentFPSValue: 0,
 				frames: 0,
-				isAdjustingDownScale: false,
-				performanceTimeoutID: null,
 
 				// Others
 				lastKnownSequenceID: "1.0",
@@ -147,8 +137,6 @@
 
 			"skeleton.current"(newVal){
 
-				this.clearDownScaleTimeout();
-
 				this.sceneBundle.current = this.sceneBundle[newVal.type];
 				
 				this.sequencesManager.current = this.sequencesManager[newVal.type];
@@ -169,15 +157,7 @@
 			},
 
 			sequenceID(newVal, oldVal){
-
-				// this.setDownScale(this.$store.state.downScale);
-				// this.isAdjustingDownScale = false;
-
 				this.sequencesManager.current.sequenceChangeHandler(newVal, oldVal);
-
-				if( this.performanceTimeoutID ){
-					this.clearDownScaleTimeout();
-				}
 			},
 
 			"$store.state.downScale"(newVal){
@@ -188,13 +168,9 @@
 				const newHeight = window.innerHeight / this.$store.state.downScale;
 
 				if( this.sequencesManager.current.composer ){
-					
 					this.sequencesManager.current.composer.setSize(newWidth, newHeight);
-					
 				} else {
-
 					this.renderer.setSize(newWidth, newHeight);
-
 				}
 
 				this.skeleton.current.recomputeCameraAspectRatio(this.canvasSizeRef);
@@ -202,27 +178,6 @@
 				// and update parent value for mousePositions consistency
 				this.$parent.canvasSizeRef.width = newWidth;
 				this.$parent.canvasSizeRef.height = newHeight;
-
-				if( this.$store.state.audioBase.currentTime <= 14 && newVal !== 1 && !this.fpsStandardChanged ){
-					this.downScaleCount++;
-				}
-
-			},
-
-			downScaleCount( newVal ){
-
-				if( newVal > 5 ){
-
-					this.frameRate = 1/40;
-					this.arbitraryFpsIdeal = 40;
-					this.arbitraryFpsLimit = 25;
-					this.rescaleRatio = 1.75;
-					this.rescaleInterval = 1000;
-
-					this.fpsStandardChanged = true;
-					this.badCpuSpotted = true;
-
-				}
 
 			},
 
@@ -233,12 +188,6 @@
 
 					this.$store.state.audioCurrent.play();
 
-				}
-			},
-
-			badCpuSpotted( newVal ){
-				if( newVal ){
-					this.setDownScale(3)
 				}
 			},
 
@@ -257,9 +206,6 @@
 			this.createBundle(0, "primary");
 			this.createBundle(1, "secondary");
 			
-			// this.arbitraryFpsLimit = this.$store.state.isMobile ? 25 : 50;
-			// this.arbitraryFpsIdeal = this.$store.state.isMobile ? 30 : 60;
-			
 		},
 		
 		beforeDestroy(){
@@ -267,6 +213,15 @@
 		},
 
 		methods: {
+			adjustMisc(){
+
+				if( this.$store.state.badComputer ){
+					this.frameRate = 1/30;
+					this.arbitraryFpsIdeal = 30;
+					this.setDownScale(2);
+				}
+
+			},
 
 			async createBundle(worldIndex, slotKey){
 
@@ -311,6 +266,8 @@
 					this.initFirstSequencesManagers();
 
 					this.skeleton.current = this.skeleton.primary;
+
+					this.adjustMisc();
 
 					this.mainTick();
 
@@ -415,14 +372,8 @@
 				// NOW CHECK IF FRAMERATE IS GOOD
 				if( this.deltaTime >= this.frameRate ){
 					// console.log("act render");
-					
-					// @TODO : temporary disabling for dev
-					// et de toute facon, le benchmark va passer côté index
-					
-					// if( !this.badCpuSpotted ){
-					// 	this.computeFPS();
-					// 	this.handleFpsAndDownScaling();
-					// }
+
+					// this.computeFPS();
 
 					this.checkCurrentTime();
 	
@@ -430,12 +381,12 @@
 
 					// NOW COMPUTE RENDER
 					if( this.sequencesManager.current.composer ){
-						console.log("use composer : ", this.sequencesManager.current.name);
+						// console.log("use composer : ", this.sequencesManager.current.name);
 						
 						this.sequencesManager.current.composer.render();
 						
 					} else {
-						console.log("use classic renderer : ", this.sceneBundle.current.name);
+						// console.log("use classic renderer : ", this.sceneBundle.current.name);
 
 						this.renderer.render(this.sceneBundle.current.scene, this.sceneBundle.current.camera);
 
@@ -535,66 +486,6 @@
 
 			},
 
-			handleFpsAndDownScaling(){
-
-				if( this.isAdjustingDownScale ){ return; }
-
-				if( this.currentFPSValue > this.arbitraryFpsLimit && this.$store.state.downScale !== 1 ){
-
-					this.clearDownScaleTimeout();
-
-					this.setDownScale(1);
-
-					return;
-
-				}
-				
-				if( this.currentFPSValue < this.arbitraryFpsLimit || this.$store.state.downScale > this.arbitraryDownScaleLimit ){
-					// console.log("adjusting start : fps value : ----> ", this.currentFPSValue);
-
-					this.isAdjustingDownScale = true;
-
-					this.performanceTimeoutID = setTimeout(() => {
-						
-						if( this.currentFPSValue < this.arbitraryFpsLimit || this.$store.state.downScale > this.arbitraryDownScaleLimit ){
-							// console.log("adjusting verify (in timeout): fps value : ", this.currentFPSValue);
-
-							const diff = (((this.arbitraryFpsIdeal - this.currentFPSValue) / 10) + 1) * this.rescaleRatio;
-
-							if( diff > 1 ){
-								this.setDownScale(diff);
-							}
-
-							this.isAdjustingDownScale = false;
-
-						} else {
-							// console.log("finally cancelled because fps is now : ", this.currentFPSValue);
-							this.clearDownScaleTimeout();
-
-						}
-
-					}, this.rescaleInterval);
-
-				} else {
-
-					this.clearDownScaleTimeout();
-
-				}
-
-			},
-
-			clearDownScaleTimeout(){
-				
-				if( this.performanceTimeoutID ){
-
-					clearTimeout(this.performanceTimeoutID);
-					this.performanceTimeoutID = null;
-					this.isAdjustingDownScale = false;
-
-				}
-
-			},
-
 			handleAudioEnded(){
 
 				if( !this.loopIsAsked ){
@@ -678,8 +569,6 @@
 				this.loopClock = null
 
 			}
-
-			
 
 		}
 

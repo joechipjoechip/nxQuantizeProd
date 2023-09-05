@@ -9,6 +9,7 @@ export const state = () => ({
 	audioLoopNeutral: null,
 	audioLoopDrumOne: null,
 	audioLoopDrumTwo: null,
+	badComputer: false
 })
 
 export const getters = {
@@ -24,6 +25,10 @@ export const getters = {
 }
 
 export const mutations = {
+
+	setBadComputer(state, payload) {
+		state.badComputer = payload
+	},
 
 	setDownScale(state, payload) {
 		state.downScale = payload

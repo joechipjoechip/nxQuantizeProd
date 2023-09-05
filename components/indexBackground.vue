@@ -1,7 +1,7 @@
 <template>
 	<div class="background-wrapper">
-        <!-- <button @click="animate = !animate">animation</button>
-        <span style="color: white;">fps : {{ currentFPSValue }}</span> -->
+        <button @click="animate = !animate">animation</button>
+        <span style="color: white;">fps : {{ currentFPSValue }}</span>
 		<canvas id="canvasIndex" ref="canvasIndex"></canvas>
 	</div>
 </template>
@@ -33,15 +33,19 @@
 		data(){
             return {
                 frameRate: 1/60,
+                idealFPSValue: 50,
                 deltaTime: 0,
 
                 startTime: 0,
                 currentFPSValue: 0,
                 frames: 0,
+                frameMissing: 0,
 
                 animate: true,
 
                 requestAnimationFrameID: null,
+
+                benchmarkIsActive: false,
 
                 params: {
                     hemisphereLight: [0x000000, 0x0049ff, 0.4],
@@ -157,12 +161,18 @@
                 if( !newVal ){
                     this.afterImage.uniforms.damp.value = 0;
                 }
-
-            }
+            },
+            // benchmarkIsActive( newVal ){
+            //     if( newVal ){
+            //         this.addBenchElements()
+            //     }
+            // }
         },
         mounted(){
 
             this.$nuxt.$on("view-update-by-stick", this.mouseUpdate);
+
+            this.$nuxt.$on("please-start-benchmark", this.startBenchmark)
 
             this.createScene();
 
@@ -184,6 +194,8 @@
             this.renderer.dispose();
             
             this.$nuxt.$off("view-update-by-stick", this.mouseUpdate);
+
+            this.$nuxt.$off("please-start-benchmark", this.startBenchmark)
 
         },
         methods: {
@@ -446,8 +458,10 @@
                 if( this.deltaTime >= this.frameRate ){
 
                     // console.log("act render");
-
-                    this.computeFPS();
+                    if( this.benchmarkIsActive ){
+                        this.computeFPS();
+                    }
+                    
                     
                     this.updateThings();
 
@@ -481,7 +495,28 @@
 					this.startTime = t;
 				}
 				this.frames++;
+
+                if( this.currentFPSValue < this.idealFPSValue ){
+                    this.countFrameMissing()
+                }
 			},
+
+            countFrameMissing(){
+
+                this.frameMissing++
+
+                if( this.frameMissing > 20 || this.$store.state.isMobile ){
+
+                    console.log("OK slowdown framerate to 30")
+                    this.frameRate = 1/30;
+                    this.idealFPSValue = 30;
+                    this.deltaTime = 0;
+
+                    this.$store.commit("setBadComputer", true);
+
+                }
+
+            },
 
             updateThings(){
                 const elapsedTime = this.clock.getElapsedTime();
@@ -683,6 +718,20 @@
 
             mouseUpdate( event ){
                 this.currentMousePos = event;
+            },
+
+            startBenchmark(){
+
+                console.log("OK START BENCHMARK NOW")
+                this.benchmarkIsActive = true
+
+                setTimeout(() => {
+
+                    this.benchmarkIsActive = false
+                    this.$nuxt.$emit("benchmark-is-done")
+
+                }, 3000)
+
             }
 
         }
