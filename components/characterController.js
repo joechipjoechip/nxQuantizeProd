@@ -131,25 +131,12 @@ class BasicCharacterController {
 			
 		}
 
-		if (this._stateMachine._currentState?.Name == 'dance') {
-			acc.multiplyScalar(0.0);
-		}
-
 		if( this._input._keys.hiphop ){
 			velocity.z += acc.z * timeInSeconds / 3.5;
 		}
 
-		if( this._input._keys.climb ){
-			acc.multiplyScalar(0.15);
-			velocity.y += acc.y * timeInSeconds / 3.5;
-		}
-
 		if (this._input._keys.forward) {
 			velocity.z += acc.z * timeInSeconds;
-		}
-
-		if (this._input._keys.backward) {
-			velocity.z -= acc.z * timeInSeconds;
 		}
 
 		if ( sequenceImposedMoves?.left || (currentMousePos?.x < 0 && sequenceImposedMoves.left !== false) ) {
@@ -255,17 +242,12 @@ class BasicCharacterControllerInput {
 		
 		this._keys = {
 			forward: false || this._imposedMoves.forward,
-			backward: false || this._imposedMoves.backward,
 			left: false || this._imposedMoves.left,
 			right: false || this._imposedMoves.right,
-			space: false || this._imposedMoves.space,
 			shift: false || this._imposedMoves.shift,
 			fly: false || this._imposedMoves.fly,
 			floating: false || this._imposedMoves.floating,
-			jazz: false || this._imposedMoves.jazz,
-			housedance: false || this._imposedMoves.housedance,
 			hiphop: false || this._imposedMoves.hiphop,
-			climb: false || this._imposedMoves.climb,
 			enjoy: false || this._imposedMoves.enjoy,
 			teeter: false || this._imposedMoves.teeter,
 			prayup: false || this._imposedMoves.prayup,
