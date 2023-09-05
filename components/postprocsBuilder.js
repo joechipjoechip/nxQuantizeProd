@@ -2,18 +2,10 @@ import * as THREE from 'three';
 
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
 import { GammaCorrectionShader } from 'three/examples/jsm/shaders/GammaCorrectionShader.js';
-
-import { HorizontalBlurShader } from 'three/examples/jsm/shaders/HorizontalBlurShader.js';
-import { VerticalBlurShader } from 'three/examples/jsm/shaders/VerticalBlurShader.js';
-
 import { KaleidoShader } from 'three/examples/jsm/shaders/KaleidoShader.js';
-
-
-
 import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js';
 import { BokehPass } from 'three/examples/jsm/postprocessing/BokehPass.js';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
-import { FilmPass } from 'three/examples/jsm/postprocessing/FilmPass.js';
 
 class PostprocsBuilder {
 	// Some effects needs a shaderPass + an effectPass
