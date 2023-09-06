@@ -2049,10 +2049,10 @@ const worlds = [
 			spaceColorWithBloom: "#000000",
 
 			ambient: {
-				sunColor: "#000000",
+				sunColor: "#7400FF",
 				// intensity: 0.17,
-				intensity: 0.15,
-				groundColor: "#7400FF"
+				intensity: 0.18,
+				groundColor: "#FFFFFF"
 			},
 
 			fog: {

@@ -53,7 +53,7 @@
 				// create a new timer
 				this.timeoutID = setTimeout(
 					this.positionRecenter,
-					this.core.mouse.moveTimeout * 2000
+					this.core.mouse.moveTimeout * 3500
 				);
 				
 				if( !this.isSmoothing ){
@@ -106,9 +106,10 @@
 
 					const tlRecenter = new TimelineLite();
 
-					tlRecenter.to(animatedObject, 1.75, {
+					tlRecenter.to(animatedObject, 3.25, {
 						x: 0,
 						y: 0,
+						ease: "easeInOut",
 						onUpdate( that ){
 
 							that.currentPosition = animatedObject;
@@ -143,6 +144,7 @@
 					tlRecenter.to(animatedObject, 0.175, {
 						x: this.formulaX(this.streamedPosition.clientX),
 						y: this.formulaY(this.streamedPosition.clientY),
+						ease: "easeInOut",
 						onUpdate( that ){
 
 							that.currentPosition = animatedObject;
