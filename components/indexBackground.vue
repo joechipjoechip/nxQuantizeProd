@@ -33,7 +33,7 @@
 		data(){
             return {
                 frameRate: 1/60,
-                idealFPSValue: 50,
+                idealFPSValue: 45,
                 deltaTime: 0,
 
                 startTime: 0,
@@ -46,6 +46,7 @@
                 requestAnimationFrameID: null,
 
                 benchmarkIsActive: false,
+                benchmarkTimeoutID: null,
 
                 params: {
                     hemisphereLight: [0x000000, 0x0049ff, 0.4],
@@ -72,28 +73,28 @@
                             enabled: true,
                             specific: {
                                 one: {
-                                    color: "#71E79B",
+                                    color: "#00FF00",
                                     intensity: 1,
                                     enabled: false
                                 },
                                 two: {
-                                    color: "#5CE7E4",
+                                    color: "#00FF00",
                                     intensity: 1,
-                                    enabled: false
+                                    enabled: true
                                 },
                                 three: {
-                                    color: "#FFFFFF",
+                                    color: "#00FF00",
                                     intensity: 1,
                                     enabled: false
                                 },
                                 skin: {
                                     color: "#FFFFFF",
-                                    intensity: 500,
+                                    intensity: 1,
                                     enabled: false
                                 },
                                 eyes: {
                                     color: "#FFFFFF",
-                                    intensity: 100,
+                                    intensity: 1,
                                     enabled: true
                                 }
                             }
@@ -125,8 +126,8 @@
                         afterImage: {
                             min: 0.7,
                             max: 0.985,
-                            durationOpen: 4,
-                            durationClose: 2,
+                            durationOpen: 3,
+                            durationClose: 1,
                             tweenNameOpen: "afterImageTweenOpen",
                             tweenNameClose: "afterImageTweenClose",
                             // every n seconds
@@ -161,12 +162,7 @@
                 if( !newVal ){
                     this.afterImage.uniforms.damp.value = 0;
                 }
-            },
-            // benchmarkIsActive( newVal ){
-            //     if( newVal ){
-            //         this.addBenchElements()
-            //     }
-            // }
+            }
         },
         mounted(){
 
@@ -482,6 +478,29 @@
 
             },
 
+            startBenchmark(){
+
+                console.log("OK START BENCHMARK NOW");
+                this.benchmarkIsActive = true;
+
+                this.benchmarkTimeoutID = setTimeout(() => {
+
+                    this.stopBenchmark();
+
+                }, 3000);
+
+            },
+
+            stopBenchmark(){
+                this.benchmarkIsActive = false;
+                this.$nuxt.$emit("benchmark-is-done");
+                this.benchmarkTimeoutID = null;
+
+                if( this.benchmarkTimeoutID ){
+                    clearTimeout(this.benchmarkTimeoutID);
+                }
+            },
+
             computeFPS(){
 				const t = performance.now();
 				const dt = t - this.startTime;
@@ -499,6 +518,8 @@
                 if( this.currentFPSValue < this.idealFPSValue ){
                     this.countFrameMissing()
                 }
+
+                console.log("missing frames : ", this.frameMissing);
 			},
 
             countFrameMissing(){
@@ -513,6 +534,9 @@
                     this.deltaTime = 0;
 
                     this.$store.commit("setBadComputer", true);
+
+                    this.stopBenchmark();
+                    
 
                 }
 
@@ -529,9 +553,9 @@
                 this.light2.position.y = (this.currentMousePos.y * 25);
 
                 this.camera.position.set(
-                    this.currentMousePos.x * 0.75,
-                    this.currentMousePos.y * 0.25 + 1,
-                    Math.cos(elapsedTime) * 0.05 + this.params.perspectiveCameraBasePosition[2],
+                    this.currentMousePos.x * -7,
+                    this.currentMousePos.y * -4 + 1,
+                    Math.sin(elapsedTime) * 0.15 + this.params.perspectiveCameraBasePosition[2],
                 );
 
                 this.camera.lookAt(new THREE.Vector3(
@@ -719,20 +743,6 @@
             mouseUpdate( event ){
                 this.currentMousePos = event;
             },
-
-            startBenchmark(){
-
-                console.log("OK START BENCHMARK NOW")
-                this.benchmarkIsActive = true
-
-                setTimeout(() => {
-
-                    this.benchmarkIsActive = false
-                    this.$nuxt.$emit("benchmark-is-done")
-
-                }, 3000)
-
-            }
 
         }
 
