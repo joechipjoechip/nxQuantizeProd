@@ -18,12 +18,19 @@
 			return {
 				core,
 				currentPosition: { x: 0, y: 0 },
-				isMovingFromZero: false
+				lastKnownPosition: { x: 0, y: 0 },
+				isMovingFromZero: false,
+				isSmoothing: false,
+				streamedPosition: null
 			}
 		},
 		watch: {
 			currentPosition( newVal ){
+
 				this.$nuxt.$emit("view-update-by-stick", newVal);
+
+				this.lastKnownPosition = newVal;
+
 			}
 		},
 		mounted(){
@@ -35,6 +42,8 @@
 		methods: {
 			handleMouseMove( event ){
 
+				this.streamedPosition = event;
+
 				// cancel previous timers
 				if( this.timeoutID ){
 					clearTimeout(this.timeoutID);
@@ -44,10 +53,26 @@
 				// create a new timer
 				this.timeoutID = setTimeout(
 					this.positionRecenter,
-					this.core.mouse.moveTimeout * 1000
+					this.core.mouse.moveTimeout * 2000
 				);
 				
-				this.computePosition(event);
+				if( !this.isSmoothing ){
+
+					if( this.lastKnownPosition.x === 0 && this.lastKnownPosition.y === 0 ){
+						
+						this.fromZeroSmoother({
+							x: this.formulaX(event.clientX),
+							y: this.formulaY(event.clientY)
+						});
+						
+					} else {
+	
+						this.computePosition(event);					
+	
+					}
+
+				}
+				
 
 			},
 
@@ -75,18 +100,64 @@
 					y: this.currentPosition.y
 				};
 
-				const tlRecenter = new TimelineLite();
+				if( !this.isSmoothing ){
 
-				tlRecenter.to(animatedObject, this.core.mouse.recenterDuration, {
+					this.isSmoothing = true;
+
+					const tlRecenter = new TimelineLite();
+
+					tlRecenter.to(animatedObject, 1.75, {
+						x: 0,
+						y: 0,
+						onUpdate( that ){
+
+							that.currentPosition = animatedObject;
+
+						},
+						onUpdateParams: [this],
+						onComplete( that ){
+							that.isSmoothing = false
+						},
+						onCompleteParams: [this]
+					});
+
+				}
+
+			},
+
+			fromZeroSmoother(){
+
+				const animatedObject = {
 					x: 0,
-					y: 0,
-					onUpdate( that ){
+					y: 0
+				};
+				
+				if( !this.isSmoothing ){
 
-						that.currentPosition = animatedObject;
+					console.log("from zero triggered with : x ", this.streamedPosition.clientX)
 
-					},
-					onUpdateParams: [this]
-				});
+					this.isSmoothing = true;
+
+					const tlRecenter = new TimelineLite();
+
+					tlRecenter.to(animatedObject, 0.175, {
+						x: this.formulaX(this.streamedPosition.clientX),
+						y: this.formulaY(this.streamedPosition.clientY),
+						onUpdate( that ){
+
+							that.currentPosition = animatedObject;
+
+						},
+						onUpdateParams: [this],
+						onComplete( that ){
+
+							that.isSmoothing = false;
+
+						},
+						onCompleteParams: [this]
+					});
+					
+				}
 
 			}
 
