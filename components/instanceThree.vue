@@ -78,9 +78,6 @@
 				frameRate: 1/60,
 				deltaTime: 0,
 
-				arbitraryFpsIdeal: 60,
-				arbitraryFpsLimit: 45,
-
 				startTime: performance.now(),
 				currentFPSValue: 0,
 				frames: 0,
@@ -216,8 +213,8 @@
 			adjustMisc(){
 
 				if( this.$store.state.badComputer ){
-					this.frameRate = 1/30;
-					this.arbitraryFpsIdeal = 30;
+					// this.frameRate = 1/30;
+					// this.arbitraryFpsIdeal = 30;
 					this.setDownScale(2);
 				}
 
@@ -371,9 +368,6 @@
 				
 				// NOW CHECK IF FRAMERATE IS GOOD
 				if( this.deltaTime >= this.frameRate ){
-					// console.log("act render");
-
-					// this.computeFPS();
 
 					this.checkCurrentTime();
 	
@@ -461,22 +455,6 @@
 				parsed[0] = parseInt(parsed[0]) + 1;
 
 				return parsed.join(".");
-			},
-
-			computeFPS(){
-
-				const t = performance.now();
-				const dt = t - this.startTime;
-
-				if( dt > this.frameRate ){
-					this.currentFPSValue = this.frames * 1000 / dt;
-
-					this.frames = 0;
-					this.startTime = t;
-				}
-
-				this.frames++;
-
 			},
 
 			setDownScale(newRatio){

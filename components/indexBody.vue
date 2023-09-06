@@ -49,14 +49,9 @@
 		methods: {
 			handleCinemaIsReady( event ){
 				if( event ){
-					// launch benchmark here
-					// this.$nuxt.$emit("please-start-benchmark", {})
 					this.cinemaIsReady = true;
 				}
 			},
-			handleBenchmarkIsDone(){
-				// when it's done : 
-			}
 		}
 	}
 </script>

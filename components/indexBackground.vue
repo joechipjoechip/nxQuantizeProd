@@ -1,7 +1,8 @@
 <template>
 	<div class="background-wrapper">
-        <button @click="animate = !animate">animation</button>
-        <span style="color: white;">fps : {{ currentFPSValue }}</span>
+        <!-- <button @click="animate = !animate">animation</button>
+        <span style="color: white;">fps : {{ currentFPSValue }}</span> -->
+        <span v-if="benchmarkIsActive" style="color: white;">benchmarking ..</span>
 		<canvas id="canvasIndex" ref="canvasIndex"></canvas>
 	</div>
 </template>
