@@ -12,10 +12,6 @@
 			<index-body class="body" />
 	
 			<component :is="'indexBackground'" class="background" :canvasSizeRef="canvasSizeRef" />
-	
-			<mouse-handler
-				:canvasSizeRef="canvasSizeRef"
-			/>
 
 		</div>
 
