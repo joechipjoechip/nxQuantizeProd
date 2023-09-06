@@ -53,7 +53,7 @@
 				// create a new timer
 				this.timeoutID = setTimeout(
 					this.positionRecenter,
-					this.core.mouse.moveTimeout * 3500
+					this.$parent.$parent.isAtEntrance ? 3500 : this.core.mouse.moveTimeout * 1000
 				);
 				
 				if( !this.isSmoothing ){
@@ -106,7 +106,9 @@
 
 					const tlRecenter = new TimelineLite();
 
-					tlRecenter.to(animatedObject, 3.25, {
+					tlRecenter.to(animatedObject, 
+						this.$parent.$parent.isAtEntrance ? 3.25 : 0.75, 
+						{
 						x: 0,
 						y: 0,
 						ease: "easeInOut",
