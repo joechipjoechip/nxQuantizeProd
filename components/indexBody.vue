@@ -42,22 +42,20 @@
 		},
 		mounted(){
 			this.$nuxt.$on("cinema-is-ready", this.handleCinemaIsReady);
-			this.$nuxt.$on("benchmark-is-done", this.handleBenchmarkIsDone);
 		},
 		beforeDestroy(){
 			this.$nuxt.$off("cinema-is-ready", this.handleCinemaIsReady);
-			this.$nuxt.$off("benchmark-is-done", this.handleBenchmarkIsDone);
 		},
 		methods: {
 			handleCinemaIsReady( event ){
 				if( event ){
 					// launch benchmark here
-					this.$nuxt.$emit("please-start-benchmark", {})
+					// this.$nuxt.$emit("please-start-benchmark", {})
+					this.cinemaIsReady = true;
 				}
 			},
 			handleBenchmarkIsDone(){
 				// when it's done : 
-				this.cinemaIsReady = true;
 			}
 		}
 	}

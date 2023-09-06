@@ -2,9 +2,6 @@
   "BlenderTubes": {
     "description": "Auto imported from components/BlenderTubes.js"
   },
-  "SpecificManualCameraTweenBuilder": {
-    "description": "Auto imported from components/SpecificManualCameraTweenBuilder.js"
-  },
   "CharacterController": {
     "description": "Auto imported from components/characterController.js"
   },
@@ -58,6 +55,9 @@
   },
   "SequencesManager": {
     "description": "Auto imported from components/sequencesManager.js"
+  },
+  "SpecificManualCameraTweenBuilder": {
+    "description": "Auto imported from components/SpecificManualCameraTweenBuilder.js"
   },
   "States": {
     "description": "Auto imported from components/states.js"

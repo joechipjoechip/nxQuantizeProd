@@ -366,9 +366,11 @@ class PrimaryLoadManager{
 
 	_LoadTexture( worldData, index ){
 
+		const suffix = this.vm.$store.state.badComputer ? "-low.jpg" : ".jpg";
+
 		this.textures[index] = {
 			name: worldData.name,
-			file: this.textureLoader.load(worldData.main.meshInfos.imagePath.landscape),
+			file: this.textureLoader.load(worldData.main.meshInfos.imagePath.landscape + suffix),
 			options: {
 				metalness: worldData.main.meshInfos.options?.metalness,
 				roughness: worldData.main.meshInfos.options?.roughness

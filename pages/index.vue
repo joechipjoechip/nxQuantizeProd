@@ -15,7 +15,7 @@
 
 		</div>
 
-		<div v-if="!primalCurtainIsDisplayed && backgroundIsLaunched" v-show="!isAtEntrance">
+		<div v-if="!primalCurtainIsDisplayed && backgroundIsLaunched && benchmarkIsOver" v-show="!isAtEntrance">
 			<component :is="'cinemaNew'" />
 		</div>
 
@@ -35,8 +35,15 @@
 				},
 				isAtEntrance: true,
 				backgroundIsLaunched: false,
-				primalCurtainIsDisplayed: true
+				primalCurtainIsDisplayed: true,
+				benchmarkIsOver: false
 			}
+		},
+		mounted(){
+			this.$nuxt.$on("benchmark-is-done", this.startBigLoad);
+		},
+		beforeDestroy(){
+			this.$nuxt.$off("benchmark-is-done", this.startBigLoad);
 		},
 		watch: {
 			primalCurtainIsDisplayed( newVal ){
@@ -45,15 +52,25 @@
 				}
 			},
 			backgroundIsLaunched( newVal ){
-
+				
 				if( newVal ){
+
 					this.primalCurtainIsDisplayed = false
-					// @import cinemaNew from '@/components/cinemaNew.vue';
-					import(`@/components/cinemaNew.vue`);
+
+					this.$nuxt.$emit("please-start-benchmark", {})
+
 				}
+				
+			},	
+		},
+		methods: {
+			startBigLoad(){
+				this.benchmarkIsOver = true
+				console.log("startBigKLoads triggered")
+				// @import cinemaNew from '@/components/cinemaNew.vue';
+				import(`@/components/cinemaNew.vue`);
 
-			}
-
+			},
 		}
 		
 	}

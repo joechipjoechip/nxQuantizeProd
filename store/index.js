@@ -9,7 +9,7 @@ export const state = () => ({
 	audioLoopNeutral: null,
 	audioLoopDrumOne: null,
 	audioLoopDrumTwo: null,
-	badComputer: false
+	badComputer: false,
 })
 
 export const getters = {

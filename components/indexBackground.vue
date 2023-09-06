@@ -485,6 +485,7 @@
 
                 this.benchmarkTimeoutID = setTimeout(() => {
 
+                    console.log("stop benchmark by timeout")
                     this.stopBenchmark();
 
                 }, 3000);
@@ -494,10 +495,10 @@
             stopBenchmark(){
                 this.benchmarkIsActive = false;
                 this.$nuxt.$emit("benchmark-is-done");
-                this.benchmarkTimeoutID = null;
-
+                
                 if( this.benchmarkTimeoutID ){
                     clearTimeout(this.benchmarkTimeoutID);
+                    this.benchmarkTimeoutID = null;
                 }
             },
 
@@ -535,6 +536,7 @@
 
                     this.$store.commit("setBadComputer", true);
 
+                    console.log("stop benchmark by too much missing frames")
                     this.stopBenchmark();
                     
 

@@ -48,7 +48,7 @@ const worlds = [
 
 				glbPath: "/assets/3d/worlds/lightHouse/lightHouse.glb",
 				imagePath: {
-					landscape: "/assets/3d/worlds/lightHouse/lightHouseBake.jpg"
+					landscape: "/assets/3d/worlds/lightHouse/lightHouseBake"
 				},
 				// options: {
 				// 	metalness: 0.2,
@@ -330,7 +330,7 @@ const worlds = [
 
 				glbPath: "/assets/3d/worlds/epicValley/epicValley.glb",
 				imagePath: {
-					landscape: "/assets/3d/worlds/epicValley/epicValleyBake.jpg"
+					landscape: "/assets/3d/worlds/epicValley/epicValleyBake"
 				}
 
 			},
@@ -972,7 +972,7 @@ const worlds = [
 
 				glbPath: "/assets/3d/worlds/caveEntrance/caveEntrance.glb",
 				imagePath: {
-					landscape: "/assets/3d/worlds/caveEntrance/caveEntranceBake.jpg"
+					landscape: "/assets/3d/worlds/caveEntrance/caveEntranceBake"
 				}
 
 			},
@@ -1578,7 +1578,7 @@ const worlds = [
 
 				glbPath: "/assets/3d/worlds/greenMountain/greenMountain.glb",
 				imagePath: {
-					landscape: "/assets/3d/worlds/greenMountain/greenMountainBake.jpg"
+					landscape: "/assets/3d/worlds/greenMountain/greenMountainBake"
 				}
 			},
 
@@ -1925,7 +1925,7 @@ const worlds = [
 
 				glbPath: "/assets/3d/worlds/five/five.glb",
 				imagePath: {
-					landscape: "/assets/3d/worlds/five/fiveBake.jpg"
+					landscape: "/assets/3d/worlds/five/fiveBake"
 				}
 			},
 
@@ -2065,7 +2065,7 @@ const worlds = [
 
 				glbPath: "/assets/3d/worlds/choice/choice.glb",
 				imagePath: {
-					landscape: "/assets/3d/worlds/choice/choiceBake.jpg"
+					landscape: "/assets/3d/worlds/choice/choiceBake"
 				}
 			},
 
@@ -2193,7 +2193,7 @@ const worlds = [
 
 				glbPath: "/assets/3d/worlds/end01/end01.glb",
 				imagePath: {
-					landscape: "/assets/3d/worlds/end01/end01Bake.jpg"
+					landscape: "/assets/3d/worlds/end01/end01Bake"
 				}
 			},
 

@@ -137,7 +137,7 @@
 				
 				if( !this.isSmoothing ){
 
-					console.log("from zero triggered with : x ", this.streamedPosition.clientX)
+					// console.log("from zero triggered with : x ", this.streamedPosition.clientX)
 
 					this.isSmoothing = true;
 
