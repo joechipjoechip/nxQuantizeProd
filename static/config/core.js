@@ -342,8 +342,8 @@ const core = {
 			},
 			straightness: 0.04,
 			mouseOrientationPonderation: {
-				x: 0.02,
-				y: 0.02
+				x: 0.03,
+				y: 0.03
 			},
 			motion: {
 				// motion will move the camera continuously
@@ -366,7 +366,7 @@ const core = {
 		},
 		movingFlyLeft: {
 			offset: {
-				x: -0.1,
+				x: 0.2,
 				y: 0.038,
 				z: 0
 			},
@@ -378,7 +378,7 @@ const core = {
 			straightness: 0.04,
 			mouseOrientationPonderation: {
 				x: 0.02,
-				y: 0.02
+				y: 0.06
 			},
 			motion: {
 				// motion will move the camera continuously
@@ -386,7 +386,7 @@ const core = {
 				// and it's related at the offset values
 				x: {
 					// ratios
-					range: 0.05,
+					range: -0.1,
 					velocity: 0.35
 				},
 				y: {
@@ -401,7 +401,7 @@ const core = {
 		},
 		movingFlyRight: {
 			offset: {
-				x: 0.1,
+				x: -0.1,
 				y: 0.038,
 				z: 0
 			},
@@ -447,8 +447,8 @@ const core = {
 			},
 			straightness: 0.04,
 			mouseOrientationPonderation: {
-				x: 0.01,
-				y: 0.01
+				x: 0.02,
+				y: 0.02
 			},
 			motion: {
 				// motion will move the camera continuously

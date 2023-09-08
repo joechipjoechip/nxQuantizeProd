@@ -682,7 +682,7 @@ const worlds = [
 					scale: 0.03,
 					slowmo: 2,
 					customShaderOptions: {
-						shaderTimeRatio: 0.01,
+						shaderTimeRatio: 0.1,
 						shaderTimeDecay: 12,
 						isCameraPositionInfluenced: false,
 						sin: true,
@@ -769,7 +769,7 @@ const worlds = [
 					scale: 0.03,
 					slowmo: 2,
 					customShaderOptions: {
-						shaderTimeRatio: 0.01,
+						shaderTimeRatio: 0.1,
 						shaderTimeDecay: 12,
 						isCameraPositionInfluenced: false,
 						sin: true,
@@ -1896,7 +1896,7 @@ const worlds = [
 
 			ambient: {
 				sunColor: "#eeeeee",
-				intensity: 0.25,
+				intensity: 0.2,
 				groundColor: "#eeeeee"
 			},
 
@@ -1946,10 +1946,6 @@ const worlds = [
 				until: 188.8,
 				nextInstruction: "switch-sequence",
 
-				// customShaderOptions: {
-				// 	timeRatio: 2.15
-				// },
-
 				animatedMesh: false,
 
 				helpers: {
@@ -1958,16 +1954,10 @@ const worlds = [
 					timelines: false
 				},
 
-				// landscapeMove: {
-				// 	x: 0,
-				// 	y: 0.0015,
-				// 	z: -0.0015
-				// },
-
 				fog: {
 					enabled: true,
 					color: "#000000",
-					intensity: .02
+					intensity: .1
 				},
 
 				bobImposedMoves: {
@@ -1999,10 +1989,10 @@ const worlds = [
 					scale: 0.165,
 					slowmo: 2,
 					customShaderOptions: {
-						shaderTimeRatio: 0.18,
-						shaderTimeDecay: 20,
-						sin: false,
-						sinAmplitude: 60
+						shaderTimeRatio: 0.02,
+						shaderTimeDecay: 10,
+						sin: true,
+						sinAmplitude: 35
 					}
 				},
 
@@ -2016,21 +2006,7 @@ const worlds = [
 							radius: 0.45
 						}
 					},
-					// {
-					// 	type: "vignette",
-					// 	darkness: -0.6,
-					// 	offset: 0.1
-					// },
-					
-					// {
-					// 	type: "blur",
-					// 	focusTarget: "marie",
-					// 	value: {
-					// 		focus: 1,
-					// 		aperture: 0.015,
-					// 		maxblur: 0.0038
-					// 	}
-					// },
+
 				]
 
 			},
@@ -2171,13 +2147,17 @@ const worlds = [
 		name: "world_050",
 
 		main: {
+			// bleu nuit
+			// spaceColor: "#000105",
 
-			spaceColor: "#000000",
-			spaceColorDarker: "#000000",
-			spaceColorWithBloom: "#000000",
+			// jaune pétant
+			// spaceColor: "#FF5A00",
+			spaceColor: "#8a4300",
+			spaceColorDarker: "#8a4300",
+			spaceColorWithBloom: "#8a4300",
 
 			ambient: {
-				sunColor: "#FF5A00",
+				sunColor: "#8a4300",
 				// intensity: 0.17,
 				intensity: 0.3,
 				groundColor: "#1B00FF"
@@ -2235,19 +2215,13 @@ const worlds = [
 				cameraTriggerTimeDecay: 16,
 				cameraType: "movingFlyEnd",
 
-				until: 28,
+				until: 27,
+				// until: 4,
 				nextInstruction: "switch-sequence",
 
 				cameraInvert: {
 					x: false,
 					y: true
-				},
-
-				customShaderOptions: {
-					shaderTimeRatio: 0.2,
-					shaderTimeDecay: 10,
-					sin: false,
-					sinAmplitude: 60
 				},
 
 				animatedMesh: false,
@@ -2271,6 +2245,13 @@ const worlds = [
 					left: false,
 					right: false
 				},
+
+				// bobCustomShader: {
+				// 	shaderTimeRatio: 0.038,
+				// 	shaderTimeDecay: 0,
+				// 	sin: true,
+				// 	sinAmplitude: 32
+				// },
 
 				alice: {
 					handleGround: false,
@@ -2305,17 +2286,17 @@ const worlds = [
 			},
 			{
 				id: "7.17",
-				baseFov: 21,
+				baseFov: 27,
 				fovTransition: false,
 				sequenceBobName: "linkShaderFlying",
 				bobRestoreSize: 0.0012,
-				isEndSequence: true,
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 16,
-				cameraType: "movingFlyRight",
+				cameraType: "movingFlyLeft",
 
-				until: 48,
+				until: 45,
+				// until: 18,
 				nextInstruction: "switch-sequence",
 
 				cameraInvert: {
@@ -2323,11 +2304,11 @@ const worlds = [
 					y: true
 				},
 
-				customShaderOptions: {
-					shaderTimeRatio: 0.2,
-					shaderTimeDecay: 10,
-					sin: false,
-					sinAmplitude: 60
+				bobCustomShader: {
+					shaderTimeRatio: 0.04,
+					shaderTimeDecay: 0,
+					sin: true,
+					sinAmplitude: 20
 				},
 
 				animatedMesh: false,
@@ -2340,7 +2321,7 @@ const worlds = [
 
 				fog: {
 					enabled: false,
-					color: "#ffffff",
+					color: "#8a4300",
 					intensity: .14
 				},
 
@@ -2363,7 +2344,7 @@ const worlds = [
 					offset: {
 						x: 0,
 						y: 0.35,
-						z: 0.75
+						z: 0.25
 					},
 					scale: 0.057,
 					slowmo: 1
@@ -2385,17 +2366,97 @@ const worlds = [
 			},
 			{
 				id: "7.18",
-				baseFov: 10,
+				baseFov: 25,
 				fovTransition: false,
 				sequenceBobName: "linkShaderFlying",
-				bobRestoreSize: 0.0011,
-				isEndSequence: true,
+				bobRestoreSize: 0.0009,
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 16,
-				cameraType: "movingFlyLeft",
+				cameraType: "movingFly",
+				
+				until: 54,
+				// until: 25,
+				nextInstruction: "switch-sequence",
 
-				until: 68,
+				cameraInvert: {
+					x: false,
+					y: true
+				},
+
+				animatedMesh: false,
+
+				helpers: {
+					orbit: false,
+					tubes: false,
+					timelines: false
+				},
+
+				fog: {
+					enabled: false,
+					color: "#8a4300",
+					intensity: .24
+				},
+
+				bobImposedMoves: {
+					fly: true,
+					forward: false,
+					backward: false,
+					// left: false,
+					// right: false
+				},
+
+				bobCustomShader: {
+					shaderTimeRatio: 0.08,
+					shaderTimeDecay: 0,
+					sin: true,
+					sinAmplitude: 15
+				},
+
+				alice: {
+					handleGround: false,
+					name: "marie",
+					move: {
+						fly: true,
+						forward: false,
+						backward: false,
+					},
+					offset: {
+						x: 0,
+						y: 0.35,
+						z: 0.25
+					},
+					scale: 0.057,
+					slowmo: 1
+				},
+
+				slowmo: 1,
+
+				postproc: [
+					{
+						type: "bloom",
+						value: {
+							strength: 0.45,
+							threshold: 0.0035,
+							radius: 0.85
+						}
+					}
+				]
+
+			},
+			{
+				id: "7.19",
+				baseFov: 22,
+				fovTransition: false,
+				sequenceBobName: "linkShaderFlying",
+				bobRestoreSize: 0.0009,
+
+				type: "third-person",
+				cameraTriggerTimeDecay: 16,
+				cameraType: "movingFly",
+
+				until: 64,
+				// until: 35,
 				nextInstruction: "switch-sequence",
 
 				cameraInvert: {
@@ -2404,7 +2465,7 @@ const worlds = [
 				},
 
 				customShaderOptions: {
-					shaderTimeRatio: 0.2,
+					shaderTimeRatio: 3,
 					shaderTimeDecay: 10,
 					sin: false,
 					sinAmplitude: 60
@@ -2420,8 +2481,8 @@ const worlds = [
 
 				fog: {
 					enabled: false,
-					color: "#ffffff",
-					intensity: .14
+					color: "#8a4300",
+					intensity: .3
 				},
 
 				bobImposedMoves: {
@@ -2430,6 +2491,13 @@ const worlds = [
 					backward: false,
 					// left: false,
 					// right: false
+				},
+
+				bobCustomShader: {
+					shaderTimeRatio: 0.18,
+					shaderTimeDecay: 0,
+					sin: true,
+					sinAmplitude: 7
 				},
 
 				alice: {
@@ -2443,7 +2511,7 @@ const worlds = [
 					offset: {
 						x: 0,
 						y: 0.35,
-						z: 0.75
+						z: 0.25
 					},
 					scale: 0.057,
 					slowmo: 1

@@ -100,7 +100,7 @@
 				debug: {
 					animated: true,
 					stats: true,
-					end: true
+					end: false
 				},
 
 				currentBobName: null,
@@ -411,7 +411,7 @@
 
 					console.log("ending started and currentTime is : ", this.$store.state[`audioEnd${this.endingSelected}`].currentTime, this.currentSequence.until, this.currentSequence.alreadyTriggered);
 
-					if( this.$store.state[`audioEnd${this.endingSelected}`].currentTime >= this.currentSequence.until && !this.currentSequence.alreadyTriggered) {
+					if( this.$store.state[`audioEnd${this.endingSelected}`].currentTime >= this.currentSequence.until && !this.currentSequence.alreadyTriggered ) {
 
 						console.log("ending handleSequencing triggered");
 

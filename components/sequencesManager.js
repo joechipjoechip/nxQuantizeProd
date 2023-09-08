@@ -653,9 +653,7 @@ class SequencesManager{
 			this.currentSequenceElements.camera.rotation.y += (currentMousePos.x / 10) * (this.currentSequenceElements.sequenceInfos.cameraInvert?.x ? -1 : 1);
 			this.currentSequenceElements.camera.rotation.x += (currentMousePos.y / 10) * (this.currentSequenceElements.sequenceInfos.cameraInvert?.y ? -1 : 1);
 
-		}
-
-		
+		}		
 
 		// if meshes with custom shader 
 		if( this.sceneBundlePassed.sceneElements.meshesForCustomShaderBuilt ){
@@ -671,8 +669,8 @@ class SequencesManager{
 		// if bob with custom shader 
 		if( this.sceneBundlePassed.sceneElements.bobs[this.currentBobName]?._controls._params.bobInfos.shader ){
 
-			const shaderInfos = this.sceneBundlePassed.sceneElements.bobs[this.currentBobName]?._controls._params.bobInfos.shader;
-
+			const shaderInfos = this.currentSequenceElements.bobCustomShader ? this.currentSequenceElements.bobCustomShader : this.sceneBundlePassed.sceneElements.bobs[this.currentBobName]?._controls._params.bobInfos.shader
+			
 			this.sceneBundlePassed.sceneElements.bobs[this.currentBobName]._controls._target.children.find(child => child.name !== "Armature").material.uniforms.iGlobalTime.value = shaderInfos.shaderTimeRatio * (shaderInfos.sin ? (Math.sin(elapsedTime) * shaderInfos.sinAmplitude) : elapsedTime);
 
 		}

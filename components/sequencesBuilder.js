@@ -53,7 +53,8 @@ class SequencesBuilder {
 				fakeOrbit: false,
 				choiceSequence : sequenceInfos.choiceSequence,
 				isEndSequence: sequenceInfos.isEndSequence,
-				sequenceImposedMoves: sequenceInfos.bobImposedMoves
+				sequenceImposedMoves: sequenceInfos.bobImposedMoves,
+				bobCustomShader: sequenceInfos.bobCustomShader,
 			};
 
 			this._BuildPostprocsCollections(sequenceInfos);
