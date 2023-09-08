@@ -88,13 +88,19 @@
 				loopClock: null,
 				choiceIsDisplayed: false,
 				choiceHaveBeenMade: false,
+				endingIsStarted: false,
+				endingSelected: "",
+
+				endFlyPrayTimer: 16.5,
+				endChoiceTimer: 44.25,
 
 				nextWorldIndex: 0,
 				initialLoadDone: false,
 
 				debug: {
 					animated: true,
-					stats: true
+					stats: true,
+					end: true
 				},
 
 				currentBobName: null,
@@ -401,43 +407,66 @@
 			checkCurrentTime(){
 
 
-				if( !this.loopIsAsked && this.$store.state.audioBase.currentTime >= (this.$store.state.audioBase.duration - 0.1) ){
-					// console.log("if -> end time is almost reached");
-					this.startLoops();
-				}
-				
-				if( !this.$store.state.audioBase.paused && (this.$store.state.audioCurrent.currentTime >= this.currentSequence.until && !this.currentSequence.alreadyTriggered) ){
+				if( this.endingIsStarted ){
 
-					const nextSequenceID = this.computeNextSequenceID(this.sequenceID);
-					const nextSceneID = this.computeNextSceneID(this.sequenceID);
+					console.log("ending started and currentTime is : ", this.$store.state[`audioEnd${this.endingSelected}`].currentTime, this.currentSequence.until, this.currentSequence.alreadyTriggered);
 
-					switch( this.currentSequence.nextInstruction ){
+					if( this.$store.state[`audioEnd${this.endingSelected}`].currentTime >= this.currentSequence.until && !this.currentSequence.alreadyTriggered) {
 
-						case "switch-scene":
-							// console.log("le switch case donne bien switch-scene");
-							this.$nuxt.$emit("switch-scene", nextSceneID);
-							// this.$nuxt.$emit("switch-sequence", nextSequenceID);
-							break;
+						console.log("ending handleSequencing triggered");
 
-						case "switch-sequence":
-							// console.log("nexxt sequence id : ", nextSequenceID);
-
-							this.$nuxt.$emit("switch-sequence", nextSequenceID);
-							break;
-
-						case "drop-and-load-and-switch":
-							// drop inactive
-							// store current
-							// load new one
-							console.log("- - - switch/case :: drop and load and switch - - -");
-							this.$nuxt.$emit("drop-and-load-and-switch", {});
-							break;
+						this.handleSequencing();
 
 					}
 
-					this.currentSequence.alreadyTriggered = true;
+					
+
+				} else {
+
+					if( !this.loopIsAsked && this.$store.state.audioBase.currentTime >= (this.$store.state.audioBase.duration - 0.1) ){
+						// console.log("if -> end time is almost reached");
+						this.startLoops();
+					}
+					
+					if( !this.$store.state.audioBase.paused && (this.$store.state.audioCurrent.currentTime >= this.currentSequence.until && !this.currentSequence.alreadyTriggered) ){
+	
+						this.handleSequencing();
+	
+					}
 
 				}
+
+			},
+
+			handleSequencing(){
+
+				const nextSequenceID = this.computeNextSequenceID(this.sequenceID);
+				const nextSceneID = this.computeNextSceneID(this.sequenceID);
+
+				switch( this.currentSequence.nextInstruction ){
+
+					case "switch-scene":
+						// console.log("le switch case donne bien switch-scene");
+						this.$nuxt.$emit("switch-scene", nextSceneID);
+						// this.$nuxt.$emit("switch-sequence", nextSequenceID);
+						break;
+
+					case "switch-sequence":
+						// console.log("nexxt sequence id : ", nextSequenceID);
+
+						this.$nuxt.$emit("switch-sequence", nextSequenceID);
+						break;
+
+					case "drop-and-load-and-switch":
+						// drop inactive
+						// store current
+						// load new one
+						this.$nuxt.$emit("drop-and-load-and-switch", {});
+						break;
+
+				}
+
+				this.currentSequence.alreadyTriggered = true;
 
 			},
 
@@ -509,13 +538,20 @@
 
 				console.log("checkLoopClock : ", this.loopClock.getElapsedTime());
 
-				if( !this.choiceIsDisplayed && this.loopClock.getElapsedTime() >= 16.5 ){
+				if( this.debug.end ){
+					this.endFlyPrayTimer = 2
+					this.endChoiceTimer = 6
+				}
+
+				// 16.5
+				if( !this.choiceIsDisplayed && this.loopClock.getElapsedTime() >= this.endFlyPrayTimer ){
 					this.$nuxt.$emit("drop-and-load-and-switch");
 					this.choiceIsDisplayed = true;
 					
 				}
-
-				if( this.choiceIsDisplayed && this.loopClock.getElapsedTime() >= 44.25 ){
+				
+				// 44.25
+				if( this.choiceIsDisplayed && this.loopClock.getElapsedTime() >= this.endChoiceTimer ){
 					// 42.5 is temp : à déterminer précisément quand on aura les assets
 
 					this.choiceHaveBeenMade = true;
@@ -524,10 +560,9 @@
 					// mais pour l'instant on reste linéaire pour dev
 					this.$nuxt.$emit("drop-and-load-and-switch");
 					
-					this.dropLoops()
+					this.dropLoops();
 
-					// launch ending mp3 (à voir laquelle sera choisie)
-					this.$store.state.audioEndOne.play()
+					this.startEnding();
 
 				}
 
@@ -541,8 +576,19 @@
 				this.$store.state.audioLoopDrumOne.stop();
 				this.$store.state.audioLoopDrumTwo.stop();
 
-				this.loopClock.stop()
-				this.loopClock = null
+				this.loopClock.stop();
+				this.loopClock = null;
+
+			},
+
+			startEnding(){
+
+				this.endingIsStarted = true;
+
+				this.endingSelected = "One";
+
+				// launch ending mp3 (à voir laquelle sera choisie)
+				this.$store.state[`audioEnd${this.endingSelected}`].play();
 
 			}
 

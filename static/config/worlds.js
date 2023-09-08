@@ -2049,9 +2049,9 @@ const worlds = [
 			spaceColorWithBloom: "#000000",
 
 			ambient: {
-				sunColor: "#7400FF",
+				sunColor: "#000000",
 				// intensity: 0.17,
-				intensity: 0.18,
+				intensity: 0.28,
 				groundColor: "#FFFFFF"
 			},
 
@@ -2201,7 +2201,7 @@ const worlds = [
 				enabled: true,
 				shaderTimeRatio: 1.85,
 				shaderName: "plastic",
-				shaderScale: 16,
+				shaderScale: 2,
 				shaderAxe: "zy"
 			},
 
@@ -2214,8 +2214,8 @@ const worlds = [
 					timeRatio: 500.0,
 					blockSize: {
 						x: 3,
-						y: 3,
-						z: 3
+						y: 8,
+						z: 8
 					}
 				}
 			],
@@ -2235,18 +2235,13 @@ const worlds = [
 				cameraTriggerTimeDecay: 16,
 				cameraType: "movingFlyEnd",
 
-				until: 288.8,
+				until: 28,
 				nextInstruction: "switch-sequence",
 
-				// customShaderOptions: {
-				// 	timeRatio: 2.15
-				// },
 				cameraInvert: {
 					x: false,
 					y: true
 				},
-
-				
 
 				customShaderOptions: {
 					shaderTimeRatio: 0.2,
@@ -2262,12 +2257,6 @@ const worlds = [
 					tubes: false,
 					timelines: false
 				},
-
-				// landscapeMove: {
-				// 	x: 0,
-				// 	y: 0.0015,
-				// 	z: -0.0015
-				// },
 
 				fog: {
 					enabled: false,
@@ -2310,16 +2299,167 @@ const worlds = [
 							threshold: 0.0035,
 							radius: 0.1
 						}
+					}
+				]
+
+			},
+			{
+				id: "7.17",
+				baseFov: 21,
+				fovTransition: false,
+				sequenceBobName: "linkShaderFlying",
+				bobRestoreSize: 0.0012,
+				isEndSequence: true,
+
+				type: "third-person",
+				cameraTriggerTimeDecay: 16,
+				cameraType: "movingFlyRight",
+
+				until: 48,
+				nextInstruction: "switch-sequence",
+
+				cameraInvert: {
+					x: false,
+					y: true
+				},
+
+				customShaderOptions: {
+					shaderTimeRatio: 0.2,
+					shaderTimeDecay: 10,
+					sin: false,
+					sinAmplitude: 60
+				},
+
+				animatedMesh: false,
+
+				helpers: {
+					orbit: false,
+					tubes: false,
+					timelines: false
+				},
+
+				fog: {
+					enabled: false,
+					color: "#ffffff",
+					intensity: .14
+				},
+
+				bobImposedMoves: {
+					fly: true,
+					forward: false,
+					backward: false,
+					// left: false,
+					// right: false
+				},
+
+				alice: {
+					handleGround: false,
+					name: "marie",
+					move: {
+						fly: true,
+						forward: false,
+						backward: false,
 					},
-					// {
-					// 	type: "blur",
-					// 	focusTarget: "queenFinal",
-					// 	value: {
-					// 		focus: 1,
-					// 		aperture: 0.035,
-					// 		maxblur: 0.009
-					// 	}
-					// },
+					offset: {
+						x: 0,
+						y: 0.35,
+						z: 0.75
+					},
+					scale: 0.057,
+					slowmo: 1
+				},
+
+				slowmo: 1,
+
+				postproc: [
+					{
+						type: "bloom",
+						value: {
+							strength: 0.45,
+							threshold: 0.0035,
+							radius: 0.6
+						}
+					}
+				]
+
+			},
+			{
+				id: "7.18",
+				baseFov: 10,
+				fovTransition: false,
+				sequenceBobName: "linkShaderFlying",
+				bobRestoreSize: 0.0011,
+				isEndSequence: true,
+
+				type: "third-person",
+				cameraTriggerTimeDecay: 16,
+				cameraType: "movingFlyLeft",
+
+				until: 68,
+				nextInstruction: "switch-sequence",
+
+				cameraInvert: {
+					x: false,
+					y: true
+				},
+
+				customShaderOptions: {
+					shaderTimeRatio: 0.2,
+					shaderTimeDecay: 10,
+					sin: false,
+					sinAmplitude: 60
+				},
+
+				animatedMesh: false,
+
+				helpers: {
+					orbit: false,
+					tubes: false,
+					timelines: false
+				},
+
+				fog: {
+					enabled: false,
+					color: "#ffffff",
+					intensity: .14
+				},
+
+				bobImposedMoves: {
+					fly: true,
+					forward: false,
+					backward: false,
+					// left: false,
+					// right: false
+				},
+
+				alice: {
+					handleGround: false,
+					name: "marie",
+					move: {
+						fly: true,
+						forward: false,
+						backward: false,
+					},
+					offset: {
+						x: 0,
+						y: 0.35,
+						z: 0.75
+					},
+					scale: 0.057,
+					slowmo: 1
+				},
+
+				slowmo: 1,
+
+				postproc: [
+					{
+						type: "bloom",
+						value: {
+							strength: 0.45,
+							threshold: 0.0035,
+							radius: 0.85
+						}
+					}
 				]
 
 			},

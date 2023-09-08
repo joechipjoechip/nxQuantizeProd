@@ -364,6 +364,76 @@ const core = {
 				},
 			},
 		},
+		movingFlyLeft: {
+			offset: {
+				x: -0.1,
+				y: 0.038,
+				z: 0
+			},
+			lookAt: {
+				x: 0,
+				y: 0.025,
+				z: 0.005
+			},
+			straightness: 0.04,
+			mouseOrientationPonderation: {
+				x: 0.02,
+				y: 0.02
+			},
+			motion: {
+				// motion will move the camera continuously
+				// with a sin() (so -1 to 1)
+				// and it's related at the offset values
+				x: {
+					// ratios
+					range: 0.05,
+					velocity: 0.35
+				},
+				y: {
+					range: -0.011,
+					velocity: 0.5
+				},
+				z: {
+					range: 0,
+					velocity: 0.4
+				},
+			},
+		},
+		movingFlyRight: {
+			offset: {
+				x: 0.1,
+				y: 0.038,
+				z: 0
+			},
+			lookAt: {
+				x: 0,
+				y: 0.025,
+				z: 0.005
+			},
+			straightness: 0.04,
+			mouseOrientationPonderation: {
+				x: 0.02,
+				y: 0.02
+			},
+			motion: {
+				// motion will move the camera continuously
+				// with a sin() (so -1 to 1)
+				// and it's related at the offset values
+				x: {
+					// ratios
+					range: -0.05,
+					velocity: 0.35
+				},
+				y: {
+					range: -0.011,
+					velocity: 0.5
+				},
+				z: {
+					range: 0,
+					velocity: 0.4
+				},
+			},
+		},
 		movingFlyEnd: {
 			offset: {
 				x: 0.05,
