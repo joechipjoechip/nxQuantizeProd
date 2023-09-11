@@ -128,12 +128,12 @@ class BasicCharacterController {
 				velocity.z += acc.z * timeInSeconds * 60;
 			}
 			
-			if( optionsObj.isEndSequence ){
-				// velocity.y += acc.y * timeInSeconds;
-				acc.multiplyScalar(0.1);
-			} else {
-				velocity.y -= acc.y * timeInSeconds / 100;
-			}
+			// if( optionsObj.isEndSequence ){
+			// 	// velocity.y += acc.y * timeInSeconds;
+			// 	acc.multiplyScalar(0.1);
+			// } else {
+			// 	velocity.y -= acc.y * timeInSeconds / 100;
+			// }
 			
 		}
 

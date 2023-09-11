@@ -92,7 +92,8 @@
 				endingSelected: "",
 
 				endFlyPrayTimer: 16.5,
-				endChoiceTimer: 44.25,
+				endChoiceTimer: 43.43,
+				// if not : 43.9
 
 				nextWorldIndex: 0,
 				initialLoadDone: false,
@@ -100,7 +101,7 @@
 				debug: {
 					animated: true,
 					stats: true,
-					end: true
+					end: false
 				},
 
 				currentBobName: null,

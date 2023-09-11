@@ -333,7 +333,7 @@ const core = {
 			offset: {
 				x: -0.01,
 				y: 0.038,
-				z: -0.038
+				z: -0.027
 			},
 			lookAt: {
 				x: 0,
@@ -366,7 +366,7 @@ const core = {
 		},
 		movingFlyLeft: {
 			offset: {
-				x: 0.2,
+				x: 1.5,
 				y: 0.038,
 				z: 0
 			},
@@ -386,8 +386,8 @@ const core = {
 				// and it's related at the offset values
 				x: {
 					// ratios
-					range: -0.1,
-					velocity: 0.35
+					range: -1.4,
+					velocity: 0.55
 				},
 				y: {
 					range: -0.011,

@@ -7,6 +7,9 @@ class SequencesManager{
 
 	constructor(sceneBundle, cinema, renderer, clock, canvasSizeRef, vm){
 
+		// this.debugTime = true;
+		// this.lastSequenceUntil = null;
+
 		this.sceneBundlePassed = sceneBundle;
 		this.name = sceneBundle.name;
 		this.cinema = cinema;
@@ -84,6 +87,14 @@ class SequencesManager{
 
 		this.activeGoodLightsOnly(newSequenceID);
 
+
+		// if( this.debugTime ){
+		// 	this.lastSequenceUntil = this.sceneBundlePassed.sequencesElements[oldSequenceID]?.until;
+		// 	this.sceneBundlePassed.sceneElements.newSequenceTriggerTime = this.lastSequenceUntil;
+		// 	console.log("DEBUG TIME : last sequences was until : ", this.lastSequenceUntil)
+		// } else {
+		// 	this.sceneBundlePassed.sceneElements.newSequenceTriggerTime = this.clock.getElapsedTime();
+		// }
 
 		this.sceneBundlePassed.sceneElements.newSequenceTriggerTime = this.clock.getElapsedTime();
 
