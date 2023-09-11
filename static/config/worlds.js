@@ -2243,7 +2243,7 @@ const worlds = [
 					forward: false,
 					backward: false,
 					left: false,
-					right: false
+					right: false,
 				},
 
 				// bobCustomShader: {
@@ -2331,6 +2331,7 @@ const worlds = [
 					backward: false,
 					// left: false,
 					// right: false
+					translateZ1: true
 				},
 
 				alice: {
@@ -2340,6 +2341,7 @@ const worlds = [
 						fly: true,
 						forward: false,
 						backward: false,
+						translateZ1: true
 					},
 					offset: {
 						x: 0,
@@ -2366,22 +2368,37 @@ const worlds = [
 			},
 			{
 				id: "7.18",
-				baseFov: 25,
+				baseFov: 9,
 				fovTransition: false,
 				sequenceBobName: "linkShaderFlying",
-				bobRestoreSize: 0.0009,
+				bobRestoreSize: 0.0012,
 
-				type: "third-person",
-				cameraTriggerTimeDecay: 16,
-				cameraType: "movingFly",
+				type: "blender-points",
 				
-				until: 54,
+				until: 57,
 				// until: 25,
 				nextInstruction: "switch-sequence",
 
 				cameraInvert: {
 					x: false,
 					y: true
+				},
+
+				tubeInfos: {
+					duration: 12,
+					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
+					isUsingTarget: true,
+					steps: [
+						// n steps are possibles
+						// n has nothing to do with the number of points for the curve
+						{
+							// this amount is a percent of the global duration
+							amount: 100,
+							fov: 100,
+							stepEase: "linear"
+						},
+
+					]
 				},
 
 				animatedMesh: false,
@@ -2402,8 +2419,8 @@ const worlds = [
 					fly: true,
 					forward: false,
 					backward: false,
-					// left: false,
-					// right: false
+					left: false,
+					right: false,
 				},
 
 				bobCustomShader: {
@@ -2420,6 +2437,7 @@ const worlds = [
 						fly: true,
 						forward: false,
 						backward: false,
+						translateZ1: true
 					},
 					offset: {
 						x: 0,
@@ -2436,7 +2454,7 @@ const worlds = [
 					{
 						type: "bloom",
 						value: {
-							strength: 0.45,
+							strength: 0.55,
 							threshold: 0.0035,
 							radius: 0.85
 						}
@@ -2446,16 +2464,120 @@ const worlds = [
 			},
 			{
 				id: "7.19",
+				baseFov: 5,
+				fovTransition: false,
+				sequenceBobName: "linkShaderFlying",
+				bobRestoreSize: 0.0012,
+
+				type: "blender-points",
+
+				until: 67,
+				// until: 35,
+				nextInstruction: "switch-sequence",
+
+				cameraInvert: {
+					x: false,
+					y: true
+				},
+
+				tubeInfos: {
+					duration: 12,
+					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
+					isUsingTarget: true,
+					steps: [
+						// n steps are possibles
+						// n has nothing to do with the number of points for the curve
+						{
+							// this amount is a percent of the global duration
+							amount: 100,
+							fov: 140,
+							stepEase: "linear"
+						},
+
+					]
+				},
+
+				customShaderOptions: {
+					shaderTimeRatio: 3,
+					shaderTimeDecay: 10,
+					sin: false,
+					sinAmplitude: 60
+				},
+
+				animatedMesh: false,
+
+				helpers: {
+					orbit: false,
+					tubes: false,
+					timelines: false
+				},
+
+				fog: {
+					enabled: false,
+					color: "#8a4300",
+					intensity: .3
+				},
+
+				bobImposedMoves: {
+					fly: true,
+					forward: false,
+					backward: false,
+					left: false,
+					right: false,
+					translateZ1: true
+				},
+
+				bobCustomShader: {
+					shaderTimeRatio: 0.18,
+					shaderTimeDecay: 0,
+					sin: true,
+					sinAmplitude: 7
+				},
+
+				alice: {
+					handleGround: false,
+					name: "marie",
+					move: {
+						fly: true,
+						forward: false,
+						backward: false,
+						translateZ1: true
+					},
+					offset: {
+						x: 0,
+						y: 0.35,
+						z: 0.25
+					},
+					scale: 0.057,
+					slowmo: 1
+				},
+
+				slowmo: 1,
+
+				postproc: [
+					{
+						type: "bloom",
+						value: {
+							strength: 0.65,
+							threshold: 0.0035,
+							radius: 0.85
+						}
+					}
+				]
+
+			},
+			{
+				id: "7.20",
 				baseFov: 22,
 				fovTransition: false,
 				sequenceBobName: "linkShaderFlying",
-				bobRestoreSize: 0.0009,
+				bobRestoreSize: 0.0012,
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 16,
 				cameraType: "movingFly",
 
-				until: 64,
+				until: 87,
 				// until: 35,
 				nextInstruction: "switch-sequence",
 
@@ -2491,6 +2613,7 @@ const worlds = [
 					backward: false,
 					// left: false,
 					// right: false
+					translateZ1: true
 				},
 
 				bobCustomShader: {
@@ -2507,6 +2630,7 @@ const worlds = [
 						fly: true,
 						forward: false,
 						backward: false,
+						translateZ1: true
 					},
 					offset: {
 						x: 0,
@@ -2523,7 +2647,7 @@ const worlds = [
 					{
 						type: "bloom",
 						value: {
-							strength: 0.45,
+							strength: 0.75,
 							threshold: 0.0035,
 							radius: 0.85
 						}

@@ -100,7 +100,7 @@
 				debug: {
 					animated: true,
 					stats: true,
-					end: false
+					end: true
 				},
 
 				currentBobName: null,

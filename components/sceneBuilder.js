@@ -311,7 +311,7 @@ class SceneBuilder {
 
 	createMeshWithCustomShader( mesh ){
 
-		if(this.sceneElements.meshCustomShaderOptions.enabled ){
+		if( this.sceneElements.meshCustomShaderOptions.enabled ){
 
 			mesh.material = new CustomShaderBuilder({
 				shaderName: this.sceneElements.meshCustomShaderOptions.shaderName,
@@ -330,7 +330,7 @@ class SceneBuilder {
 		const mirrorMesh = new Reflector( mesh.geometry, {
 			textureWidth: window.innerWidth * window.devicePixelRatio,
 			textureHeight: window.innerHeight * window.devicePixelRatio,
-			color: new THREE.Color(0xb5b5b5)
+			color: new THREE.Color(0xc1cbcb)
 		});
 
 		mirrorMesh.scale.copy(mesh.scale);

@@ -120,7 +120,13 @@ class BasicCharacterController {
 		if( this._input._keys.fly ){
 			acc.multiplyScalar(0.01);
 
-			velocity.z += acc.z * timeInSeconds * 60;
+			if( this._input._keys.translateZ1 ){
+				velocity.z += acc.z * timeInSeconds * 200;
+			} else if( this._input._keys.translateZ2 ){
+				velocity.z += acc.z * timeInSeconds * 400;
+			} else {
+				velocity.z += acc.z * timeInSeconds * 60;
+			}
 			
 			if( optionsObj.isEndSequence ){
 				// velocity.y += acc.y * timeInSeconds;
@@ -251,6 +257,8 @@ class BasicCharacterControllerInput {
 			enjoy: false || this._imposedMoves.enjoy,
 			teeter: false || this._imposedMoves.teeter,
 			prayup: false || this._imposedMoves.prayup,
+			translateZ1: false || this._imposedMoves.translateZ1,
+			translateZ2: false || this._imposedMoves.translateZ2,
 		};
 
 		// document.addEventListener('keydown', ( event ) => this._onKeyDown( event ), false);
