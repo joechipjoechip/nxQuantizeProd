@@ -2145,7 +2145,7 @@ const worlds = [
 	},
 
 	{
-		name: "world_050",
+		name: "world_050_end01",
 
 		main: {
 			// spaceColor: "#090016",
@@ -3083,7 +3083,9 @@ const worlds = [
 			
 		]
 
-	}
+	},
+
+	
 
 ]
 

@@ -18,7 +18,7 @@ import { loopify } from '@/components/loopify.js';
 
 import soundBase from "@/static/assets/audio/onyi-firstPart.mp3";
 import soundEndOne from "@/static/assets/audio/onyi-end-one.mp3";
-import soundEndTwo from "@/static/assets/audio/onyi-end-one.mp3";
+import soundEndTwo from "@/static/assets/audio/onyi-end-two.mp3";
 
 class PrimaryLoadManager{
 

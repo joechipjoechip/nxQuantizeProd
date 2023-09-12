@@ -766,19 +766,23 @@ class SequencesManager{
 
 		switch(direction){
 			case "left":
-				this.vm.$store.state.audioLoopDrumOne.volume(1)
-				this.vm.$store.state.audioLoopDrumTwo.volume(0)
+				this.vm.$store.state.audioLoopDrumOne.volume(1);
+				this.vm.$store.state.audioLoopDrumTwo.volume(0);
 
-				camera._specs.lookAt.x = lookAtDecay
-				camera._specs.offset.x = offsetDecay * -1
+				this.vm.$store.commit("setCurrentChoice", "One");
+				
+				camera._specs.lookAt.x = lookAtDecay;
+				camera._specs.offset.x = offsetDecay * -1;
 				break;
+				
+				case "right":
+					this.vm.$store.state.audioLoopDrumOne.volume(0);
+					this.vm.$store.state.audioLoopDrumTwo.volume(1);
 
-			case "right":
-				this.vm.$store.state.audioLoopDrumOne.volume(0)
-				this.vm.$store.state.audioLoopDrumTwo.volume(1)
+					this.vm.$store.commit("setCurrentChoice", "Two");
 
-				camera._specs.lookAt.x = lookAtDecay * -1
-				camera._specs.offset.x = offsetDecay
+				camera._specs.lookAt.x = lookAtDecay * -1;
+				camera._specs.offset.x = offsetDecay;
 				break;
 		}
 		

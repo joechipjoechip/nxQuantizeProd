@@ -10,6 +10,7 @@ export const state = () => ({
 	audioLoopDrumOne: null,
 	audioLoopDrumTwo: null,
 	badComputer: false,
+	currentChoice: null
 })
 
 export const getters = {
@@ -25,6 +26,10 @@ export const getters = {
 }
 
 export const mutations = {
+
+	setCurrentChoice(state, payload) {
+		state.currentChoice = payload
+	},
 
 	setBadComputer(state, payload) {
 		state.badComputer = payload

@@ -24,6 +24,7 @@
 <script>
 	
 	import { worlds } from '@/static/config/worlds.js';
+	import { end02config } from '@/static/config/end02.js';
 	import { SceneBuilder } from '@/components/sceneBuilder.js';
 	import { SequencesManager } from '@/components/sequencesManager.js';
 
@@ -416,9 +417,9 @@
 
 				if( this.endingIsStarted ){
 
-					console.log("ending started and currentTime is : ", this.$store.state[`audioEnd${this.endingSelected}`].currentTime, this.currentSequence.until, this.currentSequence.alreadyTriggered);
+					console.log("ending started and currentTime is : ", this.$store.state[`audioEnd${this.$store.state.currentChoice}`].currentTime, this.currentSequence.until, this.currentSequence.alreadyTriggered);
 
-					if( this.$store.state[`audioEnd${this.endingSelected}`].currentTime >= this.currentSequence.until && !this.currentSequence.alreadyTriggered ) {
+					if( this.$store.state[`audioEnd${this.$store.state.currentChoice}`].currentTime >= this.currentSequence.until && !this.currentSequence.alreadyTriggered ) {
 
 						console.log("ending handleSequencing triggered");
 
@@ -545,26 +546,36 @@
 
 				console.log("checkLoopClock : ", this.loopClock.getElapsedTime());
 
+				// @TODO : remove this
 				if( this.debug.end ){
 					this.endFlyPrayTimer = 2
 					this.endChoiceTimer = 6
 				}
 
-				// 16.5
-				if( !this.choiceIsDisplayed && this.loopClock.getElapsedTime() >= this.endFlyPrayTimer ){
+				if( !this.choiceIsDisplayed && !this.choiceHaveBeenMade && this.loopClock.getElapsedTime() >= this.endFlyPrayTimer ){
 					this.$nuxt.$emit("drop-and-load-and-switch");
 					this.choiceIsDisplayed = true;
 					
 				}
 				
-				// 44.25
-				if( this.choiceIsDisplayed && this.loopClock.getElapsedTime() >= this.endChoiceTimer ){
-					// 42.5 is temp : à déterminer précisément quand on aura les assets
+				if( this.choiceIsDisplayed && !this.choiceHaveBeenMade && this.loopClock.getElapsedTime() >= this.endChoiceTimer ){
 
+					this.choiceIsDisplayed = false;
 					this.choiceHaveBeenMade = true;
 
-					// temp : ici on switchera sur le choix qui aura été fait
-					// mais pour l'instant on reste linéaire pour dev
+					if( this.$store.state.currentChoice === "Two" ){
+						let indexToReplace = null;
+
+						this.worlds.forEach((world, index) => {
+							if( world.name.includes("end01") ){
+								indexToReplace = index;
+							}
+						});
+
+						this.worlds[indexToReplace] = end02config;
+						
+					}
+
 					this.$nuxt.$emit("drop-and-load-and-switch");
 					
 					this.dropLoops();
@@ -578,7 +589,7 @@
 			dropLoops(){
 
 				// this.$store.state.audioLoopNeutral.stop();
-				// done in sequencesManager
+				// already done in sequencesManager
 
 				this.$store.state.audioLoopDrumOne.stop();
 				this.$store.state.audioLoopDrumTwo.stop();
@@ -592,10 +603,7 @@
 
 				this.endingIsStarted = true;
 
-				this.endingSelected = "One";
-
-				// launch ending mp3 (à voir laquelle sera choisie)
-				this.$store.state[`audioEnd${this.endingSelected}`].play();
+				this.$store.state[`audioEnd${this.$store.state.currentChoice}`].play();
 
 			}
 
