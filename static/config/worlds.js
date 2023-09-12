@@ -2148,14 +2148,10 @@ const worlds = [
 		name: "world_050",
 
 		main: {
-			// bleu nuit
-			// spaceColor: "#000105",
-
-			// jaune pétant
-			// spaceColor: "#FF5A00",
-			spaceColor: "#8a4300",
-			spaceColorDarker: "#8a4300",
-			spaceColorWithBloom: "#8a4300",
+			// spaceColor: "#090016",
+			spaceColor: "#04000b",
+			spaceColorDarker: "#04000b",
+			spaceColorWithBloom: "#04000b",
 
 			ambient: {
 				sunColor: "#8a4300",
@@ -2182,21 +2178,21 @@ const worlds = [
 				enabled: true,
 				shaderTimeRatio: 1.85,
 				shaderName: "plastic",
-				shaderScale: 2,
+				shaderScale: 12,
 				shaderAxe: "zy"
 			},
 
 			particles: [
 				{
 					type: "fireflies",
-					count: 1500,
+					count: 2500,
 					particleSize: 70,
 					additive: true,
 					timeRatio: 500.0,
 					blockSize: {
-						x: 3,
+						x: 4,
 						y: 8,
-						z: 8
+						z: 18
 					}
 				}
 			],
@@ -2223,6 +2219,13 @@ const worlds = [
 				cameraInvert: {
 					x: false,
 					y: true
+				},
+
+				bobCustomShader: {
+					shaderTimeRatio: 0.025,
+					shaderTimeDecay: 0,
+					sin: true,
+					sinAmplitude: 30
 				},
 
 				animatedMesh: false,
@@ -2296,7 +2299,7 @@ const worlds = [
 				cameraTriggerTimeDecay: 2,
 				cameraType: "movingFlyLeft",
 
-				until: 25,
+				until: 24.6,
 				// until: 18,
 				nextInstruction: "switch-sequence",
 
@@ -2376,7 +2379,7 @@ const worlds = [
 
 				type: "blender-points",
 				
-				until: 40,
+				until: 39.5,
 				// until: 25,
 				nextInstruction: "switch-sequence",
 
@@ -2386,7 +2389,7 @@ const worlds = [
 				},
 
 				tubeInfos: {
-					duration: 15.2,
+					duration: 16.5,
 					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
 					isUsingTarget: true,
 					steps: [
@@ -2472,7 +2475,7 @@ const worlds = [
 
 				type: "blender-points",
 
-				until: 47,
+				until: 46.7,
 				// until: 35,
 				nextInstruction: "switch-sequence",
 
@@ -2482,7 +2485,7 @@ const worlds = [
 				},
 
 				tubeInfos: {
-					duration: 7,
+					duration: 7.4,
 					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
 					isUsingTarget: true,
 					steps: [
@@ -2668,7 +2671,7 @@ const worlds = [
 
 				type: "blender-points",
 
-				until: 61.8,
+				until: 60.9,
 				// until: 35,
 				nextInstruction: "switch-sequence",
 
@@ -2678,7 +2681,7 @@ const worlds = [
 				},
 
 				tubeInfos: {
-					duration: 8,
+					duration: 8.5,
 					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
 					isUsingTarget: true,
 					steps: [
@@ -2774,7 +2777,7 @@ const worlds = [
 
 				type: "blender-points",
 
-				until: 70,
+				until: 68.5,
 				// until: 35,
 				nextInstruction: "switch-sequence",
 
@@ -2784,7 +2787,7 @@ const worlds = [
 				},
 
 				tubeInfos: {
-					duration: 4,
+					duration: 8,
 					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
 					isUsingTarget: true,
 					steps: [
@@ -2890,7 +2893,7 @@ const worlds = [
 				},
 
 				tubeInfos: {
-					duration: 6,
+					duration: 8,
 					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
 					isUsingTarget: true,
 					steps: [

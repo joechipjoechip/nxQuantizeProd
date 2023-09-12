@@ -101,7 +101,7 @@
 				debug: {
 					animated: true,
 					stats: true,
-					end: false
+					end: true
 				},
 
 				currentBobName: null,
@@ -198,6 +198,12 @@
 			loopIsAsked( newVal ){
 				if( newVal ){
 					this.loopClock = new THREE.Clock()
+				}
+			},
+
+			endingIsStarted( newVal ){
+				if( newVal && this.$store.state.badComputer ){
+					this.setDownScale(2.5);
 				}
 			}
 
