@@ -682,7 +682,7 @@ class SequencesManager{
 
 			const shaderInfos = this.currentSequenceElements.bobCustomShader ? this.currentSequenceElements.bobCustomShader : this.sceneBundlePassed.sceneElements.bobs[this.currentBobName]?._controls._params.bobInfos.shader
 			
-			this.sceneBundlePassed.sceneElements.bobs[this.currentBobName]._controls._target.children.find(child => child.name !== "Armature").material.uniforms.iGlobalTime.value = shaderInfos.shaderTimeRatio * (shaderInfos.sin ? (Math.sin(elapsedTime) * shaderInfos.sinAmplitude) : elapsedTime);
+			this.sceneBundlePassed.sceneElements.bobs[this.currentBobName]._controls._target.children.find(child => child.type === "SkinnedMesh").material.uniforms.iGlobalTime.value = shaderInfos.shaderTimeRatio * (shaderInfos.sin ? (Math.sin(elapsedTime) * shaderInfos.sinAmplitude) : elapsedTime);
 
 		}
 
@@ -691,7 +691,7 @@ class SequencesManager{
 
 			const shaderInfos = this.currentSequenceElements.aliceInfos.customShaderOptions;
 
-			this.sceneBundlePassed.sceneElements.bobs[this.currentSequenceElements.aliceInfos.name]._controls._target.children.find(child => child.name !== "Armature").material.uniforms.iGlobalTime.value = shaderInfos.shaderTimeRatio * (shaderInfos.sin ? ((Math.sin(elapsedTime) * shaderInfos.sinAmplitude)) : elapsedTime) + (shaderInfos.shaderTimeDecay || 0);
+			this.sceneBundlePassed.sceneElements.bobs[this.currentSequenceElements.aliceInfos.name]._controls._target.children.find(child => child.type === "SkinnedMesh").material.uniforms.iGlobalTime.value = shaderInfos.shaderTimeRatio * (shaderInfos.sin ? ((Math.sin(elapsedTime) * shaderInfos.sinAmplitude)) : elapsedTime) + (shaderInfos.shaderTimeDecay || 0);
 
 		}
 
