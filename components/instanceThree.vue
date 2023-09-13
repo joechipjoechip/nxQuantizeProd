@@ -133,7 +133,11 @@
 				return this.worlds.find( world => world.sequences.find( seq => seq.id === this.sequenceID ) )
 			},
 			currentSequence(){
-				return this.worldConfig.sequences.find(seq => seq.id === this.sequenceID)
+				if( this.$store.state.currentChoice === "Two" && parseInt(this.sequenceID.split(".")[1]) >= 17 ){
+					return this.worlds.find(world => world.name.includes("end02")).sequences.find(seq => seq.id === this.sequenceID)
+				} else {
+					return this.worldConfig.sequences.find(seq => seq.id === this.sequenceID)
+				}
 			}
 		},
 
@@ -554,7 +558,6 @@
 				if( !this.choiceIsDisplayed && !this.choiceHaveBeenMade && this.loopClock.getElapsedTime() >= this.endFlyPrayTimer ){
 					this.$nuxt.$emit("drop-and-load-and-switch");
 					this.choiceIsDisplayed = true;
-					
 				}
 				
 				if( this.choiceIsDisplayed && !this.choiceHaveBeenMade && this.loopClock.getElapsedTime() >= this.endChoiceTimer ){
@@ -563,9 +566,8 @@
 					this.choiceHaveBeenMade = true;
 
 					if( this.$store.state.currentChoice === "Two" ){
-
-						this.$nuxt.$emit("drop-and-load-and-switch");
 						
+						this.$nuxt.$emit("drop-and-load-and-switch");
 					}
 
 					this.$nuxt.$emit("drop-and-load-and-switch");
