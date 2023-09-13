@@ -24,7 +24,6 @@
 <script>
 	
 	import { worlds } from '@/static/config/worlds.js';
-	import { end02config } from '@/static/config/end02.js';
 	import { SceneBuilder } from '@/components/sceneBuilder.js';
 	import { SequencesManager } from '@/components/sequencesManager.js';
 
@@ -564,15 +563,8 @@
 					this.choiceHaveBeenMade = true;
 
 					if( this.$store.state.currentChoice === "Two" ){
-						let indexToReplace = null;
 
-						this.worlds.forEach((world, index) => {
-							if( world.name.includes("end01") ){
-								indexToReplace = index;
-							}
-						});
-
-						this.worlds[indexToReplace] = end02config;
+						this.$nuxt.$emit("drop-and-load-and-switch");
 						
 					}
 
