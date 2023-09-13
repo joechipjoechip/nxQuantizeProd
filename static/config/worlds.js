@@ -3091,15 +3091,15 @@ const worlds = [
 	
 		main: {
 			// spaceColor: "#090016",
-			spaceColor: "#4d2c00",
-			spaceColorDarker: "#4d2c00",
-			spaceColorWithBloom: "#4d2c00",
+			spaceColor: "#543b00",
+			spaceColorDarker: "#543b00",
+			spaceColorWithBloom: "#543b00",
 	
 			ambient: {
 				sunColor: "#FFFFFF",
 				// intensity: 0.17,
 				intensity: 0.35,
-				groundColor: "#4d2c00"
+				groundColor: "#543b00"
 			},
 	
 			fog: {
@@ -3118,9 +3118,9 @@ const worlds = [
 	
 			meshCustomShaderOptions: {
 				enabled: true,
-				shaderTimeRatio: 1.85,
+				shaderTimeRatio: 5.8,
 				shaderName: "plastic",
-				shaderScale: 12,
+				shaderScale: 10,
 				shaderAxe: "zy"
 			},
 	
@@ -3144,19 +3144,17 @@ const worlds = [
 		sequences: [
 			{
 				id: "7.17",
-				baseFov: 28,
+				baseFov: 39,
 				fovTransition: false,
-				sequenceBobName: "marie",
+				sequenceBobName: "marieShaderFlying",
 				bobRestoreSize: 0.0012,
 				isEndSequence: true,
 	
 				type: "third-person",
 				cameraTriggerTimeDecay: 8,
-				cameraType: "movingFlyEnd",
+				cameraType: "movingFlyEndMarie",
 	
-				// until: 37.9,
-				until: 15,
-				// until: 4,
+				until: 17,
 				nextInstruction: "switch-sequence",
 	
 				cameraInvert: {
@@ -3189,20 +3187,20 @@ const worlds = [
 					fly: true,
 					forward: false,
 					backward: false,
-					// left: false,
-					// right: false,
+					left: false,
+					right: false,
 				},
 	
-				// bobCustomShader: {
-				// 	shaderTimeRatio: 0.038,
-				// 	shaderTimeDecay: 0,
-				// 	sin: true,
-				// 	sinAmplitude: 32
-				// },
+				bobCustomShader: {
+					shaderTimeRatio: 0.038,
+					shaderTimeDecay: 0,
+					sin: true,
+					sinAmplitude: 30
+				},
 	
 				alice: {
 					handleGround: false,
-					name: "linkShaderFlying",
+					name: "link",
 					move: {
 						fly: true,
 						forward: false,
@@ -3213,14 +3211,14 @@ const worlds = [
 						y: 0.35,
 						z: 0.25
 					},
-					customShaderOptions: {
-						shaderTimeRatio: 0.08,
-						shaderTimeDecay: 12,
-						isCameraPositionInfluenced: false,
-						sin: true,
-						sinAmplitude: 20
-					},
-					scale: 0.035,
+					// customShaderOptions: {
+					// 	shaderTimeRatio: 0.08,
+					// 	shaderTimeDecay: 12,
+					// 	isCameraPositionInfluenced: false,
+					// 	sin: true,
+					// 	sinAmplitude: 20
+					// },
+					scale: 0.01,
 					slowmo: 1
 				},
 	
@@ -3240,10 +3238,72 @@ const worlds = [
 			},
 			{
 				id: "7.18",
+				baseFov: 24,
+				fovTransition: false,
+				sequenceBobName: "marieShaderFlying",
+				bobRestoreSize: 0.0012,
+				isEndSequence: true,
+	
+				type: "third-person",
+				cameraTriggerTimeDecay: 8,
+				cameraType: "movingFly",
+	
+				until: 20,
+				// until: 4,
+				nextInstruction: "switch-sequence",
+	
+				cameraInvert: {
+					x: false,
+					y: true
+				},
+	
+				bobCustomShader: {
+					shaderTimeRatio: 0.025,
+					shaderTimeDecay: 0,
+					sin: true,
+					sinAmplitude: 30
+				},
+	
+				animatedMesh: false,
+	
+				helpers: {
+					orbit: false,
+					tubes: false,
+					timelines: false
+				},
+	
+				fog: {
+					enabled: false,
+					color: "#ffffff",
+					intensity: .14
+				},
+	
+				bobImposedMoves: {
+					fly: true,
+					forward: false,
+					backward: false
+				},
+	
+				slowmo: 1,
+	
+				postproc: [
+					{
+						type: "bloom",
+						value: {
+							strength: 0.55,
+							threshold: 0.0035,
+							radius: 0.1
+						}
+					}
+				]
+	
+			},
+			{
+				id: "7.19",
 				baseFov: 28,
 				fovTransition: false,
-				sequenceBobName: "marie",
-				bobRestoreSize: 0.0012,
+				sequenceBobName: "marieShaderFlying",
+				bobRestoreSize: 0.0011,
 				isEndSequence: true,
 	
 				type: "third-person",
@@ -3301,11 +3361,11 @@ const worlds = [
 	
 			},
 			{
-				id: "7.19",
+				id: "7.20",
 				baseFov: 28,
 				fovTransition: false,
-				sequenceBobName: "marie",
-				bobRestoreSize: 0.0012,
+				sequenceBobName: "marieShaderFlying",
+				bobRestoreSize: 0.0011,
 				isEndSequence: true,
 	
 				type: "third-person",
@@ -3363,73 +3423,11 @@ const worlds = [
 	
 			},
 			{
-				id: "7.20",
-				baseFov: 28,
-				fovTransition: false,
-				sequenceBobName: "marie",
-				bobRestoreSize: 0.0012,
-				isEndSequence: true,
-	
-				type: "third-person",
-				cameraTriggerTimeDecay: 8,
-				cameraType: "movingFly",
-	
-				until: 45,
-				// until: 4,
-				nextInstruction: "switch-sequence",
-	
-				cameraInvert: {
-					x: false,
-					y: true
-				},
-	
-				bobCustomShader: {
-					shaderTimeRatio: 0.025,
-					shaderTimeDecay: 0,
-					sin: true,
-					sinAmplitude: 30
-				},
-	
-				animatedMesh: false,
-	
-				helpers: {
-					orbit: false,
-					tubes: false,
-					timelines: false
-				},
-	
-				fog: {
-					enabled: false,
-					color: "#ffffff",
-					intensity: .14
-				},
-	
-				bobImposedMoves: {
-					fly: true,
-					forward: false,
-					backward: false
-				},
-	
-				slowmo: 1,
-	
-				postproc: [
-					{
-						type: "bloom",
-						value: {
-							strength: 0.55,
-							threshold: 0.0035,
-							radius: 0.1
-						}
-					}
-				]
-	
-			},
-			{
 				id: "7.21",
 				baseFov: 28,
 				fovTransition: false,
-				sequenceBobName: "marie",
-				bobRestoreSize: 0.0012,
+				sequenceBobName: "marieShaderFlying",
+				bobRestoreSize: 0.0011,
 				isEndSequence: true,
 	
 				type: "third-person",

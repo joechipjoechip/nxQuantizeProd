@@ -45,8 +45,8 @@ const entities = {
 					},
 					eyes: {
 						color: "#FFFFFF",
-						intensity: 10,
-						enabled: false
+						intensity: 1,
+						enabled: true
 					}
 				}
 			}
@@ -73,6 +73,31 @@ const entities = {
 					isCameraPositionInfluenced: true,
 					sin: false,
 					sinAmplitude: 260
+				}
+			}
+		},
+		marieShaderFlying: {
+			name: "marieShaderFlying",
+			fbxPath: "./assets/3d/persos/marie/marie.fbx",
+			infos: {
+				scale: 0.0012,
+				// scale: 1,z
+				velocity: {
+					// x & z -> displacement
+					x: 0.35,
+					z: 0.35,
+					// y -> rotation
+					y: 0.1,
+				},
+				shader: {
+					shaderName: "aliceShader",
+					shaderScale: 1,
+					shaderAxe: "yz",
+					specificShaderName: "galaxy",
+					shaderTimeRatio: 1.25,
+					isCameraPositionInfluenced: false,
+					sin: false,
+					sinAmplitude: 5260
 				}
 			}
 		},
