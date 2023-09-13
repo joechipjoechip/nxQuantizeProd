@@ -329,6 +329,41 @@ const core = {
 				},
 			}
 		},
+		movingFlyMarie: {
+			offset: {
+				x: -0.01,
+				y: 0.068,
+				z: -0.067
+			},
+			lookAt: {
+				x: 0,
+				y: 0.04,
+				z: 0.055
+			},
+			straightness: 0.04,
+			mouseOrientationPonderation: {
+				x: 0.03,
+				y: 0.03
+			},
+			motion: {
+				// motion will move the camera continuously
+				// with a sin() (so -1 to 1)
+				// and it's related at the offset values
+				x: {
+					// ratios
+					range: 0.025,
+					velocity: 0.25
+				},
+				y: {
+					range: -0.011,
+					velocity: 0.5
+				},
+				z: {
+					range: -0.01,
+					velocity: 0.4
+				},
+			},
+		},
 		movingFly: {
 			offset: {
 				x: -0.01,
@@ -474,7 +509,7 @@ const core = {
 			offset: {
 				x: 0.05,
 				y: 0.07,
-				z: 0.085,
+				z: 0.045,
 			},
 			lookAt: {
 				x: 0,

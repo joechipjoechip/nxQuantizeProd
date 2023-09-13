@@ -420,7 +420,7 @@
 
 				if( this.endingIsStarted ){
 
-					console.log("ending started and currentTime is : ", this.$store.state[`audioEnd${this.$store.state.currentChoice}`].currentTime, this.currentSequence.until, this.currentSequence.alreadyTriggered);
+					console.log("end currentTime is : ", this.$store.state[`audioEnd${this.$store.state.currentChoice}`].currentTime);
 
 					if( this.$store.state[`audioEnd${this.$store.state.currentChoice}`].currentTime >= this.currentSequence.until && !this.currentSequence.alreadyTriggered ) {
 
