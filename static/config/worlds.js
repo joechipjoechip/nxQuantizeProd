@@ -3156,6 +3156,8 @@ const worlds = [
 				cameraType: "movingFlyEndMarie",
 	
 				until: 21.65,
+				// until: 3,
+
 				nextInstruction: "switch-sequence",
 	
 				cameraInvert: {
@@ -3248,12 +3250,12 @@ const worlds = [
 				isEndSequence: true,
 	
 				type: "third-person",
-				cameraTriggerTimeDecay: 8,
+				cameraTriggerTimeDecay: 14,
 				cameraType: "movingFlyLeft",
 	
-				// until: 28.8,
-				until: 38.8,
-				// until: 4,
+				until: 28.8,
+				// until: 4.5,
+
 				nextInstruction: "switch-sequence",
 	
 				cameraInvert: {
@@ -3292,30 +3294,6 @@ const worlds = [
 				},
 	
 				slowmo: 1,
-
-				alice: {
-					handleGround: false,
-					name: "queenShader",
-					move: {
-						floating: true,
-						left: false,
-						right: false
-					},
-					offset: {
-						x: 0,
-						y: -0.25,
-						z: -1.5
-					},
-					scale: 0.03,
-					slowmo: 2,
-					customShaderOptions: {
-						shaderTimeRatio: 0.08,
-						shaderTimeDecay: 12,
-						isCameraPositionInfluenced: false,
-						sin: true,
-						sinAmplitude: 20
-					}
-				},
 	
 				postproc: [
 					{
@@ -3342,7 +3320,8 @@ const worlds = [
 				cameraType: "movingFlyMarie",
 	
 				until: 35.9,
-				// until: 4,
+				// until: 5.5,
+
 				nextInstruction: "switch-sequence",
 	
 				cameraInvert: {
@@ -3425,12 +3404,13 @@ const worlds = [
 				type: "blender-points",
 	
 				until: 43.35,
-				// until: 4,
+				// until: 9,
+
 				nextInstruction: "switch-sequence",
 	
 				cameraInvert: {
-					x: false,
-					y: true
+					x: true,
+					y: false
 				},
 	
 				bobCustomShader: {
@@ -3487,6 +3467,31 @@ const worlds = [
 				},
 	
 				slowmo: 1,
+
+				alice: {
+					handleGround: false,
+					name: "linkShaderFlying",
+					move: {
+						false: true,
+						left: false,
+						right: false,
+						kiss: true
+					},
+					offset: {
+						x: 0,
+						y: -5.5,
+						z: -2
+					},
+					scale: 0.085,
+					slowmo: 30,
+					customShaderOptions: {
+						shaderTimeRatio: 1.8,
+						shaderTimeDecay: 12,
+						isCameraPositionInfluenced: false,
+						sin: false,
+						sinAmplitude: 20
+					}
+				},
 	
 				postproc: [
 					{
@@ -3502,7 +3507,7 @@ const worlds = [
 			},
 			{
 				id: "7.21",
-				baseFov: 30,
+				baseFov: 18,
 				fovTransition: false,
 				sequenceBobName: "marieShaderFlying",
 				bobRestoreSize: 0.0011,
@@ -3510,11 +3515,11 @@ const worlds = [
 	
 				type: "third-person",
 				cameraTriggerTimeDecay: 8,
-				cameraType: "movingFlyMarie",
+				cameraType: "movingFlyRightKiss",
 	
-				// until: 50.55,
-				until: 60.55,
-				// until: 4,
+				until: 50.55,
+				// until: 60.55,
+
 				nextInstruction: "switch-sequence",
 	
 				cameraInvert: {
@@ -3547,6 +3552,8 @@ const worlds = [
 					fly: true,
 					forward: false,
 					backward: false,
+					left: false,
+					right: false,
 					translateZ1: true
 				},
 	
@@ -3554,25 +3561,25 @@ const worlds = [
 
 				alice: {
 					handleGround: false,
-					name: "queenShader",
+					name: "linkShaderFlying",
 					move: {
-						floating: true,
+						false: true,
 						left: false,
-						right: false
+						right: false,
+						kiss: true
 					},
 					offset: {
 						x: 0,
-						y: 0,
+						y: -2,
 						z: 0
 					},
-					scale: 0.5,
-					slowmo: 1,
+					scale: 0.08,
+					slowmo: 12,
 					customShaderOptions: {
-						shaderTimeRatio: 0.08,
-						shaderTimeDecay: 12,
-						isCameraPositionInfluenced: false,
+						shaderTimeRatio: 0.011,
+						shaderTimeDecay: 10,
 						sin: true,
-						sinAmplitude: 20
+						sinAmplitude: 37
 					}
 				},
 	
@@ -3607,8 +3614,8 @@ const worlds = [
 				nextInstruction: "switch-sequence",
 	
 				cameraInvert: {
-					x: true,
-					y: false
+					x: false,
+					y: true
 				},
 	
 				bobCustomShader: {
@@ -3756,7 +3763,7 @@ const worlds = [
 	
 				cameraInvert: {
 					x: false,
-					y: false
+					y: true
 				},
 
 				tubeInfos: {
@@ -3835,8 +3842,8 @@ const worlds = [
 				nextInstruction: "switch-sequence",
 	
 				cameraInvert: {
-					x: false,
-					y: true
+					x: true,
+					y: false
 				},
 
 				tubeInfos: {
@@ -3917,7 +3924,7 @@ const worlds = [
 				nextInstruction: "switch-sequence",
 	
 				cameraInvert: {
-					x: false,
+					x: true,
 					y: true
 				},
 
@@ -4058,7 +4065,7 @@ const worlds = [
 			},
 			{
 				id: "7.28",
-				baseFov: 13,
+				baseFov: 8,
 				fovTransition: false,
 				sequenceBobName: "marieShaderFlying",
 				bobRestoreSize: 0.0011,
@@ -4071,8 +4078,8 @@ const worlds = [
 				nextInstruction: "switch-sequence",
 	
 				cameraInvert: {
-					x: false,
-					y: true
+					x: true,
+					y: false
 				},
 
 				tubeInfos: {
@@ -4085,7 +4092,7 @@ const worlds = [
 						{
 							// this amount is a percent of the global duration
 							amount: 100,
-							fov: 35,
+							fov: 20,
 							stepEase: "linear"
 						}
 					]

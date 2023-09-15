@@ -166,6 +166,52 @@ class PrayupState extends State {
 	}
 };
 
+class KissState extends State {
+	constructor(parent) {
+		super(parent);
+	}
+
+	get Name() {
+		return 'kiss';
+	}
+
+	Enter(prevState) {
+		const curAction = this._parent._proxy._animations['kiss'].action;
+		if (prevState) {
+			const prevAction = this._parent._proxy._animations[prevState.Name].action;
+
+			curAction.enabled = true;
+
+			if (prevState.Name == 'run') {
+				const ratio = curAction.getClip().duration / prevAction.getClip().duration;
+				curAction.time = prevAction.time * ratio;
+			} else {
+				curAction.time = 0.0;
+				curAction.setEffectiveTimeScale(1.0);
+				curAction.setEffectiveWeight(1.0);
+			}
+
+			curAction.crossFadeFrom(prevAction, 0.5, true);
+			curAction.play();
+		} else {
+			curAction.play();
+		}
+	}
+
+	Exit() {
+	}
+
+	Update(timeElapsed, input) {
+
+		if (input._keys.kiss) {
+			this._parent.SetState('kiss');
+			return;
+		}
+
+		this._parent.SetState('idle');
+	}
+};
+
 class EnjoyState extends State {
 	constructor(parent) {
 		super(parent);
@@ -407,6 +453,8 @@ class IdleState extends State {
 			this._parent.SetState('teeter');
 		} else if( input._keys.prayup){
 			this._parent.SetState('prayup');
+		} else if( input._keys.kiss){
+			this._parent.SetState('kiss');
 		}
 	}
 };
@@ -421,5 +469,6 @@ export {
 	HiphopState,
 	EnjoyState,
 	TeeterState,
-	PrayupState
+	PrayupState,
+	KissState
 };

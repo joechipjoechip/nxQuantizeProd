@@ -37,7 +37,8 @@ const core = {
 			"hiphop",
 			"enjoy",
 			"teeter",
-			"prayup"
+			"prayup",
+			"kiss"
 		]
 	},
 
@@ -468,6 +469,23 @@ const core = {
 					velocity: 0.4
 				},
 			},
+		},
+		movingFlyRightKiss: {
+			offset: {
+				x: -0.1,
+				y: -0.04,
+				z: -0.04
+			},
+			lookAt: {
+				x: 0,
+				y: 0.035,
+				z: 0.005
+			},
+			straightness: 0.04,
+			mouseOrientationPonderation: {
+				x: 0.03,
+				y: 0.045
+			}
 		},
 		movingFlyEnd: {
 			offset: {

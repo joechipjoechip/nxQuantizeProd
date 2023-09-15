@@ -734,8 +734,6 @@ class SequencesManager{
 			this.handleMouseDuringChoice(currentMousePos.x)
 		}
 
-		console.log("debug : ", this.sceneBundlePassed)
-
 	}
 
 	focusTargetAndBlurTheRestHandler(){

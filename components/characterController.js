@@ -3,17 +3,16 @@ import * as THREE from 'three';
 import { core } from '@/static/config/core.js';
 
 import { 
-	DanceState,
 	FlyState,
 	WalkState,
-	WalkStateBack,
 	RunState,
 	IdleState,
 	FloatingState,
 	HiphopState,
 	EnjoyState,
 	TeeterState,
-	PrayupState
+	PrayupState,
+	KissState
 } from '@/components/states.js'
 
 class BasicCharacterControllerProxy {
@@ -257,6 +256,7 @@ class BasicCharacterControllerInput {
 			enjoy: false || this._imposedMoves.enjoy,
 			teeter: false || this._imposedMoves.teeter,
 			prayup: false || this._imposedMoves.prayup,
+			kiss: false || this._imposedMoves.kiss,
 			translateZ1: false || this._imposedMoves.translateZ1,
 			translateZ2: false || this._imposedMoves.translateZ2,
 		};
@@ -368,6 +368,7 @@ class CharacterFSM extends FiniteStateMachine {
 		this._AddState('enjoy', EnjoyState);
 		this._AddState('teeter', TeeterState);
 		this._AddState('prayup', PrayupState);
+		this._AddState('kiss', KissState);
 	}
 };
 
