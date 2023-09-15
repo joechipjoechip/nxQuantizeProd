@@ -173,7 +173,9 @@ class SequencesManager{
 
 		aliceControls._isAlice = true;
 
+		console.log("avant le visible : ", aliceControls._target.visible)
 		aliceControls._target.visible = true;
+		console.log("après le visible : ", aliceControls._target.visible, aliceControls._target)
 
 		aliceControls._target.scale = new THREE.Vector3(
 			aliceInfos.scale,
@@ -198,6 +200,41 @@ class SequencesManager{
 			aliceControls._target.rotation.x += x;
 			aliceControls._target.rotation.y += y;
 			aliceControls._target.rotation.z += z;
+		}
+
+		console.log("ALICE TRIGGERED AND SETTED: ", this.sceneBundlePassed.sceneElements, aliceFuturInfos, this.currentAliceName, aliceControls);
+
+	}
+
+	aliceImposedGestureHandler( newSequenceID ){
+
+		const sequenceAlice = this.sceneBundlePassed.sequencesElements[newSequenceID]?.aliceInfos;
+
+		if( !sequenceAlice ){ return; }
+
+		const sequenceAliceImposedMoves = sequenceAlice.move;
+
+		const goodAlice = this.sceneBundlePassed.sceneElements.bobs[this.currentAliceName];
+
+		if( goodAlice._controls._input ){
+
+			goodAlice._controls._input._keys = {};
+	
+			if( sequenceAliceImposedMoves ){
+	
+				goodAlice._controls._input._imposedMoves = sequenceAliceImposedMoves;
+	
+				Object.keys(sequenceAliceImposedMoves).forEach(imposedKey => {
+					goodAlice._controls._input._keys[imposedKey] = sequenceAliceImposedMoves[imposedKey];
+				});
+	
+	
+			} else {
+	
+				goodAlice._controls._input._imposedMoves = {};
+	
+			}
+
 		}
 
 	}
@@ -302,38 +339,7 @@ class SequencesManager{
 
 	}
 
-	aliceImposedGestureHandler( newSequenceID ){
-
-		const sequenceAlice = this.sceneBundlePassed.sequencesElements[newSequenceID]?.aliceInfos;
-
-		if( !sequenceAlice ){ return; }
-
-		const sequenceAliceImposedMoves = sequenceAlice.move;
-
-		const goodAlice = this.sceneBundlePassed.sceneElements.bobs[sequenceAlice.name];
-
-		if( goodAlice._controls._input ){
-
-			goodAlice._controls._input._keys = {};
 	
-			if( sequenceAliceImposedMoves ){
-	
-				goodAlice._controls._input._imposedMoves = sequenceAliceImposedMoves;
-	
-				Object.keys(sequenceAliceImposedMoves).forEach(imposedKey => {
-					goodAlice._controls._input._keys[imposedKey] = sequenceAliceImposedMoves[imposedKey];
-				});
-	
-	
-			} else {
-	
-				goodAlice._controls._input._imposedMoves = {};
-	
-			}
-
-		}
-
-	}
 
 	bobImposedGestureHandler( newSequenceID ){
 
@@ -445,8 +451,6 @@ class SequencesManager{
 				goodBob._controls._target.visible = true;
 
 				if( this.currentSequenceElements.sequenceInfos.bobRestoreSize ){
-
-					console.log('V : SIZE RESTORED');
 					
 					goodBob._controls._target.scale = new THREE.Vector3(
 							this.currentSequenceElements.sequenceInfos.bobRestoreSize,
@@ -454,13 +458,14 @@ class SequencesManager{
 							this.currentSequenceElements.sequenceInfos.bobRestoreSize
 						);
 						
-				} else {
-					console.log('X : SIZE NOT RESTORED : ', this.currentSequenceElements);
 				}
 				
 			} else {
 
-				goodBob._controls._target.visible = false;
+				if( goodBob._controls._target.name !== this.currentAliceName ){
+					console.log("alice set to false visible : ", goodBob._controls._target.name)
+					goodBob._controls._target.visible = false;
+				}
 
 			}
 
@@ -728,6 +733,8 @@ class SequencesManager{
 		if( this.isChoiceScene ){
 			this.handleMouseDuringChoice(currentMousePos.x)
 		}
+
+		console.log("debug : ", this.sceneBundlePassed)
 
 	}
 

@@ -3091,9 +3091,9 @@ const worlds = [
 	
 		main: {
 			// spaceColor: "#090016",
-			spaceColor: "#040404",
-			spaceColorDarker: "#040404",
-			spaceColorWithBloom: "#040404",
+			spaceColor: "#030303",
+			spaceColorDarker: "#030303",
+			spaceColorWithBloom: "#030303",
 	
 			ambient: {
 				sunColor: "#FFFFFF",
@@ -3118,10 +3118,10 @@ const worlds = [
 	
 			meshCustomShaderOptions: {
 				enabled: true,
-				shaderTimeRatio: 5.8,
+				shaderTimeRatio: 2.8,
 				shaderName: "plastic",
-				shaderScale: 10,
-				shaderAxe: "xz"
+				shaderScale: 1,
+				shaderAxe: "yz"
 			},
 	
 			particles: [
@@ -3207,6 +3207,7 @@ const worlds = [
 						fly: true,
 						forward: false,
 						backward: false,
+						translateZ1: true
 					},
 					offset: {
 						x: 0,
@@ -3250,7 +3251,8 @@ const worlds = [
 				cameraTriggerTimeDecay: 8,
 				cameraType: "movingFlyLeft",
 	
-				until: 28.8,
+				// until: 28.8,
+				until: 38.8,
 				// until: 4,
 				nextInstruction: "switch-sequence",
 	
@@ -3290,6 +3292,30 @@ const worlds = [
 				},
 	
 				slowmo: 1,
+
+				alice: {
+					handleGround: false,
+					name: "queenShader",
+					move: {
+						floating: true,
+						left: false,
+						right: false
+					},
+					offset: {
+						x: 0,
+						y: -0.25,
+						z: -1.5
+					},
+					scale: 0.03,
+					slowmo: 2,
+					customShaderOptions: {
+						shaderTimeRatio: 0.08,
+						shaderTimeDecay: 12,
+						isCameraPositionInfluenced: false,
+						sin: true,
+						sinAmplitude: 20
+					}
+				},
 	
 				postproc: [
 					{
@@ -3415,7 +3441,7 @@ const worlds = [
 				},
 
 				tubeInfos: {
-					duration: 8,
+					duration: 9,
 					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
 					isUsingTarget: true,
 					steps: [
@@ -3423,15 +3449,15 @@ const worlds = [
 						// n has nothing to do with the number of points for the curve
 						{
 							// this amount is a percent of the global duration
-							amount: 78,
+							amount: 70,
 							fov: 20,
 							stepEase: "linear"
 						},
 						{
 							// this amount is a percent of the global duration
-							amount: 22,
-							fov: 250,
-							stepEase: "linear"
+							amount: 30,
+							fov: 190,
+							stepEase: "easeInOut"
 						},
 
 					]
@@ -3486,7 +3512,8 @@ const worlds = [
 				cameraTriggerTimeDecay: 8,
 				cameraType: "movingFlyMarie",
 	
-				until: 50,
+				// until: 50.55,
+				until: 60.55,
 				// until: 4,
 				nextInstruction: "switch-sequence",
 	
@@ -3524,6 +3551,30 @@ const worlds = [
 				},
 	
 				slowmo: 1,
+
+				alice: {
+					handleGround: false,
+					name: "queenShader",
+					move: {
+						floating: true,
+						left: false,
+						right: false
+					},
+					offset: {
+						x: 0,
+						y: 0,
+						z: 0
+					},
+					scale: 0.5,
+					slowmo: 1,
+					customShaderOptions: {
+						shaderTimeRatio: 0.08,
+						shaderTimeDecay: 12,
+						isCameraPositionInfluenced: false,
+						sin: true,
+						sinAmplitude: 20
+					}
+				},
 	
 				postproc: [
 					{
@@ -3543,7 +3594,7 @@ const worlds = [
 			},
 			{
 				id: "7.22",
-				baseFov: 35,
+				baseFov: 45,
 				fovTransition: false,
 				sequenceBobName: "marieShaderFlying",
 				bobRestoreSize: 0.0011,
@@ -3556,8 +3607,8 @@ const worlds = [
 				nextInstruction: "switch-sequence",
 	
 				cameraInvert: {
-					x: false,
-					y: true
+					x: true,
+					y: false
 				},
 	
 				bobCustomShader: {
@@ -3577,7 +3628,7 @@ const worlds = [
 						{
 							// this amount is a percent of the global duration
 							amount: 100,
-							fov: 90,
+							fov: 20,
 							stepEase: "linear"
 						}
 					]
@@ -3632,13 +3683,176 @@ const worlds = [
 				cameraTriggerTimeDecay: 8,
 				cameraType: "movingFlyMarie",
 	
-				until: 70,
+				until: 62,
 				// until: 4,
 				nextInstruction: "switch-sequence",
 	
 				cameraInvert: {
 					x: false,
 					y: true
+				},
+	
+				bobCustomShader: {
+					shaderTimeRatio: 0.025,
+					shaderTimeDecay: 0,
+					sin: true,
+					sinAmplitude: 30
+				},
+	
+				animatedMesh: false,
+	
+				helpers: {
+					orbit: false,
+					tubes: false,
+					timelines: false
+				},
+	
+				fog: {
+					enabled: false,
+					color: "#ffffff",
+					intensity: .14
+				},
+	
+				bobImposedMoves: {
+					fly: true,
+					forward: false,
+					backward: false,
+					// left: false,
+					// right: false,
+					// translateZ1: true
+				},
+	
+				slowmo: 1,
+	
+				postproc: [
+					{
+						type: "bloom",
+						value: {
+							strength: 0.55,
+							threshold: 0.0035,
+							radius: 0.1
+						}
+					},
+					{
+						type: "glitch"
+					}
+					
+				]
+	
+			},
+			{
+				id: "7.24",
+				baseFov: 250,
+				fovTransition: false,
+				sequenceBobName: "marieShaderFlying",
+				bobRestoreSize: 0.0011,
+				isEndSequence: true,
+	
+				type: "blender-points",
+	
+				until: 66,
+				// until: 4,
+				nextInstruction: "switch-sequence",
+	
+				cameraInvert: {
+					x: false,
+					y: false
+				},
+
+				tubeInfos: {
+					duration: 4,
+					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
+					isUsingTarget: true,
+					steps: [
+						// n steps are possibles
+						// n has nothing to do with the number of points for the curve
+						{
+							// this amount is a percent of the global duration
+							amount: 100,
+							fov: 140,
+							stepEase: "linear"
+						}
+					]
+				},
+	
+				bobCustomShader: {
+					shaderTimeRatio: 0.025,
+					shaderTimeDecay: 0,
+					sin: true,
+					sinAmplitude: 30
+				},
+	
+				animatedMesh: false,
+	
+				helpers: {
+					orbit: false,
+					tubes: false,
+					timelines: false
+				},
+	
+				fog: {
+					enabled: false,
+					color: "#ffffff",
+					intensity: .14
+				},
+	
+				bobImposedMoves: {
+					fly: true,
+					forward: false,
+					backward: false,
+					left: false,
+					right: false,
+					// translateZ1: true
+				},
+	
+				slowmo: 1,
+	
+				postproc: [
+					{
+						type: "bloom",
+						value: {
+							strength: 0.55,
+							threshold: 0.0035,
+							radius: 0.1
+						}
+					},
+					
+				]
+	
+			},
+			{
+				id: "7.25",
+				baseFov: 15,
+				fovTransition: false,
+				sequenceBobName: "marieShaderFlying",
+				bobRestoreSize: 0.0011,
+				isEndSequence: true,
+	
+				type: "blender-points",
+	
+				until: 78.8,
+				// until: 4,
+				nextInstruction: "switch-sequence",
+	
+				cameraInvert: {
+					x: false,
+					y: true
+				},
+
+				tubeInfos: {
+					duration: 13,
+					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
+					isUsingTarget: true,
+					steps: [
+						// n steps are possibles
+						// n has nothing to do with the number of points for the curve
+						{
+							// this amount is a percent of the global duration
+							amount: 100,
+							fov: 40,
+							stepEase: "linear"
+						}
+					]
 				},
 	
 				bobCustomShader: {
@@ -3685,6 +3899,239 @@ const worlds = [
 					{
 						type: "glitch"
 					},
+				]
+	
+			},
+			{
+				id: "7.26",
+				baseFov: 190,
+				fovTransition: false,
+				sequenceBobName: "marieShaderFlying",
+				bobRestoreSize: 0.0011,
+				isEndSequence: true,
+	
+				type: "blender-points",
+	
+				until: 86.7,
+				// until: 4,
+				nextInstruction: "switch-sequence",
+	
+				cameraInvert: {
+					x: false,
+					y: true
+				},
+
+				tubeInfos: {
+					duration: 9,
+					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
+					isUsingTarget: true,
+					steps: [
+						// n steps are possibles
+						// n has nothing to do with the number of points for the curve
+						{
+							// this amount is a percent of the global duration
+							amount: 80,
+							fov: 25,
+							stepEase: "linear"
+						},
+						{
+							// this amount is a percent of the global duration
+							amount: 20,
+							fov: 160,
+							stepEase: "easeInOut"
+						}
+					]
+				},
+	
+				bobCustomShader: {
+					shaderTimeRatio: 0.025,
+					shaderTimeDecay: 0,
+					sin: true,
+					sinAmplitude: 30
+				},
+	
+				animatedMesh: false,
+	
+				helpers: {
+					orbit: false,
+					tubes: false,
+					timelines: false
+				},
+	
+				fog: {
+					enabled: false,
+					color: "#ffffff",
+					intensity: .14
+				},
+	
+				bobImposedMoves: {
+					fly: true,
+					forward: false,
+					backward: false,
+					left: false,
+					right: false,
+					// translateZ1: true
+				},
+	
+				slowmo: 1,
+	
+				postproc: [
+					{
+						type: "bloom",
+						value: {
+							strength: 0.55,
+							threshold: 0.0035,
+							radius: 0.1
+						}
+					},
+					
+				]
+	
+			},
+			{
+				id: "7.27",
+				baseFov: 25,
+				fovTransition: false,
+				sequenceBobName: "marieShaderFlying",
+				bobRestoreSize: 0.0011,
+				isEndSequence: true,
+	
+				type: "third-person",
+				cameraTriggerTimeDecay: 8,
+				cameraType: "movingFlyMarie",
+	
+				until: 93.4,
+				// until: 4,
+				nextInstruction: "switch-sequence",
+	
+				cameraInvert: {
+					x: false,
+					y: true
+				},
+	
+				bobCustomShader: {
+					shaderTimeRatio: 0.025,
+					shaderTimeDecay: 0,
+					sin: true,
+					sinAmplitude: 30
+				},
+	
+				animatedMesh: false,
+	
+				helpers: {
+					orbit: false,
+					tubes: false,
+					timelines: false
+				},
+	
+				fog: {
+					enabled: false,
+					color: "#ffffff",
+					intensity: .14
+				},
+	
+				bobImposedMoves: {
+					fly: true,
+					forward: false,
+					backward: false,
+					// left: false,
+					// right: false,
+					// translateZ1: true
+				},
+	
+				slowmo: 1,
+	
+				postproc: [
+					{
+						type: "bloom",
+						value: {
+							strength: 0.55,
+							threshold: 0.0035,
+							radius: 0.1
+						}
+					},
+					{
+						type: "glitch"
+					},
+				]
+	
+			},
+			{
+				id: "7.28",
+				baseFov: 13,
+				fovTransition: false,
+				sequenceBobName: "marieShaderFlying",
+				bobRestoreSize: 0.0011,
+				isEndSequence: true,
+	
+				type: "blender-points",
+	
+				until: 120,
+				// until: 4,
+				nextInstruction: "switch-sequence",
+	
+				cameraInvert: {
+					x: false,
+					y: true
+				},
+
+				tubeInfos: {
+					duration: 10,
+					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
+					isUsingTarget: true,
+					steps: [
+						// n steps are possibles
+						// n has nothing to do with the number of points for the curve
+						{
+							// this amount is a percent of the global duration
+							amount: 100,
+							fov: 35,
+							stepEase: "linear"
+						}
+					]
+				},
+	
+				bobCustomShader: {
+					shaderTimeRatio: 0.025,
+					shaderTimeDecay: 0,
+					sin: true,
+					sinAmplitude: 30
+				},
+	
+				animatedMesh: false,
+	
+				helpers: {
+					orbit: false,
+					tubes: false,
+					timelines: false
+				},
+	
+				fog: {
+					enabled: false,
+					color: "#ffffff",
+					intensity: .14
+				},
+	
+				bobImposedMoves: {
+					fly: true,
+					forward: false,
+					backward: false,
+					left: false,
+					right: false,
+					// translateZ1: true
+				},
+	
+				slowmo: 1,
+	
+				postproc: [
+					{
+						type: "bloom",
+						value: {
+							strength: 0.55,
+							threshold: 0.0035,
+							radius: 0.1
+						}
+					}
 				]
 	
 			},

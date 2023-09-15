@@ -597,6 +597,8 @@
 
 				this.endingIsStarted = true;
 
+				this.$store.commit("setAudioCurrent", this.$store.state[`audioEnd${this.$store.state.currentChoice}`])
+
 				this.$store.state[`audioEnd${this.$store.state.currentChoice}`].play();
 
 			}
