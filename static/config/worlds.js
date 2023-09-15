@@ -3167,9 +3167,9 @@ const worlds = [
 	
 				bobCustomShader: {
 					shaderTimeRatio: 0.025,
-					shaderTimeDecay: 0,
+					shaderTimeDecay: 5,
 					sin: true,
-					sinAmplitude: 30
+					sinAmplitude: 50
 				},
 	
 				animatedMesh: false,
@@ -3195,12 +3195,6 @@ const worlds = [
 					// translateZ1: true
 				},
 	
-				bobCustomShader: {
-					shaderTimeRatio: 0.038,
-					shaderTimeDecay: 0,
-					sin: true,
-					sinAmplitude: 30
-				},
 	
 				alice: {
 					handleGround: false,
@@ -3757,7 +3751,7 @@ const worlds = [
 	
 				type: "blender-points",
 	
-				until: 66,
+				until: 72,
 				// until: 4,
 				nextInstruction: "switch-sequence",
 	
@@ -3767,7 +3761,7 @@ const worlds = [
 				},
 
 				tubeInfos: {
-					duration: 4,
+					duration: 10,
 					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
 					isUsingTarget: true,
 					steps: [
@@ -3776,7 +3770,7 @@ const worlds = [
 						{
 							// this amount is a percent of the global duration
 							amount: 100,
-							fov: 140,
+							fov: 90,
 							stepEase: "linear"
 						}
 					]
