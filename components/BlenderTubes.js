@@ -98,14 +98,9 @@ class BlenderTubes{
 			y: ((mousePos.y + 1) / 2) / downScale
 		};
 
-		// console.log("8FakeOrbit method called : ", reformatedMousePos.x , reformatedMousePos.y);
-
 		const pos1 = this._tube.geometry.parameters.path.getPointAt(
 			Math.min(reformatedMousePos.x, 1)
 		);
-
-		// console.log("pos1 : ", pos1);
-		
 
 		this._camera.position.copy(pos1);
 
@@ -143,8 +138,6 @@ class BlenderTubes{
 
 			}, 0);
 
-			console.log("steps : ", alreadyPlayedDuration)
-
 			const animatedObject = {
 				time: alreadyPlayedDuration,
 				customFov: index === 0 ? this._camera.getEffectiveFOV() : this._sequenceInfos.tubeInfos.steps[index - 1].fov
@@ -163,7 +156,6 @@ class BlenderTubes{
 
 					onUpdate: () => {
 
-						// const time = animatedObject.time;
 						const { time, customFov } = animatedObject;
 
 						const looptime = globalDuration;
@@ -195,10 +187,6 @@ class BlenderTubes{
 
 						}
 
-						// if( this._debug.timelines ){
-						// 	console.log("timeline update triggered");
-						// }
-
 						// enfin : 
 						// le this._tubeTravelTargetPosition sera utilisé dans le render principal
 						// (dans world.vue)
@@ -206,8 +194,6 @@ class BlenderTubes{
 					},
 
 					onComplete: () => {
-
-						console.log("this specific step is done : ", index);
 
 						this._tubeTravelTargetPosition = false;
 

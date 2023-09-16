@@ -7,9 +7,6 @@ class SequencesManager{
 
 	constructor(sceneBundle, cinema, renderer, clock, canvasSizeRef, vm){
 
-		// this.debugTime = true;
-		// this.lastSequenceUntil = null;
-
 		this.sceneBundlePassed = sceneBundle;
 		this.name = sceneBundle.name;
 		this.cinema = cinema;
@@ -37,14 +34,8 @@ class SequencesManager{
 	updateBobStickedInputs( event, that ){
 		if( !that.currentBobName ){ return; }
 
-		if( this.currentSequenceElements?.choiceSequence ){
-
-			//
-			
-		} else {
-
-			that.sceneBundlePassed.sceneElements.bobs[that.currentBobName]._controls._input._UpdateBobStickedInputs(event);
-
+		if( !this.currentSequenceElements?.choiceSequence ){
+			that.sceneBundlePassed.sceneElements.bobs[that.currentBobName]._controls._input._UpdateBobStickedInputs(event);	
 		}
 
 	}
@@ -54,8 +45,6 @@ class SequencesManager{
 		this.isCurrentlyTransitionning = true;
 
 		this.currentSequenceID = newSequenceID;
-
-		console.log("____ _ _ _ change trigger : ", oldSequenceID, newSequenceID);
 
 		this.currentSequenceElements = this.sceneBundlePassed.sequencesElements[newSequenceID];
 
@@ -87,15 +76,6 @@ class SequencesManager{
 
 		this.activeGoodLightsOnly(newSequenceID);
 
-
-		// if( this.debugTime ){
-		// 	this.lastSequenceUntil = this.sceneBundlePassed.sequencesElements[oldSequenceID]?.until;
-		// 	this.sceneBundlePassed.sceneElements.newSequenceTriggerTime = this.lastSequenceUntil;
-		// 	console.log("DEBUG TIME : last sequences was until : ", this.lastSequenceUntil)
-		// } else {
-		// 	this.sceneBundlePassed.sceneElements.newSequenceTriggerTime = this.clock.getElapsedTime();
-		// }
-
 		this.sceneBundlePassed.sceneElements.newSequenceTriggerTime = this.clock.getElapsedTime();
 
 		this.sceneBundlePassed.sceneElements.newSequenceTriggerTime += this.currentSequenceElements.cameraTriggerTimeDecay || 0;		
@@ -109,7 +89,7 @@ class SequencesManager{
 
 		}, 100);
 
-		console.log("----> current scene : ", this.sceneBundlePassed)
+		console.log("----> from / to / sceneBundle", oldSequenceID, newSequenceID, this.sceneBundlePassed)
 
 	}
 
@@ -146,8 +126,6 @@ class SequencesManager{
 					oldTimelines[timelineKey] = null;
 				}
 
-				// console.log("oldTimeline killed : ", oldSequenceID, timelineKey);
-
 			});
 		}
 
@@ -173,9 +151,7 @@ class SequencesManager{
 
 		aliceControls._isAlice = true;
 
-		console.log("avant le visible : ", aliceControls._target.visible)
 		aliceControls._target.visible = true;
-		console.log("après le visible : ", aliceControls._target.visible, aliceControls._target)
 
 		aliceControls._target.scale = new THREE.Vector3(
 			aliceInfos.scale,
@@ -201,8 +177,6 @@ class SequencesManager{
 			aliceControls._target.rotation.y += y;
 			aliceControls._target.rotation.z += z;
 		}
-
-		console.log("ALICE TRIGGERED AND SETTED: ", this.sceneBundlePassed.sceneElements, aliceFuturInfos, this.currentAliceName, aliceControls);
 
 	}
 
@@ -298,14 +272,7 @@ class SequencesManager{
 		const distance = newCoords.distanceTo(lightToUpdate.position);
 
 		if( distance ){
-
-			// console.log("- - - - - - update angle and intensity - - - - - - ", distance)
-
 			lightToUpdate.angle = (Math.PI/80) / distance;
-
-			// lightToUpdate.intensity = ((1 / distance) + 1) / 10;
-			// lightToUpdate.intensity = 0;
-
 		}
 
 		if( lightToUpdate.name.includes("for-bob-shadow") ){
@@ -463,13 +430,10 @@ class SequencesManager{
 			} else {
 
 				if( goodBob._controls._target.name !== this.currentAliceName ){
-					console.log("alice set to false visible : ", goodBob._controls._target.name)
 					goodBob._controls._target.visible = false;
 				}
 
 			}
-
-			
 
 		});
 
@@ -749,8 +713,6 @@ class SequencesManager{
 	}
 
 	initEventualSpecialEvents(){
-
-		console.log("initiEventualSpecialEvents : ", this.currentSequenceElements)
 
 		if( !this.currentSequenceElements.choiceSequence ){ return }
 		

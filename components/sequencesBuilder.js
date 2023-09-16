@@ -77,7 +77,6 @@ class SequencesBuilder {
 		this._sceneElements.dynamicLights.forEach(light => {
 
 			if( light.name.includes(sequenceInfos.id) ){
-				// || light.name.includes("#allSequences#")
 				this._sequencesLib[sequenceInfos.id].activeShadows.push(light);
 			}
 
@@ -155,14 +154,9 @@ class SequencesBuilder {
 				this._sequencesLib[sequenceInfos.id].timelines.camera.eventCallback(
 					"onComplete",
 					() => {
-			
 						if( this._sequencesLib[sequenceInfos.id] ){
 							this._sequencesLib[sequenceInfos.id].timelines.camera = null;
 						}
-			
-						// ce sera peut être ici qu'il faudra faire le lien entre cette caméra sur rails
-						// et la caméra 3eme personne ...
-		
 					}
 				);
 				break;

@@ -28,8 +28,6 @@ class SceneBuilder {
 			this.bobs[bob.name] = bob.instance;
 		});
 
-		console.log("scene builder - - - - - > ", worldConfig);
-
 		// _ Three elements
 		this.aspectRatio = window.innerWidth / window.innerHeight;
 		this.camera = new THREE.PerspectiveCamera(50, this.aspectRatio, 0.001, 15);
@@ -103,13 +101,6 @@ class SceneBuilder {
 		this.createLandscapeShadow(this.sceneElements.landscape.clone());
 
 		glbObj.glbFile.scene.traverse(child => {
-
-			// console.log("child -> ", child.name);
-			// if( child.name.includes("camera") ){
-
-			// 	this.sceneElements.initialCamera.position.copy(child.position);
-
-			// }
 				
 			// find camera paths for blenderTubes
 			if( child.name.includes("plan-") ){
@@ -203,15 +194,12 @@ class SceneBuilder {
 		if( textureTransmitted.options.metalness ){
 
 			bakedMaterial = new THREE.MeshPhongMaterial({
-				// map: texture,
-	
 				roughness: textureTransmitted.options.roughness || 0, 
 				metalness: textureTransmitted.options.metalness || 0,
 				reflectivity: textureTransmitted.options.reflectivity || 0, 
 				specular: textureTransmitted.options.specular || 0,
 				shininess: textureTransmitted.options.shininess || 0,
 			});
-
 
 		} else {
 
@@ -277,8 +265,6 @@ class SceneBuilder {
 
 	createEmissiveShape( shapeFromBlender ){
 
-		// console.log("---------> emissive debug : ", shapeFromBlender);
-
 		const emissiveMaterial = new THREE.MeshStandardMaterial({
 			emissive: shapeFromBlender.userData.emissiveColor ? new THREE.Color(shapeFromBlender.userData.emissiveColor) : new THREE.Color("#FFFFFF"),
 			emissiveIntensity: shapeFromBlender.material.emissiveIntensity * 10,
@@ -292,8 +278,6 @@ class SceneBuilder {
 	}
 
 	createStandardMesh( mesh ){
-
-		// debugger;
 
 		// const phongMaterial = new THREE.MeshPhongMaterial({
 		// 	color: `#${mesh.userData?.hexColor}` || "#FFFFFF",
@@ -353,7 +337,6 @@ class SceneBuilder {
 
 		shadowLandscapeMesh.name += "-shadow";
 
-		// shadowLandscapeMesh.castShadow = true;
 		shadowLandscapeMesh.receiveShadow = true;
 
 		shadowLandscapeMesh.material = shadowMaterial;
@@ -363,8 +346,6 @@ class SceneBuilder {
 	}
 
 	sequencesBuild(){
-
-		// console.log("at sequence build --> camera = ", this.camera); 
 
 		this.sequencesElements = new SequencesBuilder(
 			{
@@ -413,11 +394,6 @@ class SceneBuilder {
 				console.log("- - - - - - add mirror : ", mesh)
 				this.scene.add(mesh);
 			});
-
-		// bobs 
-		// Object.keys(this.bobs).forEach(bobKey => {
-		// 	this.scene.add(this.bobs[bobKey]._controls._target);
-		// })
 
 		// dynamic lights
 		this.sceneElements.dynamicLights
