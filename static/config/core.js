@@ -423,15 +423,15 @@ const core = {
 				x: {
 					// ratios
 					range: -1.4,
-					velocity: 0.55
+					velocity: 0.45
 				},
 				y: {
-					range: -0.011,
+					range: -0.021,
 					velocity: 0.5
 				},
 				z: {
-					range: 0,
-					velocity: 0.4
+					range: -0.05,
+					velocity: 0.35
 				},
 			},
 		},

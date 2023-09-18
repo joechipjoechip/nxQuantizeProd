@@ -178,9 +178,6 @@
 						this.$store.commit("setAudioTimecode", goTo);
 					}
 
-
-					// console.log("time debugger to go to ", goTo);
-
 				}, 800);
 
 			},

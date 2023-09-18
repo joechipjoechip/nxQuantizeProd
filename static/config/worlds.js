@@ -957,8 +957,8 @@ const worlds = [
 			spaceColorWithBloom: "#000211",
 
 			ambient: {
-				sunColor: "#1d00a7",
-				intensity: 0.16,
+				sunColor: "#929eff",
+				intensity: 0.25,
 				groundColor: "#370090"
 			},
 
@@ -1340,7 +1340,9 @@ const worlds = [
 				sequenceBobName: "marie",
 
 				type: "blender-points",
-				// type: "fake-orbit",
+				// type: "third-person",
+				// cameraType: "randomAndDynamic",
+
 				cameraInvert: {
 					x: true,
 					y: false
@@ -2338,24 +2340,6 @@ const worlds = [
 					translateZ1: true
 				},
 
-				// alice: {
-				// 	handleGround: false,
-				// 	name: "marie",
-				// 	move: {
-				// 		fly: true,
-				// 		forward: false,
-				// 		backward: false,
-				// 		translateZ1: true
-				// 	},
-				// 	offset: {
-				// 		x: 0,
-				// 		y: 0.35,
-				// 		z: 0.25
-				// 	},
-				// 	scale: 0.057,
-				// 	slowmo: 1
-				// },
-
 				slowmo: 1,
 
 				postproc: [
@@ -2432,24 +2416,6 @@ const worlds = [
 					shaderTimeDecay: 0,
 					sin: true,
 					sinAmplitude: 15
-				},
-
-				alice: {
-					handleGround: false,
-					name: "marie",
-					move: {
-						fly: true,
-						forward: false,
-						backward: false,
-						translateZ1: true
-					},
-					offset: {
-						x: 0,
-						y: 0.35,
-						z: 0.25
-					},
-					scale: 0.057,
-					slowmo: 1
 				},
 
 				slowmo: 1,
@@ -2538,24 +2504,6 @@ const worlds = [
 					sinAmplitude: 7
 				},
 
-				alice: {
-					handleGround: false,
-					name: "marie",
-					move: {
-						fly: true,
-						forward: false,
-						backward: false,
-						translateZ1: true
-					},
-					offset: {
-						x: 0,
-						y: 0.35,
-						z: 0.25
-					},
-					scale: 0.057,
-					slowmo: 1
-				},
-
 				slowmo: 1,
 
 				postproc: [
@@ -2629,20 +2577,26 @@ const worlds = [
 
 				alice: {
 					handleGround: false,
-					name: "marie",
+					name: "marieShaderFlying",
 					move: {
-						fly: true,
-						forward: false,
-						backward: false,
-						translateZ1: true
+						left: false,
+						right: false,
+						kiss: true
 					},
 					offset: {
 						x: 0,
-						y: 0.35,
-						z: 0.25
+						y: -5.5,
+						z: -2
 					},
-					scale: 0.057,
-					slowmo: 1
+					scale: 0.085,
+					slowmo: 26,
+					customShaderOptions: {
+						shaderTimeRatio: 1.8,
+						shaderTimeDecay: 12,
+						isCameraPositionInfluenced: false,
+						sin: false,
+						sinAmplitude: 20
+					}
 				},
 
 				slowmo: 1,
@@ -2664,7 +2618,7 @@ const worlds = [
 			},
 			{
 				id: "7.21",
-				baseFov: 35,
+				baseFov: 15,
 				fovTransition: false,
 				sequenceBobName: "linkShaderFlying",
 				bobRestoreSize: 0.0012,
@@ -2676,8 +2630,8 @@ const worlds = [
 				nextInstruction: "switch-sequence",
 
 				cameraInvert: {
-					x: false,
-					y: true
+					x: true,
+					y: false
 				},
 
 				tubeInfos: {
@@ -2690,7 +2644,7 @@ const worlds = [
 						{
 							// this amount is a percent of the global duration
 							amount: 100,
-							fov: 25,
+							fov: 10,
 							stepEase: "linear"
 						},
 
@@ -2736,19 +2690,25 @@ const worlds = [
 
 				alice: {
 					handleGround: false,
-					name: "marie",
+					name: "marieShaderFlying",
 					move: {
-						fly: true,
-						forward: false,
-						backward: false
+						left: false,
+						right: false,
+						kiss: true
 					},
 					offset: {
 						x: 0,
-						y: 0.35,
-						z: 0.25
+						y: -5.5,
+						z: -2
 					},
-					scale: 0.057,
-					slowmo: 1
+					scale: 0.085,
+					slowmo: 12,
+					customShaderOptions: {
+						shaderTimeRatio: 0.011,
+						shaderTimeDecay: 10,
+						sin: true,
+						sinAmplitude: 37
+					}
 				},
 
 				slowmo: 1,
@@ -2787,7 +2747,7 @@ const worlds = [
 				},
 
 				tubeInfos: {
-					duration: 8,
+					duration: 7.7,
 					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
 					isUsingTarget: true,
 					steps: [
@@ -3466,7 +3426,6 @@ const worlds = [
 					handleGround: false,
 					name: "linkShaderFlying",
 					move: {
-						false: true,
 						left: false,
 						right: false,
 						kiss: true
@@ -3557,7 +3516,6 @@ const worlds = [
 					handleGround: false,
 					name: "linkShaderFlying",
 					move: {
-						false: true,
 						left: false,
 						right: false,
 						kiss: true

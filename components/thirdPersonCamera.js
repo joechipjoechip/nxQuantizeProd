@@ -88,9 +88,9 @@ class ThirdPersonCamera {
 	}
   
 	Update( triggerTime, timeElapsed, mousePos, optionsObj ){
-
+		
 		const realTime = timeElapsed - triggerTime;
-
+	
 		const idealOffset = this._CalculateIdealOffset(realTime);
 		const idealLookat = this._CalculateIdealLookat(mousePos);
 	
@@ -136,10 +136,7 @@ class ThirdPersonCamera {
 		} else {
 			this._currentPosition.y = this._specs.offset.y;
 		}
-		
-		// console.log("distance : ", hit.distance)
 
-		// selon l'angle on pourrait décaler la cam .. mais à voir 
 	}
 	
 }

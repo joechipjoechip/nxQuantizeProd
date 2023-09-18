@@ -625,6 +625,7 @@ canvas {
 p {
   z-index: 5;
   color: black;
+//   color: #ffbb00;
 }
 
 .debug-space {
