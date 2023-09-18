@@ -391,7 +391,6 @@ class SceneBuilder {
 		// mirror meshes
 		this.sceneElements.mirrorMeshesBuilt
 			.forEach(mesh => {
-				console.log("- - - - - - add mirror : ", mesh)
 				this.scene.add(mesh);
 			});
 

@@ -38,7 +38,9 @@ const core = {
 			"enjoy",
 			"teeter",
 			"prayup",
-			"kiss"
+			"kiss",
+			"twistleft",
+			"twistright",
 		]
 	},
 

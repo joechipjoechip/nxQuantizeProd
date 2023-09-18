@@ -66,7 +66,7 @@ const entities = {
 				},
 				shader: {
 					shaderName: "bobShader",
-					shaderScale: 1,
+					shaderScale: 10,
 					shaderAxe: "xy",
 					specificShaderName: "plastic",
 					shaderTimeRatio: 0.25,

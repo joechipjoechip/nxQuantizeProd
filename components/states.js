@@ -212,6 +212,98 @@ class KissState extends State {
 	}
 };
 
+class TwistleftState extends State {
+	constructor(parent) {
+		super(parent);
+	}
+
+	get Name() {
+		return 'twistleft';
+	}
+
+	Enter(prevState) {
+		const curAction = this._parent._proxy._animations['twistleft'].action;
+		if (prevState) {
+			const prevAction = this._parent._proxy._animations[prevState.Name].action;
+
+			curAction.enabled = true;
+
+			if (prevState.Name == 'run') {
+				const ratio = curAction.getClip().duration / prevAction.getClip().duration;
+				curAction.time = prevAction.time * ratio;
+			} else {
+				curAction.time = 0.0;
+				curAction.setEffectiveTimeScale(1.0);
+				curAction.setEffectiveWeight(1.0);
+			}
+
+			curAction.crossFadeFrom(prevAction, 0.5, true);
+			curAction.play();
+		} else {
+			curAction.play();
+		}
+	}
+
+	Exit() {
+	}
+
+	Update(timeElapsed, input) {
+
+		if (input._keys.twistleft) {
+			this._parent.SetState('twistleft');
+			return;
+		}
+
+		this._parent.SetState('idle');
+	}
+};
+
+class TwistrightState extends State {
+	constructor(parent) {
+		super(parent);
+	}
+
+	get Name() {
+		return 'twistright';
+	}
+
+	Enter(prevState) {
+		const curAction = this._parent._proxy._animations['twistright'].action;
+		if (prevState) {
+			const prevAction = this._parent._proxy._animations[prevState.Name].action;
+
+			curAction.enabled = true;
+
+			if (prevState.Name == 'run') {
+				const ratio = curAction.getClip().duration / prevAction.getClip().duration;
+				curAction.time = prevAction.time * ratio;
+			} else {
+				curAction.time = 0.0;
+				curAction.setEffectiveTimeScale(1.0);
+				curAction.setEffectiveWeight(1.0);
+			}
+
+			curAction.crossFadeFrom(prevAction, 0.5, true);
+			curAction.play();
+		} else {
+			curAction.play();
+		}
+	}
+
+	Exit() {
+	}
+
+	Update(timeElapsed, input) {
+
+		if (input._keys.twistright) {
+			this._parent.SetState('twistright');
+			return;
+		}
+
+		this._parent.SetState('idle');
+	}
+};
+
 class EnjoyState extends State {
 	constructor(parent) {
 		super(parent);
@@ -455,6 +547,10 @@ class IdleState extends State {
 			this._parent.SetState('prayup');
 		} else if( input._keys.kiss){
 			this._parent.SetState('kiss');
+		} else if( input._keys.twistleft){
+			this._parent.SetState('twistleft');
+		} else if( input._keys.twistright){
+			this._parent.SetState('twistright');
 		}
 	}
 };
@@ -470,5 +566,7 @@ export {
 	EnjoyState,
 	TeeterState,
 	PrayupState,
-	KissState
+	KissState,
+	TwistleftState,
+	TwistrightState,
 };

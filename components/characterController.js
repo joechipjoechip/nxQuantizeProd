@@ -12,7 +12,9 @@ import {
 	EnjoyState,
 	TeeterState,
 	PrayupState,
-	KissState
+	KissState,
+	TwistleftState,
+	TwistrightState
 } from '@/components/states.js'
 
 class BasicCharacterControllerProxy {
@@ -259,6 +261,8 @@ class BasicCharacterControllerInput {
 			kiss: false || this._imposedMoves.kiss,
 			translateZ1: false || this._imposedMoves.translateZ1,
 			translateZ2: false || this._imposedMoves.translateZ2,
+			twistleft: false || this._imposedMoves.twistleft,
+			twistright: false || this._imposedMoves.twistright,
 		};
 
 		// document.addEventListener('keydown', ( event ) => this._onKeyDown( event ), false);
@@ -369,6 +373,8 @@ class CharacterFSM extends FiniteStateMachine {
 		this._AddState('teeter', TeeterState);
 		this._AddState('prayup', PrayupState);
 		this._AddState('kiss', KissState);
+		this._AddState('twistleft', TwistleftState);
+		this._AddState('twistright', TwistrightState);
 	}
 };
 

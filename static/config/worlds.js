@@ -2946,9 +2946,9 @@ const worlds = [
 
 				type: "blender-points",
 
-				until: 88,
+				until: 185,
 				// until: 35,
-				nextInstruction: "switch-sequence",
+				nextInstruction: "drop-and-load-and-switch",
 
 				cameraInvert: {
 					x: false,
@@ -4025,9 +4025,9 @@ const worlds = [
 	
 				type: "blender-points",
 	
-				until: 120,
+				until: 134.5,
 				// until: 4,
-				nextInstruction: "switch-sequence",
+				nextInstruction: "drop-and-load-and-switch",
 	
 				cameraInvert: {
 					x: true,
@@ -4035,7 +4035,7 @@ const worlds = [
 				},
 
 				tubeInfos: {
-					duration: 10,
+					duration: 12,
 					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
 					isUsingTarget: true,
 					steps: [
@@ -4096,9 +4096,256 @@ const worlds = [
 			},
 		]
 	
-	}
+	},
 
+	{
+
+		name: "world_070_finish",
 	
+		main: {
+			// spaceColor: "#090016",
+			spaceColor: "#030303",
+			spaceColorDarker: "#030303",
+			spaceColorWithBloom: "#030303",
+	
+			ambient: {
+				sunColor: "#FFFFFF",
+				// intensity: 0.17,
+				intensity: 0.25,
+				groundColor: "#ffc054"
+			},
+	
+			fog: {
+				enabled: false,
+				color: 0xff9500,
+				intensity: .15
+			},
+	
+			meshInfos: {
+	
+				glbPath: "/assets/3d/worlds/finish/finish.glb",
+				imagePath: {
+					landscape: "/assets/3d/worlds/finish/finishBake"
+				}
+			},
+
+		},
+	
+		sequences: [
+			{
+				id: "7.24",
+				// baseFov: 39,
+				baseFov: 20,
+				fovTransition: false,
+				sequenceBobName: "link",
+				bobRestoreSize: 0.023,
+				isEndSequence: true,
+	
+				type: "blender-points",
+	
+				until: 161.65,
+				// until: 3,
+
+				// nextInstruction: "switch-sequence",
+	
+				cameraInvert: {
+					x: true,
+					y: false
+				},
+
+				tubeInfos: {
+					duration: 120,
+					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
+					isUsingTarget: true,
+					steps: [
+						// n steps are possibles
+						// n has nothing to do with the number of points for the curve
+						{
+							// this amount is a percent of the global duration
+							amount: 100,
+							fov: 20,
+							stepEase: "linear"
+						},
+
+					]
+				},
+	
+				animatedMesh: false,
+	
+				helpers: {
+					orbit: false,
+					tubes: false,
+					timelines: false
+				},
+	
+				fog: {
+					enabled: false,
+					color: "#ffffff",
+					intensity: .14
+				},
+	
+				bobImposedMoves: {
+					fly: false,
+					forward: false,
+					backward: false,
+					translateZ1: false,
+					left: false,
+					right: false,
+					twistleft: true
+				},
+	
+	
+				alice: {
+					handleGround: true,
+					name: "linkShaderPlastic",
+					move: {
+						fly: false,
+						forward: false,
+						backward: false,
+						translateZ1: false,
+						left: false,
+						right: false,
+						twistright: true
+					},
+					offset: {
+						x: 0,
+						y: 0,
+						z: 0
+					},
+					customShaderOptions: {
+						shaderTimeRatio: 0.8,
+						shaderTimeDecay: 12,
+						isCameraPositionInfluenced: false,
+						sin: false,
+						sinAmplitude: 20
+					},
+					scale: 0.023,
+					slowmo: 18
+				},
+	
+				slowmo: 18,
+	
+				postproc: [
+					{
+						type: "bloom",
+						value: {
+							strength: 0.45,
+							threshold: 0.0035,
+							radius: 0.1
+						}
+					}
+				]
+	
+			},
+			{
+				id: "7.28",
+				// baseFov: 39,
+				baseFov: 20,
+				fovTransition: false,
+				sequenceBobName: "link",
+				bobRestoreSize: 0.023,
+				isEndSequence: true,
+	
+				type: "blender-points",
+	
+				until: 161.65,
+				// until: 3,
+
+				// nextInstruction: "switch-sequence",
+	
+				cameraInvert: {
+					x: true,
+					y: false
+				},
+
+				tubeInfos: {
+					duration: 120,
+					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
+					isUsingTarget: true,
+					steps: [
+						// n steps are possibles
+						// n has nothing to do with the number of points for the curve
+						{
+							// this amount is a percent of the global duration
+							amount: 100,
+							fov: 20,
+							stepEase: "linear"
+						},
+
+					]
+				},
+	
+				animatedMesh: false,
+	
+				helpers: {
+					orbit: false,
+					tubes: false,
+					timelines: false
+				},
+	
+				fog: {
+					enabled: false,
+					color: "#ffffff",
+					intensity: .14
+				},
+	
+				bobImposedMoves: {
+					fly: false,
+					forward: false,
+					backward: false,
+					translateZ1: false,
+					left: false,
+					right: false,
+					twistleft: true
+				},
+	
+	
+				alice: {
+					handleGround: true,
+					name: "linkShaderPlastic",
+					move: {
+						fly: false,
+						forward: false,
+						backward: false,
+						translateZ1: false,
+						left: false,
+						right: false,
+						twistright: true
+					},
+					offset: {
+						x: 0,
+						y: 0,
+						z: 0
+					},
+					customShaderOptions: {
+						shaderTimeRatio: 0.08,
+						shaderTimeDecay: 12,
+						isCameraPositionInfluenced: false,
+						sin: false,
+						sinAmplitude: 20
+					},
+					scale: 0.023,
+					slowmo: 18
+				},
+	
+				slowmo: 18,
+	
+				postproc: [
+					{
+						type: "bloom",
+						value: {
+							strength: 0.45,
+							threshold: 0.0035,
+							radius: 0.1
+						}
+					}
+				]
+	
+			},
+			
+		]
+	
+	}
 
 ]
 

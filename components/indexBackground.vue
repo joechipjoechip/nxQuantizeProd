@@ -62,7 +62,7 @@
                     perspectiveCameraBasePosition: [0,0,3.5],
 
                     render: {
-                        bgColor: "#346eff"
+                        bgColor: "#050505"
                     },
 
                     model: {

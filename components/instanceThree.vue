@@ -93,7 +93,7 @@
 
 				endFlyPrayTimer: 16.5,
 				endChoiceTimer: 43.43,
-				// if not : 43.9
+				finishTimeCode: 0,
 
 				nextWorldIndex: 0,
 				initialLoadDone: false,
@@ -101,7 +101,8 @@
 				debug: {
 					animated: true,
 					stats: true,
-					end: true
+					end: true,
+					finish: true
 				},
 
 				currentBobName: null,
@@ -158,10 +159,14 @@
 			},
 
 			"sceneBundle.primary.name"(){
-				this.checkIfAllScenesAreReady();
+				if( !this.initialLoadDone ){
+					this.checkIfAllScenesAreReady();
+				}
 			},
 			"sceneBundle.secondary.name"(){
-				this.checkIfAllScenesAreReady();
+				if( !this.initialLoadDone ){
+					this.checkIfAllScenesAreReady();
+				}
 			},
 
 			sequenceID(newVal, oldVal){
@@ -208,6 +213,14 @@
 			endingIsStarted( newVal ){
 				if( newVal && this.$store.state.badComputer ){
 					this.setDownScale(2.5);
+				}
+			},
+
+			"$store.state.currentChoice"( newVal ){
+				if( newVal === "One"){
+					this.finishTimeCode = 85;
+				} else {
+					this.finishTimeCode = 104.5;
 				}
 			}
 
@@ -422,15 +435,20 @@
 
 					console.log("end currentTime is : ", this.$store.state[`audioEnd${this.$store.state.currentChoice}`].currentTime);
 
-					if( this.$store.state[`audioEnd${this.$store.state.currentChoice}`].currentTime >= this.currentSequence.until && !this.currentSequence.alreadyTriggered ) {
+					if( !this.currentSequence.alreadyTriggered && this.$store.state[`audioEnd${this.$store.state.currentChoice}`].currentTime >= this.finishTimeCode && !this.finishIsStarted ){
+						// finish scene
+
+						this.handleFinishScene();
+
+
+					} else if ( !this.currentSequence.alreadyTriggered && this.$store.state[`audioEnd${this.$store.state.currentChoice}`].currentTime >= this.currentSequence.until ) {
+						// classic ending sequences chaining
 
 						console.log("ending handleSequencing triggered");
 
 						this.handleSequencing();
 
 					}
-
-					
 
 				} else {
 
@@ -439,7 +457,7 @@
 						this.startLoops();
 					}
 					
-					if( !this.$store.state.audioBase.paused && (this.$store.state.audioCurrent.currentTime >= this.currentSequence.until && !this.currentSequence.alreadyTriggered) ){
+					if( !this.currentSequence.alreadyTriggered && !this.$store.state.audioBase.paused && this.$store.state.audioCurrent.currentTime >= this.currentSequence.until ){
 	
 						this.handleSequencing();
 	
@@ -553,6 +571,16 @@
 				if( this.debug.end ){
 					this.endFlyPrayTimer = 2
 					this.endChoiceTimer = 6
+	
+					if( this.debug.finish ){
+
+						setTimeout(() => {
+							this.$store.commit("setAudioTimecode", 95);
+						}, 1000)
+
+					}
+
+		
 				}
 
 				if( !this.choiceIsDisplayed && !this.choiceHaveBeenMade && this.loopClock.getElapsedTime() >= this.endFlyPrayTimer ){
@@ -600,6 +628,22 @@
 				this.$store.commit("setAudioCurrent", this.$store.state[`audioEnd${this.$store.state.currentChoice}`])
 
 				this.$store.state[`audioEnd${this.$store.state.currentChoice}`].play();
+
+			},
+
+			handleFinishScene(){
+
+				console.log("handleFinishScene well triggered")
+
+				this.finishIsStarted = true;
+
+				this.dropScene("primary");
+
+				this.dropScene("secondary");
+
+				this.createBundle(this.worlds.length - 1, "primary").then(() => {
+					this.skeleton.current = this.skeleton.primary;
+				});
 
 			}
 

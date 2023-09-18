@@ -95,6 +95,8 @@ class SequencesManager{
 
 	updateCommonsValues(){
 
+		console.log("dans sequenceManager : this : ", this);
+
 		this.currentBobName = this.currentSequenceElements.sequenceBobName;
 
 		this.currentAliceName = this.currentSequenceElements.aliceInfos?.name;
