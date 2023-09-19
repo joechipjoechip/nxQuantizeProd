@@ -10,7 +10,8 @@
 			class="curtain"
 			:class="{ 
 				active: curtainActive,
-				'first': this.sequenceID === '1.0'
+				'long': this.longCurtainSequences.includes(this.sequenceID),
+				'verylong': this.isFinishScene
 			}"
 		>
 		</div>
@@ -77,6 +78,8 @@
 				},
 
 				curtainActive: true,
+				longCurtainSequences: ["1.0", "7.14", "7.17"],
+				isFinishScene: false,
 
 				allIsLoaded: false,
 				glbs: [],
@@ -112,6 +115,13 @@
 				if( newVal ){
 					this.$nuxt.$emit("cinema-is-ready", true);
 					console.log("all assets are loaded");
+				}
+			},
+
+			isFinishScene( newVal ){
+				console.log("watcher de isFinishScene triggered")
+				if( newVal ){
+					this.curtainActive = true
 				}
 			}
 
@@ -172,7 +182,7 @@
 
 				setTimeout(() => {
 
-					const goTo = 140;
+					const goTo = 78;
 
 					if( goTo > 0 ){
 						this.$store.commit("setAudioTimecode", goTo);
@@ -353,13 +363,16 @@ button {
 	width: 100%;
 	height: 100%;
 	background-color: #000;
-	transition: opacity .7s ease;
+	transition: opacity 1s ease;
 	will-change: opacity;
 	opacity: 0;
 	pointer-events: none;
 
-	&.first {
-		transition: opacity 5s ease;
+	&.long {
+		transition: opacity 6s ease;
+	}
+	&.verylong {
+		transition: opacity 10s ease;
 	}
 
 	&.active {

@@ -101,8 +101,8 @@
 				debug: {
 					animated: true,
 					stats: true,
-					end: true,
-					finish: true
+					end: false,
+					finish: false
 				},
 
 				currentBobName: null,
@@ -642,6 +642,7 @@
 				this.dropScene("secondary");
 
 				this.createBundle(this.worlds.length - 1, "primary").then(() => {
+					this.$parent.isFinishScene = true;
 					this.skeleton.current = this.skeleton.primary;
 				});
 

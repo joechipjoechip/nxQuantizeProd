@@ -90,12 +90,12 @@ const core = {
 			lookAt: {
 				x: 0,
 				y: 0.017,
-				z: 0.01
+				z: 0.065
 			},
-			straightness: 0.015,
+			straightness: 0.02,
 			mouseOrientationPonderation: {
-				x: 0.015,
-				y: 0.026
+				x: 0.035,
+				y: 0.065
 			},
 			motion: {
 				// motion will move the camera continuously

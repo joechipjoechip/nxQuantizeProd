@@ -13,13 +13,13 @@ const worlds = [
 
 		main: {
 
-			spaceColor: "#000211",
-			spaceColorDarker: "#000211",
-			spaceColorWithBloom: "#000211",
+			spaceColor: "#e7ab00",
+			spaceColorDarker: "#e7ab00",
+			spaceColorWithBloom: "#e7ab00",
 
 			ambient: {
-				sunColor: "#ffffff",
-				intensity: 0.17,
+				sunColor: "#e7ab00",
+				intensity: 0.2,
 				groundColor: "#000a54"
 			},
 
@@ -627,7 +627,7 @@ const worlds = [
 			},
 			{
 				id: "5.10",
-				baseFov: 20,
+				baseFov: 12,
 				fovTransition: false,
 				sequenceBobName: "link",
 
@@ -639,6 +639,23 @@ const worlds = [
 				cameraInvert: {
 					x: false,
 					y: true
+				},
+
+				tubeInfos: {
+					duration: 7,
+					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
+					isUsingTarget: true,
+					steps: [
+						// n steps are possibles
+						// n has nothing to do with the number of points for the curve
+						{
+							// this amount is a percent of the global duration
+							amount: 100,
+							fov: 14,
+							stepEase: "linear"
+						},
+
+					]
 				},
 
 				animatedMesh: false,
@@ -690,22 +707,7 @@ const worlds = [
 					}
 				},
 
-				tubeInfos: {
-					duration: 6,
-					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
-					isUsingTarget: true,
-					steps: [
-						// n steps are possibles
-						// n has nothing to do with the number of points for the curve
-						{
-							// this amount is a percent of the global duration
-							amount: 100,
-							fov: 18,
-							stepEase: "linear"
-						},
-
-					]
-				},
+				
 
 				postproc: [
 
@@ -723,7 +725,7 @@ const worlds = [
 			},
 			{
 				id: "5.11",
-				baseFov: 90,
+				baseFov: 12,
 				fovTransition: false,
 				sequenceBobName: "link",
 
@@ -733,6 +735,23 @@ const worlds = [
 				nextInstruction: "drop-and-load-and-switch",
 
 				animatedMesh: false,
+
+				tubeInfos: {
+					duration: 6.5,
+					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
+					isUsingTarget: true,
+					steps: [
+						// n steps are possibles
+						// n has nothing to do with the number of points for the curve
+						{
+							// this amount is a percent of the global duration
+							amount: 100,
+							fov: 75,
+							stepEase: "linear"
+						},
+
+					]
+				},
 
 				helpers: {
 					orbit: true,
@@ -777,34 +796,7 @@ const worlds = [
 					}
 				},
 
-				tubeInfos: {
-					duration: 7,
-					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
-					isUsingTarget: true,
-					steps: [
-						// n steps are possibles
-						// n has nothing to do with the number of points for the curve
-						{
-							// this amount is a percent of the global duration
-							amount: 32,
-							fov: 25,
-							stepEase: "linear"
-						},
-						{
-							// this amount is a percent of the global duration
-							amount: 25,
-							fov: 55,
-							stepEase: "linear"
-						},
-						{
-							// this amount is a percent of the global duration
-							amount: 43,
-							fov: 5,
-							stepEase: "linear"
-						},
-
-					]
-				},
+				
 
 				postproc: [
 
@@ -824,7 +816,8 @@ const worlds = [
 				id: "6.12",
 				baseFov: 10,
 				fovTransition: false,
-				bobRestoreSize: 0.0008,
+				sequenceBobName: "link",
+				bobRestoreSize: 0.01,
 
 				type: "blender-points",
 
@@ -884,33 +877,54 @@ const worlds = [
 				bobImposedMoves: {
 					forward: false,
 					shift: false,
-					backward: true,
-					hiphop: false,
+					hiphop: true,
 					left: false,
 					right: false,
 				},
 
 				alice: {
-					handleGround: true,
-					name: "linkShaderPlastic",
+					handleGround: false,
+					name: "queenShader",
 					move: {
-						hiphop: true
+						floating: true
 					},
 					offset: {
 						x: 0,
-						y: 0,
+						y: -0.25,
 						z: 0
 					},
-					scale: 0.01,
-					slowmo: 1.8,
+					scale: 0.03,
+					slowmo: 2,
 					customShaderOptions: {
-						shaderTimeRatio: 1.5,
-						shaderTimeDecay: 5,
+						shaderTimeRatio: 0.1,
+						shaderTimeDecay: 12,
 						isCameraPositionInfluenced: false,
-						sin: false,
-						sinAmplitude: 60
+						sin: true,
+						sinAmplitude: 20
 					}
 				},
+
+				// alice: {
+				// 	handleGround: true,
+				// 	name: "link",
+				// 	move: {
+				// 		hiphop: true
+				// 	},
+				// 	offset: {
+				// 		x: 0,
+				// 		y: 0,
+				// 		z: 0
+				// 	},
+				// 	scale: 0.01,
+				// 	slowmo: 1.8,
+				// 	// customShaderOptions: {
+				// 	// 	shaderTimeRatio: 1.5,
+				// 	// 	shaderTimeDecay: 5,
+				// 	// 	isCameraPositionInfluenced: false,
+				// 	// 	sin: false,
+				// 	// 	sinAmplitude: 60
+				// 	// }
+				// },
 
 				postproc: [
 
@@ -1020,8 +1034,8 @@ const worlds = [
 				bobImposedMoves: {
 					forward: true,
 					// shift: false
-					left: false,
-					right: false,
+					// left: false,
+					// right: false,
 				},
 
 				slowmo: 2.3,
@@ -1146,8 +1160,8 @@ const worlds = [
 				bobImposedMoves: {
 					forward: true,
 					shift: false,
-					left: false,
-					right: false
+					// left: true,
+					// right: true
 				},
 
 				postproc: [
@@ -1158,10 +1172,7 @@ const worlds = [
 							threshold: 0.00035,
 							radius: 0.45
 						}
-					},
-					{
-						type: "glitch"
-					},
+					}
 				]
 
 			},
@@ -1673,13 +1684,14 @@ const worlds = [
 			},
 			{
 				id: "7.12",
-				baseFov: 15,
+				baseFov: 36,
 				fovTransition: false,
 				sequenceBobName: "link",
+				bobRestoreSize: 0.0012,
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 5,
-				cameraType: "movingHips-lookUp",
+				cameraType: "movingHips",
 
 				until: 134,
 				nextInstruction: "switch-sequence",
@@ -1700,7 +1712,7 @@ const worlds = [
 
 				alice: {
 					handleGround: true,
-					name: "linkShaderPlastic",
+					name: "marie",
 					move: {
 						// idle: true,
 						shift: false,
@@ -1708,20 +1720,20 @@ const worlds = [
 						// left: false,
 						// right: false
 					},
-					customShaderOptions: {
-						shaderTimeRatio: 0.8,
-						shaderTimeDecay: 12,
-						isCameraPositionInfluenced: false,
-						sin: false,
-						sinAmplitude: 20
-					},
+					// customShaderOptions: {
+					// 	shaderTimeRatio: 0.8,
+					// 	shaderTimeDecay: 12,
+					// 	isCameraPositionInfluenced: false,
+					// 	sin: false,
+					// 	sinAmplitude: 20
+					// },
 					offset: {
 						x: 0,
 						y: 0,
 						z: 0
 					},
-					scale: 0.015,
-					slowmo: 2,
+					scale: 0.03,
+					slowmo: 2.5,
 				},
 
 				bobImposedMoves: {
@@ -1729,16 +1741,16 @@ const worlds = [
 					shift: true
 				},
 
-				slowmo: 1.3,
+				slowmo: 1,
 
 				postproc: [
 
 					{
 						type: "bloom",
 						value: {
-							strength: 0.45,
-							threshold: 0.0035,
-							radius: 0.5
+							strength: .7,
+							threshold: 0.00045,
+							radius: 0.07
 						}
 					},
 					// {
@@ -1808,14 +1820,14 @@ const worlds = [
 						
 						{
 							// this amount is a percent of the global duration
-							amount: 40,
-							fov: 55,
+							amount: 70,
+							fov: 15,
 							stepEase: "linear"
 						},
 
 						{
 							// this amount is a percent of the global duration
-							amount: 40,
+							amount: 10,
 							fov: 190,
 							stepEase: "linear"
 						},
@@ -1825,7 +1837,7 @@ const worlds = [
 
 				alice: {
 					handleGround: false,
-					name: "linkShaderPlastic",
+					name: "marie",
 					move: {
 						floating: true,
 						forward: false,
@@ -1833,13 +1845,13 @@ const worlds = [
 						right: true,
 						shift: false
 					},
-					customShaderOptions: {
-						shaderTimeRatio: 0.8,
-						shaderTimeDecay: 12,
-						isCameraPositionInfluenced: false,
-						sin: false,
-						sinAmplitude: 20
-					},
+					// customShaderOptions: {
+					// 	shaderTimeRatio: 0.8,
+					// 	shaderTimeDecay: 12,
+					// 	isCameraPositionInfluenced: false,
+					// 	sin: false,
+					// 	sinAmplitude: 20
+					// },
 					offset: {
 						x: 0,
 						y: 0,
@@ -1863,9 +1875,9 @@ const worlds = [
 					{
 						type: "bloom",
 						value: {
-							strength: 0.4,
-							threshold: 0.00035,
-							radius: 0.3
+							strength: .7,
+							threshold: 0.00045,
+							radius: 0.07
 						}
 					},
 					{
@@ -2730,7 +2742,7 @@ const worlds = [
 			},
 			{
 				id: "7.22",
-				baseFov: 30,
+				baseFov: 230,
 				fovTransition: false,
 				sequenceBobName: "linkShaderFlying",
 				bobRestoreSize: 0.0012,
@@ -2756,7 +2768,7 @@ const worlds = [
 						{
 							// this amount is a percent of the global duration
 							amount: 100,
-							fov: 17,
+							fov: 25,
 							stepEase: "linear"
 						},
 
@@ -3789,7 +3801,7 @@ const worlds = [
 	
 				type: "blender-points",
 	
-				until: 78.8,
+				until: 79,
 				// until: 4,
 				nextInstruction: "switch-sequence",
 	
@@ -3999,6 +4011,31 @@ const worlds = [
 				},
 	
 				slowmo: 1,
+
+				alice: {
+					handleGround: false,
+					name: "link",
+					move: {
+						fly: false,
+						forward: true,
+						backward: false,
+						translateZ1: false
+					},
+					offset: {
+						x: 0,
+						y: 0,
+						z: 0
+					},
+					// customShaderOptions: {
+					// 	shaderTimeRatio: 0.08,
+					// 	shaderTimeDecay: 12,
+					// 	isCameraPositionInfluenced: false,
+					// 	sin: true,
+					// 	sinAmplitude: 20
+					// },
+					scale: 0.035,
+					slowmo: 1
+				},
 	
 				postproc: [
 					{
