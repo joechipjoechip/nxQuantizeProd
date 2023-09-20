@@ -89,7 +89,7 @@ const core = {
 			},
 			lookAt: {
 				x: 0,
-				y: 0.017,
+				y: 0.037,
 				z: 0.065
 			},
 			straightness: 0.02,

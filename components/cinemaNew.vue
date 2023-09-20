@@ -119,7 +119,7 @@
 			},
 
 			isFinishScene( newVal ){
-				console.log("watcher de isFinishScene triggered")
+				console.log("watcher de isFinishScene triggered", newVal)
 				if( newVal ){
 					this.curtainActive = true
 				}
@@ -182,7 +182,7 @@
 
 				setTimeout(() => {
 
-					const goTo = 78;
+					const goTo = 0;
 
 					if( goTo > 0 ){
 						this.$store.commit("setAudioTimecode", goTo);
@@ -372,7 +372,7 @@ button {
 		transition: opacity 6s ease;
 	}
 	&.verylong {
-		transition: opacity 10s ease;
+		transition: opacity 10s ease !important;
 	}
 
 	&.active {

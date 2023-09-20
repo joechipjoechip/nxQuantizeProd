@@ -13,13 +13,13 @@ const worlds = [
 
 		main: {
 
-			spaceColor: "#e7ab00",
-			spaceColorDarker: "#e7ab00",
-			spaceColorWithBloom: "#e7ab00",
+			spaceColor: "#050505",
+			spaceColorDarker: "#050505",
+			spaceColorWithBloom: "#050505",
 
 			ambient: {
-				sunColor: "#e7ab00",
-				intensity: 0.2,
+				sunColor: "#ffffff",
+				intensity: 0.25,
 				groundColor: "#000a54"
 			},
 
@@ -482,15 +482,15 @@ const worlds = [
 			// drop du run ! 
 			{
 				id: "3.7",
-				baseFov: 28,
+				baseFov: 34,
 				fovTransition: true,
-				sequenceBobName: "link",
+				sequenceBobName: "marie",
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 6,
 				cameraType: "movingHips-lookUp-xDecayed",
 
-				until: 64.58,
+				until: 71.9,
 				nextInstruction: "switch-scene",
 
 				animatedMesh: false,
@@ -553,18 +553,38 @@ const worlds = [
 			},
 			{
 				id: "5.9",
-				baseFov: 30,
+				baseFov: 12,
 				fovTransition: false,
 				sequenceBobName: "link",
 
-				type: "third-person",
-				cameraTriggerTimeDecay: 6,
-				cameraType: "movingHips-lookUp",
+				type: "blender-points",
 
-				until: 91,
+				until: 94.3,
 				nextInstruction: "switch-sequence",
 
 				animatedMesh: false,
+
+				cameraInvert: {
+					x: false,
+					y: true
+				},
+
+				tubeInfos: {
+					duration: 8.4,
+					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
+					isUsingTarget: true,
+					steps: [
+						// n steps are possibles
+						// n has nothing to do with the number of points for the curve
+						{
+							// this amount is a percent of the global duration
+							amount: 100,
+							fov: 20,
+							stepEase: "linear"
+						},
+
+					]
+				},
 
 				helpers: {
 					orbit: true,
@@ -582,10 +602,12 @@ const worlds = [
 					backward: false,
 					forward: false,
 					shift: false,
-					enjoy: true
+					enjoy: true,
+					left: false,
+					right: false,
 				},
 
-				slowmo: 1.1,
+				slowmo: 0.918,
 
 				alice: {
 					handleGround: false,
@@ -616,9 +638,9 @@ const worlds = [
 					{
 						type: "bloom",
 						value: {
-							strength: 0.8,
+							strength: 0.6,
 							threshold: 0.00035,
-							radius: 0.7
+							radius: 0.55
 						}
 					},
 
@@ -627,13 +649,13 @@ const worlds = [
 			},
 			{
 				id: "5.10",
-				baseFov: 12,
+				baseFov: 14,
 				fovTransition: false,
 				sequenceBobName: "link",
 
 				type: "blender-points",
 
-				until: 93.85,
+				until: 97.85,
 				nextInstruction: "switch-sequence",
 
 				cameraInvert: {
@@ -642,7 +664,7 @@ const worlds = [
 				},
 
 				tubeInfos: {
-					duration: 7,
+					duration: 8,
 					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
 					isUsingTarget: true,
 					steps: [
@@ -681,7 +703,7 @@ const worlds = [
 					right: false,
 				},
 
-				slowmo: 1.1,
+				slowmo: 0.918,
 
 				alice: {
 					handleGround: false,
@@ -725,7 +747,7 @@ const worlds = [
 			},
 			{
 				id: "5.11",
-				baseFov: 12,
+				baseFov: 14,
 				fovTransition: false,
 				sequenceBobName: "link",
 
@@ -733,6 +755,11 @@ const worlds = [
 
 				until: 99.6,
 				nextInstruction: "drop-and-load-and-switch",
+
+				cameraInvert: {
+					x: false,
+					y: true
+				},
 
 				animatedMesh: false,
 
@@ -746,7 +773,7 @@ const worlds = [
 						{
 							// this amount is a percent of the global duration
 							amount: 100,
-							fov: 75,
+							fov: 14,
 							stepEase: "linear"
 						},
 
@@ -769,10 +796,12 @@ const worlds = [
 					backward: false,
 					forward: false,
 					shift: false,
-					enjoy: true
+					enjoy: true,
+					left: false,
+					right: false,
 				},
 
-				slowmo: 2,
+				slowmo: 0.92,
 
 				alice: {
 					handleGround: false,
@@ -814,9 +843,9 @@ const worlds = [
 			},
 			{
 				id: "6.12",
-				baseFov: 10,
+				baseFov: 20,
 				fovTransition: false,
-				sequenceBobName: "link",
+				sequenceBobName: "marie",
 				bobRestoreSize: 0.01,
 
 				type: "blender-points",
@@ -844,7 +873,7 @@ const worlds = [
 				},
 
 				tubeInfos: {
-					duration: 7,
+					duration: 7.5,
 					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
 					isUsingTarget: true,
 					steps: [
@@ -852,22 +881,11 @@ const worlds = [
 						// n has nothing to do with the number of points for the curve
 						{
 							// this amount is a percent of the global duration
-							amount: 33,
+							amount: 100,
 							fov: 20,
 							stepEase: "linear"
-						},
-						{
-							// this amount is a percent of the global duration
-							amount: 33,
-							fov: 10,
-							stepEase: "linear"
-						},
-						{
-							// this amount is a percent of the global duration
-							amount: 34,
-							fov: 40,
-							stepEase: "linear"
-						},
+						}
+						
 
 					]
 				},
@@ -875,9 +893,10 @@ const worlds = [
 				slowmo: 2,
 
 				bobImposedMoves: {
+					floating: true,
 					forward: false,
 					shift: false,
-					hiphop: true,
+					hiphop: false,
 					left: false,
 					right: false,
 				},
@@ -937,9 +956,9 @@ const worlds = [
 					{
 						type: "bloom",
 						value: {
-							strength: 0.7,
+							strength: 0.2,
 							threshold: 0.00035,
-							radius: 0.3
+							radius: 0.15
 						}
 					},
 
@@ -971,9 +990,9 @@ const worlds = [
 			spaceColorWithBloom: "#000211",
 
 			ambient: {
-				sunColor: "#929eff",
-				intensity: 0.25,
-				groundColor: "#370090"
+				sunColor: "#ffffff",
+				intensity: 0.12,
+				groundColor: "#ffffff"
 			},
 
 			fog: {
@@ -1028,7 +1047,7 @@ const worlds = [
 				fog: {
 					enabled: true,
 					color: "#22ffa2",
-					intensity: .15
+					intensity: .06
 				},
 
 				bobImposedMoves: {
@@ -1128,7 +1147,7 @@ const worlds = [
 				fog: {
 					enabled: true,
 					color: "#22ffa2",
-					intensity: .15
+					intensity: .05
 				},
 
 				alice: {
@@ -1168,9 +1187,9 @@ const worlds = [
 					{
 						type: "bloom",
 						value: {
-							strength: 0.55,
+							strength: 0.65,
 							threshold: 0.00035,
-							radius: 0.45
+							radius: 0.55
 						}
 					}
 				]
@@ -1202,7 +1221,7 @@ const worlds = [
 				fog: {
 					enabled: true,
 					color: "#22ffa2",
-					intensity: .3
+					intensity: .025
 				},
 
 				slowmo: 1.2,
@@ -1242,9 +1261,9 @@ const worlds = [
 					{
 						type: "bloom",
 						value: {
-							strength: 0.6,
+							strength: 0.65,
 							threshold: 0.00035,
-							radius: 0.7
+							radius: 0.55
 						}
 					},
 
@@ -1254,7 +1273,7 @@ const worlds = [
 					// 	value: {
 					// 		focus: 1,
 					// 		aperture: 0.025,
-					// 		maxblur: 0.0004
+					// 		maxblur: 0.012
 					// 	}
 					// },
 
@@ -1271,7 +1290,7 @@ const worlds = [
 				cameraTriggerTimeDecay: 6,
 				cameraType: "movingHips-lookUp-xDecayed",
 
-				until: 72,
+				until: 72.42,
 				nextInstruction: "switch-sequence",
 
 				animatedMesh: false,
@@ -1285,7 +1304,7 @@ const worlds = [
 				fog: {
 					enabled: true,
 					color: "#22ffa2",
-					intensity: .2
+					intensity: .11
 				},
 
 				alice: {
@@ -1312,7 +1331,7 @@ const worlds = [
 					}
 				},
 
-				// slowmo: 3,
+				slowmo: 1,
 
 				bobImposedMoves: {
 					forward: true,
@@ -1325,21 +1344,11 @@ const worlds = [
 					{
 						type: "bloom",
 						value: {
-							strength: 0.8,
+							strength: 0.6,
 							threshold: 0.00035,
 							radius: 0.4
 						}
 					},
-
-					// {
-					// 	type: "blur",
-					// 	focusTarget: "queenShader",
-					// 	value: {
-					// 		focus: 1,
-					// 		aperture: 0.025,
-					// 		maxblur: 0.02
-					// 	}
-					// },
 
 				]
 
@@ -1351,18 +1360,33 @@ const worlds = [
 				sequenceBobName: "marie",
 
 				type: "blender-points",
-				// type: "third-person",
-				// cameraType: "randomAndDynamic",
 
 				cameraInvert: {
-					x: true,
-					y: false
+					x: false,
+					y: true
 				},
 
-				until: 78.9,
+				until: 79.9,
 				nextInstruction: "switch-sequence",
 
 				animatedMesh: false,
+
+				tubeInfos: {
+					duration: 9,
+					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
+					// isUsingTarget: "marie",
+					steps: [
+						// n steps are possibles
+						// n has nothing to do with the number of points for the curve
+						{
+							// this amount is a percent of the global duration
+							amount: 100,
+							fov: 15,
+							stepEase: "linear"
+						},
+
+					]
+				},
 
 				helpers: {
 					orbit: false,
@@ -1373,7 +1397,7 @@ const worlds = [
 				fog: {
 					enabled: true,
 					color: "#22ffa2",
-					intensity: .15
+					intensity: .1
 				},
 
 				alice: {
@@ -1400,43 +1424,14 @@ const worlds = [
 					}
 				},
 
-				slowmo: 2,
+				slowmo: 1.2,
 
 				bobImposedMoves: {
 					forward: true,
 					shift: true,
 					backward: false,
-					left: false,
-					right: false,
-				},
-
-				tubeInfos: {
-					duration: 8,
-					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
-					isUsingTarget: "marie",
-					steps: [
-						// n steps are possibles
-						// n has nothing to do with the number of points for the curve
-						{
-							// this amount is a percent of the global duration
-							amount: 25,
-							fov: 90,
-							stepEase: "easeInOut"
-						},
-						{
-							// this amount is a percent of the global duration
-							amount: 20,
-							fov: 25,
-							stepEase: "easeIn"
-						},
-						{
-							// this amount is a percent of the global duration
-							amount: 55,
-							fov: 85,
-							stepEase: "easeOut"
-						},
-
-					]
+					// left: false,
+					// right: false,
 				},
 
 				postproc: [
@@ -1444,7 +1439,7 @@ const worlds = [
 					{
 						type: "bloom",
 						value: {
-							strength: 0.8,
+							strength: 0.65,
 							threshold: 0.00035,
 							radius: 0.7
 						}
@@ -1487,7 +1482,7 @@ const worlds = [
 				fog: {
 					enabled: true,
 					color: "#22ffa2",
-					intensity: .35
+					intensity: .08
 				},
 
 				alice: {
@@ -1693,7 +1688,7 @@ const worlds = [
 				cameraTriggerTimeDecay: 5,
 				cameraType: "movingHips",
 
-				until: 134,
+				until: 137.2,
 				nextInstruction: "switch-sequence",
 
 				animatedMesh: false,
@@ -1797,41 +1792,16 @@ const worlds = [
 				},
 
 				tubeInfos: {
-					duration: 10.7,
+					duration: 7.75,
 					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
 					isUsingTarget: true,
 					steps: [
-						// n steps are possibles
-						// n has nothing to do with the number of points for the curve
-						// {
-						// 	// this amount is a percent of the global duration
-						// 	amount: 100,
-						// 	fov: 20,
-						// 	stepEase: "linear"
-						// },
-
-						
 						{
 							// this amount is a percent of the global duration
-							amount: 20,
+							amount: 100,
 							fov: 20,
-							stepEase: "easeInOut"
-						},
-						
-						{
-							// this amount is a percent of the global duration
-							amount: 70,
-							fov: 15,
 							stepEase: "linear"
-						},
-
-						{
-							// this amount is a percent of the global duration
-							amount: 10,
-							fov: 190,
-							stepEase: "linear"
-						},
-
+						}
 					]
 				},
 
@@ -1909,9 +1879,9 @@ const worlds = [
 			spaceColorWithBloom: "#020202",
 
 			ambient: {
-				sunColor: "#eeeeee",
-				intensity: 0.2,
-				groundColor: "#eeeeee"
+				sunColor: "#ffffff",
+				intensity: 0.24,
+				groundColor: "#ffffff"
 			},
 
 			fog: {
@@ -2040,10 +2010,10 @@ const worlds = [
 			spaceColorWithBloom: "#000000",
 
 			ambient: {
-				sunColor: "#000000",
+				sunColor: "#ffffff",
 				// intensity: 0.17,
-				intensity: 0.28,
-				groundColor: "#FFFFFF"
+				intensity: 0.27,
+				groundColor: "#ffffff"
 			},
 
 			fog: {
@@ -2733,10 +2703,7 @@ const worlds = [
 							threshold: 0.0035,
 							radius: 0.85
 						}
-					},
-					{
-						type: "glitch"
-					},
+					}
 				]
 
 			},
@@ -4180,7 +4147,7 @@ const worlds = [
 	
 				type: "blender-points",
 	
-				until: 161.65,
+				until: 999,
 				// until: 3,
 
 				// nextInstruction: "switch-sequence",
@@ -4191,7 +4158,7 @@ const worlds = [
 				},
 
 				tubeInfos: {
-					duration: 120,
+					duration: 30,
 					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
 					isUsingTarget: true,
 					steps: [
@@ -4266,9 +4233,9 @@ const worlds = [
 					{
 						type: "bloom",
 						value: {
-							strength: 0.45,
+							strength: 0.75,
 							threshold: 0.0035,
-							radius: 0.1
+							radius: 0.7
 						}
 					}
 				]
@@ -4285,7 +4252,7 @@ const worlds = [
 	
 				type: "blender-points",
 	
-				until: 161.65,
+				until: 999,
 				// until: 3,
 
 				// nextInstruction: "switch-sequence",
@@ -4296,7 +4263,7 @@ const worlds = [
 				},
 
 				tubeInfos: {
-					duration: 120,
+					duration: 30,
 					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
 					isUsingTarget: true,
 					steps: [
@@ -4371,9 +4338,9 @@ const worlds = [
 					{
 						type: "bloom",
 						value: {
-							strength: 0.45,
+							strength: 0.75,
 							threshold: 0.0035,
-							radius: 0.1
+							radius: 0.7
 						}
 					}
 				]

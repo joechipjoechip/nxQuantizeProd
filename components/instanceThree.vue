@@ -100,7 +100,7 @@
 
 				debug: {
 					animated: true,
-					stats: true,
+					stats: false,
 					end: false,
 					finish: false
 				},
@@ -219,8 +219,10 @@
 			"$store.state.currentChoice"( newVal ){
 				if( newVal === "One"){
 					this.finishTimeCode = 85;
+					this.debugFinishTimeCode = 80;
 				} else {
 					this.finishTimeCode = 104.5;
+					this.debugFinishTimeCode = 100;
 				}
 			}
 
@@ -424,6 +426,8 @@
 					this.checkLoopClock();
 				}
 
+				// console.log("time : ", this.$store.state.audioCurrent.currentTime)
+
 				window.requestAnimationFrame(this.mainTick);
 
 			},
@@ -572,11 +576,11 @@
 					this.endFlyPrayTimer = 2
 					this.endChoiceTimer = 6
 	
-					if( this.debug.finish ){
+					if( this.debug.finish && this.debugFinishTimeCode ){
 
 						setTimeout(() => {
-							this.$store.commit("setAudioTimecode", 95);
-						}, 1000)
+							this.$store.commit("setAudioTimecode", this.debugFinishTimeCode);
+						}, 2000)
 
 					}
 
