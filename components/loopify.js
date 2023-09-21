@@ -93,7 +93,7 @@ function loopify(vm, uri, cb) {
 		
 		// console.log("realTimeStamp : ", realTimeStamp);
 
-		if( realTimeStamp >= 120 ){
+		if( realTimeStamp >= 20 ){
 			vm.$nuxt.$emit("please-stop-loop", {})
 			clearInterval(intervalID);
 		}

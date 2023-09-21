@@ -3072,7 +3072,7 @@ const worlds = [
 					timeRatio: 500.0,
 					blockSize: {
 						x: 4,
-						y: 8,
+						y: 10,
 						z: 18
 					}
 				}
@@ -3546,7 +3546,7 @@ const worlds = [
 	
 				cameraInvert: {
 					x: false,
-					y: true
+					y: false
 				},
 	
 				bobCustomShader: {
@@ -3565,8 +3565,14 @@ const worlds = [
 						// n has nothing to do with the number of points for the curve
 						{
 							// this amount is a percent of the global duration
-							amount: 100,
+							amount: 40,
 							fov: 20,
+							stepEase: "linear"
+						},
+						{
+							// this amount is a percent of the global duration
+							amount: 60,
+							fov: 160,
 							stepEase: "linear"
 						}
 					]
@@ -3786,9 +3792,15 @@ const worlds = [
 						// n has nothing to do with the number of points for the curve
 						{
 							// this amount is a percent of the global duration
-							amount: 100,
+							amount: 80,
 							fov: 40,
 							stepEase: "linear"
+						},
+						{
+							// this amount is a percent of the global duration
+							amount: 20,
+							fov: 70,
+							stepEase: "easeInOut"
 						}
 					]
 				},
@@ -3842,7 +3854,7 @@ const worlds = [
 			},
 			{
 				id: "7.26",
-				baseFov: 190,
+				baseFov: 100,
 				fovTransition: false,
 				sequenceBobName: "marieShaderFlying",
 				bobRestoreSize: 0.0011,
@@ -3860,7 +3872,7 @@ const worlds = [
 				},
 
 				tubeInfos: {
-					duration: 9,
+					duration: 8,
 					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
 					isUsingTarget: true,
 					steps: [
@@ -3868,16 +3880,10 @@ const worlds = [
 						// n has nothing to do with the number of points for the curve
 						{
 							// this amount is a percent of the global duration
-							amount: 80,
+							amount: 100,
 							fov: 25,
 							stepEase: "linear"
 						},
-						{
-							// this amount is a percent of the global duration
-							amount: 20,
-							fov: 160,
-							stepEase: "easeInOut"
-						}
 					]
 				},
 	

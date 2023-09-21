@@ -94,6 +94,8 @@
 				endFlyPrayTimer: 16.5,
 				endChoiceTimer: 43.43,
 				finishTimeCode: 0,
+				finalHubDelay: 0,
+				finalCurtainDelay: 0,
 
 				nextWorldIndex: 0,
 				initialLoadDone: false,
@@ -102,8 +104,8 @@
 				debug: {
 					animated: true,
 					stats: false,
-					end: true,
-					finish: true
+					end: false,
+					finish: false
 				},
 
 				currentBobName: null,
@@ -221,9 +223,13 @@
 				if( newVal === "One"){
 					this.finishTimeCode = 85;
 					this.debugFinishTimeCode = 75;
+					this.finalHubDelay = 15;
+					this.finalCurtainDelay = 53;
 				} else {
 					this.finishTimeCode = 104.5;
 					this.debugFinishTimeCode = 94;
+					this.finalHubDelay = 6;
+					this.finalCurtainDelay = 38;
 				}
 			}
 
@@ -578,6 +584,10 @@
 				console.log("ok stop neutral loop");
 				this.$store.state.audioLoopNeutral.stop();
 
+				setTimeout(() => {
+					this.$store.commit("setAudioLoopNeutral", null);
+				}, 2000)
+
 			},
 
 			checkLoopClock(){
@@ -680,7 +690,7 @@
 
 					setTimeout(() => this.$parent.displayFinalHubActive = true, 1000)
 
-				}, 15000)
+				}, this.finalHubDelay * 1000)
 
 				setTimeout(() => {
 					// activer le final hub
@@ -692,7 +702,7 @@
 						this.debug.animated = false;
 					}, 6000)
 					
-				}, 53000)
+				}, this.finalCurtainDelay * 1000)
 			}
 
 		}
