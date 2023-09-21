@@ -97,6 +97,7 @@
 
 				nextWorldIndex: 0,
 				initialLoadDone: false,
+				debugFinishHasBeenAsked: false,
 
 				debug: {
 					animated: true,
@@ -219,10 +220,10 @@
 			"$store.state.currentChoice"( newVal ){
 				if( newVal === "One"){
 					this.finishTimeCode = 85;
-					this.debugFinishTimeCode = 80;
+					this.debugFinishTimeCode = 72;
 				} else {
 					this.finishTimeCode = 104.5;
-					this.debugFinishTimeCode = 100;
+					this.debugFinishTimeCode = 91;
 				}
 			}
 
@@ -434,12 +435,18 @@
 
 			checkCurrentTime(){
 
-
 				if( this.endingIsStarted ){
 
-					console.log("end currentTime is : ", this.$store.state[`audioEnd${this.$store.state.currentChoice}`].currentTime);
+					// console.log("end currentTime is : ", this.$store.state[`audioEnd${this.$store.state.currentChoice}`].currentTime);
 
-					if( !this.currentSequence.alreadyTriggered && this.$store.state[`audioEnd${this.$store.state.currentChoice}`].currentTime >= this.finishTimeCode && !this.finishIsStarted ){
+					if( !this.currentSequence.alreadyTriggered && this.$store.state[`audioEnd${this.$store.state.currentChoice}`].currentTime >= this.finishTimeCode - 6 && !this.finishIsStarted && !this.$parent.isFinishScene ){
+						// handle final curtain
+						
+						this.$parent.isFinishScene = true;
+						console.log("le parent : ", this.$parent);
+
+
+					} else if( !this.currentSequence.alreadyTriggered && this.$store.state[`audioEnd${this.$store.state.currentChoice}`].currentTime >= this.finishTimeCode && !this.finishIsStarted ){
 						// finish scene
 
 						this.handleFinishScene();
@@ -558,6 +565,12 @@
 					this.$store.state.audioBase.removeEventListener("ended", this.handleAudioEnded);
 				}, 300);
 
+				// @TODO : remove this
+				if( this.debug.end ){
+					this.endFlyPrayTimer = 2
+					this.endChoiceTimer = 5
+				}
+
 			},
 
 			stopLoop(){
@@ -570,22 +583,6 @@
 			checkLoopClock(){
 
 				console.log("checkLoopClock : ", this.loopClock.getElapsedTime());
-
-				// @TODO : remove this
-				if( this.debug.end ){
-					this.endFlyPrayTimer = 2
-					this.endChoiceTimer = 6
-	
-					if( this.debug.finish && this.debugFinishTimeCode ){
-
-						setTimeout(() => {
-							this.$store.commit("setAudioTimecode", this.debugFinishTimeCode);
-						}, 2000)
-
-					}
-
-		
-				}
 
 				if( !this.choiceIsDisplayed && !this.choiceHaveBeenMade && this.loopClock.getElapsedTime() >= this.endFlyPrayTimer ){
 					this.$nuxt.$emit("drop-and-load-and-switch");
@@ -633,6 +630,14 @@
 
 				this.$store.state[`audioEnd${this.$store.state.currentChoice}`].play();
 
+				if( this.debug.finish && this.debugFinishTimeCode ){
+
+					setTimeout(() => {
+						this.$store.commit("setAudioTimecode", this.debugFinishTimeCode);
+					}, 500)
+
+				}
+
 			},
 
 			handleFinishScene(){
@@ -646,7 +651,6 @@
 				this.dropScene("secondary");
 
 				this.createBundle(this.worlds.length - 1, "primary").then(() => {
-					this.$parent.isFinishScene = true;
 					this.skeleton.current = this.skeleton.primary;
 				});
 

@@ -10,8 +10,8 @@
 			class="curtain"
 			:class="{ 
 				active: curtainActive,
-				'long': this.longCurtainSequences.includes(this.sequenceID),
-				'verylong': this.isFinishScene
+				'long': longCurtainSequences.includes(sequenceID),
+				'verylong': isFinishScene
 			}"
 		>
 		</div>
@@ -178,7 +178,6 @@
 			initSound(){
 
 				this.$store.commit("setAudioCurrent", this.$store.state.audioBase);
-
 
 				setTimeout(() => {
 
@@ -369,10 +368,10 @@ button {
 	pointer-events: none;
 
 	&.long {
-		transition: opacity 6s ease;
+		transition: opacity 3s ease;
 	}
 	&.verylong {
-		transition: opacity 10s ease !important;
+		transition: opacity 6s ease !important;
 	}
 
 	&.active {

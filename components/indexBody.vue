@@ -5,11 +5,11 @@
 		<div class="artist-box">
 			<h3 class="artist-name font-medium artist-item">NxQuantize</h3>
 			<p class="artist-spacer">&</p>
-			<h3 class="artist-name font-medium artist-item">LeeLo.js</h3>
+			<h3 class="artist-name font-medium artist-item">Lionelu.js</h3>
 		</div>
 		<div class="label-box">
 			<p class="font-small sentence">for</p>
-			<h4 class="font-label label-item">Omakaze Recordings</h4>
+			<h4 class="font-label label-item">Omakase Recordings</h4>
 		</div>
 
 		<div>

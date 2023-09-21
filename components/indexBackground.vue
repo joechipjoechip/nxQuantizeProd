@@ -277,7 +277,6 @@
 
                 this.composer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-
                 this.composer.addPass(renderPass);
 
             },
@@ -310,8 +309,6 @@
 
                 // GLITCH
                 this.glitch = new GlitchPass();
-
-
 
                 // ADD
                 this.composer.addPass(this.afterImage);
@@ -473,7 +470,7 @@
                 if( this.animate ){
                     this.requestAnimationFrameID = window.requestAnimationFrame(this.mainTick);
                 } else {
-                    // pour voir une frame sans animer pour autant
+                    // pour voir une frame sans animer pour autant (dev step)
                     this.renderer.render(this.scene, this.camera);
                 }
 
@@ -482,11 +479,13 @@
             startBenchmark(){
 
                 console.log("OK START BENCHMARK NOW");
+
                 this.benchmarkIsActive = true;
 
                 this.benchmarkTimeoutID = setTimeout(() => {
 
-                    console.log("stop benchmark by timeout")
+                    console.log("stop benchmark by timeout");
+
                     this.stopBenchmark();
 
                 }, 3000);
@@ -506,8 +505,6 @@
             computeFPS(){
 				const t = performance.now();
 				const dt = t - this.startTime;
-
-				// console.log("dt : ", dt);
 
 				if( dt > this.frameRate ){
 					this.currentFPSValue = this.frames * 1000 / dt;
