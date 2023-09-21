@@ -27,6 +27,7 @@
 
 		<instancethree 
 			v-if="(allIsLoaded && viewPos && !$parent.isAtEntrance)"
+			class="three-wrapper"
 			ref="instancethree"
 			:canvasSizeRef="canvasSizeRef"
 			:sequenceID="sequenceID"
@@ -35,6 +36,14 @@
 			:textures="textures"
 			:viewPos="viewPos"
 		/>
+
+		<div v-if="displayFinalHub"
+			class="final-hub--wrapper"
+		>
+			<div class="final-hub--inner" :class="{ 'active': displayFinalHubActive }">
+				<main-hub />
+			</div>
+		</div>
 
 	</div>
 </template>
@@ -46,6 +55,7 @@
 	import Joystick from '@/components/joystick.vue';
 	import MouseHandler from '@/components/mouseHandler.vue';
 	import InstanceThree from "@/components/instanceThree.vue";
+	import MainHub from '@/components/mainHub.vue';
 
 	import { worlds } from '@/static/config/worlds.js';
 	import { entities } from '@/static/config/entities.js';
@@ -58,7 +68,8 @@
 		components: {
 			"instancethree": InstanceThree,
 			"joystick": Joystick,
-			"mouse-handler": MouseHandler
+			"mouse-handler": MouseHandler,
+			"main-hub": MainHub
 		},
 
 		data(){
@@ -80,6 +91,9 @@
 				curtainActive: true,
 				longCurtainSequences: ["1.0", "7.14", "7.17"],
 				isFinishScene: false,
+				displayFinalHub: false,
+				displayFinalHubActive: false,
+				finishIsOver: false,
 
 				allIsLoaded: false,
 				glbs: [],
@@ -181,7 +195,7 @@
 
 				setTimeout(() => {
 
-					const goTo = 0;
+					const goTo = 143;
 
 					if( goTo > 0 ){
 						this.$store.commit("setAudioTimecode", goTo);
@@ -351,11 +365,11 @@ button {
 }
 
 .cinema-main_wrapper {
-	position: relative;
 	background-color: #000;
 }
 
 .curtain {
+	z-index: 12;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -383,6 +397,42 @@ button {
 	position: absolute;
 	top: 0;
 	left: 200px;
+}
+
+.three-wrapper {
+	z-index: 10;
+}
+
+.final-hub {
+
+	&--wrapper {
+		z-index: 15;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	&--inner {
+		opacity: 0;
+		pointer-events: none;
+		margin-top: 30%;
+		
+		transition: all 5s;
+		
+		&.active {
+			opacity: 1;
+			margin-top: 0%;
+			pointer-events: all;
+		}
+
+	}
+
 }
 
 </style>

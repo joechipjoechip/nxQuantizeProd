@@ -17,6 +17,7 @@ You can directly use them in pages and other components without the need to impo
 - `<InstanceThree>` | `<instance-three>` (components/instanceThree.vue)
 - `<Joystick>` | `<joystick>` (components/joystick.vue)
 - `<Loopify>` | `<loopify>` (components/loopify.js)
+- `<MainHub>` | `<main-hub>` (components/mainHub.vue)
 - `<MouseHandler>` | `<mouse-handler>` (components/mouseHandler.vue)
 - `<ParticlesBuilder>` | `<particles-builder>` (components/particlesBuilder.js)
 - `<PostprocsBuilder>` | `<postprocs-builder>` (components/postprocsBuilder.js)

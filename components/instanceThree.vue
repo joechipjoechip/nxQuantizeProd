@@ -102,8 +102,8 @@
 				debug: {
 					animated: true,
 					stats: false,
-					end: false,
-					finish: false
+					end: true,
+					finish: true
 				},
 
 				currentBobName: null,
@@ -220,10 +220,10 @@
 			"$store.state.currentChoice"( newVal ){
 				if( newVal === "One"){
 					this.finishTimeCode = 85;
-					this.debugFinishTimeCode = 72;
+					this.debugFinishTimeCode = 75;
 				} else {
 					this.finishTimeCode = 104.5;
-					this.debugFinishTimeCode = 91;
+					this.debugFinishTimeCode = 94;
 				}
 			}
 
@@ -650,10 +650,43 @@
 
 				this.dropScene("secondary");
 
+				
 				this.createBundle(this.worlds.length - 1, "primary").then(() => {
 					this.skeleton.current = this.skeleton.primary;
+					this.handleFinishExceptions();
 				});
 
+			},
+
+			handleFinishExceptions(){
+
+				this.sceneBundle.current.bobs.linkShaderPlastic._controls._target.children[0].material = new THREE.MeshPhongMaterial({
+					color: 0x000000,
+					// specular: 0x050505,
+					specular: 0x4e0061,
+					shininess: 1,
+					reflectivity: 1,
+					reflectionRatio: 1,
+					emissive: 0x0b000e,
+					emissiveIntensity: 0.1,
+					transparent: true,
+					opacity: 0.98
+				});
+
+				setTimeout(() => {
+					// activer le final hub
+					console.log("display final hub");
+					this.$parent.displayFinalHub = true;
+
+					setTimeout(() => this.$parent.displayFinalHubActive = true, 1000)
+
+				}, 13000)
+
+				setTimeout(() => {
+					// activer le final hub
+					console.log("finishIsOver boiii");
+					this.$parent.finishIsOver = true;
+				}, 45000)
 			}
 
 		}

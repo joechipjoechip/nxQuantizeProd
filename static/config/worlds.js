@@ -4108,15 +4108,15 @@ const worlds = [
 	
 		main: {
 			// spaceColor: "#090016",
-			spaceColor: "#030303",
-			spaceColorDarker: "#030303",
-			spaceColorWithBloom: "#030303",
+			spaceColor: "#666666",
+			spaceColorDarker: "#666666",
+			spaceColorWithBloom: "#666666",
 	
 			ambient: {
 				sunColor: "#FFFFFF",
 				// intensity: 0.17,
-				intensity: 0.25,
-				groundColor: "#ffc054"
+				intensity: 0.35,
+				groundColor: "#8d00ff"
 			},
 	
 			fog: {
@@ -4139,7 +4139,7 @@ const worlds = [
 			{
 				id: "7.24",
 				// baseFov: 39,
-				baseFov: 20,
+				baseFov: 15,
 				fovTransition: false,
 				sequenceBobName: "link",
 				bobRestoreSize: 0.023,
@@ -4158,7 +4158,7 @@ const worlds = [
 				},
 
 				tubeInfos: {
-					duration: 30,
+					duration: 60,
 					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
 					isUsingTarget: true,
 					steps: [
@@ -4216,13 +4216,13 @@ const worlds = [
 						y: 0,
 						z: 0
 					},
-					customShaderOptions: {
-						shaderTimeRatio: 0.8,
-						shaderTimeDecay: 12,
-						isCameraPositionInfluenced: false,
-						sin: false,
-						sinAmplitude: 20
-					},
+					// customShaderOptions: {
+					// 	shaderTimeRatio: 0.8,
+					// 	shaderTimeDecay: 12,
+					// 	isCameraPositionInfluenced: false,
+					// 	sin: false,
+					// 	sinAmplitude: 20
+					// },
 					scale: 0.023,
 					slowmo: 18
 				},
@@ -4233,9 +4233,9 @@ const worlds = [
 					{
 						type: "bloom",
 						value: {
-							strength: 0.75,
+							strength: 0.25,
 							threshold: 0.0035,
-							radius: 0.7
+							radius: 0.2
 						}
 					}
 				]
@@ -4244,7 +4244,7 @@ const worlds = [
 			{
 				id: "7.28",
 				// baseFov: 39,
-				baseFov: 20,
+				baseFov: 15,
 				fovTransition: false,
 				sequenceBobName: "link",
 				bobRestoreSize: 0.023,
@@ -4263,7 +4263,7 @@ const worlds = [
 				},
 
 				tubeInfos: {
-					duration: 30,
+					duration: 60,
 					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
 					isUsingTarget: true,
 					steps: [
@@ -4321,13 +4321,13 @@ const worlds = [
 						y: 0,
 						z: 0
 					},
-					customShaderOptions: {
-						shaderTimeRatio: 0.08,
-						shaderTimeDecay: 12,
-						isCameraPositionInfluenced: false,
-						sin: false,
-						sinAmplitude: 20
-					},
+					// customShaderOptions: {
+					// 	shaderTimeRatio: 0.08,
+					// 	shaderTimeDecay: 12,
+					// 	isCameraPositionInfluenced: false,
+					// 	sin: false,
+					// 	sinAmplitude: 20
+					// },
 					scale: 0.023,
 					slowmo: 18
 				},
@@ -4338,9 +4338,9 @@ const worlds = [
 					{
 						type: "bloom",
 						value: {
-							strength: 0.75,
+							strength: 0.25,
 							threshold: 0.0035,
-							radius: 0.7
+							radius: 0.2
 						}
 					}
 				]

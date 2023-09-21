@@ -32,6 +32,9 @@
   "Loopify": {
     "description": "Auto imported from components/loopify.js"
   },
+  "MainHub": {
+    "description": "Auto imported from components/mainHub.vue"
+  },
   "MouseHandler": {
     "description": "Auto imported from components/mouseHandler.vue"
   },
