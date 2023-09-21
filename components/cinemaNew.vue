@@ -11,10 +11,9 @@
 			:class="{ 
 				active: curtainActive,
 				'long': longCurtainSequences.includes(sequenceID),
-				'verylong': isFinishScene
+				'verylong': isFinishScene || finishIsOver
 			}"
-		>
-		</div>
+		></div>
 
 		<joystick
 			v-if="$store.state.isMobile"
@@ -42,7 +41,16 @@
 		>
 			<div class="final-hub--inner" :class="{ 'active': displayFinalHubActive }">
 				<main-hub />
+
+				<button
+					@click="replayExperience"
+					class="replay-button"
+				>
+					Replay Experience
+				</button>
 			</div>
+
+			
 		</div>
 
 	</div>
@@ -182,6 +190,10 @@
 		},
 
 		methods: {
+
+			replayExperience(){
+				window.location.reload();
+			},
 
 			updateSequenceID( newSequenceID ){
 
@@ -360,7 +372,6 @@
 <style lang="scss" scoped>
 
 button {
-	background-color: #b50000;
 	background-color: beige;
 }
 
@@ -433,6 +444,10 @@ button {
 
 	}
 
+}
+
+.replay-button {
+	border: solid 5px green;
 }
 
 </style>

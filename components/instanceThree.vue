@@ -680,13 +680,19 @@
 
 					setTimeout(() => this.$parent.displayFinalHubActive = true, 1000)
 
-				}, 13000)
+				}, 15000)
 
 				setTimeout(() => {
 					// activer le final hub
-					console.log("finishIsOver boiii");
-					this.$parent.finishIsOver = true;
-				}, 45000)
+					console.log("please reload");
+
+					this.$parent.curtainActive = true;
+
+					setTimeout(() => {
+						this.debug.animated = false;
+					}, 6000)
+					
+				}, 53000)
 			}
 
 		}

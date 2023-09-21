@@ -26,7 +26,9 @@
 	import IndexBody from '@/components/indexBody.vue';
 
 	export default {
-  		components: { IndexBody },
+  		components: { 
+			"index-body": IndexBody 
+		},
 		data(){
 			return {
 				canvasSizeRef: {
@@ -70,7 +72,7 @@
 				// @import cinemaNew from '@/components/cinemaNew.vue';
 				import(`@/components/cinemaNew.vue`);
 
-			},
+			}
 		}
 		
 	}
