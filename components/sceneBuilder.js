@@ -31,7 +31,7 @@ class SceneBuilder {
 
 		// _ Three elements
 		this.aspectRatio = window.innerWidth / window.innerHeight;
-		this.camera = new THREE.PerspectiveCamera(50, this.aspectRatio, 0.001, 15);
+		this.camera = new THREE.PerspectiveCamera(50, this.aspectRatio, 0.0225, 12);
 		this.camera.name = "camera";
 		this.scene = new THREE.Scene();
 		this.sequencesElements = {};
