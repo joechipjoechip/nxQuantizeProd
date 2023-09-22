@@ -360,7 +360,7 @@ class PrimaryLoadManager{
 
 	_LoadTexture( worldData, index ){
 
-		const suffix = this.vm.$store.state.isMobile ? "-low.jpg" : ".jpg";
+		const suffix = ( this.vm.$store.state.isMobile || this.vm.$store.state.veryBadComputer ) ? "-low.jpg" : ".jpg";
 
 		this.textures[index] = {
 			name: worldData.name,

@@ -11,6 +11,7 @@
 			<div v-if="$store.state.audioCurrent" class="stats">{{ $store.state.audioCurrent.currentTime }}</div>
 			<div v-if="currentSequence" class="stats">next step : {{ currentSequence.until }}</div>
 			<div v-if="currentSequence" class="stats">bad cpu : {{ $store.state.badComputer }}</div>
+			<div v-if="currentSequence" class="stats">very bad cpu : {{ $store.state.veryBadComputer }}</div>
 		</div>
 
 		<canvas 
@@ -393,6 +394,7 @@
 				// Renderer
 				this.renderer = new THREE.WebGLRenderer({
 					canvas: this.$refs.canvas,
+					// powerPreference: "high-performance"
 					// antialias : ne peut pas être déclaré en dehors de l'instanciation
 					// antialias: true
 				});
