@@ -10,7 +10,10 @@ export const state = () => ({
 	audioLoopDrumOne: null,
 	audioLoopDrumTwo: null,
 	badComputer: false,
-	currentChoice: null
+	veryBadComputer: false,
+	currentChoice: null,
+	bloomDisabler: false,
+	// composerDisableSequences: ["1.0", "1.1"]
 })
 
 export const getters = {
@@ -31,8 +34,16 @@ export const mutations = {
 		state.currentChoice = payload
 	},
 
+	setBloomDisabler(state, payload) {
+		state.bloomDisabler = payload
+	},
+
 	setBadComputer(state, payload) {
 		state.badComputer = payload
+	},
+
+	setVeryBadComputer(state, payload) {
+		state.veryBadComputer = payload
 	},
 
 	setDownScale(state, payload) {

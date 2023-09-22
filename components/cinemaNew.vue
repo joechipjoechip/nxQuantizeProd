@@ -196,9 +196,7 @@
 			},
 
 			updateSequenceID( newSequenceID ){
-
 				this.sequenceID = newSequenceID;
-
 			},
 
 			initSound(){

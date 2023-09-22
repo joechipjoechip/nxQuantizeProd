@@ -1,8 +1,5 @@
 <template>
 	<div class="background-wrapper">
-        <!-- <button @click="animate = !animate">animation</button>
-        <span style="color: white;">fps : {{ currentFPSValue }}</span> -->
-        <span v-if="benchmarkIsActive" style="color: white;">benchmarking ..</span>
 		<canvas id="canvasIndex" ref="canvasIndex"></canvas>
 	</div>
 </template>
@@ -157,6 +154,16 @@
                 if( newVal ){
                     this.mainTick();
                 }
+            },
+
+            benchmarkIsActive( newVal ){
+
+                if( newVal ){
+                    this.$nuxt.$emit("benchmark-is-started");
+                } else {
+                    this.$nuxt.$emit("benchmark-is-done", this.frameMissing);
+                }
+
             },
 
             "params.postProcs.afterImage.haveBeenTrigered"( newVal ){
@@ -478,28 +485,11 @@
 
             startBenchmark(){
 
-                console.log("OK START BENCHMARK NOW");
-
                 this.benchmarkIsActive = true;
 
-                this.benchmarkTimeoutID = setTimeout(() => {
+                // and stop it 3sec later
+                setTimeout(() => this.benchmarkIsActive = false, 3000);
 
-                    console.log("stop benchmark by timeout");
-
-                    this.stopBenchmark();
-
-                }, 3000);
-
-            },
-
-            stopBenchmark(){
-                this.benchmarkIsActive = false;
-                this.$nuxt.$emit("benchmark-is-done");
-                
-                if( this.benchmarkTimeoutID ){
-                    clearTimeout(this.benchmarkTimeoutID);
-                    this.benchmarkTimeoutID = null;
-                }
             },
 
             computeFPS(){
@@ -524,21 +514,6 @@
             countFrameMissing(){
 
                 this.frameMissing++
-
-                if( this.frameMissing > 20 || this.$store.state.isMobile ){
-
-                    console.log("OK slowdown framerate to 30")
-                    this.frameRate = 1/30;
-                    this.idealFPSValue = 30;
-                    this.deltaTime = 0;
-
-                    this.$store.commit("setBadComputer", true);
-
-                    console.log("stop benchmark by too much missing frames")
-                    this.stopBenchmark();
-                    
-
-                }
 
             },
 
@@ -592,6 +567,8 @@
             },
 
             updateGlitch( elapsedTime ){
+
+                if( this.benchmarkIsActive ){ return; }
 
                 if( 
                     Math.floor(elapsedTime) % this.params.postProcs.glitch.reccurency === 0

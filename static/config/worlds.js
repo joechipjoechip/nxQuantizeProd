@@ -72,7 +72,7 @@ const worlds = [
 		sequences: [
 			{
 				id: "1.0",
-				baseFov: 5,
+				baseFov: 100,
 				fovTransition: false,
 				sequenceBobName: "marie",
 				until: 7.3,

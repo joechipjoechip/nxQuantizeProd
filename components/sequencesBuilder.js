@@ -15,7 +15,7 @@ class SequencesBuilder {
 		this._scene = params.scene;
 		this._sceneElements = params.sceneElements;
 		this._camera = params.camera;
-		this._canvas = params.canvas
+		this._canvas = params.canvas;
 
 		// all we do here is to build this _sequencesLib
 		// _sequenceLib in the end, will be this.scene1.sequencesElements in sceneBuilder.js

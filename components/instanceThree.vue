@@ -90,6 +90,7 @@
 				choiceHaveBeenMade: false,
 				endingIsStarted: false,
 				endingSelected: "",
+				// composerIsAllowed: true,
 
 				endFlyPrayTimer: 16.5,
 				endChoiceTimer: 43.43,
@@ -174,6 +175,7 @@
 
 			sequenceID(newVal, oldVal){
 				this.sequencesManager.current.sequenceChangeHandler(newVal, oldVal);
+				// this.handleComposerEnabling(newVal);
 			},
 
 			"$store.state.downScale"(newVal){
@@ -214,8 +216,16 @@
 			},
 
 			endingIsStarted( newVal ){
-				if( newVal && this.$store.state.badComputer ){
-					this.setDownScale(2.5);
+				if( newVal ){
+
+					if( this.$store.state.veryBadComputer ){
+						this.setDownScale(4.75);
+					}
+
+					if( this.$store.state.badComputer ){
+						this.setDownScale(2.75);
+					}
+
 				}
 			},
 
@@ -241,6 +251,8 @@
 			
 			this.createBundle(0, "primary");
 			this.createBundle(1, "secondary");
+
+			// this.handleComposerEnabling(this.sequenceID);
 			
 		},
 		
@@ -252,9 +264,11 @@
 			adjustMisc(){
 
 				if( this.$store.state.badComputer ){
-					// this.frameRate = 1/30;
-					// this.arbitraryFpsIdeal = 30;
 					this.setDownScale(2);
+				}
+
+				if( this.$store.state.veryBadComputer ){
+					this.setDownScale(3);
 				}
 
 			},
@@ -269,7 +283,8 @@
 					glb: this.glbs[worldIndex],
 					texture: this.textures[worldIndex],
 					bobs: this.bobs,
-					type: slotKey
+					type: slotKey,
+					vm: this
 				});
 
 				this.sceneBundle[slotKey] = await this.skeleton[slotKey].returnBundle();
@@ -703,6 +718,28 @@
 					}, 6000)
 					
 				}, this.finalCurtainDelay * 1000)
+
+				this.adjustDownscaleForFinish();
+			},
+
+			adjustDownscaleForFinish(){
+
+				if( this.$store.state.badComputer || this.$store.state.veryBadComputer ){
+					this.setDownScale(1);
+				}
+
+			},
+
+			handleComposerEnabling( newSequenceID ){
+
+				// console.log("handleComposerEnabling triggered with : ", newSequenceID);
+				
+				// if( this.$store.state.bloomDisabler && this.$store.state.composerDisableSequences.includes(newSequenceID) ){
+				// 	this.composerIsAllowed = false;
+				// } else {
+				// 	this.composerIsAllowed = true;
+				// }
+
 			}
 
 		}

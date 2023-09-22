@@ -6,6 +6,7 @@ You can directly use them in pages and other components without the need to impo
 
 **Tip:** If a component is conditionally rendered with `v-if` and is big, it is better to use `Lazy` or `lazy-` prefix to lazy load.
 
+- `<BenchmarkUi>` | `<benchmark-ui>` (components/benchmarkUi.vue)
 - `<BlenderTubes>` | `<blender-tubes>` (components/BlenderTubes.js)
 - `<CharacterController>` | `<character-controller>` (components/characterController.js)
 - `<CinemaNew>` | `<cinema-new>` (components/cinemaNew.vue)

@@ -12,7 +12,7 @@ class SceneBuilder {
 	constructor( params ) {
 
 		// Get data from instanciation
-		const { canvas, worldConfig, sequenceID, glb, texture, bobs, type, downScale } = params;
+		const { canvas, worldConfig, sequenceID, glb, texture, bobs, type, downScale, vm } = params;
 
 		this.name = worldConfig.name;
 		this.canvas = canvas;
@@ -22,6 +22,7 @@ class SceneBuilder {
 		this.texture = texture;
 		this.type = type;
 		this.downScale = downScale;
+		this.vm = vm;
 
 		this.bobs = {};
 		bobs.forEach(bob => {
@@ -219,7 +220,8 @@ class SceneBuilder {
 		// dynamic lights
 		this.sceneElements.dynamicLights = new DynamicLightsBuilder({
 			lightsArr: this.sceneElements.blenderLights,
-			ambientConfig: this.worldConfig.main.ambient
+			ambientConfig: this.worldConfig.main.ambient,
+			vm: this.vm
 		});
 
 		// emissive shapes
@@ -354,7 +356,8 @@ class SceneBuilder {
 				sceneElements: this.sceneElements,
 				camera: this.camera,
 				canvas: this.canvas,
-				that: this
+				that: this,
+				vm: this.vm
 			}
 		);
 

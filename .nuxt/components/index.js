@@ -1,3 +1,4 @@
+export { default as BenchmarkUi } from '../..\\components\\benchmarkUi.vue'
 export { default as BlenderTubes } from '../..\\components\\BlenderTubes.js'
 export { default as CharacterController } from '../..\\components\\characterController.js'
 export { default as CinemaNew } from '../..\\components\\cinemaNew.vue'

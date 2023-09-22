@@ -3,6 +3,8 @@
 
 		<main-hub />
 
+		<benchmark-ui />
+
 		<div>
 
 			<button v-if="!cinemaIsReady" 
@@ -16,7 +18,7 @@
 				class="button-experience"
 				@click="$parent.isAtEntrance = false"
 			>
-				GO
+				Play
 			</button>
 
 		</div>
@@ -26,10 +28,12 @@
 
 <script>
 	import MainHub from '@/components/mainHub.vue';
+	import BenchmarkUi from '@/components/benchmarkUi.vue';
 	
 	export default {
 	components: { 
-		"main-hub": MainHub
+		"main-hub": MainHub,
+		"benchmark-ui": BenchmarkUi
 	},
     data() {
         return {

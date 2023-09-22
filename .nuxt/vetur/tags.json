@@ -1,4 +1,7 @@
 {
+  "BenchmarkUi": {
+    "description": "Auto imported from components/benchmarkUi.vue"
+  },
   "BlenderTubes": {
     "description": "Auto imported from components/BlenderTubes.js"
   },

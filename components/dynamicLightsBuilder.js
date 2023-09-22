@@ -13,6 +13,7 @@ class DynamicLightsBuilder {
 		this._createdLights = [];
 		this._core = core;
 		this._ambientConfig = params.ambientConfig;
+		this._vm = params.vm;
 
 		this._ParseBlenderLights();
 		this._BuildSun();
