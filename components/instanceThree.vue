@@ -149,6 +149,13 @@
 
 		watch: {
 
+			"canvasSizeRef.width"( newVal ){
+				this.acteResizeOnRenderers()
+			},
+			"canvasSizeRef.height"( newVal ){
+				this.acteResizeOnRenderers()
+			},
+
 			"skeleton.current"(newVal){
 
 				this.sceneBundle.current = this.sceneBundle[newVal.type];
@@ -176,7 +183,6 @@
 
 			sequenceID(newVal, oldVal){
 				this.sequencesManager.current.sequenceChangeHandler(newVal, oldVal);
-				// this.handleComposerEnabling(newVal);
 			},
 
 			"$store.state.downScale"(newVal){
@@ -252,8 +258,6 @@
 			
 			this.createBundle(0, "primary");
 			this.createBundle(1, "secondary");
-
-			// this.handleComposerEnabling(this.sequenceID);
 			
 		},
 		
@@ -262,6 +266,19 @@
 		},
 
 		methods: {
+
+			acteResizeOnRenderers(){
+
+				this.renderer.setSize(this.canvasSizeRef.width, this.canvasSizeRef.height);
+	
+				if( this.sequencesManager.current.composer ){
+					this.sequencesManager.current.composer.setSize(this.canvasSizeRef.width, this.canvasSizeRef.height);
+				}
+
+				this.skeleton.current.recomputeCameraAspectRatio(this.canvasSizeRef);
+
+			},
+
 			adjustMisc(){
 
 				if( this.$store.state.badComputer ){
@@ -754,8 +771,8 @@
 
 canvas {
   z-index: 3;
-  width: 100% !important;
-  height: 100% !important;
+  width: 100vw !important;
+  height: 100vh !important;
   // position: fixed;
   // top: 0;
   // left: 0;

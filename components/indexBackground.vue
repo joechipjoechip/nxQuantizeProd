@@ -170,6 +170,13 @@
                 if( !newVal ){
                     this.afterImage.uniforms.damp.value = 0;
                 }
+            },
+
+            "canvasSizeRef.width"(){
+                this.onResize()
+            },
+            "canvasSizeRef.height"(){
+                this.onResize()
             }
         },
         mounted(){
@@ -185,24 +192,38 @@
             this.initComposer();
 
             this.createPostProc();
-
+            
         },
         beforeDestroy(){
 
             this.killTweens();
-
+            
             window.cancelAnimationFrame(this.requestAnimationFrameID);
             
             disposeScene(this.scene);
-
+            
             this.renderer.dispose();
             
             this.$nuxt.$off("view-update-by-stick", this.mouseUpdate);
-
+            
             this.$nuxt.$off("please-start-benchmark", this.startBenchmark)
 
         },
         methods: {
+
+            onResize(){
+
+                this.renderer.setSize(this.canvasSizeRef.width, this.canvasSizeRef.height);
+
+                this.composer.setSize(this.canvasSizeRef.width, this.canvasSizeRef.height);
+
+                this.aspectRatio = this.canvasSizeRef.width / this.canvasSizeRef.height;
+
+                this.camera.aspect = this.aspectRatio;
+
+                this.camera.updateProjectionMatrix();
+			
+            },
 
             createScene(){
 
@@ -735,8 +756,8 @@
 
     canvas {
         z-index: 3;
-        width: 100% !important;
-        height: 100% !important;
+        width: 100vw !important;
+        height: 100vh !important;
         // position: fixed;
         // top: 0;
         // left: 0;

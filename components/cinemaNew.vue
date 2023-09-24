@@ -80,6 +80,13 @@
 			"main-hub": MainHub
 		},
 
+		props: {
+			canvasSizeRef: {
+				type: Object,
+				required: true
+			}
+		},
+
 		data(){
 			return {
 				core,
@@ -91,11 +98,6 @@
 				viewPos: { x:0, y:0 },
 				timeoutID: {},
 				isRecentering: false,
-				canvasSizeRef: { 
-					width: window.innerWidth, 
-					height: window.innerHeight
-				},
-
 				curtainActive: true,
 				longCurtainSequences: ["1.0", "7.14", "7.17"],
 				isFinishScene: false,
@@ -153,7 +155,6 @@
 
 			this.initCommonValues();
 
-			window.addEventListener("resize", this.onResize);
 			window.addEventListener("blur", this.focusBlurHandler);
 			window.addEventListener("focus", this.focusBlurHandler);
 
@@ -176,6 +177,9 @@
 		},
 		
 		beforeDestroy(){
+
+			window.removeEventListener("blur", this.focusBlurHandler);
+			window.removeEventListener("focus", this.focusBlurHandler);
 			
 			this.$nuxt.$off("assets-have-been-loaded", this.handleAssetsLoaded);
 
@@ -247,13 +251,6 @@
 				} else {
 					console.log("nope, le allIsLoaded reste à false ");
 				}
-
-			},
-
-			onResize(){
-
-				this.canvasSizeRef.width = window.innerWidth / this.$store.state.downScale;
-				this.canvasSizeRef.height = window.innerHeight / this.$store.state.downScale;
 
 			},
 

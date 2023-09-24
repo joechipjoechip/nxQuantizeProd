@@ -16,7 +16,7 @@
 		</div>
 
 		<div v-if="!primalCurtainIsDisplayed && backgroundIsLaunched && benchmarkIsOver" v-show="!isAtEntrance">
-			<component :is="'cinemaNew'" />
+			<component :is="'cinemaNew'" :canvasSizeRef="canvasSizeRef" />
 		</div>
 
 	</div>
@@ -42,10 +42,18 @@
 			}
 		},
 		mounted(){
+
 			this.$nuxt.$on("benchmark-is-done", this.startBigLoad);
+
+			window.addEventListener("resize", this.onResize);
+
 		},
 		beforeDestroy(){
+
 			this.$nuxt.$off("benchmark-is-done", this.startBigLoad);
+
+			window.removeEventListener("resize", this.onResize);
+
 		},
 		watch: {
 			primalCurtainIsDisplayed( newVal ){
@@ -72,7 +80,12 @@
 				// @import cinemaNew from '@/components/cinemaNew.vue';
 				import(`@/components/cinemaNew.vue`);
 
-			}
+			},
+
+			onResize(){
+				this.canvasSizeRef.width = window.innerWidth / this.$store.state.downScale;
+				this.canvasSizeRef.height = window.innerHeight / this.$store.state.downScale;
+			},
 		}
 		
 	}
