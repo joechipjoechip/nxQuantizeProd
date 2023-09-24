@@ -2,6 +2,7 @@ export const state = () => ({
 	downScale: 1,
 	lastDownScale: 1,
 	isMobile: window.matchMedia("(pointer: coarse)").matches,
+	appleUser: false,
 	audioCurrent: null,
 	audioBase: null,
 	audioEndOne: null,
@@ -12,8 +13,6 @@ export const state = () => ({
 	badComputer: false,
 	veryBadComputer: false,
 	currentChoice: null,
-	bloomDisabler: false,
-	// composerDisableSequences: ["1.0", "1.1"]
 })
 
 export const getters = {
@@ -34,8 +33,8 @@ export const mutations = {
 		state.currentChoice = payload
 	},
 
-	setBloomDisabler(state, payload) {
-		state.bloomDisabler = payload
+	setAppleUser(state, payload){
+		state.appleUser = payload
 	},
 
 	setBadComputer(state, payload) {
@@ -86,6 +85,7 @@ export const mutations = {
 	},
 
 	setAudioTimecode(state, payload){
+		console.log("setAudioTimeCode at ", payload, state.audioCurrent)
 		state.audioCurrent.currentTime = payload
 	}
 }

@@ -1,25 +1,67 @@
 <template>
     <div class="mainHub-wrapper">
 
-        <h2 class="font-big">OnYi</h2>
+        <h2 class="font-big font01 title">OnYi</h2>
 
         <p class="font-small sentence">an experience by</p>
 
         <div class="artist-box">
 
-            <h3 class="artist-name font-medium artist-item">NxQuantize</h3>
+            <div class="artist-name font-medium artist-item font01">
 
-            <p class="artist-spacer">&</p>
+                <h3>NxQuantize</h3>
 
-            <h3 class="artist-name font-medium artist-item">Lionelu.js</h3>
+                <div class="links-container">
+                    <a class="logo-container" href="https://www.spotify.com" target="_blank">
+                        <spotify-logo />
+                    </a>
+                    <a class="logo-container" href="https://www.spotify.com" target="_blank">
+                        <instagram-logo />
+                    </a>
+                    <a class="logo-container" href="https://www.spotify.com" target="_blank">
+                        <youtube-logo />
+                    </a>
+                    
+                </div>
+            </div>
+
+            <!-- <p class="artist-spacer">&</p> -->
+
+            <div class="artist-name font-medium artist-item font01">
+
+                <h3>Lionel Orsini</h3>
+
+                <div class="links-container">
+                    <a class="logo-container" href="https://www.spotify.com" target="_blank">
+                        <instagram-logo />
+                    </a>
+                </div>
+
+            </div>
 
         </div>
 
-        <div class="label-box">
+        <p class="font-small sentence">for</p>
 
-            <p class="font-small sentence">for</p>
+        <div class="label-box label-item font-medium">
 
-            <h4 class="font-label label-item">Omakase Recordings</h4>
+            <h3 class="font01">Omakase Recordings</h3>
+
+            <div class="links-container">
+                <a class="logo-container" href="https://www.spotify.com" target="_blank">
+                    <spotify-logo />
+                </a>
+                <a class="logo-container" href="https://www.spotify.com" target="_blank">
+                    <instagram-logo />
+                </a>
+                <a class="logo-container" href="https://www.spotify.com" target="_blank">
+                    <youtube-logo />
+                </a>
+                <a class="logo-container" href="https://omakaserecordings.bandcamp.com/" target="_blank">
+                    <bandcamp-logo />
+                </a>
+                
+            </div>
 
         </div>
         
@@ -27,7 +69,18 @@
 </template>
 
 <script>
+    import SpotifyLogo from "@/components/icons/spotify.vue"
+    import InstagramLogo from "@/components/icons/instagram.vue"
+    import YoutubeLogo from "@/components/icons/youtube.vue"
+    import BandcampLogo from "@/components/icons/bandcamp.vue"
+
     export default {
+        components: {
+            "spotify-logo": SpotifyLogo,
+            "instagram-logo": InstagramLogo,
+            "youtube-logo": YoutubeLogo,
+            "bandcamp-logo": BandcampLogo,
+        },
         data(){
             return {}
         }
@@ -36,18 +89,17 @@
 
 <style lang="scss" scoped>
 
-    @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;700&display=swap');
+
 
     .mainHub-wrapper {
-        
         color: white;
-        // border: solid 2px green;
         text-align: center;
         position: relative;
+        width: 100%;
+        max-width: 700px;
+        margin: 0 auto;
 
-        font-family: 'Comfortaa', arial;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
+        --vertical-spacing: 1rem;
 
         .font {
     
@@ -62,17 +114,33 @@
                 font-size: 1rem;
             }
     
-            &-label {
-                font-size: 1.5rem;
-            }
+            // &-label {
+            //     font-size: 1.5rem;
+            // }
     
             &-medium {
-                font-size: 2.5rem;
+                font-size: 1.35rem;
             }
     
             &-big {
-                font-size: 7rem;
+                font-size: 10rem;
+                margin-bottom: -1.5rem;
+                font-weight: 100;
             }
+        }
+
+        h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .title {
+            // opacity: 0.2;
+            color: rgba(255,255,255,1);
+            text-shadow: 0 0 45px rgba(255,255,255,1);
+
+            // backdrop-filter: blur(10px);
+
+            // mix-blend-mode: difference;
         }
     
         .artist {
@@ -83,46 +151,113 @@
                 justify-content: center;
                 align-items: center;
                 width: 100%;
-                max-width: 900px;
+                // max-width: 700px;
                 margin: 0 auto;
+
+                & > * {
+                    width: 46%;
+                    margin-right: var(--vertical-spacing);
+
+                    &:last-of-type {
+                        margin-right: 0;
+                    }
+                }
             }
     
         
             &-spacer {
-                width: 2rem;
+                width: 3.5rem;
             }
         }
     
         .label {
             &-box {
-                margin-top: 2rem;
+                margin-top: var(--vertical-spacing);
+            }
+            &-item {
+                width: calc(46% * 2 + var(--vertical-spacing));
             }
         }
     
         .artist,
         .label {
             &-item {
-    
                 display: inline-block;
-                padding: 0.75rem 1.25rem;
-                border-radius: 20px;
-                backdrop-filter: blur(8px);
+                padding: 1rem 0;
+                border-radius: 2rem 0;
+                backdrop-filter: blur(12px);
+                overflow: hidden;
     
-                box-shadow: 0 -1px 1px rgba(255, 255, 255, 0.15),
-                            0 1px 1px rgba(0,0,0, 0.15),
-                            1px -1px 1px transparent;
+                border: solid 1px rgba(255,255,255,0.1);
     
                 // &:hover {
                 //     box-shadow: 0 -1px 0px rgba(255,255,255,0.15),
                 //                 0 2px 2px rgba(0,0,0, 0.25),
                 //                 0 -20px 60px #303030;
                 // }
-    
+                
+            }
+            &-item, &-item * {
+                // font-family: "Times Now" !important;
+                // letter-spacing: 0.1rem;
+                font-weight: 100;
             }
         }
     
         .sentence {
-            margin-bottom: 0.5rem;
+            margin-bottom: var(--vertical-spacing);
+            display: none;
+        }
+
+        .font01 {
+            font-family: 'Neue Haas Grotesk Text';
+        }
+
+        .links-container {
+            width: 100%;
+            height: 100%;
+            // border: solid 1px green;
+
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: center;
+            align-items: center;
+            
+        }
+        
+        .logo-container {
+            position: relative;
+            width: 1.5rem;
+            height: 1.5rem;
+            margin-right: 1rem;
+
+            border-radius: 50%;
+            overflow: hidden;
+            background-color: rgba(255,255,255,0.1);
+            border: solid 1px rgba(255,255,255,0.1);
+            padding: 0.5rem;
+
+            &:last-of-type {
+                margin-right: 0;
+            }
+
+            // &.youtube {
+            //     width: 3rem;
+            //     border: solid 1px orange;
+            // }
+            // border: solid 1px orange;
+
+            svg {
+                margin: 0.5rem;
+                position: absolute;
+                top: 0;
+                left: 0;                // top: calc(50% - 1rem);
+                // left: calc(50% - 1rem);
+                // transform: translate(, );
+                width: calc(100% - 1rem);
+                height: calc(100% - 1rem);
+            }
+
         }
     }
 

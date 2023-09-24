@@ -69,7 +69,7 @@ export default {
             console.log("user agent : ", navigator.userAgent)
 
             if( !navigator.userAgent.includes("Windows") ){
-                this.$store.commit("setBloomDisabler", true)
+                this.$store.commit("setAppleUser", true)
             }
 
         }

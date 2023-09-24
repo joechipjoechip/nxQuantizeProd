@@ -91,7 +91,9 @@
 	}
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+
+	
 
 	.app-wrapper {
 		width: 100%;	

@@ -670,9 +670,14 @@
 
 				this.endingIsStarted = true;
 
-				this.$store.commit("setAudioCurrent", this.$store.state[`audioEnd${this.$store.state.currentChoice}`])
+				this.$store.commit("setAudioCurrent", this.$store.state[`audioEnd${this.$store.state.currentChoice}`]);
 
-				this.$store.state[`audioEnd${this.$store.state.currentChoice}`].play();
+				this.$store.state[`audioEnd${this.$store.state.currentChoice}`].play()
+					.then(() => {
+						console.log("play() is ok");
+					}).catch(error => {
+						console.log("play .catch : error", error)
+					});
 
 				if( this.debug.finish && this.debugFinishTimeCode ){
 

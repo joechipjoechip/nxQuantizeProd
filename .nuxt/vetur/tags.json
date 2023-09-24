@@ -79,5 +79,17 @@
   },
   "Worker": {
     "description": "Auto imported from components/worker.js"
+  },
+  "IconsBandcamp": {
+    "description": "Auto imported from components/icons/bandcamp.vue"
+  },
+  "IconsInstagram": {
+    "description": "Auto imported from components/icons/instagram.vue"
+  },
+  "IconsSpotify": {
+    "description": "Auto imported from components/icons/spotify.vue"
+  },
+  "IconsYoutube": {
+    "description": "Auto imported from components/icons/youtube.vue"
   }
 }

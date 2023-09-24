@@ -25,6 +25,10 @@ export { default as Stick } from '../..\\components\\stick.vue'
 export { default as ThirdPersonCamera } from '../..\\components\\thirdPersonCamera.js'
 export { default as UpdateBobWorker } from '../..\\components\\updateBob.worker.js'
 export { default as Worker } from '../..\\components\\worker.js'
+export { default as IconsBandcamp } from '../..\\components\\icons\\bandcamp.vue'
+export { default as IconsInstagram } from '../..\\components\\icons\\instagram.vue'
+export { default as IconsSpotify } from '../..\\components\\icons\\spotify.vue'
+export { default as IconsYoutube } from '../..\\components\\icons\\youtube.vue'
 
 // nuxt/nuxt.js#8607
 function wrapFunctional(options) {

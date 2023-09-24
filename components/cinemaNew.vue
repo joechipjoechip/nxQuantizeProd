@@ -147,6 +147,13 @@
 				if( newVal ){
 					this.curtainActive = true
 				}
+			},
+
+			"$parent.isAtEntrance"( newVal ){
+				console.log("watcher du $parent.isAtEntrance : ", newVal)
+				if( !newVal ){
+					this.initSound()
+				}
 			}
 
 		},
@@ -171,8 +178,6 @@
 			
 			// launch all assets loads
 			new PrimaryLoadManager(this);
-			
-			this.initSound();
 
 		},
 		
@@ -215,7 +220,7 @@
 						this.$store.commit("setAudioTimecode", goTo);
 					}
 
-				}, 800);
+				}, 1800);
 
 			},
 

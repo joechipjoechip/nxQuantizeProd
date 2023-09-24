@@ -6,6 +6,8 @@ function loopify(vm, uri, cb) {
 	var intervalID = null;
 	var firstTimeStamp = 0;
 
+	context.onstatechange = () => console.log("sonstatechange triggered : ", context.state);
+
 	request.responseType = "arraybuffer";
 	request.open("GET", uri, true);
 
@@ -58,7 +60,7 @@ function loopify(vm, uri, cb) {
 			// Play it
 			source.start(0);
 
-			handlePlay();
+			handlePlay(source);
 
 		}
 
@@ -76,9 +78,15 @@ function loopify(vm, uri, cb) {
 
 	}
 
-	function handlePlay(){
+	function handlePlay( source ){
 
 		console.log("handle play : ", context.state);
+
+		if( context.state !== "running" ){
+			// source.start(0);
+			console.log("not running :/");
+			context.resume().then(() => source.start(0));
+		}
 
 		// because sometimes, currentTime starts at 17 (dunno why..)
 		firstTimeStamp = context.currentTime;
