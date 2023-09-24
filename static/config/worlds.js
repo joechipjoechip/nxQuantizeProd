@@ -13,9 +13,9 @@ const worlds = [
 
 		main: {
 
-			spaceColor: "#050505",
-			spaceColorDarker: "#050505",
-			spaceColorWithBloom: "#050505",
+			spaceColor: "#010101",
+			spaceColorDarker: "#010101",
+			spaceColorWithBloom: "#010101",
 
 			ambient: {
 				sunColor: "#ffffff",
@@ -852,7 +852,7 @@ const worlds = [
 
 				cameraInvert: {
 					x: false,
-					y: true
+					y: false
 				},
 
 				until: 122.35,

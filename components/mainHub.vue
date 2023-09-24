@@ -1,5 +1,5 @@
 <template>
-    <div class="mainHub-wrapper">
+    <div class="mainHub-wrapper" :style="{ opacity: hubOpacity }">
 
         <h2 class="font-big font01 title">OnYi</h2>
 
@@ -82,7 +82,26 @@
             "bandcamp-logo": BandcampLogo,
         },
         data(){
-            return {}
+            return {
+                mousePos: { x:0, y:0 }
+            }
+        },
+        computed: {
+            hubOpacity(){
+                return 1 - Math.max(Math.abs(this.mousePos.x) + 0.12, Math.abs(this.mousePos.y) + 0.12);
+            }
+        },
+        mounted(){
+            this.$nuxt.$on("view-update-by-stick", this.handleMousePosition);
+        },
+        beforeDestroy(){
+            this.$nuxt.$off("view-update-by-stick", this.handleMousePosition);
+        },
+        methods: {
+            handleMousePosition( event ){
+                console.log("event mainHub : ", event)
+                this.mousePos = event;
+            }
         }
     }
 </script>
@@ -135,12 +154,9 @@
 
         .title {
             // opacity: 0.2;
-            color: rgba(255,255,255,1);
-            text-shadow: 0 0 45px rgba(255,255,255,1);
-
-            // backdrop-filter: blur(10px);
-
-            // mix-blend-mode: difference;
+            color: rgba(255,255,255,0.25);
+            text-shadow: 0 0 35px rgba(255,255,255,1);
+            text-transform: uppercase;
         }
     
         .artist {
@@ -188,7 +204,9 @@
                 backdrop-filter: blur(12px);
                 overflow: hidden;
     
-                border: solid 1px rgba(255,255,255,0.1);
+                border: solid 1px rgba(255,255,255,0.05);
+
+                
     
                 // &:hover {
                 //     box-shadow: 0 -1px 0px rgba(255,255,255,0.15),
@@ -222,6 +240,13 @@
             flex-flow: row wrap;
             justify-content: center;
             align-items: center;
+
+            filter: grayscale(1);
+            transition: .25s filter;
+
+            &:hover {
+                filter: grayscale(0);
+            }
             
         }
         
@@ -233,27 +258,29 @@
 
             border-radius: 50%;
             overflow: hidden;
-            background-color: rgba(255,255,255,0.1);
-            border: solid 1px rgba(255,255,255,0.1);
+            background-color: rgba(255,255,255,0);
+            border: solid 1px rgba(255,255,255,0.05);
             padding: 0.5rem;
-
+            transform: scale(1);
+            
+            transition: 
+                background-color .25s,
+                transform .15s;
+            
             &:last-of-type {
                 margin-right: 0;
             }
-
-            // &.youtube {
-            //     width: 3rem;
-            //     border: solid 1px orange;
-            // }
-            // border: solid 1px orange;
+            
+            &:hover {
+                background-color: rgba(255,255,255,1);
+                transform: scale(1.1);
+            }
 
             svg {
                 margin: 0.5rem;
                 position: absolute;
                 top: 0;
-                left: 0;                // top: calc(50% - 1rem);
-                // left: calc(50% - 1rem);
-                // transform: translate(, );
+                left: 0;
                 width: calc(100% - 1rem);
                 height: calc(100% - 1rem);
             }
