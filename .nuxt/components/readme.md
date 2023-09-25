@@ -34,6 +34,7 @@ You can directly use them in pages and other components without the need to impo
 - `<ThirdPersonCamera>` | `<third-person-camera>` (components/thirdPersonCamera.js)
 - `<UpdateBobWorker>` | `<update-bob-worker>` (components/updateBob.worker.js)
 - `<Worker>` | `<worker>` (components/worker.js)
+- `<MicroLoaderOne>` | `<micro-loader-one>` (components/micro/loaderOne.vue)
 - `<IconsBandcamp>` | `<icons-bandcamp>` (components/icons/bandcamp.vue)
 - `<IconsInstagram>` | `<icons-instagram>` (components/icons/instagram.vue)
 - `<IconsSpotify>` | `<icons-spotify>` (components/icons/spotify.vue)

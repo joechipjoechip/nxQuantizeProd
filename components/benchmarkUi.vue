@@ -5,9 +5,9 @@
             <div v-if="isStarted" class="benchmark-started">
                 is benchmarking ...
             </div>
-        <!-- </transition>
+        </transition>
 
-        <transition name="benchmark-transition"> -->
+        <transition name="benchmark-transition">
             <div v-if="isDone" class="benchmark-done">
                 <benchmark-score />       
             </div>
@@ -50,8 +50,8 @@ export default {
             console.log("depuis benchmarkUI : done");
             this.failCount = missingFramesCountTransmitted;
             this.isStarted = false;
-            this.isDone = true;
             this.handleMissingFramesCountability();
+            setTimeout(() => this.isDone = true, 1500);
         },
 
         handleMissingFramesCountability(){

@@ -199,7 +199,6 @@
 		},
 
 		methods: {
-
 			replayExperience(){
 				window.location.reload();
 			},
@@ -254,6 +253,8 @@
 					this.allIsLoaded = true;
 
 				} else {
+					this.$store.commit("incrementAssetsLoadCount");
+
 					console.log("nope, le allIsLoaded reste à false ");
 				}
 

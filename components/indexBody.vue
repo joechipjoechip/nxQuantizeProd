@@ -11,7 +11,8 @@
 				class="button-experience" 
 				disabled
 			>
-				Loading ...
+				<loader-one class="loader-one"/>
+				Loading ({{ $store.state.assetsLoadCount }} / 8)
 			</button>
 
 			<button v-else 
@@ -29,11 +30,13 @@
 <script>
 	import MainHub from '@/components/mainHub.vue';
 	import BenchmarkUi from '@/components/benchmarkUi.vue';
+	import LoaderOne from '@/components/micro/loaderOne.vue';
 	
 	export default {
 	components: { 
 		"main-hub": MainHub,
-		"benchmark-ui": BenchmarkUi
+		"benchmark-ui": BenchmarkUi,
+		"loader-one": LoaderOne
 	},
     data() {
         return {
@@ -84,6 +87,11 @@
 			border-radius: 0.5rem;
 		}
 
+	}
+
+	.loader-one {
+		height: 1rem;
+		opacity: 0.3;
 	}
 
 </style>

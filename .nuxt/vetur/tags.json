@@ -83,6 +83,9 @@
   "Worker": {
     "description": "Auto imported from components/worker.js"
   },
+  "MicroLoaderOne": {
+    "description": "Auto imported from components/micro/loaderOne.vue"
+  },
   "IconsBandcamp": {
     "description": "Auto imported from components/icons/bandcamp.vue"
   },

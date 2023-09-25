@@ -13,6 +13,7 @@ export const state = () => ({
 	badComputer: false,
 	veryBadComputer: false,
 	currentChoice: null,
+	assetsLoadCount: 0
 })
 
 export const getters = {
@@ -28,6 +29,10 @@ export const getters = {
 }
 
 export const mutations = {
+
+	incrementAssetsLoadCount(state) {
+		state.assetsLoadCount++
+	},
 
 	setCurrentChoice(state, payload) {
 		state.currentChoice = payload
