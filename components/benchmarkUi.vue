@@ -1,20 +1,29 @@
 <template>
     <div>
-        <div>
-            <p v-if="isStarted">
+
+        <transition name="benchmark-transition">
+            <div v-if="isStarted" class="benchmark-started">
                 is benchmarking ...
-            </p>
-            <p v-if="isDone">
-                benchmark is done
-            </p>
-        </div>
+            </div>
+        <!-- </transition>
+
+        <transition name="benchmark-transition"> -->
+            <div v-if="isDone" class="benchmark-done">
+                <benchmark-score />       
+            </div>
+        </transition>
 
     </div>
 </template>
 
 <script>
 
+import BenchmarkScore from "@/components/benchmarkScore.vue"
+
 export default {
+    components: {
+        "benchmark-score": BenchmarkScore
+    },
     data(){
         return {
             isStarted: false,
@@ -79,4 +88,41 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.benchmark {
+    
+    &-started,
+    &-done {
+        position: absolute;
+        bottom: 2vh;
+        left: 2vh;
+        width: 30vw;
+        opacity: 1;
+
+        border-radius: 8px;
+        background-color: rgba(255,255,255,0.05);
+        border: solid 1px rgba(255,255,255,0.05);
+
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        align-items: center;
+        transform: translateY(0px);
+    }
+
+    &-transition {
+
+        &-enter-active,
+        &-leave-active {
+            transition: all 15s ease;
+        }
+
+        &-enter-from,
+        &-leave-to {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+    }
+}
 </style>

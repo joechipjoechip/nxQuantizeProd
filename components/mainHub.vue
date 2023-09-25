@@ -99,7 +99,6 @@
         },
         methods: {
             handleMousePosition( event ){
-                console.log("event mainHub : ", event)
                 this.mousePos = event;
             }
         }

@@ -1,9 +1,15 @@
 {
-  "BenchmarkUi": {
-    "description": "Auto imported from components/benchmarkUi.vue"
-  },
   "BlenderTubes": {
     "description": "Auto imported from components/BlenderTubes.js"
+  },
+  "SpecificManualCameraTweenBuilder": {
+    "description": "Auto imported from components/SpecificManualCameraTweenBuilder.js"
+  },
+  "BenchmarkScore": {
+    "description": "Auto imported from components/benchmarkScore.vue"
+  },
+  "BenchmarkUi": {
+    "description": "Auto imported from components/benchmarkUi.vue"
   },
   "CharacterController": {
     "description": "Auto imported from components/characterController.js"
@@ -61,9 +67,6 @@
   },
   "SequencesManager": {
     "description": "Auto imported from components/sequencesManager.js"
-  },
-  "SpecificManualCameraTweenBuilder": {
-    "description": "Auto imported from components/SpecificManualCameraTweenBuilder.js"
   },
   "States": {
     "description": "Auto imported from components/states.js"
