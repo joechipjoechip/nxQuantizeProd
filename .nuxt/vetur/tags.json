@@ -1,15 +1,12 @@
 {
-  "BlenderTubes": {
-    "description": "Auto imported from components/BlenderTubes.js"
-  },
-  "SpecificManualCameraTweenBuilder": {
-    "description": "Auto imported from components/SpecificManualCameraTweenBuilder.js"
-  },
   "BenchmarkScore": {
     "description": "Auto imported from components/benchmarkScore.vue"
   },
   "BenchmarkUi": {
     "description": "Auto imported from components/benchmarkUi.vue"
+  },
+  "BlenderTubes": {
+    "description": "Auto imported from components/BlenderTubes.js"
   },
   "CharacterController": {
     "description": "Auto imported from components/characterController.js"
@@ -68,6 +65,9 @@
   "SequencesManager": {
     "description": "Auto imported from components/sequencesManager.js"
   },
+  "SpecificManualCameraTweenBuilder": {
+    "description": "Auto imported from components/SpecificManualCameraTweenBuilder.js"
+  },
   "States": {
     "description": "Auto imported from components/states.js"
   },
@@ -83,9 +83,6 @@
   "Worker": {
     "description": "Auto imported from components/worker.js"
   },
-  "MicroLoaderOne": {
-    "description": "Auto imported from components/micro/loaderOne.vue"
-  },
   "IconsBandcamp": {
     "description": "Auto imported from components/icons/bandcamp.vue"
   },
@@ -97,5 +94,8 @@
   },
   "IconsYoutube": {
     "description": "Auto imported from components/icons/youtube.vue"
+  },
+  "MicroLoaderOne": {
+    "description": "Auto imported from components/micro/loaderOne.vue"
   }
 }

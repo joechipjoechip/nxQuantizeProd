@@ -4,7 +4,10 @@ const core = {
 		lightsHelpers: {
 			light: false,
 			shadow: false
-		}
+		},
+
+		stats: false,
+		buttons: false
 	},
 
 	mouse: {
@@ -45,7 +48,6 @@ const core = {
 	},
 
 	generatedCamerasSpecs: {
-		// pos qui vont etre ajoutées à la position de la target (link)
 		gtaLike: {
 			offset: {
 				x: 0,

@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="debug-space">
+		<div v-if="debugStats" class="debug-space">
 			<!-- <pre>
 				<p v-if="sequenceID">current sequence : {{ sequenceID }}</p>
 				<p v-if="viewPos">viewPos : {{ viewPos }}</p>
@@ -65,6 +65,11 @@
 			viewPos: {
 				type: Object,
 				required: true
+			},
+
+			debugStats: {
+				type: Boolean,
+				default: false
 			}
 
 		},

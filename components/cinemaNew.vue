@@ -1,7 +1,7 @@
 <template>
 	<div class="cinema-main_wrapper">
 
-		<div class="debug-buttons-container">
+		<div v-if="core.debug.buttons" class="debug-buttons-container">
 			<button @click="playPauseAnimationHandler">start/stop animation</button>
 			<button @click="dropAndLoadAndSwitch">dropAndLoadAndSwitch</button>
 		</div>
@@ -34,6 +34,7 @@
 			:bobs="bobs"
 			:textures="textures"
 			:viewPos="viewPos"
+			:debugStats="core.debug.stats"
 		/>
 
 		<div v-if="displayFinalHub"
