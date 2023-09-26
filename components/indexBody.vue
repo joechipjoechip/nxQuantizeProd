@@ -5,7 +5,7 @@
 
 		<benchmark-ui />
 
-		<div>
+		<div v-if="benchmarkIsDone">
 
 			<button v-if="!cinemaIsReady" 
 				class="button-experience" 
@@ -40,14 +40,17 @@
 	},
     data() {
         return {
-            cinemaIsReady: false
+            cinemaIsReady: false,
+			benchmarkIsDone: false
         };
     },
     mounted() {
         this.$nuxt.$on("cinema-is-ready", this.handleCinemaIsReady);
+        this.$nuxt.$on("benchmark-is-done", this.handleBenchmarkDone);
     },
     beforeDestroy() {
-        this.$nuxt.$off("cinema-is-ready", this.handleCinemaIsReady);
+		this.$nuxt.$off("cinema-is-ready", this.handleCinemaIsReady);
+		this.$nuxt.$off("benchmark-is-done", this.handleBenchmarkDone);
     },
     methods: {
         handleCinemaIsReady(event) {
@@ -55,6 +58,10 @@
                 this.cinemaIsReady = true;
             }
         },
+
+		handleBenchmarkDone(){
+			this.benchmarkIsDone = true;
+		}
     }
 }
 </script>

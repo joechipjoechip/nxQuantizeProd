@@ -114,7 +114,7 @@ export default {
 
         &-enter-active,
         &-leave-active {
-            transition: all 15s ease;
+            transition: all .5s ease;
         }
 
         &-enter-from,
