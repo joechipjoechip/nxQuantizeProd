@@ -5,7 +5,7 @@
 
 		<benchmark-ui />
 
-		<div v-if="benchmarkIsDone">
+		<div :style="{ 'visibility': benchmarkIsDone ? 'visible' : 'hidden' }">
 
 			<button v-if="!cinemaIsReady" 
 				class="button-experience" 
