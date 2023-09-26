@@ -2600,7 +2600,7 @@ const worlds = [
 			},
 			{
 				id: "7.21",
-				baseFov: 15,
+				baseFov: 4,
 				fovTransition: false,
 				sequenceBobName: "linkShaderFlying",
 				bobRestoreSize: 0.0012,
@@ -2611,10 +2611,7 @@ const worlds = [
 				// until: 35,
 				nextInstruction: "switch-sequence",
 
-				cameraInvert: {
-					x: true,
-					y: false
-				},
+				cameraFixed: true,
 
 				tubeInfos: {
 					duration: 8.5,
@@ -2626,7 +2623,7 @@ const worlds = [
 						{
 							// this amount is a percent of the global duration
 							amount: 100,
-							fov: 10,
+							fov: 4,
 							stepEase: "linear"
 						},
 
@@ -2683,7 +2680,7 @@ const worlds = [
 						y: -5.5,
 						z: -2
 					},
-					scale: 0.085,
+					scale: 0.083,
 					slowmo: 12,
 					customShaderOptions: {
 						shaderTimeRatio: 0.011,

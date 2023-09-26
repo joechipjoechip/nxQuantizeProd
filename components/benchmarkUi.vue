@@ -63,7 +63,7 @@ export default {
                 this.$store.commit("setVeryBadComputer", true);
 
 
-            } else if ( this.failCount > 20 ){
+            } else if ( this.failCount > 25 ){
 
                 this.$store.commit("setBadComputer", true);
 

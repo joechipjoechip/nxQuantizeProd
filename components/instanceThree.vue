@@ -111,7 +111,6 @@
 
 				debug: {
 					animated: true,
-					stats: false,
 					firstPart: 130,
 					end: true,
 					finish: true
@@ -245,7 +244,7 @@
 				if( newVal === "One"){
 
 					this.finishTimeCode = 139;
-					this.debugFinishTimeCode = 120;
+					this.debugFinishTimeCode = 100;
 					this.decayTimeForEndSequences = 54.1;
 
 				} else {
@@ -481,7 +480,7 @@
 
 			checkCurrentTime(){
 
-				console.log("currentTime de audioCurrent : ", this.$store.state.audioCurrent.currentTime)
+				// console.log("currentTime de audioCurrent : ", this.$store.state.audioCurrent.currentTime)
 
 				if( this.choiceHaveBeenMade && !this.endingIsStarted && this.sequenceID !== "7.15"){
 
@@ -497,7 +496,7 @@
 						// handle final curtain
 						
 						this.$parent.isFinishScene = true;
-						console.log("le parent : ", this.$parent);
+						// console.log("le parent : ", this.$parent);
 
 
 					} else if( !this.currentSequence.alreadyTriggered && this.$store.state.audioCurrent.currentTime >= this.finishTimeCode && !this.finishIsStarted ){
@@ -509,7 +508,7 @@
 					} else if ( !this.currentSequence.alreadyTriggered && this.$store.state.audioCurrent.currentTime >= (this.currentSequence.until + this.decayTimeForEndSequences) ) {
 						// classic ending sequences chaining
 
-						console.log("ending handleSequencing triggered");
+						// console.log("ending handleSequencing triggered");
 
 						this.handleSequencing();
 
@@ -518,6 +517,7 @@
 				} else {
 
 					if( !this.loopIsAsked && this.$store.state.audioBase.currentTime >= (this.$store.state.audioBase.duration - 0.45) ){
+
 						this.startLoops();
 						this.handleSequencing();
 
@@ -544,14 +544,10 @@
 				switch( this.currentSequence.nextInstruction ){
 
 					case "switch-scene":
-						// console.log("le switch case donne bien switch-scene");
 						this.$nuxt.$emit("switch-scene", nextSceneID);
-						// this.$nuxt.$emit("switch-sequence", nextSequenceID);
 						break;
 
 					case "switch-sequence":
-						// console.log("nexxt sequence id : ", nextSequenceID);
-
 						this.$nuxt.$emit("switch-sequence", nextSequenceID);
 						break;
 
