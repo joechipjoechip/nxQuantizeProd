@@ -721,8 +721,6 @@ class SequencesManager{
 		setTimeout(()=> {
 			this.isChoiceScene = true;
 			this.choiceHandler("left");
-			this.vm.$store.state.audioLoopNeutral.volume(0)
-			this.vm.$store.state.audioLoopNeutral.stop()
 		}, 300);
 
 	}
@@ -735,8 +733,8 @@ class SequencesManager{
 
 		switch(direction){
 			case "left":
-				this.vm.$store.state.audioLoopDrumOne.volume(1);
-				this.vm.$store.state.audioLoopDrumTwo.volume(0);
+				this.vm.$store.state.audioEndOne.volume = 1;
+				this.vm.$store.state.audioEndTwo.volume = 0;
 
 				this.vm.$store.commit("setCurrentChoice", "One");
 				
@@ -745,8 +743,8 @@ class SequencesManager{
 				break;
 				
 				case "right":
-					this.vm.$store.state.audioLoopDrumOne.volume(0);
-					this.vm.$store.state.audioLoopDrumTwo.volume(1);
+					this.vm.$store.state.audioEndOne.volume = 0;
+					this.vm.$store.state.audioEndTwo.volume = 1;
 
 					this.vm.$store.commit("setCurrentChoice", "Two");
 

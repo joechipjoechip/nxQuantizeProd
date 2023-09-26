@@ -1927,8 +1927,8 @@ const worlds = [
 				cameraTriggerTimeDecay: 45,
 				cameraType: "movingFly",
 
-				until: 188.8,
-				nextInstruction: "switch-sequence",
+				until: 28,
+				nextInstruction: "drop-and-load-and-switch",
 
 				animatedMesh: false,
 
@@ -2060,8 +2060,8 @@ const worlds = [
 				cameraTriggerTimeDecay: 45,
 				cameraType: "movingHips-lookUp-choice",
 
-				until: 288.8,
-				nextInstruction: "switch-sequence",
+				until: 56.7,
+				nextInstruction: "drop-and-load-and-switch",
 
 				choiceSequence: true,
 
@@ -3766,7 +3766,7 @@ const worlds = [
 			},
 			{
 				id: "7.25",
-				baseFov: 15,
+				baseFov: 250,
 				fovTransition: false,
 				sequenceBobName: "marieShaderFlying",
 				bobRestoreSize: 0.0011,
@@ -3792,15 +3792,15 @@ const worlds = [
 						// n has nothing to do with the number of points for the curve
 						{
 							// this amount is a percent of the global duration
-							amount: 80,
-							fov: 40,
+							amount: 1,
+							fov: 90,
 							stepEase: "linear"
 						},
 						{
 							// this amount is a percent of the global duration
-							amount: 20,
-							fov: 70,
-							stepEase: "easeInOut"
+							amount: 99,
+							fov: 20,
+							stepEase: "linear"
 						}
 					]
 				},
@@ -3846,9 +3846,9 @@ const worlds = [
 							radius: 0.1
 						}
 					},
-					{
-						type: "glitch"
-					},
+					// {
+					// 	type: "glitch"
+					// },
 				]
 	
 			},
@@ -4019,9 +4019,9 @@ const worlds = [
 							radius: 0.1
 						}
 					},
-					{
-						type: "glitch"
-					},
+					// {
+					// 	type: "glitch"
+					// },
 				]
 	
 			},

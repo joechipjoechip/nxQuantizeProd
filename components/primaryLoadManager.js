@@ -14,7 +14,7 @@ import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js"
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 
-import { loopify } from '@/components/loopify.js';
+// import { loopify } from '@/components/loopify.js';
 
 import soundBase from "@/static/assets/audio/onyi-firstPart.mp3";
 import soundEndOne from "@/static/assets/audio/onyi-end-one.mp3";
@@ -62,52 +62,7 @@ class PrimaryLoadManager{
 		this.vm.$store.commit("setAudioBase", new Audio(soundBase));
 		this.vm.$store.commit("setAudioEndOne", new Audio(soundEndOne));
 		this.vm.$store.commit("setAudioEndTwo", new Audio(soundEndTwo));
-
-		loopify(
-			this.vm,
-			"assets/audio/onyi-loop-light-compressed.wav", 
-			(err, loop) => {
-				// If something went wrong, `err` is supplied
-				if (err) {
-					console.log("loopify error -------> ", err);
-				}
-
-				// Play it whenever you want
-				// loop.play();
-				this.vm.$store.commit("setAudioLoopNeutral", loop);
-			}
-		);
-
-		loopify(
-			this.vm,
-			"assets/audio/loopDrumOne-compressed.wav", 
-			(err, loop) => {
-				// If something went wrong, `err` is supplied
-				if (err) {
-					console.log("loopify error -------> ", err);
-				}
-
-				// Play it whenever you want
-				// loop.play();
-				this.vm.$store.commit("setAudioLoopDrumOne", loop);
-			}
-		);
-
-		loopify(
-			this.vm,
-			"assets/audio/loopDrumTwo-compressed.wav", 
-			(err, loop) => {
-				// If something went wrong, `err` is supplied
-				if (err) {
-					console.log("loopify error -------> ", err);
-				}
-
-				// Play it whenever you want
-				// loop.play();
-				this.vm.$store.commit("setAudioLoopDrumTwo", loop);
-			}
-		);
-
+		
 	}
 
 	_InitBobs(){

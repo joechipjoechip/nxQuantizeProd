@@ -63,17 +63,23 @@ export const mutations = {
 	},
 
 	setAudioBase(state, payload){
-		payload.playsInline = true;
+		if( payload ) {
+			payload.playsInline = true;
+		}
 		state.audioBase = payload
 	},
 
 	setAudioEndOne(state, payload){
-		payload.playsInline = true;
+		if( payload ) {
+			payload.playsInline = true;
+		}
 		state.audioEndOne = payload
 	},
 
 	setAudioEndTwo(state, payload){
-		payload.playsInline = true;
+		if( payload ) {
+			payload.playsInline = true;
+		}
 		state.audioEndTwo = payload
 	},
 

@@ -101,8 +101,9 @@
 				endFlyPrayTimer: 16.5,
 				endChoiceTimer: 43.43,
 				finishTimeCode: 0,
-				finalHubDelay: 0,
-				finalCurtainDelay: 0,
+				finalHubDelay: 18,
+				finalCurtainDelay: 45,
+				decayTimeForEndSequences: 0,
 
 				nextWorldIndex: 0,
 				initialLoadDone: false,
@@ -111,8 +112,9 @@
 				debug: {
 					animated: true,
 					stats: false,
-					end: false,
-					finish: false
+					firstPart: 130,
+					end: true,
+					finish: true
 				},
 
 				currentBobName: null,
@@ -213,22 +215,19 @@
 
 			initialLoadDone( newVal ){
 				if( newVal ){
-
-					this.$store.state.audioBase.addEventListener("ended", this.handleAudioEnded);
-
 					this.$store.state.audioCurrent.play();
-
 				}
 			},
-
-			loopIsAsked( newVal ){
-				if( newVal ){
-					this.loopClock = new THREE.Clock()
-				}
-			},
-
 			endingIsStarted( newVal ){
 				if( newVal ){
+
+					if( this.debug.finish && this.debugFinishTimeCode ){
+
+						setTimeout(() => {
+							this.$store.commit("setAudioTimecode", this.debugFinishTimeCode);
+						}, 500)
+
+					}
 
 					if( this.$store.state.veryBadComputer ){
 						this.setDownScale(4.75);
@@ -242,32 +241,40 @@
 			},
 
 			"$store.state.currentChoice"( newVal ){
+
 				if( newVal === "One"){
-					this.finishTimeCode = 85;
-					this.debugFinishTimeCode = 75;
-					this.finalHubDelay = 15;
-					this.finalCurtainDelay = 53;
+
+					this.finishTimeCode = 139;
+					this.debugFinishTimeCode = 120;
+					this.decayTimeForEndSequences = 54.1;
+
 				} else {
-					this.finishTimeCode = 104.5;
-					this.debugFinishTimeCode = 94;
-					this.finalHubDelay = 6;
-					this.finalCurtainDelay = 38;
+
+					this.finishTimeCode = 162;
+					this.debugFinishTimeCode = 120;
+					this.decayTimeForEndSequences = 57.75;
+
 				}
+
 			}
 
 		},
 
 		mounted(){
-
-			this.$nuxt.$on("please-stop-loop", this.stopLoop);
 			
 			this.createBundle(0, "primary");
 			this.createBundle(1, "secondary");
+
+			if( this.debug.firstPart ){
+
+				setTimeout(() => {
+	
+					this.$store.commit("setAudioTimecode", this.debug.firstPart);
+	
+				}, 800);
+
+			}
 			
-		},
-		
-		beforeDestroy(){
-			this.$nuxt.$off("please-stop-loop", this.stopLoop);
 		},
 
 		methods: {
@@ -468,36 +475,38 @@
 
 				}
 
-				if( this.loopClock ){
-					this.checkLoopClock();
-				}
-
-				// console.log("time : ", this.$store.state.audioCurrent.currentTime)
-
 				window.requestAnimationFrame(this.mainTick);
 
 			},
 
 			checkCurrentTime(){
 
-				if( this.endingIsStarted ){
+				console.log("currentTime de audioCurrent : ", this.$store.state.audioCurrent.currentTime)
+
+				if( this.choiceHaveBeenMade && !this.endingIsStarted && this.sequenceID !== "7.15"){
+
+					if( this.$store.state.audioCurrent.currentTime >= (this.currentSequence.until + this.decayTimeForEndSequences) ){
+						this.handleSequencing();
+					}
+					
+				} else if( this.endingIsStarted ){
 
 					// console.log("end currentTime is : ", this.$store.state[`audioEnd${this.$store.state.currentChoice}`].currentTime);
 
-					if( !this.currentSequence.alreadyTriggered && this.$store.state[`audioEnd${this.$store.state.currentChoice}`].currentTime >= this.finishTimeCode - 6 && !this.finishIsStarted && !this.$parent.isFinishScene ){
+					if( !this.currentSequence.alreadyTriggered && this.$store.state.audioCurrent.currentTime >= this.finishTimeCode - 6 && !this.finishIsStarted && !this.$parent.isFinishScene ){
 						// handle final curtain
 						
 						this.$parent.isFinishScene = true;
 						console.log("le parent : ", this.$parent);
 
 
-					} else if( !this.currentSequence.alreadyTriggered && this.$store.state[`audioEnd${this.$store.state.currentChoice}`].currentTime >= this.finishTimeCode && !this.finishIsStarted ){
+					} else if( !this.currentSequence.alreadyTriggered && this.$store.state.audioCurrent.currentTime >= this.finishTimeCode && !this.finishIsStarted ){
 						// finish scene
 
 						this.handleFinishScene();
 
 
-					} else if ( !this.currentSequence.alreadyTriggered && this.$store.state[`audioEnd${this.$store.state.currentChoice}`].currentTime >= this.currentSequence.until ) {
+					} else if ( !this.currentSequence.alreadyTriggered && this.$store.state.audioCurrent.currentTime >= (this.currentSequence.until + this.decayTimeForEndSequences) ) {
 						// classic ending sequences chaining
 
 						console.log("ending handleSequencing triggered");
@@ -508,12 +517,14 @@
 
 				} else {
 
-					if( !this.loopIsAsked && this.$store.state.audioBase.currentTime >= (this.$store.state.audioBase.duration - 0.1) ){
-						// console.log("if -> end time is almost reached");
+					if( !this.loopIsAsked && this.$store.state.audioBase.currentTime >= (this.$store.state.audioBase.duration - 0.45) ){
 						this.startLoops();
+						this.handleSequencing();
+
+						
 					}
 					
-					if( !this.currentSequence.alreadyTriggered && !this.$store.state.audioBase.paused && this.$store.state.audioCurrent.currentTime >= this.currentSequence.until ){
+					if( !this.currentSequence.alreadyTriggered && this.$store.state.audioCurrent.currentTime >= this.currentSequence.until ){
 	
 						this.handleSequencing();
 	
@@ -527,6 +538,8 @@
 
 				const nextSequenceID = this.computeNextSequenceID(this.sequenceID);
 				const nextSceneID = this.computeNextSceneID(this.sequenceID);
+
+				this.handleExceptionsForSequencing();
 
 				switch( this.currentSequence.nextInstruction ){
 
@@ -555,6 +568,24 @@
 
 			},
 
+			handleExceptionsForSequencing(){
+
+				if( this.sequenceID === "7.15" ){
+					// séquence du choice
+
+					this.choiceIsDisplayed = false;
+					this.choiceHaveBeenMade = true;
+					this.endingIsStarted = true;
+
+					if( this.$store.state.currentChoice === "Two" ){
+						this.$store.commit("setAudioCurrent", this.$store.state.audioEndTwo);
+						this.$nuxt.$emit("drop-and-load-and-switch");
+					}
+
+				}
+
+			},
+
 			computeNextSequenceID( chapterString ){
 				const parsed = chapterString.split(".")
 
@@ -577,120 +608,33 @@
 				this.$store.commit('setDownScale', newRatio);
 
 			},
-
-			handleAudioEnded(){
-
-				if( !this.loopIsAsked ){
-					console.log("! ! ! ! ! ! ! ! ! fallback 'ended' started loop ! ! ! ! ! ! ! ! !");
-					this.startLoops();
-				}
-				
-			},
 			
 			startLoops(){
 
 				console.log("startLoops triggered");
 
 				this.loopIsAsked = true;
+
+				this.$store.state.audioEndOne.play();
+				this.$store.state.audioEndOne.volume = 1;
 				
-				console.log("audio loop : ", this.$store.state.audioLoopNeutral)
+				this.$store.state.audioEndTwo.play();
+				this.$store.state.audioEndTwo.volume = 0;
+
+				this.$store.commit("setAudioCurrent", this.$store.state.audioEndOne);
 
 				
-				this.$store.state.audioLoopNeutral.play();
-				this.$store.state.audioLoopNeutral.volume(1);
-
-				this.$store.state.audioLoopDrumOne.play();
-				this.$store.state.audioLoopDrumOne.volume(0);
-				
-				this.$store.state.audioLoopDrumTwo.play();
-				this.$store.state.audioLoopDrumTwo.volume(0);
 				
 				setTimeout(()=>{
-					this.$store.state.audioBase.pause();
-					this.$store.state.audioBase.removeEventListener("ended", this.handleAudioEnded);
-				}, 300);
+					this.$store.commit("setAudioBase", null);
 
-				// @TODO : remove this
-				if( this.debug.end ){
-					this.endFlyPrayTimer = 2
-					this.endChoiceTimer = 5
-				}
-
-			},
-
-			stopLoop(){
-
-				console.log("ok stop neutral loop");
-				this.$store.state.audioLoopNeutral.stop();
-
-				setTimeout(() => {
-					this.$store.commit("setAudioLoopNeutral", null);
-				}, 2000)
-
-			},
-
-			checkLoopClock(){
-
-				console.log("checkLoopClock : ", this.loopClock.getElapsedTime());
-
-				if( !this.choiceIsDisplayed && !this.choiceHaveBeenMade && this.loopClock.getElapsedTime() >= this.endFlyPrayTimer ){
-					this.$nuxt.$emit("drop-and-load-and-switch");
-					this.choiceIsDisplayed = true;
-				}
-				
-				if( this.choiceIsDisplayed && !this.choiceHaveBeenMade && this.loopClock.getElapsedTime() >= this.endChoiceTimer ){
-
-					this.choiceIsDisplayed = false;
-					this.choiceHaveBeenMade = true;
-
-					if( this.$store.state.currentChoice === "Two" ){
-						
-						this.$nuxt.$emit("drop-and-load-and-switch");
+					if( this.debug.end ){
+						this.$store.state.audioEndOne.currentTime = 50;
+						this.$store.state.audioEndTwo.currentTime = 50;
 					}
 
-					this.$nuxt.$emit("drop-and-load-and-switch");
-					
-					this.dropLoops();
+				}, 3500);
 
-					this.startEnding();
-
-				}
-
-			},
-
-			dropLoops(){
-
-				// this.$store.state.audioLoopNeutral.stop();
-				// already done in sequencesManager
-
-				this.$store.state.audioLoopDrumOne.stop();
-				this.$store.state.audioLoopDrumTwo.stop();
-
-				this.loopClock.stop();
-				this.loopClock = null;
-
-			},
-
-			startEnding(){
-
-				this.endingIsStarted = true;
-
-				this.$store.commit("setAudioCurrent", this.$store.state[`audioEnd${this.$store.state.currentChoice}`]);
-
-				this.$store.state[`audioEnd${this.$store.state.currentChoice}`].play()
-					.then(() => {
-						console.log("play() is ok");
-					}).catch(error => {
-						console.log("play .catch : error", error)
-					});
-
-				if( this.debug.finish && this.debugFinishTimeCode ){
-
-					setTimeout(() => {
-						this.$store.commit("setAudioTimecode", this.debugFinishTimeCode);
-					}, 500)
-
-				}
 
 			},
 

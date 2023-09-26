@@ -126,15 +126,6 @@
 			"$store.state.audioBase"(){
 				this.checkIfAllIsLoaded();
 			},
-			"$store.state.audioLoopNeutral"(){
-				this.checkIfAllIsLoaded();
-			},
-			"$store.state.audioLoopDrumOne"(){
-				this.checkIfAllIsLoaded();
-			},
-			"$store.state.audioLoopDrumTwo"(){
-				this.checkIfAllIsLoaded();
-			},
 
 			allIsLoaded( newVal ){
 				if( newVal ){
@@ -209,19 +200,7 @@
 			},
 
 			initSound(){
-
 				this.$store.commit("setAudioCurrent", this.$store.state.audioBase);
-
-				setTimeout(() => {
-
-					const goTo = 0;
-
-					if( goTo > 0 ){
-						this.$store.commit("setAudioTimecode", goTo);
-					}
-
-				}, 1800);
-
 			},
 
 			initCommonValues(){
@@ -246,16 +225,14 @@
 					&& this.textures.length  === worlds.length
 					&& this.glbs.length 	 === worlds.length
 					&& this.$store.state.audioBase	 !== null
-					&& this.$store.state.audioLoopNeutral	 !== null
-					&& this.$store.state.audioLoopDrumOne	 !== null
-					&& this.$store.state.audioLoopDrumTwo	 !== null
+					&& this.$store.state.audioEndOne	 !== null
+					&& this.$store.state.audioEndTwo	 !== null
 				){
 
 					this.allIsLoaded = true;
 
 				} else {
 					this.$store.commit("incrementAssetsLoadCount");
-
 					console.log("nope, le allIsLoaded reste à false ");
 				}
 
