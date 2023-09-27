@@ -114,6 +114,8 @@
 				this.mouseDown = true;
 				this.mouseUp = false;
 
+				this.goToPosition(this.computePos(event));
+
 			},
 
 			touchEndHandler( event ){
@@ -134,6 +136,31 @@
 				const computedPos = this.computePos(event);
 
 				this.updateStickPos(computedPos);
+
+			},
+
+			goToPosition( position ){
+
+				const animatedObject = {
+					x: this.stickPos.x,
+					y: this.stickPos.y
+				};
+
+				const tlRecenter = new TimelineLite();
+
+				tlRecenter.to(animatedObject, this.core[this.abstractRole].recenterDuration, {
+					x: position.x,
+					y: position.y,
+					onUpdate( that ){
+
+						that.updateStickPos(animatedObject);
+
+						// console.log("onUpdate : ", animatedObject.x);
+
+					},
+					onUpdateParams: [this]
+				});
+
 
 			},
 
@@ -178,7 +205,7 @@
 
 				if( this.mouseDown ){ return; }
 
-				console.log("recentering (stick component)");
+				// console.log("recentering (stick component)");
 
 				const animatedObject = {
 					x: this.stickPos.x,
@@ -194,7 +221,7 @@
 
 						that.updateStickPos(animatedObject);
 
-						console.log("onUpdate : ", animatedObject.x);
+						// console.log("onUpdate : ", animatedObject.x);
 
 					},
 					onUpdateParams: [this]
@@ -209,74 +236,77 @@
 <style lang="scss" scoped>
 
 .stick {
-&_hitbox {
-	&-left {
+	&_hitbox {
+		// &-left {
 
-		.stick_ui {
-			left: 20px;
+		// 	.stick_ui {
+		// 		left: 20px;
+		// 	}
+		// }
+
+		// &-right {
+
+		// 	.stick_ui {
+		// 		right: 20px;
+		// 	}
+		// }
+
+		// &-left,
+		// &-right {
+		// 	display: flex;
+		// 	flex-flow: row nowrap;
+		// 	justify-content: center;
+		// 	align-items: center;
+		// 	width: 50vw;
+		// 	height: 80vh;
+		// }
+	}
+
+	&_ui {
+		// max-width: 20vw;
+		// max-height: 20vw;
+		// width: 100%;
+		// height: 100%;
+
+		// position: absolute;
+		// bottom: 20px;
+
+		width: 100vw;
+		height: 100vh;
+		opacity: 0;
+	}
+
+	&_inner {
+		&-circle {
+		&-surface {
+			display: flex;
+			flex-flow: row nowrap;
+			justify-content: center;
+			align-items: center;
+			width: 100%;
+			height: 100%;
+
+			box-shadow: inset 0 0 4vw rgba(255,255,255,.25);
+			border-radius: 50%;
+			pointer-events: none;
+		}
+
+		&-deep {
+			width: 72%;
+			height: 72%;
+			background-color: rgba(255,255,255,.1);
+			box-shadow: 0 5px 12px rgba(255,255,255,.3);
+			border-radius: 50%;
+			transform: scale(1);
+			transition: all .25s;
+
+			&.active {
+			background-color: rgba(255,255,255,.3);
+			box-shadow: 0 0 22px rgba(255,255,255,.4);
+			transform: scale(1.2);
+			}
+		}
 		}
 	}
-
-	&-right {
-
-		.stick_ui {
-			right: 20px;
-		}
-	}
-
-	&-left,
-	&-right {
-		display: flex;
-		flex-flow: row nowrap;
-		justify-content: center;
-		align-items: center;
-		width: 50vw;
-		height: 80vh;
-	}
-}
-
-&_ui {
-	// border: solid 1px green;
-	max-width: 20vw;
-	max-height: 20vw;
-	width: 100%;
-	height: 100%;
-
-	position: absolute;
-	bottom: 20px;
-}
-
-&_inner {
-	&-circle {
-	&-surface {
-		display: flex;
-		flex-flow: row nowrap;
-		justify-content: center;
-		align-items: center;
-		width: 100%;
-		height: 100%;
-
-		box-shadow: inset 0 0 4vw rgba(255,255,255,.25);
-		border-radius: 50%;
-		pointer-events: none;
-	}
-
-	&-deep {
-		width: 72%;
-		height: 72%;
-		background-color: rgba(255,255,255,.1);
-		box-shadow: 0 5px 12px rgba(255,255,255,.3);
-		border-radius: 50%;
-		transform: scale(1);
-		transition: all .25s;
-
-		&.active {
-		background-color: rgba(255,255,255,.3);
-		box-shadow: 0 0 22px rgba(255,255,255,.4);
-		transform: scale(1.2);
-		}
-	}
-	}
-}
 }
 </style>

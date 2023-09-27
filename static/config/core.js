@@ -7,7 +7,7 @@ const core = {
 		},
 
 		stats: false,
-		buttons: false
+		buttons: true
 	},
 
 	mouse: {

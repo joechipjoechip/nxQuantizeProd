@@ -39,7 +39,8 @@
 		&-main_wrapper {
 			position: absolute;
 			bottom: 0;
-			width: 100%;
+			width: 100vw;
+			height: 100vh;
 		}
 
 		&-container {

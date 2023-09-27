@@ -1,7 +1,9 @@
 <template>
 	<div class="body-wrapper">
 
-		<main-hub />
+		<div v-show="benchmarkIsDone">
+			<main-hub />
+		</div>
 
 		<benchmark-ui />
 

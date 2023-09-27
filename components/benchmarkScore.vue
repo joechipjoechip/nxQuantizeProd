@@ -75,4 +75,33 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+// icon font
+	@font-face {
+		font-family: "Iconify Explorer Font";
+		src: url("@/static/assets/fonts/fonticon/iconfont.eot");
+		src: url("@/static/assets/fonts/fonticon/iconfont.eot") format("embedded-opentype"),
+			url("@/static/assets/fonts/fonticon/iconfont.ttf") format("truetype"),
+			url("@/static/assets/fonts/fonticon/iconfont.woff") format("woff"),
+			url("@/static/assets/fonts/fonticon/iconfont.woff2") format("woff2"),
+			url("@/static/assets/fonts/fonticon/iconfont.svg") format("svg");
+		font-weight: normal;
+		font-style: normal;
+	}
+
+	.i {
+		font-family: "Iconify Explorer Font" !important;
+		font-size: 1em;
+		font-style: normal;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
+
+
+	.i.ic\:round-star:before {
+		content: "\e001";
+	}
+
+	.i.ic\:round-star-border:before {
+		content: "\e002";
+	}
 </style>

@@ -1,14 +1,14 @@
 <template>
-    <div>
+    <div class="benchmark-wrapper">
 
         <transition name="benchmark-transition">
-            <div v-if="isStarted" class="benchmark-started">
+            <div v-show="isStarted" class="benchmark-started">
                 is benchmarking ...
             </div>
         </transition>
 
         <transition name="benchmark-transition">
-            <div v-if="isDone" class="benchmark-done">
+            <div v-show="isDone" class="benchmark-done">
                 <benchmark-score />       
             </div>
         </transition>
@@ -58,7 +58,7 @@ export default {
 
             console.log("final fail count : ", this.failCount);
 
-            if( this.failCount >= 65 ){
+            if( this.failCount >= 50 ){
 
                 this.$store.commit("setVeryBadComputer", true);
 
@@ -91,8 +91,7 @@ export default {
 
 .benchmark {
     
-    &-started,
-    &-done {
+    &-wrapper {
         position: absolute;
         bottom: 2vh;
         left: 2vh;
