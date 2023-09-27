@@ -1,13 +1,13 @@
 <template>
-    <div class="mainHub-wrapper" :style="{ opacity: hubOpacity }">
+    <div class="mainHub-wrapper">
 
-        <h2 class="font-big font01 title">OnYi</h2>
+        <h2 class="font-big font01 title" :style="{ opacity: hubOpacity }">OnYi</h2>
 
         <p class="font-small sentence">an experience by</p>
 
         <div class="artist-box">
 
-            <div class="artist-name font-medium artist-item font01">
+            <div class="artist-name font-medium artist-item font01" :style="{ opacity: hubOpacity }">
 
                 <h3>NxQuantize</h3>
 
@@ -27,7 +27,7 @@
 
             <!-- <p class="artist-spacer">&</p> -->
 
-            <div class="artist-name font-medium artist-item font01">
+            <div class="artist-name font-medium artist-item font01" :style="{ opacity: hubOpacity }">
 
                 <h3>Lionel Orsini</h3>
 
@@ -43,7 +43,7 @@
 
         <p class="font-small sentence">for</p>
 
-        <div class="label-box label-item font-medium">
+        <div class="label-box label-item font-medium" :style="{ opacity: hubOpacity }">
 
             <h3 class="font01">Omakase Recordings</h3>
 
