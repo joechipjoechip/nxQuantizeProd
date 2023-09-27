@@ -735,8 +735,8 @@ class SequencesManager{
 
 		switch(direction){
 			case "left":
-				this.vm.$store.state.audioEndOne.volume = 1;
-				this.vm.$store.state.audioEndTwo.volume = 0;
+				this.vm.$store.state.audioEndOne.muted = false;
+				this.vm.$store.state.audioEndTwo.muted = true;
 
 				this.vm.$store.commit("setCurrentChoice", "One");
 				
@@ -745,8 +745,8 @@ class SequencesManager{
 				break;
 				
 				case "right":
-					this.vm.$store.state.audioEndOne.volume = 0;
-					this.vm.$store.state.audioEndTwo.volume = 1;
+					this.vm.$store.state.audioEndOne.muted = true;
+					this.vm.$store.state.audioEndTwo.muted = false;
 
 					this.vm.$store.commit("setCurrentChoice", "Two");
 

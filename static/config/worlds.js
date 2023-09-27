@@ -851,7 +851,7 @@ const worlds = [
 				type: "blender-points",
 
 				cameraInvert: {
-					x: false,
+					x: true,
 					y: false
 				},
 

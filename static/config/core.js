@@ -6,8 +6,8 @@ const core = {
 			shadow: false
 		},
 
-		stats: true,
-		buttons: true
+		stats: false,
+		buttons: false
 	},
 
 	mouse: {

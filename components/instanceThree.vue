@@ -111,9 +111,9 @@
 
 				debug: {
 					animated: true,
-					firstPart: 130,
-					end: true,
-					finish: true
+					firstPart: 0,
+					end: false,
+					finish: false
 				},
 
 				currentBobName: null,
@@ -215,6 +215,17 @@
 			initialLoadDone( newVal ){
 				if( newVal ){
 					this.$store.state.audioCurrent.play();
+
+					this.$store.state.audioEndOne.play().then().catch((err) => console.log("err : ", err));
+					this.$store.state.audioEndOne.pause();
+					
+					this.$store.state.audioEndTwo.play().then().catch((err) => console.log("err : ", err));
+					this.$store.state.audioEndTwo.pause();
+					
+					setTimeout(() => {
+						this.$store.state.audioEndOne.muted = true;
+						this.$store.state.audioEndTwo.muted = true;
+					}, 5);
 				}
 			},
 			endingIsStarted( newVal ){
@@ -611,15 +622,18 @@
 
 				this.loopIsAsked = true;
 
-				this.$store.state.audioEndOne.play();
-				this.$store.state.audioEndOne.volume = 1;
+				this.$store.state.audioEndOne.play().then().catch((err) => console.log("err : ", err));;
 				
-				this.$store.state.audioEndTwo.play();
-				this.$store.state.audioEndTwo.volume = 0;
+				this.$store.state.audioEndTwo.play().then().catch((err) => console.log("err : ", err));;
+
+				
+				console.log("loops volumes");
+				this.$store.state.audioEndOne.muted = false;
+				this.$store.state.audioEndTwo.muted = true;
 
 				this.$store.commit("setAudioCurrent", this.$store.state.audioEndOne);
-
 				
+
 				
 				setTimeout(()=>{
 					this.$store.commit("setAudioBase", null);
