@@ -985,9 +985,9 @@ const worlds = [
 
 		main: {
 
-			spaceColor: "#000211",
-			spaceColorDarker: "#000211",
-			spaceColorWithBloom: "#000211",
+			spaceColor: "#000009",
+			spaceColorDarker: "#000009",
+			spaceColorWithBloom: "#000009",
 
 			ambient: {
 				sunColor: "#ffffff",
