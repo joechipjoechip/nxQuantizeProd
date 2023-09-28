@@ -88,7 +88,7 @@
         },
         computed: {
             hubOpacity(){
-                return 1 - Math.max(Math.abs(this.mousePos.x) + 0.12, Math.abs(this.mousePos.y) + 0.12);
+                return this.$store.state.isMobile ? 1 : 1 - Math.max(Math.abs(this.mousePos.x) + 0.12, Math.abs(this.mousePos.y) + 0.12);
             }
         },
         mounted(){
@@ -107,6 +107,7 @@
 
 <style lang="scss" scoped>
 
+    @import "./assets/style/variables.scss";
 
 
     .mainHub-wrapper {
@@ -118,6 +119,7 @@
         margin: 0 auto;
 
         --vertical-spacing: 1rem;
+        --mobile-slot-size: 60%;
 
         .font {
     
@@ -144,6 +146,11 @@
                 font-size: 10rem;
                 margin-bottom: -1.5rem;
                 font-weight: 100;
+
+                @media #{$mobile} {
+                    font-size: 7rem;
+                    margin-bottom: -0.5rem;
+                }
             }
         }
 
@@ -169,12 +176,26 @@
                 // max-width: 700px;
                 margin: 0 auto;
 
+                @media #{$mobile} {
+                    flex-flow: column nowrap;   
+                }
+
                 & > * {
                     width: 46%;
                     margin-right: var(--vertical-spacing);
 
                     &:last-of-type {
                         margin-right: 0;
+                    }
+
+                    @media #{$mobile} {
+                        width: var(--mobile-slot-size);
+                        margin: 0 0 1rem 0;
+
+                        &:last-of-type {
+                            margin: 0;
+                        }
+
                     }
                 }
             }
@@ -191,6 +212,10 @@
             }
             &-item {
                 width: calc(46% * 2 + var(--vertical-spacing));
+
+                @media #{$mobile} {
+                    width: var(--mobile-slot-size);   
+                }
             }
         }
     
@@ -205,13 +230,10 @@
     
                 border: solid 1px rgba(255,255,255,0.05);
 
-                
-    
-                // &:hover {
-                //     box-shadow: 0 -1px 0px rgba(255,255,255,0.15),
-                //                 0 2px 2px rgba(0,0,0, 0.25),
-                //                 0 -20px 60px #303030;
-                // }
+                @media #{$mobile} {
+                    border-radius: 1rem;
+                    backdrop-filter: blur(5px);
+                }
                 
             }
             &-item, &-item * {
@@ -245,6 +267,10 @@
 
             &:hover {
                 filter: grayscale(0);
+            }
+
+            @media #{$mobile} {
+                filter: unset;
             }
             
         }

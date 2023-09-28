@@ -16,10 +16,10 @@
   width: 0.85rem;
   height: 0.85rem;
   margin: 0.1rem;
-  border: 0.1rem solid #000000;
+  border: 0.1rem solid #FFFFFF;
   border-radius: 50%;
   animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-  border-color: #000000 transparent transparent transparent;
+  border-color: #FFFFFF transparent transparent transparent;
 }
 .lds-ring div:nth-child(1) {
   animation-delay: -0.45s;

@@ -7,22 +7,31 @@
 
 		<benchmark-ui />
 
-		<div :style="{ 'visibility': benchmarkIsDone ? 'visible' : 'hidden' }">
+		<div class="button-experience-container"
+			:style="{ 'visibility': benchmarkIsDone ? 'visible' : 'hidden' }"
+		>
 
-			<button v-if="!cinemaIsReady" 
-				class="button-experience" 
-				disabled
-			>
-				<loader-one class="loader-one"/>
-				Loading ({{ $store.state.assetsLoadCount }} / 8)
-			</button>
+			<transition name="button-experience-transition">
 
-			<button v-else 
-				class="button-experience"
-				@click="$parent.isAtEntrance = false"
-			>
-				Play
-			</button>
+				<div v-if="!cinemaIsReady" 
+					class="button-experience-loading"
+				>
+					<loader-one class="loader-one"/>
+					Loading ({{ $store.state.assetsLoadCount }}/8)
+				</div>
+
+			</transition>
+
+			<transition name="button-experience-transition">
+
+				<div v-if="cinemaIsReady"
+					class="button-experience-ready"
+					@click="$parent.isAtEntrance = false"
+				>
+					Start
+				</div>
+
+			</transition>
 
 		</div>
 		
@@ -70,6 +79,8 @@
 
 <style lang="scss" scoped>
 
+	@import "./assets/style/variables.scss";
+
 	.body {
 		&-wrapper {
 			text-align: center;
@@ -89,11 +100,56 @@
 	.button {
 
 		&-experience {
-			display: inline-block;
-			background-color: white;
-			margin: 2rem auto 0 auto;
-			padding: 0.5rem 1.25rem;
-			border-radius: 0.5rem;
+
+			&-container {
+				position: relative;
+				font-family: 'Neue Haas Grotesk Text';
+			}
+
+			&-loading,
+			&-ready {
+				color: black;
+				display: block;
+				position: absolute;
+				background-color: rgba(255,255,255,0.05);
+				backdrop-filter: blur(5px);
+				// margin: 2rem auto 0 auto;
+				margin-top: 2rem;
+				padding: 0.5rem 0;
+				border-radius: 0.5rem;
+				color: white;
+				text-transform: uppercase;
+
+				overflow: hidden;
+                border: solid 1px rgba(255,255,255,0.05);
+
+				transform: translateY(0px);
+			}
+
+			&-loading {
+				width: 16rem;
+				left: calc(50% - 8rem);
+			}
+
+			&-ready {
+				width: 8rem;
+				left: calc(50% - 4rem);
+			}
+
+			&-transition {
+
+				&-enter-active,
+				&-leave-active {
+					transition: all 1s ease;
+				}
+
+				&-enter-from,
+				&-leave-to {
+					opacity: 0;
+					transform: translateY(50px);
+				}
+
+			}
 		}
 
 	}

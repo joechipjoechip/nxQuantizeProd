@@ -29,6 +29,12 @@ export default {
   css: [
   ],
 
+  styleResources: {
+    scss: [
+      "./assets/style/variables.scss"
+    ]
+  },
+
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     { src: '~/plugins/worker-injector.js', ssr: false } 
@@ -88,5 +94,10 @@ export default {
        });
 
     }
+  },
+
+  router: {
+    prefetchLinks: true
   }
+
 }

@@ -89,6 +89,8 @@ export default {
 
 <style lang="scss" scoped>
 
+@import "./assets/style/variables.scss";
+
 .benchmark {
     
     &-wrapper {
@@ -107,6 +109,11 @@ export default {
         justify-content: center;
         align-items: center;
         transform: translateY(0px);
+
+        @media #{$mobile} {
+            bottom: unset;
+            top: 2vh;
+        }
     }
 
     &-transition {

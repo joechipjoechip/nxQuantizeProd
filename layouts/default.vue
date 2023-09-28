@@ -4,6 +4,8 @@
 
 <style lang="scss">
 
+	@import "./assets/style/variables.scss";
+
 	@font-face {
 		font-family: 'Times Now';
 		src: url('@/static/assets/fonts/TimesNow-ExtraLight.woff2') format('woff2'),
@@ -47,6 +49,10 @@
 
 		h1,h2,h3,h4,h5,h6 {
 			margin: 0;
+		}
+
+		@media #{$mobile} {
+			font-size: min(3vw, 3vh, 18px);
 		}
 	}
 
