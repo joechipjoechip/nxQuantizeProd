@@ -6,8 +6,8 @@ const core = {
 			shadow: false
 		},
 
-		stats: true,
-		buttons: true
+		stats: false,
+		buttons: false
 	},
 
 	mouse: {
@@ -131,8 +131,8 @@ const core = {
 			},
 			straightness: 0.015,
 			mouseOrientationPonderation: {
-				x: 0.015,
-				y: 0.026
+				x: 0.045,
+				y: 0.028
 			},
 			motion: {
 				// motion will move the camera continuously

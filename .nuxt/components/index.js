@@ -28,6 +28,7 @@ export { default as UpdateBobWorker } from '../..\\components\\updateBob.worker.
 export { default as Worker } from '../..\\components\\worker.js'
 export { default as IconsBandcamp } from '../..\\components\\icons\\bandcamp.vue'
 export { default as IconsInstagram } from '../..\\components\\icons\\instagram.vue'
+export { default as IconsLinktree } from '../..\\components\\icons\\linktree.vue'
 export { default as IconsSpotify } from '../..\\components\\icons\\spotify.vue'
 export { default as IconsYoutube } from '../..\\components\\icons\\youtube.vue'
 export { default as MicroLoaderOne } from '../..\\components\\micro\\loaderOne.vue'

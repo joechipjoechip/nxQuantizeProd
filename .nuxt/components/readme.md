@@ -36,6 +36,7 @@ You can directly use them in pages and other components without the need to impo
 - `<Worker>` | `<worker>` (components/worker.js)
 - `<IconsBandcamp>` | `<icons-bandcamp>` (components/icons/bandcamp.vue)
 - `<IconsInstagram>` | `<icons-instagram>` (components/icons/instagram.vue)
+- `<IconsLinktree>` | `<icons-linktree>` (components/icons/linktree.vue)
 - `<IconsSpotify>` | `<icons-spotify>` (components/icons/spotify.vue)
 - `<IconsYoutube>` | `<icons-youtube>` (components/icons/youtube.vue)
 - `<MicroLoaderOne>` | `<micro-loader-one>` (components/micro/loaderOne.vue)

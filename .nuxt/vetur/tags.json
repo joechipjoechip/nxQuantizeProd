@@ -89,6 +89,9 @@
   "IconsInstagram": {
     "description": "Auto imported from components/icons/instagram.vue"
   },
+  "IconsLinktree": {
+    "description": "Auto imported from components/icons/linktree.vue"
+  },
   "IconsSpotify": {
     "description": "Auto imported from components/icons/spotify.vue"
   },

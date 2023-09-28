@@ -18,16 +18,12 @@
                 <h3>NxQuantize</h3>
 
                 <div class="links-container">
-                    <a class="logo-container" href="https://www.spotify.com" target="_blank">
+                    <a class="logo-container" href="https://open.spotify.com/intl-fr/artist/2aqx9dXY9qmkoyFYwB6zjW?si=Zd_XfzN7SW-n9N6DZiB29A" target="_blank">
                         <spotify-logo />
                     </a>
-                    <a class="logo-container" href="https://www.spotify.com" target="_blank">
+                    <a class="logo-container" href="https://www.instagram.com/nx_quantize/" target="_blank">
                         <instagram-logo />
                     </a>
-                    <a class="logo-container" href="https://www.spotify.com" target="_blank">
-                        <youtube-logo />
-                    </a>
-                    
                 </div>
             </div>
 
@@ -41,10 +37,10 @@
 
                 <p class="caption font-small">an interactive experience by</p>
 
-                <h3>Lionel Orsini</h3>
+                <h3>Lionelu.js</h3>
 
                 <div class="links-container">
-                    <a class="logo-container" href="https://www.spotify.com" target="_blank">
+                    <a class="logo-container" href="https://www.instagram.com/lionelu.js/" target="_blank">
                         <instagram-logo />
                     </a>
                 </div>
@@ -66,14 +62,11 @@
             <h3 class="font01">Omakase Recordings</h3>
 
             <div class="links-container">
-                <a class="logo-container" href="https://www.spotify.com" target="_blank">
-                    <spotify-logo />
-                </a>
-                <a class="logo-container" href="https://www.spotify.com" target="_blank">
+                <a class="logo-container" href="https://www.instagram.com/omakase_recordings/" target="_blank">
                     <instagram-logo />
                 </a>
-                <a class="logo-container" href="https://www.spotify.com" target="_blank">
-                    <youtube-logo />
+                <a class="logo-container" href="https://linktr.ee/omakase" target="_blank">
+                    <linktree-logo />
                 </a>
                 <a class="logo-container" href="https://omakaserecordings.bandcamp.com/" target="_blank">
                     <bandcamp-logo />
@@ -91,6 +84,7 @@
     import InstagramLogo from "@/components/icons/instagram.vue"
     import YoutubeLogo from "@/components/icons/youtube.vue"
     import BandcampLogo from "@/components/icons/bandcamp.vue"
+    import Linktree from "@/components/icons/linktree.vue"
 
     export default {
         components: {
@@ -98,6 +92,7 @@
             "instagram-logo": InstagramLogo,
             "youtube-logo": YoutubeLogo,
             "bandcamp-logo": BandcampLogo,
+            "linktree-logo": Linktree,
         },
         data(){
             return {
@@ -240,7 +235,8 @@
                 margin-top: var(--vertical-spacing);
             }
             &-item {
-                width: calc(46% * 2 + var(--vertical-spacing));
+                // width: calc(46% * 2 + var(--vertical-spacing));
+                width: 70%;
 
                 @media #{$mobile} {
                     width: var(--mobile-slot-size);   
@@ -284,6 +280,10 @@
 
         .label-item {
             border-radius: 0 0 12rem 12rem;
+
+            @media #{$mobile} {
+                border-radius: 0 5rem 0 7rem;
+            }
         }
     
         .sentence {
@@ -305,17 +305,6 @@
             justify-content: center;
             align-items: center;
 
-            filter: grayscale(1);
-            transition: .25s filter;
-
-            &:hover {
-                filter: grayscale(0);
-            }
-
-            @media #{$mobile} {
-                filter: unset;
-            }
-            
         }
         
         .logo-container {
@@ -327,13 +316,13 @@
             border-radius: 50%;
             overflow: hidden;
             background-color: rgba(255,255,255,0);
-            border: solid 1px rgba(255,255,255,0.05);
+            border: solid 1px rgba(255,255,255,0.15);
             padding: 0.5rem;
             transform: scale(1);
             
             transition: 
                 background-color .25s,
-                transform .15s;
+                transform .2s;
             
             &:last-of-type {
                 margin-right: 0;

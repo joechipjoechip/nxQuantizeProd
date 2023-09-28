@@ -1,17 +1,19 @@
 <template>
 	<div class="body-wrapper">
 
-		<main-hub />
+		<!-- <div v-show="benchmarkIsDone"> -->
+			<main-hub />
+		<!-- </div> -->
 
 		<benchmark-ui />
 
 		<!-- <p @click="cinemaIsReady = !cinemaIsReady">toggle</p> -->
 
-		<div class="button-experience-container" v-if="benchmarkIsDone">
+		<div class="button-experience-container">
 
 			<transition name="button-experience-transition">
 
-				<div v-show="!cinemaIsReady" 
+				<div v-if="!cinemaIsReady" 
 					class="button-experience-loading"
 				>
 					<loader-one class="loader-one"/>
@@ -22,7 +24,7 @@
 
 			<transition name="button-experience-transition">
 
-				<div v-show="cinemaIsReady" 
+				<div v-if="cinemaIsReady" 
 					class="button-experience-ready"
 					@click="$parent.isAtEntrance = false"
 				>
@@ -112,7 +114,7 @@
 				background-color: rgba(255,255,255,0.05);
 				backdrop-filter: blur(5px);
 				// margin: 2rem auto 0 auto;
-				margin-top: 1rem;
+				margin-top: 0.65rem;
 				padding: 0.5rem 0;
 				border-radius: 0.5rem;
 				color: white;

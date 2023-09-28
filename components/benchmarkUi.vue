@@ -97,7 +97,7 @@ export default {
         position: absolute;
         bottom: 2vh;
         left: 2vh;
-        width: 30vw;
+        width: 15vw;
         opacity: 1;
 
         border-radius: 8px;

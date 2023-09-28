@@ -4,17 +4,12 @@ import { core } from '@/static/config/core.js';
 
 import { CustomShaderBuilder } from './customShaderBuilder';
 
-import { plasticVertex } from '../static/assets/js/shaders/plastic/vertex';
-import { plasticFragment } from "../static/assets/js/shaders/plastic/fragment";
-
 import { CharacterController } from '@/components/characterController.js';
 
 import * as THREE from 'three';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js"
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
-
-// import { loopify } from '@/components/loopify.js';
 
 import soundBase from "@/static/assets/audio/onyi-firstPart.mp3";
 import soundEndOne from "@/static/assets/audio/onyi-end-one.mp3";
