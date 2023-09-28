@@ -132,7 +132,7 @@ class ThirdPersonCamera {
 				});
 
 		if( hit?.distance && hit.distance > 0.5){
-			this._currentPosition.y = hit.point.y + this._specs.offset.y + Math.abs(this.yPositionMotionWhileGroundHandling);
+			this._currentPosition.y = hit.point.y + this._specs.offset.y + 0.01 + Math.abs(this.yPositionMotionWhileGroundHandling);
 		} else {
 			this._currentPosition.y = this._specs.offset.y;
 		}
