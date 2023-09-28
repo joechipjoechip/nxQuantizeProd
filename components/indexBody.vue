@@ -1,30 +1,28 @@
 <template>
 	<div class="body-wrapper">
 
-		<div v-show="benchmarkIsDone">
-			<main-hub />
-		</div>
+		<main-hub />
 
 		<benchmark-ui />
 
-		<div class="button-experience-container"
-			:style="{ 'visibility': benchmarkIsDone ? 'visible' : 'hidden' }"
-		>
+		<!-- <p @click="cinemaIsReady = !cinemaIsReady">toggle</p> -->
+
+		<div class="button-experience-container" v-if="benchmarkIsDone">
 
 			<transition name="button-experience-transition">
 
-				<div v-if="!cinemaIsReady" 
+				<div v-show="!cinemaIsReady" 
 					class="button-experience-loading"
 				>
 					<loader-one class="loader-one"/>
-					Loading ({{ $store.state.assetsLoadCount }}/8)
+					Loading ({{ $store.state.assetsLoadCount }}/5)
 				</div>
 
 			</transition>
 
 			<transition name="button-experience-transition">
 
-				<div v-if="cinemaIsReady"
+				<div v-show="cinemaIsReady" 
 					class="button-experience-ready"
 					@click="$parent.isAtEntrance = false"
 				>
@@ -114,7 +112,7 @@
 				background-color: rgba(255,255,255,0.05);
 				backdrop-filter: blur(5px);
 				// margin: 2rem auto 0 auto;
-				margin-top: 2rem;
+				margin-top: 1rem;
 				padding: 0.5rem 0;
 				border-radius: 0.5rem;
 				color: white;
@@ -123,40 +121,75 @@
 				overflow: hidden;
                 border: solid 1px rgba(255,255,255,0.05);
 
-				transform: translateY(0px);
+				top: 0;
+
+				
+			}
+
+			&-loading,
+			&-ready {
+				border-radius: 0 0 5rem 5rem;
+				padding-bottom: 0.75rem;
 			}
 
 			&-loading {
 				width: 16rem;
 				left: calc(50% - 8rem);
+				cursor: progress;
 			}
-
+			
 			&-ready {
-				width: 8rem;
-				left: calc(50% - 4rem);
+				font-size: 1.75rem;
+				width: 10rem;
+				left: calc(50% - 5rem);
+				cursor: pointer;
+
+				transition: background-color .15s;
+
+				animation: startAnimation 3s infinite;
+
+				&:hover {
+					background-color: rgba(255,255,255,0.25);
+				}
 			}
 
 			&-transition {
 
 				&-enter-active,
 				&-leave-active {
-					transition: all 1s ease;
+					transition: opacity .4s ease,
+								top .4s ease;
 				}
 
 				&-enter-from,
 				&-leave-to {
 					opacity: 0;
-					transform: translateY(50px);
+					top: 50px;
 				}
 
 			}
+
 		}
 
+	}
+
+	@keyframes startAnimation {
+		0%, 100% {
+			// background-color: rgba(255,255,255,0.15);
+			border: solid 1px rgba(255,255,255,0.3);
+		}
+
+		25% {
+			// background-color: rgba(255,255,255,0.35);
+			border: solid 1px rgba(255,255,255,1);
+		}
 	}
 
 	.loader-one {
 		height: 1rem;
 		opacity: 0.3;
 	}
+
+
 
 </style>

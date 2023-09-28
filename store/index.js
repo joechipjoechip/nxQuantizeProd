@@ -7,9 +7,6 @@ export const state = () => ({
 	audioBase: null,
 	audioEndOne: null,
 	audioEndTwo: null,
-	audioLoopNeutral: null,
-	audioLoopDrumOne: null,
-	audioLoopDrumTwo: null,
 	badComputer: false,
 	veryBadComputer: false,
 	currentChoice: null,
@@ -81,18 +78,6 @@ export const mutations = {
 			payload.playsInline = true;
 		}
 		state.audioEndTwo = payload
-	},
-
-	setAudioLoopNeutral(state, payload){
-		state.audioLoopNeutral = payload
-	},
-
-	setAudioLoopDrumOne(state, payload){
-		state.audioLoopDrumOne = payload
-	},
-
-	setAudioLoopDrumTwo(state, payload){
-		state.audioLoopDrumTwo = payload
 	},
 
 	setAudioTimecode(state, payload){

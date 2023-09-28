@@ -6,7 +6,7 @@ const core = {
 			shadow: false
 		},
 
-		stats: false,
+		stats: true,
 		buttons: true
 	},
 

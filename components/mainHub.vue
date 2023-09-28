@@ -7,7 +7,13 @@
 
         <div class="artist-box">
 
-            <div class="artist-name font-medium artist-item font01" :style="{ opacity: hubOpacity }">
+            <div class="artist-name font-medium artist-item font01" 
+                :style="{ opacity: hubOpacity }"
+                @mouseenter="itemsActive = true"
+                @mouseleave="itemsActive = false"
+            >
+
+                <p class="caption font-small">an album by</p>
 
                 <h3>NxQuantize</h3>
 
@@ -27,7 +33,13 @@
 
             <!-- <p class="artist-spacer">&</p> -->
 
-            <div class="artist-name font-medium artist-item font01" :style="{ opacity: hubOpacity }">
+            <div class="artist-name font-medium artist-item font01" 
+                :style="{ opacity: hubOpacity }"
+                @mouseenter="itemsActive = true"
+                @mouseleave="itemsActive = false"
+            >
+
+                <p class="caption font-small">an interactive experience by</p>
 
                 <h3>Lionel Orsini</h3>
 
@@ -43,7 +55,13 @@
 
         <p class="font-small sentence">for</p>
 
-        <div class="label-box label-item font-medium" :style="{ opacity: hubOpacity }">
+        <div class="label-box label-item font-medium" 
+            :style="{ opacity: hubOpacity }"
+            @mouseenter="itemsActive = true"
+            @mouseleave="itemsActive = false"
+        >
+
+            <p class="caption font-small">presented by</p>
 
             <h3 class="font01">Omakase Recordings</h3>
 
@@ -83,12 +101,17 @@
         },
         data(){
             return {
-                mousePos: { x:0, y:0 }
+                mousePos: { x:0, y:0 },
+                itemsActive: false
             }
         },
         computed: {
             hubOpacity(){
-                return this.$store.state.isMobile ? 1 : 1 - Math.max(Math.abs(this.mousePos.x) + 0.12, Math.abs(this.mousePos.y) + 0.12);
+                if( this.$store.state.isMobile ){
+                    return 1;
+                } else {
+                    return this.itemsActive ? 1 : 1 - Math.max(Math.abs(this.mousePos.x) * 1.2, Math.abs(this.mousePos.y) * 1.2);
+                }
             }
         },
         mounted(){
@@ -114,8 +137,8 @@
         color: white;
         text-align: center;
         position: relative;
-        width: 100%;
-        max-width: 700px;
+        width: 100vw;
+        max-width: 750px;
         margin: 0 auto;
 
         --vertical-spacing: 1rem;
@@ -154,17 +177,23 @@
             }
         }
 
-        h3 {
-            margin-bottom: 0.5rem;
+        h3, .caption {
+            margin-bottom: 0.15rem;
         }
 
         .title {
             // opacity: 0.2;
-            color: rgba(255,255,255,0.25);
-            text-shadow: 0 0 35px rgba(255,255,255,1);
+            color: rgba(255,255,255,1);
+            text-shadow: 0 0 25px rgba(255,255,255,1);
             text-transform: uppercase;
+            font-family: "Times Now" !important;
         }
-    
+        
+        .caption {
+            font-family: "Times Now" !important;
+            opacity: 0.7;
+        }
+
         .artist {
     
             &-box {
@@ -223,12 +252,22 @@
         .label {
             &-item {
                 display: inline-block;
-                padding: 1rem 0;
-                border-radius: 2rem 0;
+                padding: 1rem 0 0.5rem 0;
                 backdrop-filter: blur(12px);
                 overflow: hidden;
+                background-color: rgba(255,255,255,0.05);
     
-                border: solid 1px rgba(255,255,255,0.05);
+                border: solid 1px rgba(255,255,255,0.4);
+
+                transition: opacity .2s;
+
+                &:nth-child(1){
+                    border-radius: 0 5rem 0 7rem;
+                }
+
+                &:nth-child(2){
+                    border-radius: 5rem 0 7rem 0;
+                }
 
                 @media #{$mobile} {
                     border-radius: 1rem;
@@ -241,6 +280,10 @@
                 // letter-spacing: 0.1rem;
                 font-weight: 100;
             }
+        }
+
+        .label-item {
+            border-radius: 0 0 12rem 12rem;
         }
     
         .sentence {

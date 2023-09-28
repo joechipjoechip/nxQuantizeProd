@@ -43,12 +43,12 @@
 			<div class="final-hub--inner" :class="{ 'active': displayFinalHubActive }">
 				<main-hub />
 
-				<button
-					@click="replayExperience"
-					class="replay-button"
+				<div
+					@click="restartExperience"
+					class="restart-button"
 				>
-					Replay Experience
-				</button>
+					Restart Experience
+				</div>
 			</div>
 
 			
@@ -126,6 +126,12 @@
 			"$store.state.audioBase"(){
 				this.checkIfAllIsLoaded();
 			},
+			"$store.state.audioEndOne"(){
+				this.checkIfAllIsLoaded();
+			},
+			"$store.state.audioEndTwo"(){
+				this.checkIfAllIsLoaded();
+			},
 
 			allIsLoaded( newVal ){
 				if( newVal ){
@@ -191,7 +197,7 @@
 		},
 
 		methods: {
-			replayExperience(){
+			restartExperience(){
 				window.location.reload();
 			},
 
@@ -425,8 +431,36 @@ button {
 
 }
 
-.replay-button {
-	border: solid 5px green;
+.restart-button {
+	font-family: 'Neue Haas Grotesk Text';
+	margin: 0 auto;
+	text-align: center;
+    width: 16rem;
+    margin-top: 1rem;
+    padding: 0.75rem;
+    border-radius: 0 0 12rem 12rem;
+    background-color: rgba(255,255,255,0.05);
+
+	cursor: pointer;
+	transition: background-color .15s;
+
+	animation: startAnimation 3s infinite;
+
+	&:hover {
+		background-color: rgba(255,255,255,0.15);
+	}
+}
+
+@keyframes startAnimation {
+	0%, 100% {
+		// background-color: rgba(255,255,255,0.15);
+		border: solid 1px rgba(255,255,255,0.05);
+	}
+
+	25% {
+		// background-color: rgba(255,255,255,0.35);
+		border: solid 1px rgba(255,255,255,0.65);
+	}
 }
 
 </style>
