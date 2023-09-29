@@ -1,8 +1,5 @@
 <template>
 	<div>
-		<p>
-			your computer score is
-		</p>
 
 		<div class="rank" :style="{ 'color': color }">
 		
@@ -29,18 +26,22 @@
 		<div class="recommandation">
 
 			<div v-if="!$store.state.badComputer && !$store.state.veryBadComputer">
-				<p>Your computer is ready to handle</p>
+				<p>Your device is ready to handle.</p>
+				<p>Enjoy !</p>
 			</div>
 
 			<div v-if="$store.state.badComputer">
-				<p>Your computer could be overloaded from time to time</p>
+				<p>Your device could be overloaded from time to time</p>
+				<p>May be you would watch the video instead</p>
+				<a href="http://www.youtube.com" target="_blank">
+					Click here to see the video version
+				</a>
 			</div>
 
 			<div v-if="$store.state.veryBadComputer">
-				<p>Your computer will struggle with the interactive experience :/<br>
-				May be you should watch the captured video instead ;)</p>
+				<p>Sorry but your device will struggle with the interactive experience</p>
 				<a href="http://www.youtube.com" target="_blank">
-					Click here to see the non-interactive videoclip
+					Click here to see the video version
 				</a>
 			</div>
 
@@ -90,7 +91,7 @@ export default {
 
 	.i {
 		font-family: "Iconify Explorer Font" !important;
-		font-size: 1em;
+		font-size: 1.5em;
 		font-style: normal;
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
@@ -103,5 +104,14 @@ export default {
 
 	.i.ic\:round-star-border:before {
 		content: "\e002";
+	}
+
+	p {
+		margin: 0.25rem auto 0.5rem auto;
+	}
+
+	a {
+		color: white;
+		// font-weight: bold;
 	}
 </style>

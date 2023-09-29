@@ -8,32 +8,35 @@
 		<benchmark-ui />
 
 		<!-- <p @click="cinemaIsReady = !cinemaIsReady">toggle</p> -->
+		<transition name="button-experience-transition">
 
-		<div class="button-experience-container" v-if="benchmarkIsDone">
+			<div class="button-experience-container" v-if="benchmarkIsDone">
 
-			<transition name="button-experience-transition">
+				<transition name="button-experience-transition">
 
-				<div v-if="!cinemaIsReady" 
-					class="button-experience-loading"
-				>
-					<loader-one class="loader-one"/>
-					Loading ({{ $store.state.assetsLoadCount }}/5)
-				</div>
+					<div v-if="!cinemaIsReady" 
+						class="button-experience-loading"
+					>
+						<loader-one class="loader-one"/>
+						Loading ({{ $store.state.assetsLoadCount }}/5)
+					</div>
 
-			</transition>
+				</transition>
 
-			<transition name="button-experience-transition">
+				<transition name="button-experience-transition">
 
-				<div v-if="cinemaIsReady" 
-					class="button-experience-ready"
-					@click="$parent.isAtEntrance = false"
-				>
-					Start
-				</div>
+					<div v-if="cinemaIsReady" 
+						class="button-experience-ready"
+						@click="$parent.isAtEntrance = false"
+					>
+						Start
+					</div>
 
-			</transition>
+				</transition>
 
-		</div>
+			</div>
+
+		</transition>
 		
 	</div>
 </template>
@@ -112,7 +115,8 @@
 				display: block;
 				position: absolute;
 				background-color: rgba(255,255,255,0.05);
-				backdrop-filter: blur(5px);
+				-webkit-backdrop-filter: blur(12px);
+				backdrop-filter: blur(12px);
 				// margin: 2rem auto 0 auto;
 				margin-top: 0.65rem;
 				padding: 0.5rem 0;
@@ -123,7 +127,7 @@
 				overflow: hidden;
                 border: solid 1px rgba(255,255,255,0.05);
 
-				top: 0;
+				transform: translateY(0);
 
 				
 			}
@@ -157,16 +161,26 @@
 
 			&-transition {
 
-				&-enter-active,
-				&-leave-active {
+				&-enter-active {
 					transition: opacity .4s ease,
-								top .4s ease;
+								transform .4s ease;
+				}
+
+				&-leave-active {
+					transition: opacity .7s ease,
+								transform .7s ease;
 				}
 
 				&-enter-from,
 				&-leave-to {
 					opacity: 0;
-					top: 50px;
+					transform: translateY(50px);
+				}
+
+				&-enter,
+				&-leave {
+					opacity: 0 !important;
+					transform: translateY(50px) !important;
 				}
 
 			}

@@ -7,12 +7,13 @@
 			</p>
 		</div>
 
+
 		<div v-if="isAtEntrance" v-show="isAtEntrance && backgroundIsLaunched">
-
+			
 			<index-body class="body" />
-	
+			
 			<component :is="'indexBackground'" class="background" :canvasSizeRef="canvasSizeRef" />
-
+			
 		</div>
 
 		<div v-if="!primalCurtainIsDisplayed && backgroundIsLaunched && benchmarkIsOver" v-show="!isAtEntrance">
@@ -128,6 +129,26 @@
 
 		// temp for the "animation button"
 		top: 20px;
+	}
+
+	.main-transition {
+		&-enter-active {
+            transition: all 2s ease;
+        }
+
+        &-leave-active {
+            transition: all 2s ease;
+        }
+
+        &-enter-from,
+        &-leave-to {
+            opacity: 0;
+        }
+
+        &-enter,
+        &-leave{
+            opacity: 0 !important;
+        }
 	}
 
 </style>

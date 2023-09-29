@@ -2591,10 +2591,7 @@ const worlds = [
 							threshold: 0.0035,
 							radius: 0.85
 						}
-					},
-					{
-						type: "glitch"
-					},
+					}
 				]
 
 			},

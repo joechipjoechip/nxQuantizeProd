@@ -2,15 +2,15 @@
     <div class="benchmark-wrapper">
 
         <transition name="benchmark-transition" mode="out-in">
-            <div v-if="isStarted && !isDone" class="benchmark-started">
-                is benchmarking ...
-            </div>
-        <!-- </transition>
 
-        <transition name="benchmark-transition"> -->
+            <div v-if="isStarted && !isDone" class="benchmark-started">
+                Testing your device performances ..
+            </div>
+
             <div v-if="!isStarted && isDone && showScore" class="benchmark-done">
                 <benchmark-score />       
             </div>
+
         </transition>
 
     </div>
@@ -47,7 +47,7 @@ export default {
 
         setTimeout(() => {
             this.$nuxt.$emit("please-start-benchmark", {});
-        }, 2000);
+        }, 3000);
 
     },
     beforeDestroy(){
@@ -112,14 +112,15 @@ export default {
     &-done {
     // &-wrapper {
         position: absolute;
-        bottom: 2vh;
+        top: 2vh;
         left: 2vh;
-        width: 15vw;
+        // width: 20vw;
+        padding:  0.5rem 1.25rem;
         // opacity: 1;
 
-        border-radius: 8px;
-        background-color: rgba(255,255,255,0.05);
-        border: solid 1px rgba(255,255,255,0.05);
+        border-radius: 0 4rem;
+        background-color: rgba(255,255,255,0.1);
+        border: solid 1px rgba(255,255,255,0.4);
 
         display: flex;
         flex-flow: column nowrap;
@@ -148,13 +149,13 @@ export default {
         &-enter-from,
         &-leave-to {
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(-30px);
         }
 
         &-enter,
         &-leave{
             opacity: 0 !important;
-            transform: translateY(30px) !important;
+            transform: translateY(-30px) !important;
         }
 
     }
