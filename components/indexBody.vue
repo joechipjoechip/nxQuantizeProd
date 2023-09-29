@@ -9,7 +9,7 @@
 
 		<!-- <p @click="cinemaIsReady = !cinemaIsReady">toggle</p> -->
 
-		<div class="button-experience-container">
+		<div class="button-experience-container" v-if="benchmarkIsDone">
 
 			<transition name="button-experience-transition">
 

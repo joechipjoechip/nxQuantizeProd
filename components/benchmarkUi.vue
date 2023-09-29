@@ -1,14 +1,14 @@
 <template>
     <div class="benchmark-wrapper">
 
-        <transition name="benchmark-transition">
-            <div v-show="isStarted" class="benchmark-started">
+        <transition name="benchmark-transition" mode="out-in">
+            <div v-if="isStarted && !isDone" class="benchmark-started">
                 is benchmarking ...
             </div>
-        </transition>
+        <!-- </transition>
 
-        <transition name="benchmark-transition">
-            <div v-show="isDone" class="benchmark-done">
+        <transition name="benchmark-transition"> -->
+            <div v-if="!isStarted && isDone && showScore" class="benchmark-done">
                 <benchmark-score />       
             </div>
         </transition>
@@ -28,12 +28,27 @@ export default {
         return {
             isStarted: false,
             isDone: false,
-            failCount: 0
+            failCount: 0,
+            showScore: true
+        }
+    },
+    watch: {
+        isDone( newVal ){
+            if( newVal && !this.$store.state.badComputer && !this.$store.state.veryBadComputer ){
+                setTimeout(() => {
+                    this.showScore = false;
+                }, 3000);
+            }
         }
     },
     mounted(){
         this.$nuxt.$on("benchmark-is-started", this.handleBenchmarkStarted);
         this.$nuxt.$on("benchmark-is-done", this.handleBenchmarkDone);
+
+        setTimeout(() => {
+            this.$nuxt.$emit("please-start-benchmark", {});
+        }, 2000);
+
     },
     beforeDestroy(){
         this.$nuxt.$off("benchmark-is-started", this.handleBenchmarkStarted);
@@ -92,13 +107,15 @@ export default {
 @import "./assets/style/variables.scss";
 
 .benchmark {
-    
-    &-wrapper {
+
+    &-started,
+    &-done {
+    // &-wrapper {
         position: absolute;
         bottom: 2vh;
         left: 2vh;
         width: 15vw;
-        opacity: 1;
+        // opacity: 1;
 
         border-radius: 8px;
         background-color: rgba(255,255,255,0.05);
@@ -110,6 +127,8 @@ export default {
         align-items: center;
         transform: translateY(0px);
 
+        will-change: opacity, transform;
+
         @media #{$mobile} {
             bottom: unset;
             top: 2vh;
@@ -118,15 +137,24 @@ export default {
 
     &-transition {
 
-        &-enter-active,
+        &-enter-active {
+            transition: all 0.7s ease;
+        }
+
         &-leave-active {
-            transition: all .5s ease;
+            transition: all 0.3s ease;
         }
 
         &-enter-from,
         &-leave-to {
             opacity: 0;
             transform: translateY(30px);
+        }
+
+        &-enter,
+        &-leave{
+            opacity: 0 !important;
+            transform: translateY(30px) !important;
         }
 
     }

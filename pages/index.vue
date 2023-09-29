@@ -67,7 +67,7 @@
 
 					this.primalCurtainIsDisplayed = false
 
-					this.$nuxt.$emit("please-start-benchmark", {})
+					// this.$nuxt.$emit("please-start-benchmark", {})
 
 				}
 				
