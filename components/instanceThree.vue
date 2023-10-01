@@ -97,9 +97,7 @@
 				endingIsStarted: false,
 				endingSelected: "",
 				// composerIsAllowed: true,
-
-				endFlyPrayTimer: 16.5,
-				endChoiceTimer: 43.43,
+				
 				finishTimeCode: 0,
 				finalHubDelay: 18,
 				finalCurtainDelay: 45,

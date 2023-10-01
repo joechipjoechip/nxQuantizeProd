@@ -37,7 +37,7 @@ export default {
             if( newVal && !this.$store.state.badComputer && !this.$store.state.veryBadComputer ){
                 setTimeout(() => {
                     this.showScore = false;
-                }, 3000);
+                }, 9000);
             }
         }
     },

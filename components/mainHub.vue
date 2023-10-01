@@ -13,7 +13,7 @@
                 @mouseleave="itemsActive = false"
             >
 
-                <p class="caption font-small">an album by</p>
+                <p class="caption font-small">An album by</p>
 
                 <h3>NxQuantize</h3>
 
@@ -35,7 +35,7 @@
                 @mouseleave="itemsActive = false"
             >
 
-                <p class="caption font-small">an interactive experience by</p>
+                <p class="caption font-small">An interactive experience by</p>
 
                 <h3>Lionelu.js</h3>
 
@@ -57,7 +57,7 @@
             @mouseleave="itemsActive = false"
         >
 
-            <p class="caption font-small">presented by</p>
+            <p class="caption font-small">Presented by</p>
 
             <h3 class="font01">Omakase Recordings</h3>
 
