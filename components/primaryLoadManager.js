@@ -48,16 +48,30 @@ class PrimaryLoadManager{
 			
 		});
 
-		this._InitSounds()
+		this._InitSounds();
 
 	}
 
 	_InitSounds(){
+		const audioBase = new Audio(soundBase);
+		const audioEndOne = new Audio(soundEndOne);
+		const audioEndTwo = new Audio(soundEndTwo);
 
-		this.vm.$store.commit("setAudioBase", new Audio(soundBase));
-		this.vm.$store.commit("setAudioEndOne", new Audio(soundEndOne));
-		this.vm.$store.commit("setAudioEndTwo", new Audio(soundEndTwo));
-		
+		audioBase.addEventListener("canplaythrough", () => {
+			this.vm.$store.commit("setAudioBase", audioBase);
+			audioBase.removeEventListener("canplaythrough", () => {});
+		});
+
+		audioEndOne.addEventListener("canplaythrough", () => {
+			this.vm.$store.commit("setAudioEndOne", audioEndOne);
+			audioEndOne.removeEventListener("canplaythrough", () => {});
+		});
+
+		audioEndTwo.addEventListener("canplaythrough", () => {
+			this.vm.$store.commit("setAudioEndTwo", audioEndTwo);
+			audioEndTwo.removeEventListener("canplaythrough", () => {});
+		});
+
 	}
 
 	_InitBobs(){
