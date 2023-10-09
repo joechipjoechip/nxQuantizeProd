@@ -48,27 +48,22 @@ class ThirdPersonCamera {
 
 		const tl = new TimelineLite();
 
-		tl.to(animatedObject, 0.75, {
-			ratio: 15,
+		tl.to(animatedObject, 0.15, {
+			ratio: 10,
 			ease: "linear",
 			onUpdate( that ){
-				console.log("animated object ratio : ", animatedObject.ratio)
 				that._ratioAcceleration = animatedObject.ratio;
 			},
 			onUpdateParams: [this],
-			onComplete( that ){
-				console.log("onComplete")
+			onComplete(tl){
 				tl.reverse()
-				// that._ratioAcceleration = 1;
-				// that._accelerationRunning = false;
 			},
-			onCompleteParams: [this, tl],
-			onReverseComplete(that, tl){
+			onCompleteParams: [tl],
+			onReverseComplete(that){
 				console.log("onReverseComplete")
-
 				setTimeout(() => {
 					that._accelerationRunning = false;
-				}, 1500)
+				}, Math.random() * 4000)
 			},
 			onReverseCompleteParams: [this]
 
@@ -87,17 +82,14 @@ class ThirdPersonCamera {
 				if( !this._accelerationRunning ){
 					this._animateAccelerationRatio()
 				}
-
-				console.log("camera accelerated spotted")
 				
 				idealOffset = new THREE.Vector3(
-					this._specs.offset.x + (Math.sin(timeElapsed * this._ratioAcceleration * this._specs.motion.x.velocity) * this._specs.motion.x.range),
-					this._specs.offset.y + (Math.sin(timeElapsed * this._ratioAcceleration * this._specs.motion.y.velocity) * this._specs.motion.y.range),
-					this._specs.offset.z + (Math.abs((Math.sin(timeElapsed * this._ratioAcceleration * this._specs.motion.z.velocity)) * -1) * this._specs.motion.z.range)
+					this._specs.offset.x + (Math.sin(timeElapsed) * this._ratioAcceleration * this._specs.motion.x.velocity * this._specs.motion.x.range),
+					this._specs.offset.y + (Math.sin(timeElapsed) * this._ratioAcceleration * this._specs.motion.y.velocity * this._specs.motion.y.range),
+					this._specs.offset.z + (Math.abs((Math.sin(timeElapsed) * this._ratioAcceleration * this._specs.motion.z.velocity)) * -1 * this._specs.motion.z.range)
 				);
 
 			} else {
-				console.log("camera accelerated not spotted : ", this)
 
 				idealOffset = new THREE.Vector3(
 					this._specs.offset.x + (Math.sin(timeElapsed * this._specs.motion.x.velocity) * this._specs.motion.x.range),

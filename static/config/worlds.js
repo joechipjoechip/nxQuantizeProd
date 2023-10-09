@@ -436,7 +436,7 @@ const worlds = [
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 3,
-				cameraType: "movingHips-link-edge-accelerated",
+				cameraType: "movingHips-link-edge",
 
 				until: 28.5,
 				nextInstruction: "drop-and-load-and-switch",
@@ -1203,7 +1203,7 @@ const worlds = [
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 6,
-				cameraType: "movingHips-lookUp-accelerated",
+				cameraType: "movingHips-lookUp",
 
 				// drop du run ! timer
 				until: 56.7,
