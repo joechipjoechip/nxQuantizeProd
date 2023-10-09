@@ -698,7 +698,7 @@
 
             tweenBuilder( tweenName, valueToAnimateString, startingValue, endingValue, duration, ease, callback ){
 
-                 const animatedObject = {
+                const animatedObject = {
                     x: startingValue
                 };
 

@@ -6,8 +6,8 @@ const core = {
 			shadow: false
 		},
 
-		stats: false,
-		buttons: false
+		stats: true,
+		buttons: true
 	},
 
 	mouse: {
@@ -151,7 +151,43 @@ const core = {
 					range: -0.055,
 					velocity: 0.1
 				},
+			}
+		},
+		"movingHips-link-edge-accelerated": {
+			offset: {
+				x: 0.03,
+				y: 0.01,
+				z: -0.035
 			},
+			lookAt: {
+				x: 0,
+				y: 0.03,
+				z: 0.01
+			},
+			straightness: 0.1,
+			mouseOrientationPonderation: {
+				x: 0.045,
+				y: 0.028
+			},
+			motion: {
+				// motion will move the camera continuously
+				// with a sin() (so -1 to 1)
+				// and it's related at the offset values
+				x: {
+					// ratios
+					range: -0.05,
+					velocity: 0.45
+				},
+				y: {
+					range: 0.001,
+					velocity: 0.4
+				},
+				z: {
+					range: -0.055,
+					velocity: 0.1
+				},
+			},
+			// acceleration: true
 		},
 		"movingHips-lookUp": {
 			offset: {
@@ -187,6 +223,42 @@ const core = {
 					velocity: 0.2
 				},
 			},
+		},
+		"movingHips-lookUp-accelerated": {
+			offset: {
+				x: 0,
+				y: 0.0001,
+				z: -0.035
+			},
+			lookAt: {
+				x: 0,
+				y: 0.03,
+				z: 0.06
+			},
+			straightness: 0.015,
+			mouseOrientationPonderation: {
+				x: 0.015,
+				y: 0.026
+			},
+			motion: {
+				// motion will move the camera continuously
+				// with a sin() (so -1 to 1)
+				// and it's related at the offset values
+				x: {
+					// ratios
+					range: 0.07,
+					velocity: 0.01
+				},
+				y: {
+					range: 0,
+					velocity: 0.1
+				},
+				z: {
+					range: 0.22,
+					velocity: 0.1
+				},
+			},
+			acceleration: true
 		},
 		"movingHips-lookUp-choice": {
 			offset: {
@@ -301,7 +373,7 @@ const core = {
 					range: -0.4,
 					velocity: 0.25
 				},
-			},
+			}
 		},
 		"helmet-low-leave-house": {
 			offset: {

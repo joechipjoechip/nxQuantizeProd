@@ -109,7 +109,7 @@
 
 				debug: {
 					animated: true,
-					firstPart: 0,
+					firstPart: 34,
 					end: false,
 					finish: false
 				},

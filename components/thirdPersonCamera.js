@@ -1,6 +1,7 @@
 import { core } from '@/static/config/core.js';
 
 import * as THREE from 'three';
+import { TimelineLite } from 'gsap';
 
 class ThirdPersonCamera {
 
@@ -18,6 +19,9 @@ class ThirdPersonCamera {
 		this._currentLookat = new THREE.Vector3();
 		this._raycaster = new THREE.Raycaster();
 		this._raycasterDirection = new THREE.Vector3(0,-1,0);
+
+		this._ratioAcceleration = 1;
+		this._accelerationRunning = false;
 		
 		this._raycaster.set(
 			new THREE.Vector3(
@@ -31,6 +35,46 @@ class ThirdPersonCamera {
 
 		this._camera.name = `third-person-camera_${this._name}`;
 	}
+
+	_animateAccelerationRatio(){
+
+		console.log("tween acceleration triggered")
+
+		this._accelerationRunning = true;
+
+		const animatedObject = {
+			ratio: 1
+		};
+
+		const tl = new TimelineLite();
+
+		tl.to(animatedObject, 0.75, {
+			ratio: 15,
+			ease: "linear",
+			onUpdate( that ){
+				console.log("animated object ratio : ", animatedObject.ratio)
+				that._ratioAcceleration = animatedObject.ratio;
+			},
+			onUpdateParams: [this],
+			onComplete( that ){
+				console.log("onComplete")
+				tl.reverse()
+				// that._ratioAcceleration = 1;
+				// that._accelerationRunning = false;
+			},
+			onCompleteParams: [this, tl],
+			onReverseComplete(that, tl){
+				console.log("onReverseComplete")
+
+				setTimeout(() => {
+					that._accelerationRunning = false;
+				}, 1500)
+			},
+			onReverseCompleteParams: [this]
+
+		})
+
+	}
   
 	_CalculateIdealOffset( timeElapsed ){
 
@@ -38,11 +82,31 @@ class ThirdPersonCamera {
 
 		if( this._specs.motion ){
 
-			idealOffset = new THREE.Vector3(
-				this._specs.offset.x + (Math.sin(timeElapsed * this._specs.motion.x.velocity) * this._specs.motion.x.range),
-				this._specs.offset.y + (Math.sin(timeElapsed * this._specs.motion.y.velocity) * this._specs.motion.y.range),
-				this._specs.offset.z + (Math.abs((Math.sin(timeElapsed * this._specs.motion.z.velocity)) * -1) * this._specs.motion.z.range)
-			);
+			if( this._specs.acceleration ){
+
+				if( !this._accelerationRunning ){
+					this._animateAccelerationRatio()
+				}
+
+				console.log("camera accelerated spotted")
+				
+				idealOffset = new THREE.Vector3(
+					this._specs.offset.x + (Math.sin(timeElapsed * this._ratioAcceleration * this._specs.motion.x.velocity) * this._specs.motion.x.range),
+					this._specs.offset.y + (Math.sin(timeElapsed * this._ratioAcceleration * this._specs.motion.y.velocity) * this._specs.motion.y.range),
+					this._specs.offset.z + (Math.abs((Math.sin(timeElapsed * this._ratioAcceleration * this._specs.motion.z.velocity)) * -1) * this._specs.motion.z.range)
+				);
+
+			} else {
+				console.log("camera accelerated not spotted : ", this)
+
+				idealOffset = new THREE.Vector3(
+					this._specs.offset.x + (Math.sin(timeElapsed * this._specs.motion.x.velocity) * this._specs.motion.x.range),
+					this._specs.offset.y + (Math.sin(timeElapsed * this._specs.motion.y.velocity) * this._specs.motion.y.range),
+					this._specs.offset.z + (Math.abs((Math.sin(timeElapsed * this._specs.motion.z.velocity)) * -1) * this._specs.motion.z.range)
+				);
+
+			}
+
 
 		} else {
 
