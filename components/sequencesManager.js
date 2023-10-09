@@ -89,13 +89,13 @@ class SequencesManager{
 
 		}, 100);
 
-		console.log("----> from / to / sceneBundle", oldSequenceID, newSequenceID, this.sceneBundlePassed)
+		// console.log("----> from / to / sceneBundle", oldSequenceID, newSequenceID, this.sceneBundlePassed)
 
 	}
 
 	updateCommonsValues(){
 
-		console.log("dans sequenceManager : this : ", this);
+		// console.log("dans sequenceManager : this : ", this);
 
 		this.currentBobName = this.currentSequenceElements.sequenceBobName;
 
