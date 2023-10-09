@@ -55,7 +55,7 @@
                     pointLight2: ["#ffa500", 0.3],
                     pointLightBasePosition2: [0, 0, -3],
                     
-                    perspectiveCamera: [55, window.innerWidth / window.innerHeight, 0.1, 20],
+                    perspectiveCamera: [55, window.innerWidth / window.innerHeight, 0.1, 13],
                     perspectiveCameraBasePosition: [0,0,3.5],
 
                     render: {
