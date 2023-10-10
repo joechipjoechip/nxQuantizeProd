@@ -740,6 +740,7 @@ canvas {
   // left: 0;
   outline: none;
   pointer-events: all;
+  cursor: none;
 }
 
 p {

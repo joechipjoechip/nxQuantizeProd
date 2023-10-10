@@ -372,15 +372,17 @@ button {
 	width: 100%;
 	height: 100%;
 	background-color: #000;
-	transition: opacity 1s ease;
 	will-change: opacity;
 	opacity: 0;
 	pointer-events: none;
-
+	
+	transition: opacity 0.4s ease;
+	
 	&.long {
-		transition: opacity 3s ease;
+		transition: opacity 1s ease;
 	}
 	&.verylong {
+		background-color: #FFF;
 		transition: opacity 6s ease !important;
 	}
 
