@@ -2,9 +2,7 @@
 	<div class="app-wrapper">
 
 		<div class="primal-curtain" v-if="!backgroundIsLaunched && primalCurtainIsDisplayed">
-			<p>
-				Loading de la baaase ...
-			</p>
+			<basic-loader />
 		</div>
 
 
@@ -25,10 +23,12 @@
 
 <script>
 	import IndexBody from '@/components/indexBody.vue';
+	import BasicLoader from "@/components/micro/basicLoader.vue";
 
 	export default {
   		components: { 
-			"index-body": IndexBody 
+			"index-body": IndexBody,
+			"basic-loader": BasicLoader
 		},
 		data(){
 			return {
@@ -98,14 +98,14 @@
 		width: 100%;	
 		height: 100%;
 		position: relative;
+		background-color: #FFF;
 	}
 	
 	.primal-curtain {
 		width: 100%;	
 		height: 100vh;
 		position: relative;
-		background-color: white;
-		color: green;
+		background-color: #000;
 
 		display: flex;
 		flex-flow: column nowrap;
