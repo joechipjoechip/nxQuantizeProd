@@ -692,6 +692,7 @@
 					// activer le final hub
 					console.log("please reload");
 
+					this.$parent.finishIsOver = true;
 					this.$parent.curtainActive = true;
 
 					setTimeout(() => {

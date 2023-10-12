@@ -11,7 +11,8 @@
 			:class="{ 
 				active: curtainActive,
 				'long': longCurtainSequences.includes(sequenceID),
-				'verylong': isFinishScene || finishIsOver
+				'verylong': isFinishScene && !finishIsOver,
+				'verylongfinal': isFinishScene && finishIsOver
 			}"
 		></div>
 
@@ -383,6 +384,9 @@ button {
 	}
 	&.verylong {
 		background-color: #FFF;
+		transition: opacity 6s ease !important;
+	}
+	&.verylongfinal {
 		transition: opacity 6s ease !important;
 	}
 
