@@ -1652,7 +1652,7 @@ const worlds = [
 					shift: true,
 				},
 
-				slowmo: 1.4,
+				slowmo: 0.8,
 
 				postproc: [
 
@@ -1664,6 +1664,9 @@ const worlds = [
 							radius: 0.07
 						}
 					},
+					{
+						type: "glitch"
+					}
 					// {
 					// 	type: "blur",
 					// 	focusTarget: "marie",
@@ -1686,7 +1689,7 @@ const worlds = [
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 5,
-				cameraType: "movingHips",
+				cameraType: "movingHips-lookUp",
 
 				until: 137.2,
 				nextInstruction: "switch-sequence",
@@ -2010,9 +2013,9 @@ const worlds = [
 			spaceColorWithBloom: "#000000",
 
 			ambient: {
-				sunColor: "#ffffff",
+				sunColor: "#000000",
 				// intensity: 0.17,
-				intensity: 0.27,
+				intensity: 0.1,
 				groundColor: "#ffffff"
 			},
 

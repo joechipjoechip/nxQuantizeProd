@@ -191,7 +191,7 @@
 
 			"$store.state.downScale"(newVal){
 
-				console.log("downscale watcher triggered : ", newVal);
+				// console.log("downscale watcher triggered : ", newVal);
 
 				const newWidth = window.innerWidth / this.$store.state.downScale;
 				const newHeight = window.innerHeight / this.$store.state.downScale;
@@ -379,7 +379,7 @@
 
 			switchScene( newSceneAndSequenceID ){
 
-				console.log("newsceneAndSequenceID : ", newSceneAndSequenceID);
+				// console.log("newsceneAndSequenceID : ", newSceneAndSequenceID);
 
 				if( this.sceneBundle.current.name === this.sceneBundle.primary.name ){
 
@@ -616,22 +616,15 @@
 			
 			startLoops(){
 
-				console.log("startLoops triggered");
-
 				this.loopIsAsked = true;
 
 				this.$store.state.audioEndOne.play().then().catch((err) => console.log("err : ", err));;
-				
 				this.$store.state.audioEndTwo.play().then().catch((err) => console.log("err : ", err));;
 
-				
-				console.log("loops volumes");
 				this.$store.state.audioEndOne.muted = false;
 				this.$store.state.audioEndTwo.muted = true;
 
 				this.$store.commit("setAudioCurrent", this.$store.state.audioEndOne);
-				
-
 				
 				setTimeout(()=>{
 					this.$store.commit("setAudioBase", null);
@@ -643,20 +636,15 @@
 
 				}, 3500);
 
-
 			},
 
 			handleFinishScene(){
 
-				console.log("handleFinishScene well triggered")
-
 				this.finishIsStarted = true;
 
 				this.dropScene("primary");
-
 				this.dropScene("secondary");
 
-				
 				this.createBundle(this.worlds.length - 1, "primary").then(() => {
 					this.skeleton.current = this.skeleton.primary;
 					this.handleFinishExceptions();
@@ -681,7 +669,7 @@
 
 				setTimeout(() => {
 					// activer le final hub
-					console.log("display final hub");
+					// console.log("display final hub");
 					this.$parent.displayFinalHub = true;
 
 					setTimeout(() => this.$parent.displayFinalHubActive = true, 1000)
@@ -689,8 +677,8 @@
 				}, this.finalHubDelay * 1000)
 
 				setTimeout(() => {
-					// activer le final hub
-					console.log("please reload");
+					// activer le final curtain
+					// console.log("please reload");
 
 					this.$parent.finishIsOver = true;
 					this.$parent.curtainActive = true;
@@ -707,22 +695,10 @@
 			adjustDownscaleForFinish(){
 
 				if( this.$store.state.badComputer || this.$store.state.veryBadComputer ){
-					this.setDownScale(1);
+					this.setDownScale(3.5);
 				}
 
 			},
-
-			handleComposerEnabling( newSequenceID ){
-
-				// console.log("handleComposerEnabling triggered with : ", newSequenceID);
-				
-				// if( this.$store.state.bloomDisabler && this.$store.state.composerDisableSequences.includes(newSequenceID) ){
-				// 	this.composerIsAllowed = false;
-				// } else {
-				// 	this.composerIsAllowed = true;
-				// }
-
-			}
 
 		}
 
@@ -736,12 +712,8 @@ canvas {
   z-index: 3;
   width: 100vw !important;
   height: 100vh !important;
-  // position: fixed;
-  // top: 0;
-  // left: 0;
   outline: none;
   pointer-events: all;
-  cursor: none;
 }
 
 p {

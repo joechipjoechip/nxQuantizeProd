@@ -142,14 +142,12 @@
 			},
 
 			isFinishScene( newVal ){
-				console.log("watcher de isFinishScene triggered", newVal)
 				if( newVal ){
 					this.curtainActive = true
 				}
 			},
 
 			"$parent.isAtEntrance"( newVal ){
-				console.log("watcher du $parent.isAtEntrance : ", newVal)
 				if( !newVal ){
 					this.initSound()
 				}
@@ -240,7 +238,7 @@
 
 				} else {
 					this.$store.commit("incrementAssetsLoadCount");
-					console.log("nope, le allIsLoaded reste à false ");
+					console.log("a new or pending asset have been downloaded");
 				}
 
 			},
@@ -248,11 +246,11 @@
 			focusBlurHandler( event ){
 
 				// TODO : uncomment for prod
-				// if( event.type === "focus" ){
-				// 	this.playPauseAnimationHandler(true);
-				// } else {
-				// 	this.playPauseAnimationHandler(false);
-				// }
+				if( event.type === "focus" ){
+					this.playPauseAnimationHandler(true);
+				} else {
+					this.playPauseAnimationHandler(false);
+				}
 
 			},
 
@@ -273,12 +271,12 @@
 						this.$refs.instancethree.mainTick();
 	
 						this.$refs.instancethree.clock.start();
-						this.$store.state.audioCurrent.play();
+						this.playAllAudios();
 	
 					} else {
 						this.$refs.instancethree.clock.stop();
 	
-						this.$store.state.audioCurrent.pause();
+						this.pauseAllAudios();
 					}
 	
 	
@@ -298,6 +296,23 @@
 
 				}
 
+			},
+
+			playAllAudios(){
+				this.$store.state.audioCurrent.play();
+
+				if( this.$store.state.audioCurrent === this.$store.state.audioEndOne || this.$store.state.audioCurrent === this.$store.state.audioEndTwo ){
+					this.$store.state.audioEndOne.play();
+					this.$store.state.audioEndTwo.play();
+				}
+			},
+			
+			pauseAllAudios(){
+				this.$store.state.audioCurrent.pause();
+				if( this.$store.state.audioCurrent === this.$store.state.audioEndOne || this.$store.state.audioCurrent === this.$store.state.audioEndTwo ){
+					this.$store.state.audioEndOne.pause();
+					this.$store.state.audioEndTwo.pause();
+				}
 			},
 
 			switchScene( sceneID ){
@@ -327,7 +342,7 @@
 			},
 
 			sequenceSwitcher( newSequenceID ){
-				console.log("new sequence asked : ", newSequenceID);
+				// console.log("new sequence asked : ", newSequenceID);
 
 				this.sequenceID = newSequenceID;
 

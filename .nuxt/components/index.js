@@ -31,6 +31,7 @@ export { default as IconsInstagram } from '../..\\components\\icons\\instagram.v
 export { default as IconsLinktree } from '../..\\components\\icons\\linktree.vue'
 export { default as IconsSpotify } from '../..\\components\\icons\\spotify.vue'
 export { default as IconsYoutube } from '../..\\components\\icons\\youtube.vue'
+export { default as MicroBasicLoader } from '../..\\components\\micro\\basicLoader.vue'
 export { default as MicroLoaderOne } from '../..\\components\\micro\\loaderOne.vue'
 
 // nuxt/nuxt.js#8607

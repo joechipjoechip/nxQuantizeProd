@@ -98,6 +98,9 @@
   "IconsYoutube": {
     "description": "Auto imported from components/icons/youtube.vue"
   },
+  "MicroBasicLoader": {
+    "description": "Auto imported from components/micro/basicLoader.vue"
+  },
   "MicroLoaderOne": {
     "description": "Auto imported from components/micro/loaderOne.vue"
   }

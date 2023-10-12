@@ -39,4 +39,5 @@ You can directly use them in pages and other components without the need to impo
 - `<IconsLinktree>` | `<icons-linktree>` (components/icons/linktree.vue)
 - `<IconsSpotify>` | `<icons-spotify>` (components/icons/spotify.vue)
 - `<IconsYoutube>` | `<icons-youtube>` (components/icons/youtube.vue)
+- `<MicroBasicLoader>` | `<micro-basic-loader>` (components/micro/basicLoader.vue)
 - `<MicroLoaderOne>` | `<micro-loader-one>` (components/micro/loaderOne.vue)

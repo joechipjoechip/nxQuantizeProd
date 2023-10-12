@@ -7,8 +7,8 @@
 
 <style lang="scss" scoped>
 .blob {
-   width: 176px;
-   height: 176px;
+   width: 85px;
+   height: 25px;
    display: grid;
    background: #000;
    filter: blur(8.8px) contrast(10);
@@ -20,8 +20,8 @@
 .blob:after {
    content: "";
    grid-area: 1/1;
-   width: 70.4px;
-   height: 70.4px;
+   width: 35px;
+   height: 35px;
    background: #FFF;
    animation: blob-rhf26m 2s infinite;
 }
