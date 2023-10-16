@@ -97,6 +97,12 @@
 			display: flex;
 			flex-flow: column nowrap;
 			justify-content: center;
+
+			@media #{$mobile} {
+				@media (orientation: landscape) {
+					margin-top: -3.5rem;
+				}
+			}
 		}
 	}
 

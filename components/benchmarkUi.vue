@@ -90,8 +90,8 @@ export default {
 
         detectDevice(){
 
-            console.log("navigator : ", navigator)
-            console.log("user agent : ", navigator.userAgent)
+            // console.log("navigator : ", navigator)
+            // console.log("user agent : ", navigator.userAgent)
 
             if( !navigator.userAgent.includes("Windows") ){
                 this.$store.commit("setAppleUser", true)

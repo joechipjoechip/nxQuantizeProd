@@ -18,6 +18,7 @@
 		<canvas 
 			class="webgl" 
 			ref="canvas"
+			@wheel="handleWheel"
 		/>
 
 	</div>
@@ -274,16 +275,22 @@
 			this.createBundle(0, "primary");
 			this.createBundle(1, "secondary");
 
+			this.$nuxt.$on("fov-update-by-pinch", this.handlePinch);
+			
 			if( this.debug.firstPart ){
-
+				
 				setTimeout(() => {
-	
+					
 					this.$store.commit("setAudioTimecode", this.debug.firstPart);
-	
+					
 				}, 800);
-
+				
 			}
 			
+		},
+		
+		beforeDestroy(){
+			this.$nuxt.$off("fov-update-by-pinch", this.handlePinch);
 		},
 
 		methods: {
@@ -665,7 +672,7 @@
 					specular: 0x4e0061,
 					shininess: 1,
 					reflectivity: 1,
-					reflectionRatio: 1,
+					// reflectionRatio: 1,
 					emissive: 0x0b000e,
 					emissiveIntensity: 0.1,
 					transparent: true,
@@ -704,6 +711,16 @@
 				}
 
 			},
+
+			handleWheel( event ){
+				this.$nuxt.$emit("fov-update", { deltaY: event.deltaY, sequenceID: this.sequenceID })
+			},
+
+			handlePinch( event ){
+				this.handleWheel({
+					deltaY: event === "out" ? 50 : -50
+				})
+			}
 
 		}
 

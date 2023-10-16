@@ -56,7 +56,11 @@ class SequencesBuilder {
 				isEndSequence: sequenceInfos.isEndSequence,
 				sequenceImposedMoves: sequenceInfos.bobImposedMoves,
 				bobCustomShader: sequenceInfos.bobCustomShader,
-				until: sequenceInfos.until
+				until: sequenceInfos.until,
+				baseFov: sequenceInfos.baseFov,
+				type: sequenceInfos.type,
+				noZoom: sequenceInfos.noZoom,
+				noZoomMobile: sequenceInfos.noZoomMobile
 			};
 
 			this._BuildPostprocsCollections(sequenceInfos);

@@ -28,6 +28,7 @@ class SequencesManager{
 		this.currentSequenceElements = null;
 
 		this.vm.$nuxt.$on("bob-inputs-update", ( event ) => { this.updateBobStickedInputs(event, this) });
+		this.vm.$nuxt.$on("fov-update", ( event ) => { this.handleWheel(event) });
 
 	}
 
@@ -478,6 +479,7 @@ class SequencesManager{
 		} else {
 
 			goodCamera.setFocalLength(destinationFov);
+			goodCamera.updateProjectionMatrix();
 
 		}
 
@@ -548,7 +550,8 @@ class SequencesManager{
 		const elapsedTime = this.clock.getElapsedTime();
 
 		if( !this.currentSequenceElements ){
-			debugger;
+			// debugger;
+			return;
 		}
 
 		// if an orbit helper is set
@@ -766,6 +769,36 @@ class SequencesManager{
 		if( currentMousePosX < 0 ){
 			this.choiceHandler("left")
 		}
+
+	}
+
+	handleWheel(eventArguments){
+		if( !this.currentSequenceElements 
+			|| this.sequenceBobName 
+			|| this.currentSequenceID !== eventArguments.sequenceID 
+			|| this.currentSequenceElements.type !== "third-person" 
+			|| this.currentSequenceElements.noZoom
+			|| (this.currentSequenceElements.noZoomMobile && this.vm.$store.state.isMobile)
+		){ return; }
+
+		const isUnzoom = eventArguments.deltaY > 0;
+		const fovFragmentRef = (this.currentSequenceElements.baseFov / 1000) * Math.abs(eventArguments.deltaY);
+		const fovMin = this.currentSequenceElements.baseFov - (fovFragmentRef * 3);
+		const fovMax = this.currentSequenceElements.baseFov + (fovFragmentRef * 5);
+
+		// console.log("fov min/max : ", fovMin, fovMax);
+
+		if( isUnzoom ){
+			// console.log("is unzoom")
+			this.sceneBundlePassed.camera.fov = Math.min(this.sceneBundlePassed.camera.fov + fovFragmentRef, fovMax);
+		} else {
+			// console.log("is zoom")
+			this.sceneBundlePassed.camera.fov = Math.max(this.sceneBundlePassed.camera.fov - fovFragmentRef, fovMin);
+		}
+
+		// console.log("finalfov : ", this.sceneBundlePassed.camera.fov);
+
+		this.sceneBundlePassed.camera.updateProjectionMatrix();
 
 	}
 

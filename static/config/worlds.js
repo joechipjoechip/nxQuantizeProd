@@ -365,7 +365,7 @@ const worlds = [
 				animatedMesh: false,
 
 				helpers: {
-					orbit: true,
+					orbit: false,
 					tubes: false,
 					timelines: false
 				},
@@ -440,7 +440,7 @@ const worlds = [
 			{
 				id: "2.4",
 				baseFov: 27,
-				fovTransition: true,
+				fovTransition: false,
 				sequenceBobName: "link",
 
 				type: "third-person",
@@ -453,7 +453,7 @@ const worlds = [
 				animatedMesh: false,
 
 				helpers: {
-					orbit: true,
+					orbit: false,
 					tubes: false,
 					timelines: false
 				},
@@ -492,7 +492,7 @@ const worlds = [
 			{
 				id: "3.7",
 				baseFov: 34,
-				fovTransition: true,
+				fovTransition: false,
 				sequenceBobName: "marie",
 
 				type: "third-person",
@@ -505,7 +505,7 @@ const worlds = [
 				animatedMesh: false,
 
 				helpers: {
-					orbit: true,
+					orbit: false,
 					tubes: false,
 					timelines: false
 				},
@@ -596,7 +596,7 @@ const worlds = [
 				},
 
 				helpers: {
-					orbit: true,
+					orbit: false,
 					tubes: false,
 					timelines: false
 				},
@@ -702,7 +702,7 @@ const worlds = [
 				animatedMesh: false,
 
 				helpers: {
-					orbit: true,
+					orbit: false,
 					tubes: false,
 					timelines: false
 				},
@@ -809,7 +809,7 @@ const worlds = [
 				},
 
 				helpers: {
-					orbit: true,
+					orbit: false,
 					tubes: false,
 					timelines: false
 				},
@@ -1137,6 +1137,7 @@ const worlds = [
 				baseFov: 85,
 				fovTransition: false,
 				sequenceBobName: "marie",
+				noZoom: true,
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 8,
@@ -1598,9 +1599,10 @@ const worlds = [
 			{
 				id: "5.12",
 				baseFov: 23,
-				fovTransition: true,
+				fovTransition: false,
 				sequenceBobName: "link",
 				bobRestoreSize: 0.0009,
+				noZoomMobile: true,
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 5,
@@ -1911,9 +1913,10 @@ const worlds = [
 			{
 				id: "7.14",
 				baseFov: 23,
-				fovTransition: true,
+				fovTransition: false,
 				sequenceBobName: "marie",
 				bobRestoreSize: 0.00075,
+				noZoom: true,
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 45,
@@ -2044,7 +2047,7 @@ const worlds = [
 			{
 				id: "7.15",
 				baseFov: 22,
-				fovTransition: true,
+				fovTransition: false,
 				sequenceBobName: "marie",
 				bobRestoreSize: 0.0012,
 

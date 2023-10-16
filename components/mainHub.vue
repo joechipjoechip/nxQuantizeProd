@@ -137,7 +137,8 @@
         margin: 0 auto;
 
         --vertical-spacing: 1rem;
-        --mobile-slot-size: 60%;
+        --mobile-slot-size-portrait: 45vw;
+        --mobile-slot-size-landscape: 30vw;
 
         .font {
     
@@ -152,10 +153,6 @@
                 font-size: 1rem;
             }
     
-            // &-label {
-            //     font-size: 1.5rem;
-            // }
-    
             &-medium {
                 font-size: 1.35rem;
             }
@@ -166,8 +163,16 @@
                 font-weight: 100;
 
                 @media #{$mobile} {
-                    font-size: 7rem;
+                    font-size: 4rem;
                     margin-bottom: -0.5rem;
+                    
+                    @media (orientation: portrait) {
+                        font-size: 7rem;
+                    }
+
+                    @media (orientation: landscape) {
+                        display: none;
+                    }
                 }
             }
         }
@@ -201,7 +206,7 @@
                 margin: 0 auto;
 
                 @media #{$mobile} {
-                    flex-flow: column nowrap;   
+                    // flex-flow: column nowrap;   
                 }
 
                 & > * {
@@ -213,11 +218,15 @@
                     }
 
                     @media #{$mobile} {
-                        width: var(--mobile-slot-size);
-                        margin: 0 0 1rem 0;
-
-                        &:last-of-type {
-                            margin: 0;
+                        width: var(--mobile-slot-size-portrait);
+                        // margin: 0 0 1rem 0;
+                        
+                        // &:last-of-type {
+                            //     margin: 0;
+                            // }
+                        @media (orientation: landscape) {
+                                width: var(--mobile-slot-size-landscape);
+                                
                         }
 
                     }
@@ -239,7 +248,7 @@
                 width: 70%;
 
                 @media #{$mobile} {
-                    width: var(--mobile-slot-size);   
+                    width: var(--mobile-slot-size-portrait);   
                 }
             }
         }
@@ -284,7 +293,12 @@
             border-radius: 0 0 12rem 12rem;
 
             @media #{$mobile} {
-                border-radius: 0 5rem 0 7rem;
+                width: 65vw;
+                // border-radius: 0 5rem 0 7rem;
+                @media (orientation: landscape) {
+                    width: 40vw;
+                    
+                }
             }
         }
     

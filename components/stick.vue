@@ -58,7 +58,8 @@
 				stickPos: { x:0, y:0 },
 				lastKnownStickPos: { x:0, y:0 },
 				timeoutID: null,
-				abstractRole: ""
+				abstractRole: "",
+				prevPinchSize: 0
 			}
 		},
 
@@ -132,6 +133,10 @@
 			touchMoveHandler( event ){
 				event.preventDefault();
 
+				if( event.touches?.length > 1 ){
+					this.handlePinch(event);
+				}
+
 				// get normalized position for the stick
 				const computedPos = this.computePos(event);
 
@@ -140,6 +145,7 @@
 			},
 
 			goToPosition( position ){
+				if(!position){ return; }
 
 				const animatedObject = {
 					x: this.stickPos.x,
@@ -152,16 +158,45 @@
 					x: position.x,
 					y: position.y,
 					onUpdate( that ){
-
 						that.updateStickPos(animatedObject);
-
-						// console.log("onUpdate : ", animatedObject.x);
-
 					},
 					onUpdateParams: [this]
 				});
 
 
+			},
+
+			handlePinch( event ){
+				// console.log("handlePinch down : ", event);
+				this.mouseDown = false;
+				this.mouseUp = true;
+
+				// Calculate the distance between the two pointers
+				const curDiff = Math.abs(event.touches[0].clientX - event.touches[1].clientX);
+
+				if (this.prevPinchSize > 0) {
+
+					if (curDiff > this.prevPinchSize) {
+						// The distance between the two pointers has increased
+						// console.log("Pinch moving OUT -> Zoom in");
+						this.$nuxt.$emit("fov-update-by-pinch", "in");
+						this.stickRecenter()
+						
+					}
+
+					if (curDiff < this.prevPinchSize) {
+						// The distance between the two pointers has decreased
+						// console.log("Pinch moving IN -> Zoom out");
+						this.$nuxt.$emit("fov-update-by-pinch", "out");
+						this.stickRecenter()
+						
+					}
+
+				}
+
+				// Cache the distance for the next move event
+				this.prevPinchSize = curDiff;
+				
 			},
 
 			computePos( input ){

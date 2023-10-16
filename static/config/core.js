@@ -6,13 +6,13 @@ const core = {
 			shadow: false
 		},
 
-		stats: false,
-		buttons: false
+		stats: true,
+		buttons: true
 	},
 
 	mouse: {
-		moveTimeout: 1,
-		recenterDuration: 1,
+		moveTimeout: 0.5,
+		recenterDuration: 0.35,
 		orientationClamp: {
 			start: 0.00001,
 			end: 0.1,
@@ -20,8 +20,8 @@ const core = {
 		}
 	},
 	stick: {
-		moveTimeout: 0,
-		recenterDuration: 1,
+		moveTimeout: 0.5,
+		recenterDuration: 0.35,
 		orientationClamp: {
 			start: 0.00001,
 			end: 0.1,
