@@ -52,8 +52,8 @@
                     pointLight: ["#0049ff", 0.45],
                     pointLightBasePosition: [0, 5, 2],
 
-                    pointLight2: ["#ffa500", 0.3],
-                    pointLightBasePosition2: [0, 0, -3],
+                    pointLight2: ["#8c1bff", 0.4],
+                    pointLightBasePosition2: [0, 0, 3],
                     
                     perspectiveCamera: [55, window.innerWidth / window.innerHeight, 0.1, 13],
                     perspectiveCameraBasePosition: [0,0,3.5],
@@ -65,7 +65,7 @@
                     model: {
                         name: "marie",
                         scale: 0.1,
-                        basePosition: [0,-3.5,0],
+                        basePosition: [0,-4.2,0],
                         animName: "floating",
                         emissive: {
                             enabled: true,
@@ -546,7 +546,7 @@
                 this.light.position.x = this.currentMousePos.x * 25;
 
                 this.light2.position.x = this.currentMousePos.x * 10;
-                this.light2.position.y = (this.currentMousePos.y * 25);
+                this.light2.position.y = (this.currentMousePos.y * -25 - 10);
 
                 this.camera.position.set(
                     this.currentMousePos.x * -7,
