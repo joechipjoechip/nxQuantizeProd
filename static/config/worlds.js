@@ -72,10 +72,10 @@ const worlds = [
 		sequences: [
 			{
 				id: "1.0",
-				baseFov: 100,
+				baseFov: 350,
 				fovTransition: false,
 				sequenceBobName: "marie",
-				until: 7.3,
+				until: 7.2,
 				nextInstruction: "switch-sequence",
 
 				type: "blender-points",
@@ -104,7 +104,7 @@ const worlds = [
 				},
 
 				tubeInfos: {
-					duration: 12,
+					duration: 7.5,
 					// isUsingTarget indicate that we need a plan-1.0-target point in the glb
 					isUsingTarget: true,
 					steps: [
@@ -113,7 +113,7 @@ const worlds = [
 						{
 							// this amount is a percent of the global duration
 							amount: 100,
-							fov: 100,
+							fov: 60,
 							stepEase: "linear"
 						},
 
@@ -134,20 +134,11 @@ const worlds = [
 					{
 						type: "bloom",
 						value: {
-							strength: 0.7,
+							strength: 0.5,
 							threshold: 0.00035,
-							radius: 0.7
+							radius: 0.4
 						}
-					},
-					{
-						type: "blur",
-						focusTarget: "marie",
-						value: {
-							focus: 1,
-							aperture: 0.025,
-							maxblur: 0.008
-						}
-					},
+					}
 				]
 
 			},
@@ -254,8 +245,8 @@ const worlds = [
 				sequenceBobName: "marie",
 
 				type: "third-person",
-				cameraTriggerTimeDecay: 10,
-				cameraType: "movingHips-lookUp",
+				cameraTriggerTimeDecay: 9.5,
+				cameraType: "movingFlyLeft",
 
 				until: 14.2,
 				nextInstruction: "switch-scene",
