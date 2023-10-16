@@ -120,28 +120,22 @@
 				color: black;
 				display: block;
 				position: absolute;
-				background-color: rgba(255,255,255,0.05);
+				border-radius: 0 0 5rem 5rem;
+				padding-bottom: 0.75rem;
+				border: solid 1px rgba(255,255,255,0.05);
+				background-color: rgba(255,255,255,0.01);
+
 				-webkit-backdrop-filter: blur(12px);
 				backdrop-filter: blur(12px);
+				
 				// margin: 2rem auto 0 auto;
 				margin-top: 0.65rem;
 				padding: 0.5rem 0;
-				border-radius: 0.5rem;
 				color: white;
 				text-transform: uppercase;
 
 				overflow: hidden;
-                border: solid 1px rgba(255,255,255,0.05);
-
 				transform: translateY(0);
-
-				
-			}
-
-			&-loading,
-			&-ready {
-				border-radius: 0 0 5rem 5rem;
-				padding-bottom: 0.75rem;
 			}
 
 			&-loading {

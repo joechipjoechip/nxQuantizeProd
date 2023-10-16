@@ -263,12 +263,13 @@
             &-item {
                 display: inline-block;
                 padding: 1rem 0 0.5rem 0;
-                background-color: rgba(255,255,255,0.05);
+                background-color: rgba(255,255,255,0.01);
+                border: solid 1px rgba(255,255,255,0.4);
+
                 -webkit-backdrop-filter: blur(12px);
                 backdrop-filter: blur(12px);
                 overflow: hidden;
     
-                border: solid 1px rgba(255,255,255,0.4);
 
                 transition: opacity .2s;
 

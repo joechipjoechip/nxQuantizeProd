@@ -21,6 +21,8 @@
     import { AfterimagePass } from 'three/examples/jsm/postprocessing/AfterimagePass.js';
     import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js';
 
+    import { CustomShaderBuilder } from '@/components/customShaderBuilder';
+
 	export default {
         props: {
             canvasSizeRef: {
@@ -45,6 +47,8 @@
 
                 benchmarkIsActive: false,
                 benchmarkTimeoutID: null,
+
+                customShaderToUpdate: false,
 
                 params: {
                     hemisphereLight: [0x000000, 0x0049ff, 0.4],
@@ -96,6 +100,17 @@
                                     enabled: true
                                 }
                             }
+                        },
+                        customShader: {
+                            enabled: false,
+                            materialNameToTarget: "one",
+                            shaderName: "aliceShader",
+                            specificShaderName: "galaxy",
+                            shaderScale: 1,
+                            shaderAxe: "zy",
+                            amplitude: 2,
+                            decay: -8.8,
+                            unspeed: 2
                         }
                     },
 
@@ -391,6 +406,24 @@
 
                         target = fbx;
                         target.name = this.params.model.name;
+
+                        if( this.params.model.customShader?.enabled ){
+                        // if( false ){
+                            // const targetMesh = target.children.find(child => child.type === "SkinnedMesh").material.find(child => child.name.includes(this.params.model.customShader.materialNameToTarget))
+
+                            this.customShaderToUpdate = true;
+
+                            const skinnedMesh = target.children.find(child => child.type === "SkinnedMesh")
+
+                            skinnedMesh.material.forEach((currentMaterial, index) => {
+
+                                if( currentMaterial.name.includes(this.params.model.customShader.materialNameToTarget)){
+                                    skinnedMesh.material[index] = new CustomShaderBuilder({...this.params.model.customShader});
+                                }
+
+                            })
+                            
+                        }
                         
                         target.position.copy(new THREE.Vector3(...this.params.model.basePosition));
 
@@ -404,7 +437,7 @@
 
             replaceMaterialWithEmissive(baseMaterial, emissiveKey){
 
-                if( this.params.model.emissive.specific[emissiveKey]?.enabled ){
+                 if( this.params.model.emissive.specific[emissiveKey]?.enabled ){
 
                     return new THREE.MeshStandardMaterial({
                         emissive: new THREE.Color(this.params.model.emissive.specific[emissiveKey].color),
@@ -540,6 +573,10 @@
 
             updateThings(){
                 const elapsedTime = this.clock.getElapsedTime();
+
+                if( this.customShaderToUpdate ){
+                    this.model.children.find(child => child.type === "SkinnedMesh").material[3].uniforms.iGlobalTime.value = Math.sin(elapsedTime / this.params.model.customShader.unspeed) * this.params.model.customShader.amplitude + this.params.model.customShader.decay;
+                }
 
                 this.mixer.update(this.deltaTime / 10);
 

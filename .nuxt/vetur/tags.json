@@ -95,6 +95,9 @@
   "IconsSpotify": {
     "description": "Auto imported from components/icons/spotify.vue"
   },
+  "IconsWebsite": {
+    "description": "Auto imported from components/icons/website.vue"
+  },
   "IconsYoutube": {
     "description": "Auto imported from components/icons/youtube.vue"
   },
