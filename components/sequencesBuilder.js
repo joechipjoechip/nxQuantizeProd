@@ -16,6 +16,7 @@ class SequencesBuilder {
 		this._sceneElements = params.sceneElements;
 		this._camera = params.camera;
 		this._canvas = params.canvas;
+		this._vm = params.vm
 
 		// all we do here is to build this _sequencesLib
 		// _sequenceLib in the end, will be this.scene1.sequencesElements in sceneBuilder.js
@@ -174,6 +175,11 @@ class SequencesBuilder {
 	_BuildPostprocs( sequenceInfos ){
 
 		sequenceInfos.postproc.forEach(effectObj => {
+
+			if( effectObj.type === "blur" && (this._vm.$store.state.badComputer || this._vm.$store.state.veryBadComputer)){
+				return;
+			}
+
 
 			const target = this._sceneElements.bobs[effectObj.focusTarget];
 

@@ -10,6 +10,7 @@
 			<div v-if="sequenceID" class="stats">{{ sequenceID }}</div>
 			<div v-if="$store.state.audioCurrent" class="stats">{{ $store.state.audioCurrent.currentTime }}</div>
 			<div v-if="currentSequence" class="stats">next step : {{ currentSequence.until }}</div>
+			<div v-if="currentSequence" class="stats" @click="handleNextSequencePlease">go next step please</div>
 			<div v-if="currentSequence" class="stats">bad cpu : {{ $store.state.badComputer }}</div>
 			<div v-if="currentSequence" class="stats">very bad cpu : {{ $store.state.veryBadComputer }}</div>
 		</div>
@@ -287,6 +288,10 @@
 
 		methods: {
 
+			handleNextSequencePlease(){
+				this.$store.commit("setAudioTimecode", this.currentSequence.until);
+			},
+
 			acteResizeOnRenderers(){
 
 				this.renderer.setSize(this.canvasSizeRef.width, this.canvasSizeRef.height);
@@ -301,7 +306,7 @@
 
 			adjustMisc(){
 
-				if( this.$store.state.badComputer ){
+				if( this.$store.state.badComputer || this.$store.state.isMobile ){
 					this.setDownScale(2);
 				}
 
@@ -729,7 +734,7 @@ p {
   padding: 0;
   margin: 0;
   background-color: rgba(0,0,200, .5);
-  pointer-events: none;
+ // pointer-events: none;
 
   * {
     padding: 0 15px;

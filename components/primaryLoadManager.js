@@ -57,6 +57,10 @@ class PrimaryLoadManager{
 		const audioEndOne = new Audio(soundEndOne);
 		const audioEndTwo = new Audio(soundEndTwo);
 
+		audioBase.load();
+		audioEndOne.load();
+		audioEndTwo.load();
+
 		audioBase.addEventListener("canplaythrough", () => {
 			this.vm.$store.commit("setAudioBase", audioBase);
 			audioBase.removeEventListener("canplaythrough", () => {});
