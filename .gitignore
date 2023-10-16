@@ -3,3 +3,4 @@
 /dist/
 *.blend
 /static/assets/audio/GOOD
+*.env

@@ -40,6 +40,9 @@
                 <h3>Lionelu.js</h3>
 
                 <div class="links-container">
+                    <a class="logo-container" href="http://www.lionelu.fr" target="_blank">
+                        <website-logo />
+                    </a>
                     <a class="logo-container" href="https://www.instagram.com/lionelu.js/" target="_blank">
                         <instagram-logo />
                     </a>
@@ -85,6 +88,7 @@
     import YoutubeLogo from "@/components/icons/youtube.vue"
     import BandcampLogo from "@/components/icons/bandcamp.vue"
     import Linktree from "@/components/icons/linktree.vue"
+    import WebsiteLogo from "@/components/icons/website.vue"
 
     export default {
         components: {
@@ -93,6 +97,7 @@
             "youtube-logo": YoutubeLogo,
             "bandcamp-logo": BandcampLogo,
             "linktree-logo": Linktree,
+            "website-logo": WebsiteLogo
         },
         data(){
             return {
