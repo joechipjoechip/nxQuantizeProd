@@ -1,3 +1,5 @@
+const finalUrl = "http://onyi.surge.sh";
+
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
@@ -23,12 +25,12 @@ export default {
       { name: "theme-color", content: "#000000" }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: "/favicon/favicon.ico" },
-      { rel: "apple-touch-icon", sizes: "180x180", href: "/favicon/apple-touch-icon.png" },
-      { rel: "icon", type: "image/png", sizes: "32x32", href: "/favicon/favicon-32x32.png" },
-      { rel: "icon", type: "image/png", sizes: "16x16", href: "/favicon/favicon-16x16.png" },
-      { rel: "manifest", href: "/favicon/site.webmanifest" },
-      { rel: "mask-icon", href: "/favicon/safari-pinned-tab.svg", color: "#5bbad5" },
+      { rel: 'icon', type: 'image/x-icon', href: finalUrl + "/favicon/favicon.ico" },
+      { rel: "apple-touch-icon", sizes: "180x180", href: finalUrl + "/favicon/apple-touch-icon.png" },
+      { rel: "icon", type: "image/png", sizes: "32x32", href: finalUrl + "/favicon/favicon-32x32.png" },
+      { rel: "icon", type: "image/png", sizes: "16x16", href: finalUrl + "/favicon/favicon-16x16.png" },
+      // { rel: "manifest", href: "/favicon/site.webmanifest" },
+      { rel: "mask-icon", href: finalUrl + "/favicon/safari-pinned-tab.svg", color: "#5bbad5" },
     ]
   },
 

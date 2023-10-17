@@ -16,9 +16,11 @@ export const state = () => ({
 	audioEndTwo: null,
 	badComputer: false,
 	veryBadComputer: false,
-	currentChoice: null,
+	currentChoice: "One",
 	assetsLoadCount: 0,
-	endedAudios: false
+	endedAudios: false,
+	choiceIsDisplayed: false,
+	choiceHaveBeenMade: false
 })
 
 export const getters = {
@@ -30,7 +32,8 @@ export const getters = {
 
 	getAudioCurrent(state) {
 		return state.audioCurrent
-	}
+	},
+	
 }
 
 export const mutations = {
@@ -95,6 +98,14 @@ export const mutations = {
 
 	setEndedAudios(state, payload){
 		state.endedAudios = payload
+	},
+
+	setChoiceIsDisplayed(state, payload){
+		state.choiceIsDisplayed = payload
+	},
+
+	setChoiceHaveBeenMade(state, payload){
+		state.choiceHaveBeenMade = payload
 	}
 }
 

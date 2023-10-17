@@ -751,7 +751,7 @@
 
                     },
                     onUpdateParams: [this, valueToAnimateString],
-                    onComplete( that, callback ){
+                    onComplete( that, tweenName, callback ){
 
                         that.tweens[tweenName] = null;
 
@@ -759,7 +759,7 @@
                         callback()
                         
                     },
-                    onCompleteParams: [this, callback]
+                    onCompleteParams: [this, tweenName, callback]
                 });
 
 

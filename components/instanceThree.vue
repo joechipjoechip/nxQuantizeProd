@@ -94,7 +94,6 @@
 				lastKnownSequenceID: "1.0",
 				loopIsAsked: false,
 				loopClock: null,
-				choiceIsDisplayed: false,
 				choiceHaveBeenMade: false,
 				endingIsStarted: false,
 				endingSelected: "",
@@ -104,6 +103,7 @@
 				finalHubDelay: 18,
 				finalCurtainDelay: 45,
 				decayTimeForEndSequences: 0,
+				loopStartMicroTiming: 0.75,
 
 				nextWorldIndex: 0,
 				initialLoadDone: false,
@@ -223,10 +223,10 @@
 					this.$store.state.audioEndTwo.play().then().catch((err) => console.log("err : ", err));
 					this.$store.state.audioEndTwo.pause();
 					
-					setTimeout(() => {
-						this.$store.state.audioEndOne.muted = true;
-						this.$store.state.audioEndTwo.muted = true;
-					}, 5);
+					// setTimeout(() => {
+					// 	this.$store.state.audioEndOne.muted = true;
+					// 	this.$store.state.audioEndTwo.muted = true;
+					// }, 5);
 				}
 			},
 			endingIsStarted( newVal ){
@@ -277,6 +277,8 @@
 			this.createBundle(1, "secondary");
 
 			this.$nuxt.$on("fov-update-by-pinch", this.handlePinch);
+
+			this.adjustValues();
 			
 			if( this.debug.firstPart ){
 				
@@ -295,6 +297,16 @@
 		},
 
 		methods: {
+
+			adjustValues(){
+				if( this.$store.state.badComputer ){
+					this.loopStartMicroTiming *= 1.15
+				}
+
+				if( this.$store.state.veryBadComputer ){
+					this.loopStartMicroTiming *= 1.25
+				}
+			},
 
 			handleNextSequencePlease(){
 				this.$store.commit("setAudioTimecode", this.currentSequence.until);
@@ -502,16 +514,22 @@
 
 			checkCurrentTime(){
 
-				// console.log("currentTime de audioCurrent : ", this.$store.state.audioCurrent.currentTime)
+				// console.log("currentTime de audioCurrent : ", this.$store.state.audioCurrent.currentTime, this.$store.state.choiceIsDisplayed, this.$store.state.choiceHaveBeenMade)
 
-				if( this.choiceHaveBeenMade && !this.endingIsStarted && this.sequenceID !== "7.15"){
+				if( this.$store.state.choiceIsDisplayed && !this.$store.state.choiceHaveBeenMade  ){
+
+					if( this.$store.state.audioCurrent.currentTime >= 55.5 ){
+						console.log("setChoiceHaveBeenMade : true");
+						this.$store.commit("setChoiceHaveBeenMade", true);
+					}
+
+				} else if( this.$store.state.choiceIsDisplayed && this.$store.state.choiceHaveBeenMade && !this.endingIsStarted && this.sequenceID !== "7.15"){
 
 					if( this.$store.state.audioCurrent.currentTime >= (this.currentSequence.until + this.decayTimeForEndSequences) ){
 						this.handleSequencing();
 					}
 					
 				} else if( this.endingIsStarted ){
-
 					// console.log("end currentTime is : ", this.$store.state[`audioEnd${this.$store.state.currentChoice}`].currentTime);
 
 					if( !this.currentSequence.alreadyTriggered && this.$store.state.audioCurrent.currentTime >= this.finishTimeCode - 6 && !this.finishIsStarted && !this.$parent.isFinishScene ){
@@ -520,29 +538,24 @@
 						this.$parent.isFinishScene = true;
 						// console.log("le parent : ", this.$parent);
 
-
 					} else if( !this.currentSequence.alreadyTriggered && this.$store.state.audioCurrent.currentTime >= this.finishTimeCode && !this.finishIsStarted ){
 						// finish scene
 
 						this.handleFinishScene();
 
-
 					} else if ( !this.currentSequence.alreadyTriggered && this.$store.state.audioCurrent.currentTime >= (this.currentSequence.until + this.decayTimeForEndSequences) ) {
 						// classic ending sequences chaining
-
 						// console.log("ending handleSequencing triggered");
-
 						this.handleSequencing();
 
 					}
 
 				} else {
 
-					if( !this.loopIsAsked && this.$store.state.audioBase.currentTime >= (this.$store.state.audioBase.duration - 0.5) ){
+					if( !this.loopIsAsked && this.$store.state.audioBase.currentTime >= (this.$store.state.audioBase.duration - this.loopStartMicroTiming) ){
 
 						this.startLoops();
 						this.handleSequencing();
-
 						
 					}
 					
@@ -588,18 +601,22 @@
 
 			handleExceptionsForSequencing(){
 
-				if( this.sequenceID === "7.15" ){
-					// séquence du choice
+				console.log("excepetion sequencing triggered, sequenceID : ", this.sequenceID);
 
-					this.choiceIsDisplayed = false;
-					this.choiceHaveBeenMade = true;
+				if( this.sequenceID === "7.14" ){
+					// séquence du choice
+					this.$store.commit("setChoiceIsDisplayed", true);
+					// this.endingIsStarted = true;
+				}
+
+				if( this.sequenceID === "7.15" ){
+					// séquence d'après le choice
 					this.endingIsStarted = true;
 
 					if( this.$store.state.currentChoice === "Two" ){
 						this.$store.commit("setAudioCurrent", this.$store.state.audioEndTwo);
 						this.$nuxt.$emit("drop-and-load-and-switch");
 					}
-
 				}
 
 			},
@@ -634,8 +651,8 @@
 				this.$store.state.audioEndOne.play().then().catch((err) => console.log("err : ", err));
 				this.$store.state.audioEndTwo.play().then().catch((err) => console.log("err : ", err));
 
-				this.$store.state.audioEndOne.muted = false;
-				this.$store.state.audioEndTwo.muted = true;
+				this.$store.state.audioEndOne.volume = 1;
+				this.$store.state.audioEndTwo.volume = 0;
 				
 				this.$store.state.audioEndOne.addEventListener("ended", this.handleEndedAudios);
 				this.$store.state.audioEndTwo.addEventListener("ended", this.handleEndedAudios);
@@ -647,11 +664,11 @@
 					this.$store.commit("setAudioBase", null);
 
 					if( this.debug.end ){
-						this.$store.state.audioEndOne.currentTime = 50;
-						this.$store.state.audioEndTwo.currentTime = 50;
+						this.$store.state.audioEndOne.currentTime = 47;
+						this.$store.state.audioEndTwo.currentTime = 47;
 					}
 
-				}, 3500);
+				}, 1500);
 
 			},
 

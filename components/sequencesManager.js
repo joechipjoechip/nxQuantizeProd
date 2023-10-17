@@ -24,6 +24,7 @@ class SequencesManager{
 		this.isCurrentlyTransitionning = false;
 		this.axes = ["x", "y", "z"];
 		this.isChoiceScene = false;
+		this.tweens = {};
 
 		this.currentSequenceElements = null;
 
@@ -536,7 +537,7 @@ class SequencesManager{
 		const goodWorld = this.sceneBundlePassed.worldConfig;
 		const newSequenceHasPostProc = goodWorld.sequences.find(seq => seq.id === newSequenceID).postproc?.length;
 
-		if( newSequenceHasPostProc && this.composer.renderer ){
+		if( newSequenceHasPostProc && this.composer?.renderer ){
 			this.composer.renderer.setClearColor(this.sceneBundlePassed.worldConfig.main.spaceColorWithBloom);
 		} else {
 			this.renderer.setClearColor(this.sceneBundlePassed.worldConfig.main.spaceColor);
@@ -701,7 +702,7 @@ class SequencesManager{
 		}
 
 		// if choice is active
-		if( this.isChoiceScene ){
+		if( this.isChoiceScene && !this.vm.$store.state.choiceHaveBeenMade ){
 			this.handleMouseDuringChoice(currentMousePos.x)
 		}
 
@@ -725,7 +726,7 @@ class SequencesManager{
 		
 		setTimeout(()=> {
 			this.isChoiceScene = true;
-			this.choiceHandler("left");
+			// this.choiceHandler("left");
 		}, 300);
 
 	}
@@ -738,36 +739,96 @@ class SequencesManager{
 
 		switch(direction){
 			case "left":
-				this.vm.$store.state.audioEndOne.muted = false;
-				this.vm.$store.state.audioEndTwo.muted = true;
-
 				this.vm.$store.commit("setCurrentChoice", "One");
+
+				this.vm.$store.state.audioEndTwo.volume = 0;
+				this.vm.$store.state.audioEndOne.volume = 1;
+
+				
+				// this.tweenBuilder("volume-go-left", 0, 1, 0.01, "linear");
+				
 				
 				camera._specs.lookAt.x = lookAtDecay;
 				camera._specs.offset.x = offsetDecay * -1;
+
 				break;
 				
-				case "right":
-					this.vm.$store.state.audioEndOne.muted = true;
-					this.vm.$store.state.audioEndTwo.muted = false;
+			case "right":
+				this.vm.$store.commit("setCurrentChoice", "Two");
 
-					this.vm.$store.commit("setCurrentChoice", "Two");
+				this.vm.$store.state.audioEndOne.volume = 0;
+				this.vm.$store.state.audioEndTwo.volume = 1;
+
+				
+				// this.tweenBuilder("volume-go-right", 0, 1, 0.01, "linear");
+				
 
 				camera._specs.lookAt.x = lookAtDecay * -1;
 				camera._specs.offset.x = offsetDecay;
+
 				break;
 		}
 		
 	}
 
+	tweenBuilder( tweenName, startingValue, endingValue, duration, ease ){
+
+		let audioToUp, audioToDown;
+
+		switch( tweenName ){
+			case "volume-go-left":
+				audioToUp = this.vm.$store.state.audioEndOne;
+				audioToDown = this.vm.$store.state.audioEndTwo;
+				break;
+			case "volume-go-right":
+				audioToUp = this.vm.$store.state.audioEndTwo;
+				audioToDown = this.vm.$store.state.audioEndOne;
+				break;
+		}
+
+		const animatedObject = {
+			volumeUp: startingValue,
+			volumeDown: endingValue
+		};
+
+		this.tweens[tweenName] = new TimelineLite();
+
+		this.tweens[tweenName].to(animatedObject, duration, {
+			volumeUp: endingValue,
+			volumeDown: startingValue,
+			ease,
+			onUpdate( audioToUp, audioToDown ){
+
+				audioToUp.volume = animatedObject.volumeUp;
+				audioToDown.volume = animatedObject.volumeDown;
+
+			},
+			onUpdateParams: [audioToUp, audioToDown],
+			onComplete( that, tweenName ){
+
+				// audioToDown.volume = 0;
+				that.tweens[tweenName] = null;
+				
+			},
+			onCompleteParams: [this, tweenName]
+		});
+
+
+
+	}
+
 	handleMouseDuringChoice(currentMousePosX){
 
 		if( currentMousePosX > 0 ){
-			this.choiceHandler("right")
+			if( this.vm.$store.state.currentChoice !== "Two"){
+				this.choiceHandler("right")
+			}
 		} 
 		
 		if( currentMousePosX < 0 ){
-			this.choiceHandler("left")
+			if( this.vm.$store.state.currentChoice !== "One"){
+				this.choiceHandler("left")
+			}
 		}
 
 	}
