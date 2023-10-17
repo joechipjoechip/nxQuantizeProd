@@ -21,7 +21,7 @@
     import { AfterimagePass } from 'three/examples/jsm/postprocessing/AfterimagePass.js';
     import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js';
 
-    import { CustomShaderBuilder } from '@/components/customShaderBuilder';
+    // import { CustomShaderBuilder } from '@/components/customShaderBuilder';
 
 	export default {
         props: {
