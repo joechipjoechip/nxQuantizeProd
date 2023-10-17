@@ -583,7 +583,7 @@
                 this.light.position.x = this.currentMousePos.x * 25;
 
                 this.light2.position.x = this.currentMousePos.x * 10;
-                this.light2.position.y = (this.currentMousePos.y * -25 - 10);
+                this.light2.position.y = (this.currentMousePos.y * -15 - 10);
 
                 this.camera.position.set(
                     this.currentMousePos.x * -7,

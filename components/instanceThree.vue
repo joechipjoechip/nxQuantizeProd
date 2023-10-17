@@ -111,6 +111,7 @@
 
 				debug: {
 					animated: true,
+					// safe goTo flying scene : 130
 					firstPart: 0,
 					end: false,
 					finish: false
@@ -255,13 +256,13 @@
 				if( newVal === "One"){
 
 					this.finishTimeCode = 139;
-					this.debugFinishTimeCode = 100;
+					this.debugFinishTimeCode = 110;
 					this.decayTimeForEndSequences = 54.1;
 
 				} else {
 
 					this.finishTimeCode = 162;
-					this.debugFinishTimeCode = 120;
+					this.debugFinishTimeCode = 130;
 					this.decayTimeForEndSequences = 57.75;
 
 				}
@@ -537,7 +538,7 @@
 
 				} else {
 
-					if( !this.loopIsAsked && this.$store.state.audioBase.currentTime >= (this.$store.state.audioBase.duration - 0.45) ){
+					if( !this.loopIsAsked && this.$store.state.audioBase.currentTime >= (this.$store.state.audioBase.duration - 0.5) ){
 
 						this.startLoops();
 						this.handleSequencing();
@@ -630,11 +631,15 @@
 
 				this.loopIsAsked = true;
 
-				this.$store.state.audioEndOne.play().then().catch((err) => console.log("err : ", err));;
-				this.$store.state.audioEndTwo.play().then().catch((err) => console.log("err : ", err));;
+				this.$store.state.audioEndOne.play().then().catch((err) => console.log("err : ", err));
+				this.$store.state.audioEndTwo.play().then().catch((err) => console.log("err : ", err));
 
 				this.$store.state.audioEndOne.muted = false;
 				this.$store.state.audioEndTwo.muted = true;
+				
+				this.$store.state.audioEndOne.addEventListener("ended", this.handleEndedAudios);
+				this.$store.state.audioEndTwo.addEventListener("ended", this.handleEndedAudios);
+				
 
 				this.$store.commit("setAudioCurrent", this.$store.state.audioEndOne);
 				
@@ -647,6 +652,12 @@
 					}
 
 				}, 3500);
+
+			},
+
+			handleEndedAudios(event){
+				console.log("ended audio", event)
+				this.$store.commit("setEndedAudios", true)
 
 			},
 

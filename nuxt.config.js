@@ -10,7 +10,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'Nx-Quantize Project',
+    title: 'ONYI by NoQUANTIZE & LIONELU.js for OMAKASE RECORDINGS',
     htmlAttrs: {
       lang: 'fr'
     },
@@ -37,7 +37,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    { src: '~/plugins/worker-injector.js', ssr: false } 
+    // { src: '~/plugins/worker-injector.js', ssr: false } 
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

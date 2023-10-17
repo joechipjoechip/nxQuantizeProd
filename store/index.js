@@ -17,7 +17,8 @@ export const state = () => ({
 	badComputer: false,
 	veryBadComputer: false,
 	currentChoice: null,
-	assetsLoadCount: 0
+	assetsLoadCount: 0,
+	endedAudios: false
 })
 
 export const getters = {
@@ -88,8 +89,12 @@ export const mutations = {
 	},
 
 	setAudioTimecode(state, payload){
-		console.log("setAudioTimeCode at ", payload, state.audioCurrent)
+		// console.log("setAudioTimeCode at ", payload, state.audioCurrent)
 		state.audioCurrent.currentTime = payload
+	},
+
+	setEndedAudios(state, payload){
+		state.endedAudios = payload
 	}
 }
 

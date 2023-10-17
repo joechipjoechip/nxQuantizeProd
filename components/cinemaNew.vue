@@ -299,9 +299,12 @@
 			},
 
 			playAllAudios(){
-				this.$store.state.audioCurrent.play();
 
-				if( this.$store.state.audioCurrent === this.$store.state.audioEndOne || this.$store.state.audioCurrent === this.$store.state.audioEndTwo ){
+				if( !this.$store.state.endedAudios ){
+					this.$store.state.audioCurrent.play();
+				}
+				
+				if( (this.$store.state.audioCurrent === this.$store.state.audioEndOne || this.$store.state.audioCurrent === this.$store.state.audioEndTwo) && !this.$store.state.endedAudios ){
 					this.$store.state.audioEndOne.play();
 					this.$store.state.audioEndTwo.play();
 				}
