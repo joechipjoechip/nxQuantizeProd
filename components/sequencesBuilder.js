@@ -180,7 +180,7 @@ class SequencesBuilder {
 
 		sequenceInfos.postproc.forEach(effectObj => {
 
-			if( effectObj.type === "blur" && (this._vm.$store.state.badComputer || this._vm.$store.state.veryBadComputer)){
+			if( effectObj.type === "blur" && (this._vm.$store.state.badComputer || this._vm.$store.state.veryBadComputer || this._vm.$store.isMobile )){
 				return;
 			}
 

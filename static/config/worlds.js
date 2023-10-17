@@ -2076,30 +2076,30 @@ const worlds = [
 
 				slowmo: 1.6,
 
-				alice: {
-					handleGround: true,
-					name: "link",
-					move: {
-						fly: false,
-						forward: true,
-						backward: false,
-						left: false,
-						right: false,
-						shift: false
-					},
-					offset: {
-						x: 0,
-						y: 0,
-						z: 0
-					},
-					scale: 0.0012,
-					slowmo: 1.2
-				},
+				// alice: {
+				// 	handleGround: true,
+				// 	name: "link",
+				// 	move: {
+				// 		fly: false,
+				// 		forward: true,
+				// 		backward: false,
+				// 		left: false,
+				// 		right: false,
+				// 		shift: false
+				// 	},
+				// 	offset: {
+				// 		x: 0,
+				// 		y: 0,
+				// 		z: 0
+				// 	},
+				// 	scale: 0.0012,
+				// 	slowmo: 1.2
+				// },
 
 				postproc: [
 					{
 						type: "blur",
-						focusTarget: "link",
+						focusTarget: "marie",
 						value: {
 							focus: 1,
 							aperture: 0.035,
