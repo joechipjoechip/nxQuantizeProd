@@ -23,6 +23,9 @@
   "DynamicLightsBuilder": {
     "description": "Auto imported from components/dynamicLightsBuilder.js"
   },
+  "Hud": {
+    "description": "Auto imported from components/hud.vue"
+  },
   "IndexBackground": {
     "description": "Auto imported from components/indexBackground.vue"
   },
@@ -40,6 +43,9 @@
   },
   "MainHub": {
     "description": "Auto imported from components/mainHub.vue"
+  },
+  "MobileBlurCurtain": {
+    "description": "Auto imported from components/mobileBlurCurtain.vue"
   },
   "MouseHandler": {
     "description": "Auto imported from components/mouseHandler.vue"
@@ -83,14 +89,29 @@
   "Worker": {
     "description": "Auto imported from components/worker.js"
   },
+  "IconsArrowLeft": {
+    "description": "Auto imported from components/icons/arrow-left.vue"
+  },
+  "IconsArrowRight": {
+    "description": "Auto imported from components/icons/arrow-right.vue"
+  },
   "IconsBandcamp": {
     "description": "Auto imported from components/icons/bandcamp.vue"
+  },
+  "IconsCamera": {
+    "description": "Auto imported from components/icons/camera.vue"
   },
   "IconsInstagram": {
     "description": "Auto imported from components/icons/instagram.vue"
   },
   "IconsLinktree": {
     "description": "Auto imported from components/icons/linktree.vue"
+  },
+  "IconsMove": {
+    "description": "Auto imported from components/icons/move.vue"
+  },
+  "IconsPlay": {
+    "description": "Auto imported from components/icons/play.vue"
   },
   "IconsSpotify": {
     "description": "Auto imported from components/icons/spotify.vue"
@@ -100,6 +121,9 @@
   },
   "IconsYoutube": {
     "description": "Auto imported from components/icons/youtube.vue"
+  },
+  "IconsZoom": {
+    "description": "Auto imported from components/icons/zoom.vue"
   },
   "MicroBasicLoader": {
     "description": "Auto imported from components/micro/basicLoader.vue"

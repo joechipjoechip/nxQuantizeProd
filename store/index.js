@@ -20,7 +20,12 @@ export const state = () => ({
 	assetsLoadCount: 0,
 	endedAudios: false,
 	choiceIsDisplayed: false,
-	choiceHaveBeenMade: false
+	choiceHaveBeenMade: false,
+	choiceHaveBeenMadeTimeCode: 55.5,
+	choiceChangedCounter: 0,
+	finishBegan: false,
+	currentSequenceInfos: {},
+	mobileBlurCurtainIsDisplayed: false
 })
 
 export const getters = {
@@ -106,6 +111,22 @@ export const mutations = {
 
 	setChoiceHaveBeenMade(state, payload){
 		state.choiceHaveBeenMade = payload
+	},
+
+	incrementChoiceChangedCounter(state){
+		state.choiceChangedCounter++
+	},
+
+	setCurrentSequenceInfos(state, payload){
+		state.currentSequenceInfos = payload
+	},
+
+	setFinishBegan(state, payload){
+		state.finishBegan = payload
+	},
+
+	setMobileBlurCurtainIsDisplayed(state, payload){
+		state.mobileBlurCurtainIsDisplayed = payload
 	}
 }
 

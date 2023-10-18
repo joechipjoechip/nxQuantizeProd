@@ -6,6 +6,8 @@
 			<button @click="dropAndLoadAndSwitch">dropAndLoadAndSwitch</button>
 		</div>
 
+		<mobile-blur-curtain />
+
 		<div 
 			class="curtain"
 			:class="{ 
@@ -17,13 +19,15 @@
 		></div>
 
 		<joystick
-			v-if="$store.state.isMobile"
+			v-if="$store.state.isMobile && !$store.state.mobileBlurCurtainIsDisplayed"
 			ref="joystick"
 		/>
 
 		<mouse-handler v-else
 			:canvasSizeRef="canvasSizeRef"
 		/>
+
+		<hud />
 
 		<instancethree 
 			v-if="(allIsLoaded && viewPos && !$parent.isAtEntrance)"
@@ -52,7 +56,6 @@
 				</div>
 			</div>
 
-			
 		</div>
 
 	</div>
@@ -66,6 +69,8 @@
 	import MouseHandler from '@/components/mouseHandler.vue';
 	import InstanceThree from "@/components/instanceThree.vue";
 	import MainHub from '@/components/mainHub.vue';
+	import Hud from '@/components/hud.vue';
+	import MobileBlurCurtain from '@/components/mobileBlurCurtain.vue';
 
 	import { worlds } from '@/static/config/worlds.js';
 	import { entities } from '@/static/config/entities.js';
@@ -79,7 +84,9 @@
 			"instancethree": InstanceThree,
 			"joystick": Joystick,
 			"mouse-handler": MouseHandler,
-			"main-hub": MainHub
+			"main-hub": MainHub,
+			"hud": Hud,
+			"mobile-blur-curtain": MobileBlurCurtain
 		},
 
 		props: {
@@ -247,9 +254,18 @@
 
 				// TODO : uncomment for prod
 				if( event.type === "focus" ){
-					this.playPauseAnimationHandler(true);
+
+					if( !this.$store.state.mobileBlurCurtainIsDisplayed ){
+						this.playPauseAnimationHandler(true);
+					}
+
+
 				} else {
 					this.playPauseAnimationHandler(false);
+
+					if( this.$store.state.isMobile ){
+						this.$store.commit("setMobileBlurCurtainIsDisplayed", true);
+					}
 				}
 
 			},

@@ -222,6 +222,8 @@ const worlds = [
 
 				bobImposedMoves: {
 					forward: true,
+					left: false,
+					right: false,
 				},
 
 				postproc: [
@@ -269,7 +271,9 @@ const worlds = [
 
 				bobImposedMoves: {
 					forward: true,
-					shift: false
+					shift: false,
+					left: false,
+					right: false,
 				},
 
 				postproc: [
@@ -1053,9 +1057,8 @@ const worlds = [
 
 				bobImposedMoves: {
 					forward: true,
-					// shift: false
-					// left: false,
-					// right: false,
+					left: false,
+					right: false,
 				},
 
 				slowmo: 2.3,
@@ -1129,6 +1132,7 @@ const worlds = [
 				fovTransition: false,
 				sequenceBobName: "marie",
 				noZoom: true,
+				noZoomMobile: true,
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 8,
@@ -1181,8 +1185,8 @@ const worlds = [
 				bobImposedMoves: {
 					forward: true,
 					shift: false,
-					// left: true,
-					// right: true
+					left: false,
+					right: false
 				},
 
 				postproc: [
@@ -1908,6 +1912,7 @@ const worlds = [
 				sequenceBobName: "marie",
 				bobRestoreSize: 0.00075,
 				noZoom: true,
+				noZoomMobile: true,
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 45,
@@ -2041,6 +2046,9 @@ const worlds = [
 				fovTransition: false,
 				sequenceBobName: "marie",
 				bobRestoreSize: 0.0012,
+
+				noZoom: true,
+				noZoomMobile: true,
 
 				type: "third-person",
 				cameraTriggerTimeDecay: 45,

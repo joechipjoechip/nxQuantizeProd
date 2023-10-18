@@ -518,8 +518,8 @@
 
 				if( this.$store.state.choiceIsDisplayed && !this.$store.state.choiceHaveBeenMade  ){
 
-					if( this.$store.state.audioCurrent.currentTime >= 55.5 ){
-						console.log("setChoiceHaveBeenMade : true");
+					if( this.$store.state.audioCurrent.currentTime >= this.$store.state.choiceHaveBeenMadeTimeCode ){
+						// console.log("setChoiceHaveBeenMade : true");
 						this.$store.commit("setChoiceHaveBeenMade", true);
 					}
 
@@ -601,8 +601,6 @@
 
 			handleExceptionsForSequencing(){
 
-				console.log("excepetion sequencing triggered, sequenceID : ", this.sequenceID);
-
 				if( this.sequenceID === "7.14" ){
 					// séquence du choice
 					this.$store.commit("setChoiceIsDisplayed", true);
@@ -612,6 +610,7 @@
 				if( this.sequenceID === "7.15" ){
 					// séquence d'après le choice
 					this.endingIsStarted = true;
+					this.$store.commit("setChoiceIsDisplayed", false);
 
 					if( this.$store.state.currentChoice === "Two" ){
 						this.$store.commit("setAudioCurrent", this.$store.state.audioEndTwo);
@@ -664,8 +663,8 @@
 					this.$store.commit("setAudioBase", null);
 
 					if( this.debug.end ){
-						this.$store.state.audioEndOne.currentTime = 47;
-						this.$store.state.audioEndTwo.currentTime = 47;
+						this.$store.state.audioEndOne.currentTime = 23;
+						this.$store.state.audioEndTwo.currentTime = 23;
 					}
 
 				}, 1500);
@@ -681,6 +680,7 @@
 			handleFinishScene(){
 
 				this.finishIsStarted = true;
+				this.$store.commit("setFinishBegan", true);
 
 				this.dropScene("primary");
 				this.dropScene("secondary");

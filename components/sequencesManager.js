@@ -91,14 +91,12 @@ class SequencesManager{
 
 		}, 100);
 
-		// console.log("----> from / to / sceneBundle", oldSequenceID, newSequenceID, this.sceneBundlePassed)
-
 	}
 
 	updateCommonsValues(){
-
-		// console.log("dans sequenceManager : this : ", this);
-
+		
+		this.vm.$store.commit("setCurrentSequenceInfos", this.currentSequenceElements.sequenceInfos)
+		
 		this.currentBobName = this.currentSequenceElements.sequenceBobName;
 
 		this.currentAliceName = this.currentSequenceElements.aliceInfos?.name;
@@ -737,6 +735,9 @@ class SequencesManager{
 		const lookAtDecay = 0.03
 		const offsetDecay = 0.015
 
+
+		this.vm.$store.commit("incrementChoiceChangedCounter");
+
 		switch(direction){
 			case "left":
 				this.vm.$store.commit("setCurrentChoice", "One");
@@ -744,10 +745,6 @@ class SequencesManager{
 				this.vm.$store.state.audioEndTwo.volume = 0;
 				this.vm.$store.state.audioEndOne.volume = 1;
 
-				
-				// this.tweenBuilder("volume-go-left", 0, 1, 0.01, "linear");
-				
-				
 				camera._specs.lookAt.x = lookAtDecay;
 				camera._specs.offset.x = offsetDecay * -1;
 
@@ -759,62 +756,12 @@ class SequencesManager{
 				this.vm.$store.state.audioEndOne.volume = 0;
 				this.vm.$store.state.audioEndTwo.volume = 1;
 
-				
-				// this.tweenBuilder("volume-go-right", 0, 1, 0.01, "linear");
-				
-
 				camera._specs.lookAt.x = lookAtDecay * -1;
 				camera._specs.offset.x = offsetDecay;
 
 				break;
 		}
 		
-	}
-
-	tweenBuilder( tweenName, startingValue, endingValue, duration, ease ){
-
-		let audioToUp, audioToDown;
-
-		switch( tweenName ){
-			case "volume-go-left":
-				audioToUp = this.vm.$store.state.audioEndOne;
-				audioToDown = this.vm.$store.state.audioEndTwo;
-				break;
-			case "volume-go-right":
-				audioToUp = this.vm.$store.state.audioEndTwo;
-				audioToDown = this.vm.$store.state.audioEndOne;
-				break;
-		}
-
-		const animatedObject = {
-			volumeUp: startingValue,
-			volumeDown: endingValue
-		};
-
-		this.tweens[tweenName] = new TimelineLite();
-
-		this.tweens[tweenName].to(animatedObject, duration, {
-			volumeUp: endingValue,
-			volumeDown: startingValue,
-			ease,
-			onUpdate( audioToUp, audioToDown ){
-
-				audioToUp.volume = animatedObject.volumeUp;
-				audioToDown.volume = animatedObject.volumeDown;
-
-			},
-			onUpdateParams: [audioToUp, audioToDown],
-			onComplete( that, tweenName ){
-
-				// audioToDown.volume = 0;
-				that.tweens[tweenName] = null;
-				
-			},
-			onCompleteParams: [this, tweenName]
-		});
-
-
-
 	}
 
 	handleMouseDuringChoice(currentMousePosX){
