@@ -1,4 +1,5 @@
-const finalUrl = "http://onyi.surge.sh";
+// const finalUrl = "http://onyi.surge.sh";
+const finalUrl = "";
 
 export default {
   // Target: https://go.nuxtjs.dev/config-target
