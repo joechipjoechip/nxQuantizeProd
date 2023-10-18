@@ -51,6 +51,10 @@ export default {
         &.enabled {
             pointer-events: all;
             opacity: 1;
+
+            .play-button-cliackable {
+                pointer-events: all;
+            }
         }
 
     }
@@ -60,17 +64,12 @@ export default {
 
     &-wrapper {
         opacity: 0.6;
-        pointer-events: all;
-
-        *{
-            pointer-events: none;
-        }
-
     }
 
     &-clickable {
         width: 10rem;
         height: 10rem;
+        pointer-events: none;
     }
 }
 </style>
