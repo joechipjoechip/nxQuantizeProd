@@ -27,6 +27,7 @@
 
 					<div v-if="cinemaIsReady" 
 						class="button-experience-ready"
+						:class="colorReadyButtonClass"
 						@click="$parent.isAtEntrance = false"
 					>
 						Start
@@ -55,7 +56,8 @@
     data() {
         return {
             cinemaIsReady: false,
-			benchmarkIsDone: false
+			benchmarkIsDone: false,
+			colorReadyButtonClass: "is-basic"
         };
     },
     mounted() {
@@ -66,6 +68,13 @@
 		this.$nuxt.$off("cinema-is-ready", this.handleCinemaIsReady);
 		this.$nuxt.$off("benchmark-is-done", this.handleBenchmarkDone);
     },
+	watch: {
+		benchmarkIsDone(newVal){
+			if( newVal ){
+
+			}
+		}
+	},
     methods: {
         handleCinemaIsReady(event) {
             if (event) {
@@ -75,6 +84,13 @@
 
 		handleBenchmarkDone(){
 			this.benchmarkIsDone = true;
+
+			if( this.$store.state.veryBadComputer ){
+				this.colorReadyButtonClass = "is-red"
+			} else if ( this.$store.state.badComputer ){
+				this.colorReadyButtonClass = "is-orange"
+			}
+
 		}
     }
 }
@@ -157,6 +173,18 @@
 				&:hover {
 					background-color: rgba(255,255,255,0.25);
 				}
+
+				&.is-red {
+					&:hover {
+						background-color: rgba(255,0,0,0.25);
+					}
+				}
+				&.is-orange {
+					&:hover {
+						background-color: rgba(255,165,0,0.25);
+					}
+				}
+
 			}
 
 			&-transition {

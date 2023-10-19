@@ -33,14 +33,14 @@
 			<div v-if="$store.state.badComputer">
 				<p>Your device could be overloaded from time to time</p>
 				<p>May be you would watch the video instead</p>
-				<a href="http://www.youtube.com" target="_blank">
+				<a href="https://youtu.be/xZkmwE-OlJY?si=RaORb4IyHsCaCPup" target="_blank">
 					Click here to see the video version
 				</a>
 			</div>
 
 			<div v-if="$store.state.veryBadComputer">
 				<p>Sorry but your device will struggle with the interactive experience</p>
-				<a href="http://www.youtube.com" target="_blank">
+				<a href="https://youtu.be/xZkmwE-OlJY?si=RaORb4IyHsCaCPup" target="_blank">
 					Click here to see the video version
 				</a>
 			</div>

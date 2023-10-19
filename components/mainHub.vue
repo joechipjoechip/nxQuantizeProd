@@ -40,9 +40,9 @@
                 <h3>Lionelu.js</h3>
 
                 <div class="links-container">
-                    <a class="logo-container" href="http://www.lionelu.fr" target="_blank">
+                    <!-- <a class="logo-container" href="http://www.lionelu.fr" target="_blank">
                         <website-logo />
-                    </a>
+                    </a> -->
                     <a class="logo-container" href="https://www.instagram.com/lionelu.js/" target="_blank">
                         <instagram-logo />
                     </a>
