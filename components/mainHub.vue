@@ -18,7 +18,7 @@
                 <h3>NxQuantize</h3>
 
                 <div class="links-container">
-                    <a class="logo-container" href="https://open.spotify.com/intl-fr/artist/2aqx9dXY9qmkoyFYwB6zjW?si=Zd_XfzN7SW-n9N6DZiB29A" target="_blank">
+                    <a class="logo-container" href="https://open.spotify.com/intl-fr/album/5jsY8Xx4vfrjGRGRWWRVMR?si=6IKYUKQ5RCKu2fOlvNazIA" target="_blank">
                         <spotify-logo />
                     </a>
                     <a class="logo-container" href="https://www.instagram.com/nx_quantize/" target="_blank">
